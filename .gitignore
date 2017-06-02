@@ -1,0 +1,22 @@
+#Settings
+
+target/
+.idea
+*.iml
+*.ipr
+*.iws
+*.*~
+*~
+
+# Log files
+*.log
+logs/
+
+#Vagrant
+.vagrant
+
+#Ignore wiki folder (it's separate git repository for project wiki)
+wiki/
+
+#sonar
+.sonar/
