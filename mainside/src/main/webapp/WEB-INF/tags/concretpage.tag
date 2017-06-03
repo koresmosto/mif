@@ -10,7 +10,8 @@
     <jsp:attribute name="header">
       <h1>${title}</h1>
       <spring:message code="language" /> : <a href="?language=en">English</a> | <a href="?language=ru">Русский</a>
-      (<spring:message code="currentLocale" /> : ${pageContext.response.locale})<br /><br />
+      (<spring:message code="currentLocale" /> : ${pageContext.response.locale}) |
+        <a href="<c:url value='/logout' />"><spring:message code="logout" /></a> <br /><br />
     </jsp:attribute>
     <jsp:attribute name="footer">
       <jsp:include page="/WEB-INF/pages/aux/common/footer.jsp"/>
