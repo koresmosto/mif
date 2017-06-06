@@ -11,4 +11,5 @@
     <context:property-placeholder ignore-unresolvable="true"
                                   location="classpath:application.properties"/>
 
+    <import resource="hibernate.xml"/>
 </beans>
