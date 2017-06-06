@@ -16,6 +16,10 @@
     <properties>
         <springframework.version>4.3.8.RELEASE</springframework.version>
         <spring.security.version>4.2.2.RELEASE</spring.security.version>
+        <db.driver>oracle.jdbc.OracleDriver</db.driver>
+        <db.url>jdbc:oracle:thin:@//localhost:1521/xe</db.url>
+        <db.username>makeitfineoralce</db.username>
+        <db.password>makeitfine123</db.password>
     </properties>
 
     <dependencyManagement>
