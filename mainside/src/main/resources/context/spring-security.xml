@@ -10,7 +10,7 @@
         <!--<intercept-url pattern="/" access="permitAll" />-->
         <!--<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />-->
         <!--<intercept-url pattern="/question/**" access="hasRole('ADMIN') or hasRole('USER')" />-->
-        <intercept-url pattern="/" access="hasRole('ADMIN') or hasRole('USER')" />
+        <intercept-url pattern="/index**" access="hasRole('ADMIN') or hasRole('USER')" />
         <form-login login-page="/login" username-parameter="ssoId" password-parameter="password"
                     authentication-failure-url="/Access_Denied" />
         <access-denied-handler error-page="/Access_Denied"/>
