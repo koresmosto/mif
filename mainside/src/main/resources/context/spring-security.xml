@@ -7,9 +7,10 @@
                                  http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true">
-        <intercept-url pattern="/login**" access="isAnonymous()" />
+        <intercept-url pattern="/login**" access="permitAll" />
         <intercept-url pattern="/public/**" access="permitAll" />
-        <intercept-url pattern="/**" access="hasAnyRole('ADMIN', 'USER', 'DBA')" />
+        <intercept-url pattern="/Access_Denied" access="permitAll" />
+        <intercept-url pattern="/**" access="hasRole('ADMIN') or hasRole('USER')" />
         <form-login login-page="/login"
                     username-parameter="ssoId"
                     password-parameter="password"

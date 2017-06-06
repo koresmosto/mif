@@ -1,23 +1,21 @@
-<%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
 <%--
   ~ Created under not commercial project
   --%>
+<%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
 
-<spring:message code="accessDeniedPage" var="accessDeniedPageVar"/>
+<spring:message code="404ClientError" var="Var404ClientError"/>
 
-<t:genericpage title="${accessDeniedPageVar}">
+<t:genericpage title="${Var404ClientError}">
     <jsp:attribute name="htmlHead">
         <jsp:include page="/WEB-INF/pages/aux/common/htmlHeader.jsp"/>
     </jsp:attribute>
     <jsp:attribute name="header">
-        <h1>${accessDeniedPageVar}</h1>
+        <h1>${Var404ClientError}</h1>
     </jsp:attribute>
     <jsp:attribute name="footer">
       <jsp:include page="/WEB-INF/pages/aux/common/footer.jsp"/>
     </jsp:attribute>
     <jsp:body>
-        <h2>
-            <spring:message code="dear"/> <strong>${user}</strong>, <spring:message code="youAreNotAuthorized"/>.
-        </h2>
+        <h2><spring:message code="resourceNotFoundErrorOccured"/></h2>
     </jsp:body>
 </t:genericpage>
