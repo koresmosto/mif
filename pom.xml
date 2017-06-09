@@ -20,6 +20,7 @@
         <db.url>jdbc:oracle:thin:@//localhost:1521/xe</db.url>
         <db.username>makeitfineoralce</db.username>
         <db.password>makeitfine123</db.password>
+        <db.migration>db/migration/oracle</db.migration>
     </properties>
 
     <dependencyManagement>

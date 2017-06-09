@@ -13,7 +13,6 @@ create table App_User (
 
 declare
   app_user_first_gen_id INTEGER;
-  user_profile_first_gen_id INTEGER;
 begin
   select max(id)
   into app_user_first_gen_id
