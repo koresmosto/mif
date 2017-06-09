@@ -38,4 +38,10 @@ public class UserServiceImpl implements UserService {
         criteria.add(Restrictions.eq("ssoId", sso));
         return (User) criteria.uniqueResult();
     }
+
+    @Override
+    @Transactional
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }

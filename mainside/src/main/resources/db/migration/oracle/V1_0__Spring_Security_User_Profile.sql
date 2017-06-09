@@ -1,23 +1,20 @@
 /* USER_PROFILE table contains all possible roles */
-CREATE TABLE User_Profile (
+CREATE TABLE USER_PROFILE (
   ID INT NOT NULL,
   type VARCHAR(30) NOT NULL,
   CONSTRAINT USER_PROFILE_PK PRIMARY KEY (ID)
   ENABLE
 );
 
-declare
-  user_profile_first_gen_id INTEGER;
-begin
-  select max(id)
-  into user_profile_first_gen_id
-  from User_Profile;
-  IF user_profile_first_gen_id is null THEN
-    user_profile_first_gen_id := 1  ;
-  ELSE
-    user_profile_first_gen_id := user_profile_first_gen_id + 1;
-  END IF;
+CREATE TABLE SEQUENCES (
+  SEQ_NAME VARCHAR(80) NOT NULL,
+  SEQ_NUMBER INT NOT NULL,
+  CONSTRAINT SEQUENCES_PK PRIMARY KEY (SEQ_NAME)
+  ENABLE
+);
 
-  execute immediate 'Create sequence user_profile_id_seq start with '
-                    || user_profile_first_gen_id || ' increment by 1';
-end;
+INSERT INTO USER_PROFILE VALUES (1, 'USER');
+INSERT INTO User_Profile VALUES (2, 'ADMIN');
+INSERT INTO User_Profile VALUES (3, 'DBA');
+
+INSERT INTO SEQUENCES VALUES('USER_PROFILE_SEQUENCE', 4);

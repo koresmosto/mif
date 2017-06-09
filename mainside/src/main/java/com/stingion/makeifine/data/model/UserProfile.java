@@ -15,8 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 @Entity
 @Getter
@@ -26,10 +26,16 @@ import javax.persistence.Table;
 @Table(name = "User_Profile")
 public class UserProfile {
 
+    @TableGenerator(
+            name = "UserProfile_gen",
+            table = "SEQUENCES",
+            pkColumnName = "SEQ_NAME",
+            valueColumnName = "SEQ_NUMBER",
+            pkColumnValue = "USER_PROFILE_SEQUENCE",
+            allocationSize = 1)
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_profile_autogen_id_gen")
-    @SequenceGenerator(name = "user_profile_autogen_id_gen", sequenceName = "user_profile_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "UserProfile_gen")
     private int id;
 
     @Column

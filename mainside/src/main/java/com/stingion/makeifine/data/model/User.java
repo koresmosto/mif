@@ -19,8 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,10 +31,17 @@ import java.util.Set;
 @EqualsAndHashCode(of = "ssoId")
 @Table(name = "App_User")
 public class User {
+
+    @TableGenerator(
+            name = "User_gen",
+            table = "SEQUENCES",
+            pkColumnName = "SEQ_NAME",
+            valueColumnName = "SEQ_NUMBER",
+            pkColumnValue = "APP_USER_SEQUENCE",
+            allocationSize = 1)
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_profile_autogen_id_gen")
-    @SequenceGenerator(name = "user_profile_autogen_id_gen", sequenceName = "user_profile_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_gen")
     private int id;
 
     @Column(name = "SSO_ID", unique = true, nullable = false)
