@@ -1,5 +1,5 @@
 /*All User's are stored in APP_USER table*/
-create table APP_USER (
+CREATE TABLE APP_USER (
   ID INT NOT NULL,
   SSO_ID VARCHAR(30) NOT NULL,
   PASSWORD VARCHAR(100) NOT NULL,
