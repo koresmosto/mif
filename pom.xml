@@ -17,7 +17,7 @@
         <springframework.version>4.3.8.RELEASE</springframework.version>
         <spring.security.version>4.2.2.RELEASE</spring.security.version>
         <db.driver>oracle.jdbc.OracleDriver</db.driver>
-        <db.url>jdbc:oracle:thin:@//localhost:1521/xe</db.url>
+        <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
         <db.username>makeitfineoralce</db.username>
         <db.password>makeitfine123</db.password>
         <db.migration>db/migration/oracle</db.migration>
@@ -84,4 +84,39 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>mysql</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!oracle</name>
+                </property>
+            </activation>
+            <properties>
+                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url><!-- default port is 3306 -->
+                <db.username>makeitfinemysql</db.username>
+                <db.password>makeitfine121</db.password>
+                <db.migration>db/migration/mysql</db.migration>
+            </properties>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>oracle</name>
+                </property>
+            </activation>
+            <properties>
+                <db.driver>oracle.jdbc.OracleDriver</db.driver>
+                <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
+                <db.username>makeitfineoralce</db.username>
+                <db.password>makeitfine123</db.password>
+                <db.migration>db/migration/oracle</db.migration>
+            </properties>
+        </profile>
+    </profiles>
 </project>

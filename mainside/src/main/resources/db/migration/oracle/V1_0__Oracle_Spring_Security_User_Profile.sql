@@ -17,4 +17,5 @@ INSERT INTO USER_PROFILE VALUES (1, 'USER');
 INSERT INTO User_Profile VALUES (2, 'ADMIN');
 INSERT INTO User_Profile VALUES (3, 'DBA');
 
+--  Should be inserted next generated value (4)
 INSERT INTO SEQUENCES VALUES('USER_PROFILE_SEQUENCE', 4);

@@ -21,4 +21,5 @@ INSERT INTO App_User VALUES (6, 'sudo', 'nimda', 'SUDO', 'SUDO', 'sudo@xxx.xxx',
 INSERT INTO App_User VALUES (7, 'tsuser', 'tspass1', 'Testside', 'User', 'tsuser@xxx.xxx', 'Active');
 INSERT INTO App_User VALUES (8, 'admin', 'nimda', 'Admin', 'User', 'admin@xxx.xxx', 'Active');
 
+--  Should be inserted next generated value (9)
 INSERT INTO SEQUENCES VALUES('APP_USER_SEQUENCE', 9);
