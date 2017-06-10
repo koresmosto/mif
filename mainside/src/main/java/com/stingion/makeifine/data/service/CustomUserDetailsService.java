@@ -6,6 +6,9 @@ package com.stingion.makeifine.data.service;
 
 import com.stingion.makeifine.data.model.User;
 import com.stingion.makeifine.data.model.UserProfile;
+import com.stingion.makeifine.data.model.utils.State;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,17 +23,27 @@ import java.util.List;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CustomUserDetailsService.class);
+
     @Autowired
     private UserService userService;
 
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
         User user = userService.findBySSO(ssoId);
-        System.out.println("User : " + user);
         if (user == null) {
-            System.out.println("User not found");
-            throw new UsernameNotFoundException("Username not found");
+            String userNotFound = "User not found";
+            LOG.warn("{}, ssoID = {}", userNotFound, ssoId);
+            throw new UsernameNotFoundException(userNotFound);
         }
+        if (!user.getState().equalsIgnoreCase(State.ACTIVE.getState())) {
+            String userIsNotActive = "User is " + user.getState();
+            LOG.warn("{}, user = {}", userIsNotActive, user);
+            throw new UsernameNotFoundException(userIsNotActive);
+        }
+        LOG.info("Logged user = {}", user);
+        ;
         return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(),
                 user.getState().equals("Active"), true, true, true, getGrantedAuthorities(user));
     }
