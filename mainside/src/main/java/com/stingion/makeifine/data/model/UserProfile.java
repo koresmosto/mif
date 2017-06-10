@@ -23,7 +23,7 @@ import javax.persistence.TableGenerator;
 @Setter
 @ToString
 @EqualsAndHashCode(of = "id")
-@Table(name = "User_Profile")
+@Table(name = "USER_PROFILE")
 public class UserProfile {
 
     @TableGenerator(

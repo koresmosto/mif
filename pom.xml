@@ -17,6 +17,7 @@
         <springframework.version>4.3.8.RELEASE</springframework.version>
         <spring.security.version>4.2.2.RELEASE</spring.security.version>
         <db.driver>oracle.jdbc.OracleDriver</db.driver>
+        <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
         <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
         <db.username>makeitfineoralce</db.username>
         <db.password>makeitfine123</db.password>
@@ -96,6 +97,7 @@
             </activation>
             <properties>
                 <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
                 <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url><!-- default port is 3306 -->
                 <db.username>makeitfinemysql</db.username>
                 <db.password>makeitfine121</db.password>
@@ -112,6 +114,7 @@
             </activation>
             <properties>
                 <db.driver>oracle.jdbc.OracleDriver</db.driver>
+                <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
                 <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
                 <db.username>makeitfineoralce</db.username>
                 <db.password>makeitfine123</db.password>

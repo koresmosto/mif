@@ -29,7 +29,7 @@ import java.util.Set;
 @Setter
 @ToString
 @EqualsAndHashCode(of = "ssoId")
-@Table(name = "App_User")
+@Table(name = "APP_USER")
 public class User {
 
     @TableGenerator(
