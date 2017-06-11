@@ -16,6 +16,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -30,6 +32,7 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode(of = "ssoId")
 @Table(name = "APP_USER")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @TableGenerator(
@@ -49,12 +52,6 @@ public class User {
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
-
-    @Column(name = "FIRST_NAME", nullable = false)
-    private String firstName;
-
-    @Column(name = "LAST_NAME", nullable = false)
-    private String lastName;
 
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
