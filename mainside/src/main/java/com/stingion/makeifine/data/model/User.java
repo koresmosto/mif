@@ -44,7 +44,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_gen")
     private int id;
 
-    @Column(name = "SSO_ID", unique = true, nullable = false)
+    @Column(name = "SSO_ID", nullable = false, unique = true)
     private String ssoId;
 
     @Column(name = "PASSWORD", nullable = false)
@@ -56,7 +56,7 @@ public class User {
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
     @Column(name = "STATE", nullable = false)
