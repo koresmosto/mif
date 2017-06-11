@@ -4,6 +4,7 @@
 
 package com.stingion.makeifine.data.model;
 
+import com.stingion.makeifine.data.model.utils.AttrConvertor;
 import com.stingion.makeifine.data.model.utils.State;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,9 +12,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -58,8 +58,8 @@ public class User {
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "STATE", nullable = false, columnDefinition = "enum('ACTIVE', 'INACTIVE', 'DELETED', 'LOCKED')")
-    @Enumerated(EnumType.STRING)
+    @Column(name = "STATE", nullable = false, columnDefinition = "ENUM('Active', 'Inactive', 'Deleted', 'Locked')")
+    @Convert(converter = AttrConvertor.StateConvertor.class)
     private State state;
 
     @ManyToMany(fetch = FetchType.EAGER)
