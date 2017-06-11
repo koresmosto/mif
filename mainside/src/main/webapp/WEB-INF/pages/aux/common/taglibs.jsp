@@ -1,5 +1,5 @@
 <%--
-  ~ Created under not commercial project
+  ~ Created in scope of "Make it fine" project
   --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 

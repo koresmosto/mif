@@ -1,5 +1,5 @@
 /**
- * Created under not commercial project
+ * Created in scope of "Make it fine" project
  */
 package com.stingion.makeifine.data.repository;
 

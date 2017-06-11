@@ -1,6 +1,6 @@
 <%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
 <%--
-  ~ Created under not commercial project
+  ~ Created in scope of "Make it fine" project
   --%>
 
 <spring:message code="accessDeniedPage" var="accessDeniedPageVar"/>

@@ -1,5 +1,5 @@
 <%--
-  ~ Created under not commercial project
+  ~ Created in scope of "Make it fine" project
   --%>
 <%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
 
