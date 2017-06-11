@@ -12,6 +12,8 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -56,8 +58,9 @@ public class User {
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "STATE", nullable = false)
-    private String state = State.ACTIVE.getState();
+    @Column(name = "STATE", nullable = false, columnDefinition = "enum('ACTIVE', 'INACTIVE', 'DELETED', 'LOCKED')")
+    @Enumerated(EnumType.STRING)
+    private State state;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "APP_USER_USER_PROFILE",

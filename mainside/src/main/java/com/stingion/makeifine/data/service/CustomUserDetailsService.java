@@ -37,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             LOG.warn("{}, ssoID = {}", userNotFound, ssoId);
             throw new UsernameNotFoundException(userNotFound);
         }
-        if (!user.getState().equalsIgnoreCase(State.ACTIVE.getState())) {
+        if (user.getState() != State.ACTIVE) {
             String userIsNotActive = "User is " + user.getState();
             LOG.warn("{}, user = {}", userIsNotActive, user);
             throw new UsernameNotFoundException(userIsNotActive);
@@ -45,7 +45,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         LOG.info("Logged user = {}", user);
         ;
         return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(),
-                user.getState().equals("Active"), true, true, true, getGrantedAuthorities(user));
+                user.getState().equals(State.ACTIVE), true, true, true, getGrantedAuthorities(user));
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
