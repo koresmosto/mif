@@ -23,11 +23,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-
         <encoding>UTF-8</encoding>
         <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
         <spring.version>4.3.9.RELEASE</spring.version>
         <slf4j.version>1.7.25</slf4j.version>
+
+        <db.driver>oracle.jdbc.OracleDriver</db.driver>
+        <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
+        <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
+        <db.username>makeitfineoralce</db.username>
+        <db.password>makeitfine123</db.password>
+        <db.migration>db/migration/oracle</db.migration>
     </properties>
 
     <dependencyManagement>
@@ -35,8 +41,14 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.16.6</version>
+                <version>1.16.18</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -52,4 +64,41 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>mysql</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!oracle</name>
+                </property>
+            </activation>
+            <properties>
+                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+                <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url><!-- default port is 3306 -->
+                <db.username>makeitfinemysql</db.username>
+                <db.password>makeitfine121</db.password>
+                <db.migration>db/migration/mysql</db.migration>
+            </properties>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>oracle</name>
+                </property>
+            </activation>
+            <properties>
+                <db.driver>oracle.jdbc.OracleDriver</db.driver>
+                <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
+                <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
+                <db.username>makeitfineoralce</db.username>
+                <db.password>makeitfine123</db.password>
+                <db.migration>db/migration/oracle</db.migration>
+            </properties>
+        </profile>
+    </profiles>
 </project>
