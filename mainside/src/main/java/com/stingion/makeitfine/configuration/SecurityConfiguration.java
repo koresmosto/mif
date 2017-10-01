@@ -1,5 +1,6 @@
-package com.stingion.makeitfine.controller;
+package com.stingion.makeitfine.configuration;
 
+import com.stingion.makeitfine.data.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,15 +9,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    public final String USER_ROLE="USER";
-    public final String ADMIN_ROLE="ADMIN";
-    public final String ANY_ROLE="ANY";
+
+    @Autowired
+    private CustomUserDetailsService authProvider;
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("adminpass").roles(ADMIN_ROLE, USER_ROLE, ANY_ROLE);
-        auth.inMemoryAuthentication().withUser("user").password("userpass").roles(USER_ROLE, ANY_ROLE);
-        auth.inMemoryAuthentication().withUser("any").password("anypass").roles(ANY_ROLE);
+        auth.userDetailsService(authProvider);
     }
 
     @Override
