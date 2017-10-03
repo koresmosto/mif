@@ -3,6 +3,7 @@ package com.stingion.makeitfine.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -14,4 +15,10 @@ public class StartUpController {
     public ModelAndView index() {
         return new ModelAndView("index");
     }
+
+    @RequestMapping("/abc")
+    public @ResponseBody String greeting() {
+        return "Hello World2";
+    }
+
 }
