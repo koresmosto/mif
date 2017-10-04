@@ -88,9 +88,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <addResources>false</addResources>
-                    <!--<jvmArguments>-->
-                         <!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080-->
-                    <!--</jvmArguments>-->
+                    <jvmArguments>
+                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080
+                    </jvmArguments>
                 </configuration>
             </plugin>
             <plugin>

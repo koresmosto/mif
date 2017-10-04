@@ -16,9 +16,8 @@ public class StartUpController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping("/abc")
+    @RequestMapping("/projectName")
     public @ResponseBody String greeting() {
-        return "Hello World2";
+        return "Make it fine <makeitfine>";
     }
-
 }
