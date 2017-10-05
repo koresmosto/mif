@@ -89,7 +89,7 @@
                 <configuration>
                     <addResources>false</addResources>
                     <jvmArguments>
-                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080
+                        ${jvmargs}
                     </jvmArguments>
                 </configuration>
             </plugin>

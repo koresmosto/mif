@@ -34,6 +34,7 @@
         <db.username>makeitfineoralce</db.username>
         <db.password>makeitfine123</db.password>
         <db.migration>db/migration/oracle</db.migration>
+        <jvmargs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080</jvmargs>
     </properties>
 
     <dependencyManagement>
@@ -107,6 +108,18 @@
                 <db.username>makeitfineoralce</db.username>
                 <db.password>makeitfine123</db.password>
                 <db.migration>db/migration/oracle</db.migration>
+            </properties>
+        </profile>
+        <profile>
+            <id>no debugging</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>nod</name>
+                </property>
+            </activation>
+            <properties>
+                <jvmargs></jvmargs>
             </properties>
         </profile>
     </profiles>
