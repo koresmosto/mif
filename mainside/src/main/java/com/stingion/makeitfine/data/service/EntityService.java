@@ -11,4 +11,8 @@ public interface EntityService<T> {
     T findById(int id);
 
     T save(T entity);
+
+    T update(T entity);
+
+    void delete(T entity);
 }
