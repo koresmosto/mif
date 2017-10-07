@@ -2,11 +2,12 @@
  * Created in scope of "Make it fine" project
  */
 
-package com.stingion.makeitfine.data.service;
+package com.stingion.makeitfine.data.service.impl;
 
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.State;
+import com.stingion.makeitfine.data.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

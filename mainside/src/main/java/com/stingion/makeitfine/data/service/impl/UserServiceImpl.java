@@ -9,21 +9,20 @@ import com.stingion.makeitfine.data.service.UserService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends EntityServiceImpl<User> implements UserService {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Resource
+    @Autowired
     private UserRepository userRepository;
 
     @Override
@@ -39,16 +38,5 @@ public class UserServiceImpl implements UserService {
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.eq("ssoId", sso));
         return (User) criteria.uniqueResult();
-    }
-
-    @Override
-    @Transactional
-    public User save(User user) {
-        return userRepository.save(user);
-    }
-
-    @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
     }
 }

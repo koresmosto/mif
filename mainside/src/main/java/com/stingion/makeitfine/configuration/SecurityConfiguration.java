@@ -1,6 +1,6 @@
 package com.stingion.makeitfine.configuration;
 
-import com.stingion.makeitfine.data.service.CustomUserDetailsService;
+import com.stingion.makeitfine.data.service.impl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

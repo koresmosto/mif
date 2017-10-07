@@ -4,7 +4,6 @@
 package com.stingion.makeitfine.data.repository;
 
 import com.stingion.makeitfine.data.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends EntityRepository<User> {
 }
