@@ -90,10 +90,10 @@
                             <div class="col-md-7">
                                 <select ng-model="ctrl.user.state" class="username form-control input-sm" id="state"
                                         placeholder="Enter your Address. [This field is validation free]" required>
-                                    <option ng-selected="ctrl.user.state == userState"
-                                            ng-repeat="userState in userStates"
-                                            ng-value="userState">
-                                        {{userState}}
+                                    <option ng-selected="ctrl.user.state == key"
+                                            ng-repeat="(key, value) in userStatesMap"
+                                            ng-value="key">
+                                        {{value}}
                                     </option>
                                 </select>
                                 <div class="has-error" ng-show="myForm.$dirty">

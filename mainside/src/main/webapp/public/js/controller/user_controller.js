@@ -13,9 +13,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
 
     fetchAllUsers();
 
-    // $scope.userStates = ["Active", "Inactive", "Deleted", "Locked"];
-    $scope.userStates = ["ACTIVE", "INACTIVE", "DELETED", "LOCKED"];
-    // $scope.userStatesMap = {"ACTIVE": "Active", "INACTIVE": "Inactive", "DELETED": "Deleted", "LOCKED": "Locked"};
+    $scope.userStatesMap = {"ACTIVE": "Active", "INACTIVE": "Inactive", "DELETED": "Deleted", "LOCKED": "Locked"};
 
     function fetchAllUsers() {
         UserService.fetchAllUsers()
