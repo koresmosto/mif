@@ -2,6 +2,7 @@ package com.stingion.makeitfine.data.service;
 
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.repository.UserRepository;
+import com.stingion.makeitfine.data.service.impl.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

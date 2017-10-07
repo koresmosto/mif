@@ -1,10 +1,11 @@
 /**
  * Created in scope of "Make it fine" project
  */
-package com.stingion.makeitfine.data.service;
+package com.stingion.makeitfine.data.service.impl;
 
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.repository.UserRepository;
+import com.stingion.makeitfine.data.service.UserService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,5 +45,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }

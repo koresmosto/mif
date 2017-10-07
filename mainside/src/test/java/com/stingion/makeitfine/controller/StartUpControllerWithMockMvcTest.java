@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@WebMvcTest(StartUpController.class)
 @ActiveProfiles("test")
 public class StartUpControllerWithMockMvcTest {
 

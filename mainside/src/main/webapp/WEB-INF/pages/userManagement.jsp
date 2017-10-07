@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
-<spring:message code="homePage" var="homePageVar"/>
+<spring:message code="userManagement" var="userManagementVar"/>
 
-<t:concretpage title="${homePageVar}">
+<t:concretpage title="${userManagementVar}">
     <p>
-        <h2><spring:message code="mif.project"/><br/></h2>
+        <h2>Todo:temp></h2>
     </p>
 </t:concretpage>
