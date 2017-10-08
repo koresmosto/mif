@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class StartUpControllerWithSpringContextTest {
+public class StartUpControllerWithSpringContextIT {
 
     @Autowired
     private StartUpController startUpController;

@@ -15,7 +15,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("test")
-public class StartUpControllerWithServerTest {
+public class StartUpControllerWithServerIT {
 
     @LocalServerPort
     private int port;

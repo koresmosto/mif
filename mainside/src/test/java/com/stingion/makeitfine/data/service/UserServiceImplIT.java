@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @SpringBootTest
-public class UserServiceImplTest {
+public class UserServiceImplIT {
 
     @Autowired
     private UserService userService;
