@@ -41,9 +41,6 @@ spring:
       hibernate:
         dialect: @hibernate.dialect@
 
-security:
-  ignored:  /**
-
 # FLYWAY
 #flyway.enabled=true
 flyway:
@@ -52,12 +49,3 @@ flyway:
   user: @db.username@
   password: @db.password@
   locations: classpath:@db.migration@
-
-server:
-  port: 8443
-  ssl:
-    enabled: true
-    key-store: classpath:keystore.p12
-    key-store-password: one123
-    key-store-type: PKCS12
-    key-alias: tomcat
