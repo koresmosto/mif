@@ -58,8 +58,8 @@
             <url>http://repo.maven.apache.org/maven2</url>
         </repository>
         <repository>
-            <id>myMavenRepo.read</id>
-            <url>${myMavenRepo.read.url}</url>
+            <id>myMavenRepo</id>
+            <url>https://mymavenrepo.com/repo/gT6TK5b9Lxal2rU9xVKE/</url>
         </repository>
     </repositories>
 
