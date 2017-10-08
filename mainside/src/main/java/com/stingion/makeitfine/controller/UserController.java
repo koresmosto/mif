@@ -2,6 +2,8 @@ package com.stingion.makeitfine.controller;
 
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("user")
+@Api(description = "REST API for edit/delete/create users")
 public class UserController {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
@@ -37,6 +40,7 @@ public class UserController {
     }
 
     @GetMapping
+    @ApiOperation("Get all users")
     public List<User> listAllUsers() {
         return userService.findAll();
     }
