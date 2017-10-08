@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+
+    working_directory: ~/makeitfine
+
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx2048m
+
+    branches:
+      only:
+        - develop
+        - /rc-.*/
+    steps:
+
+      - checkout
+
+      - restore_cache:
+          key: makeitfine-{{ checksum "pom.xml" }}
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: makeitfine-{{ checksum "pom.xml" }}
+
+      - run: mvn package
+
+#      - store_test_results:
+#          path: target/surefire-reports
+
+#      - store_artifacts:
+#          path: target/practice-1.0-SNAPSHOT.jar
