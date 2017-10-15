@@ -30,6 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .failureUrl("/Access_Denied");
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+        http.headers().frameOptions().disable();
 //        .and()
 //                .authorizeRequests()
 //                .antMatchers(HttpMethod.POST, "/user**").hasRole("ADMIN")
