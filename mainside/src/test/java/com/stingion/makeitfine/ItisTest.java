@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("it")
 @Import(ItIsTestConfiguration.class)
 public class ItisTest {
     @Autowired
@@ -23,6 +23,6 @@ public class ItisTest {
     public void testDefaultSettings() throws Exception {
         assertThat(this.template).isNotNull();
         assertThat(this.template.queryForObject("SELECT COUNT(*) from BANK",
-                Integer.class)).isEqualTo(0);
+                Integer.class)).isEqualTo(5);
     }
 }

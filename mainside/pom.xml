@@ -96,6 +96,23 @@
         </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <targetPath>${project.build.outputDirectory}</targetPath>
+                <directory>src/main/resources/profiles</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.yml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/profiles/*.yml</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
