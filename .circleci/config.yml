@@ -29,7 +29,7 @@ jobs:
             - ~/.m2
           key: makeitfine-{{ checksum "pom.xml" }}
 
-      - run: mvn package
+      - run: mvn clean process-resources verify
 
 #      - store_test_results:
 #          path: target/surefire-reports

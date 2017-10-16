@@ -1,5 +1,9 @@
 ## SPRING
 spring:
+  #Profiles
+  profiles:
+      include: config_mysql
+
   mvc:
     view:
       prefix: /WEB-INF/pages/
@@ -10,40 +14,3 @@ spring:
     #spring.mvc.locale=en #To make it work massages.properties file should be left, and messages_en.properties created
     ##spring.messages.cache-seconds=-1
     encoding: UTF-8
-
-  #=============================
-  # Data Source Config
-  #=============================
-  datasource:
-    url: @db.url@
-    username: @db.username@
-    password: @db.password@
-    driver-class-name: @db.driver@
-
-    # Keep the connection alive if idle for a long time (needed in production)
-    testWhileIdle: true
-    validationQuery: SELECT 1
-
-  # Show or not log for each sql query
-  jpa:
-    show-sql: true
-    # Hibernate ddl auto (create, create-drop, update)
-    hibernate:
-      ddl-auto: validate
-      # Naming strategy
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        # Use spring.jpa.properties.* for Hibernate native properties (the prefix is
-        # stripped before adding them to the entity manager)
-        # The SQL dialect makes Hibernate generate better SQL for the chosen database
-    properties:
-      hibernate:
-        dialect: @hibernate.dialect@
-
-# FLYWAY
-flyway:
-  enabled: false
-  url: @db.url@
-  user: @db.username@
-  password: @db.password@
-  locations: classpath:@db.migration@
