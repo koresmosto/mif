@@ -2,7 +2,7 @@
 spring:
   #Profiles
   profiles:
-      include: config_mysql
+      include: @springDBConf@
 
   mvc:
     view:
