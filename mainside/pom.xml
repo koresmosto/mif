@@ -122,6 +122,9 @@
                     <jvmArguments>
                         ${jvmargs}
                     </jvmArguments>
+                    <profiles>
+                        <profile>${springDBConf}</profile>
+                    </profiles>
                 </configuration>
             </plugin>
             <plugin>

@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("it")
 @Import(ItIsTestConfiguration.class)
-public class ItisTest {
+public class ItisIT {
     @Autowired
     private JdbcTemplate template;
 
