@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//Todo: remove it's probe test in future
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("it")

@@ -1,12 +1,15 @@
 package com.stingion.makeitfine;
 
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 
-//todo: rename class for example to "MajorTestConfiguration"
 @TestConfiguration
 @ImportResource("classpath:spring-test/context-test.xml")
-@Import(ServiceTestConfiguration.class)
-public class ItIsTestConfiguration {
+public class ServiceTestConfiguration {
+
+    @Bean
+    public String itis() {
+        return "Hello!";
+    }
 }
