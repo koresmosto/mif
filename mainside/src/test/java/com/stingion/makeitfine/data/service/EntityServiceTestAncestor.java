@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 @ActiveProfiles("test")
 @Import(ItIsTestConfiguration.class)
+@Transactional
 public class EntityServiceTestAncestor<T> {
 
     @Autowired
@@ -36,10 +38,17 @@ public class EntityServiceTestAncestor<T> {
     }
 
     @Test
-    @Rollback//todo:solve issue with rollback after db changes in tests
     public void deleteTest() {
         T entity = entityService.findById(entityTestData.getId());
         entityService.delete(entity);
         assertEquals(entityTestData.getDelete(), entityService.findAll().toString());
+    }
+
+    @Test
+    public void saveTest() {
+        int beforeSave = entityService.findAll().size();
+        entityService.save(entityTestData.getSavedEntity());
+        int afterSave = entityService.findAll().size();
+        assertEquals(beforeSave + 1, afterSave);
     }
 }
