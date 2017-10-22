@@ -2,6 +2,7 @@ package com.stingion.makeitfine.data.service;
 
 import com.stingion.makeitfine.ItIsTestConfiguration;
 import com.stingion.makeitfine.ServiceTestConfiguration;
+import com.stingion.makeitfine.data.repository.util.EntityHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +13,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
 //Todo:
-//1) Write fucntion to get "select count(*) for entities"
-//2) Optimize tests
+//1) Optimize tests (write query for entity contained in table)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
 @Import(ItIsTestConfiguration.class)
 @Transactional
 public class EntityServiceTestAncestor<T> {
+
+    @Autowired
+    protected EntityHelper<T> eH;
 
     @Autowired
     protected EntityService<T> entityService;
@@ -32,49 +34,48 @@ public class EntityServiceTestAncestor<T> {
 
     @Test
     public void findAllTest() {
-        assertEquals(entityTestData.getFindAll(), entityService.findAll().toString());
+        assertThat(entityTestData.getFindAll()).isEqualTo(entityService.findAll().toString());
     }
 
     @Test
     public void findByIdTest() {
-        assertEquals(entityTestData.getFindById(), entityService.findById(entityTestData.getId()).toString());
+        assertThat(entityTestData.getFindById()).isEqualTo(entityService.findById(entityTestData.getId()).toString());
     }
 
     @Test
     public void deleteTest() {
-        int beforeDelete = entityService.findAll().size();
+        int beforeDelete = eH.getCount();
         T entity = entityService.findById(entityTestData.getId());
         entityService.delete(entity);
-        int afterDelete = entityService.findAll().size();
+        int afterDelete = eH.getCount();
 
-        assertEquals(beforeDelete, afterDelete + 1);
+        assertThat(beforeDelete == afterDelete + 1);
         assertThat(entityService.findAll()).doesNotContain(entity);
     }
 
     @Test
     public void saveTest() {
-        int beforeSave = entityService.findAll().size();
+        int beforeSave = eH.getCount();
         entityService.save(entityTestData.getSavedEntity());
-        int afterSave = entityService.findAll().size();
+        int afterSave = eH.getCount();
 
-        assertEquals(beforeSave + 1, afterSave);
+        assertThat(beforeSave + 1 == afterSave);
         assertThat(entityService.findAll()).contains(entityTestData.getSavedEntity());
     }
 
     @Test
     public void updateTest() {
-        int beforeUpdate = entityService.findAll().size();
+        int beforeUpdate = eH.getCount();
 
         T entityBeforeUpdate = entityService.findById(entityTestData.getId());
         assertThat(entityTestData.getUpdateEntity().toString()).isNotEqualTo(entityBeforeUpdate.toString());
-
         entityService.update(entityTestData.getUpdateEntity());
 
-        int afterUpdate = entityService.findAll().size();
+        int afterUpdate = eH.getCount();
 
         T entityAfterUpdate = entityService.findById(entityTestData.getId());
 
         assertThat(entityTestData.getUpdateEntity().toString()).isEqualTo(entityAfterUpdate.toString());
-        assertEquals(beforeUpdate, afterUpdate);
+        assertThat(beforeUpdate == afterUpdate);
     }
 }
