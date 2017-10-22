@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//Todo:
-//1) Optimize tests (write query for entity contained in table)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
@@ -50,7 +48,7 @@ public class EntityServiceTestAncestor<T> {
         int afterDelete = eH.getCount();
 
         assertThat(beforeDelete == afterDelete + 1);
-        assertThat(entityService.findAll()).doesNotContain(entity);
+        assertThat(!eH.isExist(entity));
     }
 
     @Test
@@ -60,7 +58,7 @@ public class EntityServiceTestAncestor<T> {
         int afterSave = eH.getCount();
 
         assertThat(beforeSave + 1 == afterSave);
-        assertThat(entityService.findAll()).contains(entityTestData.getSavedEntity());
+        assertThat(eH.isExist(entityTestData.getSavedEntity()));
     }
 
     @Test
