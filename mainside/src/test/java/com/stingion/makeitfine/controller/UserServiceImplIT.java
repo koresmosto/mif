@@ -1,5 +1,6 @@
-package com.stingion.makeitfine.data.service;
+package com.stingion.makeitfine.controller;
 
+import com.stingion.makeitfine.data.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

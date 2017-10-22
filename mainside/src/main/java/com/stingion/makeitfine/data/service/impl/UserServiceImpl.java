@@ -22,15 +22,6 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Override
-    @Transactional
-    public User findById(int id) {
-        return userRepository.findOne(id);
-    }
-
     @Override
     @Transactional
     public User findBySSO(String sso) {

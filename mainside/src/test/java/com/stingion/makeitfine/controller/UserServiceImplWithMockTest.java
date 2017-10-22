@@ -1,7 +1,8 @@
-package com.stingion.makeitfine.data.service;
+package com.stingion.makeitfine.controller;
 
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.repository.UserRepository;
+import com.stingion.makeitfine.data.service.UserService;
 import com.stingion.makeitfine.data.service.impl.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;

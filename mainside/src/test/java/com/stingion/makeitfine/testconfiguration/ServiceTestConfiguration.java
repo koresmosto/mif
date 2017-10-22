@@ -1,4 +1,4 @@
-package com.stingion.makeitfine;
+package com.stingion.makeitfine.testconfiguration;
 
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.utils.State;

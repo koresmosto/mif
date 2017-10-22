@@ -1,7 +1,7 @@
 package com.stingion.makeitfine.data.service;
 
-import com.stingion.makeitfine.ItIsTestConfiguration;
-import com.stingion.makeitfine.ServiceTestConfiguration;
+import com.stingion.makeitfine.testconfiguration.MajorTestConfiguration;
+import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
 import com.stingion.makeitfine.data.repository.util.EntityHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-@Import(ItIsTestConfiguration.class)
+@Import(MajorTestConfiguration.class)
 @Transactional
 public class EntityServiceTestAncestor<T> {
 

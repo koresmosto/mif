@@ -1,5 +1,6 @@
 package com.stingion.makeitfine;
 
+import com.stingion.makeitfine.testconfiguration.MajorTestConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("it")
-@Import(ItIsTestConfiguration.class)
+@Import(MajorTestConfiguration.class)
 public class ItisIT {
     @Autowired
     private JdbcTemplate template;
