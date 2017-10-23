@@ -1,6 +1,7 @@
 package com.stingion.makeitfine.testconfiguration;
 
 import com.stingion.makeitfine.data.model.User;
+import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.service.UserService;
 import lombok.AllArgsConstructor;
@@ -53,6 +54,19 @@ public class ServiceTestConfiguration {
                 "Worker(super=Contact(super=User(id=3, ssoId=sam, password=abc125, email=samy@xyz.com, state=Inactive, userProfiles=[UserProfile(id=2, type=ADMIN)]), firstName=Sam, middleName=Middlware, lastName=Smith, birthDay=1982-08-30 00:00:00.0, phoneNumber=0725556495))",
                 userSaved,
                 userUpdated
+        );
+    }
+
+    @Bean
+    public EntityTestData<UserProfile> userProfileTestData() {
+        int id = 2;
+
+        return new EntityTestData<>(
+                id,
+                "[UserProfile(id=1, type=USER), UserProfile(id=2, type=ADMIN), UserProfile(id=3, type=DBA)]",
+                "UserProfile(id=2, type=ADMIN)",
+                null,
+                null
         );
     }
 }
