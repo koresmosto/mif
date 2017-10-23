@@ -3,12 +3,12 @@ package com.stingion.makeitfine.data.repository.util;
 import lombok.AccessLevel;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
-import java.util.Optional;
 
 public class EntityHelper<T> {
 
@@ -20,13 +20,10 @@ public class EntityHelper<T> {
                 .getSingleResult()).intValue();
     }
 
-    public boolean isExist(T entity) {
+    public boolean isExist(@NotNull T entity) {
         try {
-            T dbUser = (T) Optional.of(entityManager.createQuery("from " + getEntityClass().getSimpleName()
-                    + " e where e.id = :inputId")
-                    .setParameter("inputId", entity.getClass().getMethod("getId", null).invoke(entity))
-                    .getResultList().stream().findAny().orElse(StringUtils.EMPTY));
-            return dbUser.toString().equals(entity.toString());
+            T dbEntity = getEntityById((Integer) entity.getClass().getMethod("getId", null).invoke(entity));
+            return entity.toString().equals(dbEntity != null ? dbEntity.toString() : StringUtils.EMPTY);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
@@ -34,6 +31,11 @@ public class EntityHelper<T> {
 
     @Setter(value = AccessLevel.PROTECTED)
     private Class<T> entityClass;
+
+    private T getEntityById(int id) {
+        return (T) entityManager.createQuery("from " + getEntityClass().getSimpleName() + " e where e.id = :inputId")
+                .setParameter("inputId", id).getResultList().stream().findAny();
+    }
 
     protected Class<T> getEntityClass() {
         if (entityClass == null) {
