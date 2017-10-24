@@ -1,8 +1,10 @@
 package com.stingion.makeitfine.testconfiguration;
 
+import com.stingion.makeitfine.data.model.Bank;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.State;
+import com.stingion.makeitfine.data.service.BankService;
 import com.stingion.makeitfine.data.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +22,9 @@ public class ServiceTestConfiguration {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BankService bankService;
 
     @AllArgsConstructor
     @NoArgsConstructor
@@ -64,9 +69,27 @@ public class ServiceTestConfiguration {
         return new EntityTestData<>(
                 id,
                 "[UserProfile(id=1, type=USER), UserProfile(id=2, type=ADMIN), UserProfile(id=3, type=DBA)]",
-                "UserProfile(id=2, type=ADMIN)",
+                "",
                 null,
                 null
+        );
+    }
+
+    @Bean
+    public EntityTestData<Bank> bankTestData() {
+        int id = 3;
+
+        Bank bankSaved = new Bank("any bank name");
+
+        Bank bankUpdated = bankService.findById(id);
+        bankUpdated.setName("any bank name " + new Random().nextInt());
+
+        return new EntityTestData<>(
+                id,
+                "[Bank(id=1, name=Unicredit), Bank(id=2, name=Raiffeisen), Bank(id=3, name=PrivatBank), Bank(id=4, name=UkrSibbank), Bank(id=5, name=Platinum Bank)]",
+                "Bank(id=3, name=PrivatBank)",
+                bankSaved,
+                bankUpdated
         );
     }
 }

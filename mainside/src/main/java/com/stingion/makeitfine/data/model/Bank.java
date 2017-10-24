@@ -21,7 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created on 12.06.17.
@@ -53,7 +53,7 @@ public class Bank {
     private String name;
 
     @OneToMany(mappedBy = "bank")
-    private Set<CreditCard> creditCards;
+    private List<CreditCard> creditCards;
 
     public Bank(String name) {
         this.name = name;

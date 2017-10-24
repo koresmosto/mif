@@ -4,12 +4,10 @@
 package com.stingion.makeitfine.data.service.impl;
 
 import com.stingion.makeitfine.data.model.User;
-import com.stingion.makeitfine.data.repository.UserRepository;
 import com.stingion.makeitfine.data.service.UserService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
