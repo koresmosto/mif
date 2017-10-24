@@ -69,7 +69,7 @@ public class ServiceTestConfiguration {
         return new EntityTestData<>(
                 id,
                 "[UserProfile(id=1, type=USER), UserProfile(id=2, type=ADMIN), UserProfile(id=3, type=DBA)]",
-                "",
+                "UserProfile(id=2, type=ADMIN)",
                 null,
                 null
         );
