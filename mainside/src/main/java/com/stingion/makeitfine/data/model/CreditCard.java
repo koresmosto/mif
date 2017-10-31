@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -70,6 +71,6 @@ public class CreditCard {
     @JoinColumn(name = "CONTACT_ID")
     private Contact contact;
 
-    @OneToMany(mappedBy = "creditCard")
+    @OneToMany(mappedBy = "creditCard", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Order> orderings;
 }

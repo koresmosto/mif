@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,7 +53,7 @@ public class Bank {
     @Length(min = ModelConstants.MIN_BANK_NAME_LENGTH, max = ModelConstants.MAX_BANK_NAME_LENGTH)
     private String name;
 
-    @OneToMany(mappedBy = "bank")
+    @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CreditCard> creditCards;
 
     public Bank(String name) {
