@@ -35,7 +35,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "CREDIT_CARD")
-@EqualsAndHashCode(of = "ID")
+@EqualsAndHashCode(of = "id")
 @ToString(exclude = {"orderings"})
 @Getter
 @Setter

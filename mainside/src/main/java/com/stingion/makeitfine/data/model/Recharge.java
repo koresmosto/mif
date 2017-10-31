@@ -4,6 +4,7 @@
 
 package com.stingion.makeitfine.data.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,6 +30,7 @@ import javax.persistence.TableGenerator;
 @Setter
 @ToString
 @Table(name = "RECHARGE")
+@EqualsAndHashCode(of = {"id"})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "PAYMENT_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Undefined")
