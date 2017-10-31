@@ -8,7 +8,7 @@
 
 package com.stingion.makeitfine.data.model;
 
-import com.stingion.makeitfine.data.model.utils.OrderStatus;
+import com.stingion.makeitfine.data.model.utils.OrderingStatus;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,25 +32,25 @@ import javax.persistence.TableGenerator;
  * Created on 12.06.17.
  */
 @Entity
-@Table(name = "ORDER")
+@Table(name = "ORDERING")
 @EqualsAndHashCode(of = "id")
 @ToString(of = {"id", "status", "description"})
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class Ordering {
 
     @TableGenerator(
-            name = "Order_gen",
+            name = "Ordering_gen",
             table = "SEQUENCES",
             pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_NUMBER",
-            pkColumnValue = "ORDER_SEQUENCE",
+            pkColumnValue = "ORDERING_SEQUENCE",
             allocationSize = 1)
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Order_gen")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Ordering_gen")
     private Integer id;
 
     @Column(name = "DESCRIPTION")
@@ -58,7 +58,7 @@ public class Order {
 
     @Column(columnDefinition = "enum('Pending','Performed','Cancelled')")
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderingStatus status;
 
     @ManyToOne
     @JoinColumn(name = "ITEM_ID")
@@ -68,7 +68,7 @@ public class Order {
     @JoinColumn(name = "CREDIT_CARD_ID")
     private CreditCard creditCard;
 
-    public Order(String description, OrderStatus status) {
+    public Ordering(String description, OrderingStatus status) {
         this.description = description;
         this.status = status;
     }

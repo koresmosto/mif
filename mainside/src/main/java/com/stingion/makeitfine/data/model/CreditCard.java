@@ -2,10 +2,6 @@
  * Created in scope of "Make it fine" project
  */
 
-/*
- * Created in scope of "Make it fine" project
- */
-
 package com.stingion.makeitfine.data.model;
 
 import com.stingion.makeitfine.data.model.utils.CardType;
@@ -37,7 +33,7 @@ import java.util.Set;
 @Entity
 @Table(name = "CREDIT_CARD")
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = {"orderings"})
+@ToString(exclude = {"orders"})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -72,5 +68,5 @@ public class CreditCard {
     private Contact contact;
 
     @OneToMany(mappedBy = "creditCard", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Order> orderings;
+    private Set<Ordering> orders;
 }

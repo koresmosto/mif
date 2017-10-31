@@ -57,7 +57,7 @@ public class Item {
     private Double price;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Order> order;
+    private Set<Ordering> orders;
 
     public Item(String header, Double price) {
         this.header = header;
