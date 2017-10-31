@@ -21,7 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created on 12.06.17.
@@ -56,7 +56,7 @@ public class Item {
     private Double price;
 
     @OneToMany(mappedBy = "item")
-    private List<Order> order;
+    private Set<Order> order;
 
     public Item(String header, Double price) {
         this.header = header;

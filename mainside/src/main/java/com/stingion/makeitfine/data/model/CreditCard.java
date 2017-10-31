@@ -28,7 +28,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created on 12.06.17.
@@ -71,5 +71,5 @@ public class CreditCard {
     private Contact contact;
 
     @OneToMany(mappedBy = "creditCard")
-    private List<Order> orderings;
+    private Set<Order> orderings;
 }

@@ -12,7 +12,7 @@ public class BankServiceTest extends EntityServiceTestAncestor<Bank> {
 
     @Ignore//todo: should be fixed (not ignore)
     //Watch cascade deletion in related entities (bank, credit_card, order etc;
-    //See: @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Test
     @Override
     public void deleteTest() {
