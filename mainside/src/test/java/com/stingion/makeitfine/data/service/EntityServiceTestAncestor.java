@@ -32,12 +32,12 @@ public class EntityServiceTestAncestor<T> {
 
     @Test
     public void findAllTest() {
-        assertThat(entityTestData.getFindAll()).isEqualTo(entityService.findAll().toString());
+        assertThat(entityService.findAll().toString()).isEqualTo(entityTestData.getFindAll());
     }
 
     @Test
     public void findByIdTest() {
-        assertThat(entityTestData.getFindById()).isEqualTo(entityService.findById(entityTestData.getId()).toString());
+        assertThat(entityService.findById(entityTestData.getId()).toString()).isEqualTo(entityTestData.getFindById());
     }
 
     @Test
@@ -66,14 +66,14 @@ public class EntityServiceTestAncestor<T> {
         int beforeUpdate = eH.getCount();
 
         T entityBeforeUpdate = entityService.findById(entityTestData.getId());
-        assertThat(entityTestData.getUpdateEntity().toString()).isNotEqualTo(entityBeforeUpdate.toString());
+        assertThat(entityBeforeUpdate.toString()).isNotEqualTo(entityTestData.getUpdateEntity().toString());
         entityService.update(entityTestData.getUpdateEntity());
 
         int afterUpdate = eH.getCount();
 
         T entityAfterUpdate = entityService.findById(entityTestData.getId());
 
-        assertThat(entityTestData.getUpdateEntity().toString()).isEqualTo(entityAfterUpdate.toString());
+        assertThat(entityAfterUpdate.toString()).isEqualTo(entityTestData.getUpdateEntity().toString());
         assertThat(beforeUpdate == afterUpdate);
     }
 }

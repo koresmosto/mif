@@ -33,11 +33,11 @@ import java.util.Set;
 @Entity
 @Table(name = "CREDIT_CARD")
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = {"orders"})
+@ToString(exclude = {"orders", "bank", "contact"})
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor// Todo: think of removing @AllArgsConstructor
 public class CreditCard {
 
     @TableGenerator(
@@ -45,14 +45,14 @@ public class CreditCard {
             table = "SEQUENCES",
             pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_NUMBER",
-            pkColumnValue = "CREADIT_CARD_SEQUENCE",
+            pkColumnValue = "CREDIT_CARD_SEQUENCE",
             allocationSize = 1)
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "CreditCard_gen")
     private Integer id;
 
-    @Column(name = "NUMBER", unique = true)
+    @Column(name = "NUMBER", unique = true)//todo:think of 16 digits number
     private Long number;
 
     @Column(name = "TYPE", nullable = false, columnDefinition = "enum('MasterCard','Visa')")

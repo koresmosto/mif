@@ -34,7 +34,7 @@ import javax.persistence.TableGenerator;
 @Entity
 @Table(name = "ORDERING")
 @EqualsAndHashCode(of = "id")
-@ToString(of = {"id", "status", "description"})
+@ToString(exclude = {"item", "creditCard"})
 @Getter
 @Setter
 @NoArgsConstructor

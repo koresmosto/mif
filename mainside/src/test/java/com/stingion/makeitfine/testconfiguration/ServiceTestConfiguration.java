@@ -1,10 +1,14 @@
 package com.stingion.makeitfine.testconfiguration;
 
 import com.stingion.makeitfine.data.model.Bank;
+import com.stingion.makeitfine.data.model.CreditCard;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
+import com.stingion.makeitfine.data.model.utils.CardType;
 import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.service.BankService;
+import com.stingion.makeitfine.data.service.ContactService;
+import com.stingion.makeitfine.data.service.CreditCardService;
 import com.stingion.makeitfine.data.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +29,12 @@ public class ServiceTestConfiguration {
 
     @Autowired
     private BankService bankService;
+
+    @Autowired
+    private ContactService contactService;
+
+    @Autowired
+    private CreditCardService creditCardService;
 
     @AllArgsConstructor
     @NoArgsConstructor
@@ -90,6 +100,28 @@ public class ServiceTestConfiguration {
                 "Bank(id=3, name=PrivatBank)",
                 bankSaved,
                 bankUpdated
+        );
+    }
+
+    @Bean
+    public EntityTestData<CreditCard> creditCardTestData() {
+        int id = 1;
+
+        CreditCard creditCardSaved = new CreditCard();
+        creditCardSaved.setNumber(9234222312342222L);
+        creditCardSaved.setType(CardType.MasterCard);
+        creditCardSaved.setBank(bankService.findById(2));
+        creditCardSaved.setContact(contactService.findById(3));
+
+        CreditCard creditCardUpdated = creditCardService.findById(id);
+        creditCardUpdated.setNumber(1111000011112222L);
+
+        return new EntityTestData<>(
+                id,
+                "[CreditCard(id=1, number=1234571277518812, type=MasterCard), CreditCard(id=2, number=6647486058945594, type=Visa), CreditCard(id=3, number=2237435131126577, type=Visa), CreditCard(id=4, number=1123729594138004, type=MasterCard), CreditCard(id=5, number=6541296068298653, type=Visa), CreditCard(id=6, number=5923542550577566, type=MasterCard), CreditCard(id=7, number=7970188838706486, type=Visa), CreditCard(id=8, number=2184747417855136, type=Visa)]",
+                "CreditCard(id=1, number=1234571277518812, type=MasterCard)",
+                creditCardSaved,
+                creditCardUpdated
         );
     }
 }

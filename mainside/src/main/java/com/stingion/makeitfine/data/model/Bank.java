@@ -30,7 +30,7 @@ import java.util.Set;
 @Entity
 @Table(name = "BANK")
 @EqualsAndHashCode(of = "id")
-@ToString(of = {"id", "name"})
+@ToString(exclude = {"creditCards"})
 @Getter
 @Setter
 @NoArgsConstructor
