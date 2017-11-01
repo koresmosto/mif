@@ -1,6 +1,7 @@
 package com.stingion.makeitfine.data.repository.util;
 
 import com.stingion.makeitfine.data.model.Bank;
+import com.stingion.makeitfine.data.model.Contact;
 import com.stingion.makeitfine.data.model.CreditCard;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
@@ -24,5 +25,9 @@ public class EntityHelperConfig {
 
     @Component
     public static class CreditCardHelper extends EntityHelper<CreditCard> {
+    }
+
+    @Component
+    public static class ContactHelper extends EntityHelper<Contact> {
     }
 }
