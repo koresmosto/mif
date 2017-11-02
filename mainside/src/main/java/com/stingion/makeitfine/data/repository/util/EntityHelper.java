@@ -15,6 +15,9 @@ public class EntityHelper<T> {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Setter(value = AccessLevel.PROTECTED)
+    private Class<T> entityClass;
+
     public int getCount() {
         return ((Long) entityManager.createQuery("select count(*) from " + getEntityClass().getSimpleName())
                 .getSingleResult()).intValue();
@@ -28,9 +31,6 @@ public class EntityHelper<T> {
             throw new RuntimeException(e);
         }
     }
-
-    @Setter(value = AccessLevel.PROTECTED)
-    private Class<T> entityClass;
 
     private T getEntityById(int id) {
         return (T) entityManager.createQuery("from " + getEntityClass().getSimpleName() + " e where e.id = :inputId")

@@ -9,7 +9,6 @@
 package com.stingion.makeitfine.data.model;
 
 import com.stingion.makeitfine.data.model.utils.OrderingStatus;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -66,9 +65,4 @@ public class Ordering {
     @ManyToOne
     @JoinColumn(name = "CREDIT_CARD_ID")
     private CreditCard creditCard;
-
-    public Ordering(String description, OrderingStatus status) {
-        this.description = description;
-        this.status = status;
-    }
 }

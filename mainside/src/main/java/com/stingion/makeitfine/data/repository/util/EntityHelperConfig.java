@@ -4,6 +4,7 @@ import com.stingion.makeitfine.data.model.Bank;
 import com.stingion.makeitfine.data.model.Contact;
 import com.stingion.makeitfine.data.model.CreditCard;
 import com.stingion.makeitfine.data.model.Item;
+import com.stingion.makeitfine.data.model.Ordering;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
 import org.springframework.context.annotation.Configuration;
@@ -34,5 +35,9 @@ public class EntityHelperConfig {
 
     @Component
     public static class ItemHelper extends EntityHelper<Item> {
+    }
+
+    @Component
+    public static class OrderingHelper extends EntityHelper<Ordering> {
     }
 }

@@ -4,14 +4,17 @@ import com.stingion.makeitfine.data.model.Bank;
 import com.stingion.makeitfine.data.model.Contact;
 import com.stingion.makeitfine.data.model.CreditCard;
 import com.stingion.makeitfine.data.model.Item;
+import com.stingion.makeitfine.data.model.Ordering;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.CardType;
+import com.stingion.makeitfine.data.model.utils.OrderingStatus;
 import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.service.BankService;
 import com.stingion.makeitfine.data.service.ContactService;
 import com.stingion.makeitfine.data.service.CreditCardService;
 import com.stingion.makeitfine.data.service.ItemService;
+import com.stingion.makeitfine.data.service.OrderingService;
 import com.stingion.makeitfine.data.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,6 +45,9 @@ public class ServiceTestConfiguration {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private OrderingService orderingService;
 
     @AllArgsConstructor
     @NoArgsConstructor
@@ -174,6 +180,29 @@ public class ServiceTestConfiguration {
                 "Item(id=3, header=Build garage, price=1500.0)",
                 itemSaved,
                 itemUpdated
+        );
+    }
+
+    @Bean
+    public EntityTestData<Ordering> orderingTestData() {
+        int id = 2;
+
+        Ordering orderingSaved = new Ordering();
+
+        Ordering orderingUpdated = orderingService.findById(id);
+        orderingUpdated.setStatus(OrderingStatus.Pending);
+        orderingUpdated.setCreditCard(creditCardService.findById(2));
+        orderingUpdated.setDescription("Any description");
+        orderingUpdated.setItem(itemService.findById(3));
+
+        orderingUpdated.setStatus(OrderingStatus.Cancelled);
+
+        return new EntityTestData<>(
+                id,
+                "[Ordering(id=1, description=Deliver to Kyiv, Melnyka 35/5, status=Pending), Ordering(id=2, description=Deliver to Myshkova, Stynova 15/15 after 18:00, status=Pending), Ordering(id=3, description=Deliver to Kyiv, Strilsova 11/11, status=Pending), Ordering(id=4, description=Cancelled cause of subjective reason, status=Cancelled), Ordering(id=5, description=Delivered to Kyiv, Smirnova 25/101, status=Performed)]",
+                "Ordering(id=2, description=Deliver to Myshkova, Stynova 15/15 after 18:00, status=Pending)",
+                orderingSaved,
+                orderingUpdated
         );
     }
 }

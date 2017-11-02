@@ -9,6 +9,7 @@ public interface UserProfileService extends EntityService<UserProfile> {
 
     /**
      * Not supported method
+     *
      * @param entity
      * @return
      * @throws UnsupportedOperationException
@@ -18,6 +19,7 @@ public interface UserProfileService extends EntityService<UserProfile> {
 
     /**
      * Not supported method
+     *
      * @param entity
      * @return
      * @throws UnsupportedOperationException
@@ -27,6 +29,7 @@ public interface UserProfileService extends EntityService<UserProfile> {
 
     /**
      * Not supported method
+     *
      * @param entity
      * @throws UnsupportedOperationException
      */
