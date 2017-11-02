@@ -5,6 +5,7 @@ import com.stingion.makeitfine.data.model.Contact;
 import com.stingion.makeitfine.data.model.CreditCard;
 import com.stingion.makeitfine.data.model.Item;
 import com.stingion.makeitfine.data.model.Ordering;
+import com.stingion.makeitfine.data.model.Recharge;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.CardType;
@@ -15,6 +16,7 @@ import com.stingion.makeitfine.data.service.ContactService;
 import com.stingion.makeitfine.data.service.CreditCardService;
 import com.stingion.makeitfine.data.service.ItemService;
 import com.stingion.makeitfine.data.service.OrderingService;
+import com.stingion.makeitfine.data.service.RechargeService;
 import com.stingion.makeitfine.data.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,6 +50,9 @@ public class ServiceTestConfiguration {
 
     @Autowired
     private OrderingService orderingService;
+
+    @Autowired
+    private RechargeService rechargeService;
 
     @AllArgsConstructor
     @NoArgsConstructor
@@ -188,13 +193,12 @@ public class ServiceTestConfiguration {
         int id = 2;
 
         Ordering orderingSaved = new Ordering();
+        orderingSaved.setStatus(OrderingStatus.Pending);
+        orderingSaved.setCreditCard(creditCardService.findById(2));
+        orderingSaved.setDescription("Any description");
+        orderingSaved.setItem(itemService.findById(3));
 
         Ordering orderingUpdated = orderingService.findById(id);
-        orderingUpdated.setStatus(OrderingStatus.Pending);
-        orderingUpdated.setCreditCard(creditCardService.findById(2));
-        orderingUpdated.setDescription("Any description");
-        orderingUpdated.setItem(itemService.findById(3));
-
         orderingUpdated.setStatus(OrderingStatus.Cancelled);
 
         return new EntityTestData<>(
@@ -203,6 +207,25 @@ public class ServiceTestConfiguration {
                 "Ordering(id=2, description=Deliver to Myshkova, Stynova 15/15 after 18:00, status=Pending)",
                 orderingSaved,
                 orderingUpdated
+        );
+    }
+
+    @Bean
+    public EntityTestData<Recharge> rechargeEntityTestData() {
+        int id = 2;
+
+        Recharge rechargeSaved = new Recharge();
+        rechargeSaved.setAmount(222.33D);
+
+        Recharge rechargeUpdated = rechargeService.findById(id);
+        rechargeUpdated.setAmount(0D);
+
+        return new EntityTestData<>(
+                id,
+                "[Cach(super=Recharge(id=1, amount=234.3)), Recharge(id=2, amount=62343.31), Card(super=Recharge(id=3, amount=1234.0))]",
+                "Recharge(id=2, amount=62343.31)",
+                rechargeSaved,
+                rechargeUpdated
         );
     }
 }
