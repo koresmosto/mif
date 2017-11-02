@@ -38,7 +38,6 @@ import javax.persistence.TableGenerator;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Ordering {
 
     @TableGenerator(

@@ -36,8 +36,6 @@ import java.util.Set;
 @ToString(exclude = {"orders", "bank", "contact"})
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor// Todo: think of removing @AllArgsConstructor
 public class CreditCard {
 
     @TableGenerator(
