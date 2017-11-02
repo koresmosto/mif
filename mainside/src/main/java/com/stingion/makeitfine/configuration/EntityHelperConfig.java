@@ -1,4 +1,4 @@
-package com.stingion.makeitfine.data.repository.util;
+package com.stingion.makeitfine.configuration;
 
 import com.stingion.makeitfine.data.model.Bank;
 import com.stingion.makeitfine.data.model.Contact;
@@ -7,6 +7,7 @@ import com.stingion.makeitfine.data.model.Item;
 import com.stingion.makeitfine.data.model.Ordering;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
+import com.stingion.makeitfine.data.repository.util.EntityHelper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
