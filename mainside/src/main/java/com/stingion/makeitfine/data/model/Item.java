@@ -50,7 +50,7 @@ public class Item {
     private Integer id;
 
     @Column(name = "HEADER", unique = true)
-    @Length(min = ModelConstants.MIN_BANK_NAME_LENGTH, max = ModelConstants.MAX_BANK_NAME_LENGTH)
+    @Length(min = ModelConstants.MIN_ITEM_LENGTH)
     private String header;
 
     @Column(name = "PRICE")

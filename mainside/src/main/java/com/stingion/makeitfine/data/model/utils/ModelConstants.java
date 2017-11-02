@@ -14,4 +14,6 @@ import lombok.NoArgsConstructor;
 public class ModelConstants {
     public static final int MIN_BANK_NAME_LENGTH = 5;
     public static final int MAX_BANK_NAME_LENGTH = 25;
+
+    public static final int MIN_ITEM_LENGTH = 3;
 }

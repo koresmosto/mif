@@ -3,6 +3,7 @@ package com.stingion.makeitfine.testconfiguration;
 import com.stingion.makeitfine.data.model.Bank;
 import com.stingion.makeitfine.data.model.Contact;
 import com.stingion.makeitfine.data.model.CreditCard;
+import com.stingion.makeitfine.data.model.Item;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.CardType;
@@ -10,6 +11,7 @@ import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.service.BankService;
 import com.stingion.makeitfine.data.service.ContactService;
 import com.stingion.makeitfine.data.service.CreditCardService;
+import com.stingion.makeitfine.data.service.ItemService;
 import com.stingion.makeitfine.data.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,6 +39,9 @@ public class ServiceTestConfiguration {
 
     @Autowired
     private CreditCardService creditCardService;
+
+    @Autowired
+    private ItemService itemService;
 
     @AllArgsConstructor
     @NoArgsConstructor
@@ -151,6 +156,24 @@ public class ServiceTestConfiguration {
                 "Worker(super=Contact(super=User(id=2, ssoId=danny, password=abc124, email=danny@xyz.com, state=Active, userProfiles=[UserProfile(id=1, type=USER)]), firstName=Danny, middleName=null, lastName=Theys, birthDay=1986-06-03 00:00:00.0, phoneNumber=0715558440))",
                 contactSaved,
                 contactUpdated
+        );
+    }
+
+    @Bean
+    public EntityTestData<Item> itemTestData() {
+        int id = 3;
+
+        Item itemSaved = new Item("some item", 1.33);
+
+        Item itemUpdated = itemService.findById(id);
+        itemUpdated.setHeader("some new header" + new Random().nextInt());
+
+        return new EntityTestData<>(
+                id,
+                "[Item(id=1, header=Repair room, price=100.0), Item(id=2, header=Repair bathroom, price=150.0), Item(id=3, header=Build garage, price=1500.0), Item(id=4, header=Repair tap, price=25.5), Item(id=5, header=Install plumber, price=40.0)]",
+                "Item(id=3, header=Build garage, price=1500.0)",
+                itemSaved,
+                itemUpdated
         );
     }
 }
