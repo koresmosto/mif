@@ -62,7 +62,13 @@ public class DBSteps {
 
     @Then("Row field: $field has such value: $value")
     public void rowFieldHasSuchValue(@Named("field") String field, @Named("value") String value) {
-        assertThat(row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get()))
+        assertThat(row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get()).toString())
                 .isEqualTo(value);
+    }
+
+    @Then("Row field: $field not set (has null-value)")
+    public void rowFieldHasNullValue(@Named("field") String field) {
+        assertThat(row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get()))
+                .isNull();
     }
 }
