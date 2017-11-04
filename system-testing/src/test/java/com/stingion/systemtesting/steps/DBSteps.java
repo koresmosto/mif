@@ -60,7 +60,7 @@ public class DBSteps {
                 .anyMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p)))).isTrue();
     }
 
-    @Then("Row field: $field has such value $value")
+    @Then("Row field: $field has such value: $value")
     public void rowFieldHasSuchValue(@Named("field") String field, @Named("value") String value) {
         assertThat(row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get()))
                 .isEqualTo(value);
