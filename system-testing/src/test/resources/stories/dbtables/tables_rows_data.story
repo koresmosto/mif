@@ -44,3 +44,13 @@ Then Row contains such fields headers |user_id|user_profile_id|
 And Row not contains such fields headers |other_id|
 And Row field: user_profile_id has such value: 3
 And Row field: USER_ID has such value: 6
+
+Scenario: Check row content for table: CREDIT_CARD
+
+When Get row of table CREDIT_CARD with 4
+Then Row contains such fields headers |number|type|bank_id|bank_id|contact_id|
+And Row not contains such fields headers |order_id|
+And Row field: NUMBER has such value: 1123729594138004
+And Row field: TYPE has such value: MasterCard
+And Row field: bank_id has such value: 4
+And Row field: CONTACT_id has such value: 4
