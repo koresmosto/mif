@@ -6,7 +6,6 @@ import org.jbehave.core.io.CodeLocations;
 import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.io.StoryFinder;
 import org.jbehave.core.junit.JUnitStories;
-import org.jbehave.core.parsers.gherkin.GherkinStoryParser;
 import org.jbehave.core.reporters.CrossReference;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.PrintStreamStepdocReporter;
@@ -49,7 +48,6 @@ public class JBehaveTestRunner extends JUnitStories {
                         .withFailureTrace(true))
                 .useParameterConverters(new ParameterConverters()
                         .addConverters(new ParameterConverters.DateConverter(new SimpleDateFormat("yyyy-MM-dd"))))
-                .useStoryParser(new GherkinStoryParser())
                 .useStepMonitor(new SilentStepMonitor()));
     }
 

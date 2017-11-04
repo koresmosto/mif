@@ -16,20 +16,20 @@ public class DBSteps {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private int entityCount;
+    private int rowCount;
 
     @Given("JdbcTemplate instance")
     public void jdbcTemplate() {
         assertThat(jdbcTemplate).isNotNull();
     }
 
-    @When("Call for row count of entity $entity")
-    public void entitiesCount(@Named("entity") String entity) {
-        entityCount = this.jdbcTemplate.queryForObject("SELECT COUNT(*) from " + entity, Integer.class);
+    @When("Get row count of table $table")
+    public void entitiesCount(@Named("table") String table) {
+        rowCount = this.jdbcTemplate.queryForObject("SELECT COUNT(*) from " + table, Integer.class);
     }
 
-    @Then("Row count of entity is $count")
-    public void rowCount(@Named("count") int count) {
-        assertThat(count).isEqualTo(entityCount);
+    @Then("Row count of table is $rowCount")
+    public void rowCount(@Named("rowCount") int count) {
+        assertThat(rowCount).isEqualTo(count);
     }
 }
