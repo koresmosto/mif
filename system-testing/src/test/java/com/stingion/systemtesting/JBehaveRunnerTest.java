@@ -25,12 +25,12 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class JBehaveTestRunner extends JUnitStories {
+public class JBehaveRunnerTest extends JUnitStories {
 
     @Autowired
     private ApplicationContext applicationContext;
 
-    public JBehaveTestRunner() {
+    public JBehaveRunnerTest() {
         initJBehaveConfiguration();
     }
 
