@@ -54,3 +54,56 @@ And Row field: NUMBER has such value: 1123729594138004
 And Row field: TYPE has such value: MasterCard
 And Row field: bank_id has such value: 4
 And Row field: CONTACT_id has such value: 4
+
+Scenario: Check row content for table: CUSTOMER
+
+When Get row of table CUSTOMER with 7
+Then Row contains such fields headers |ID|
+And Row not contains such fields headers |order_id|
+
+Scenario: Check row content for table: WORKER
+
+When Get row of table WORKER with 8
+Then Row contains such fields headers |ID|
+And Row not contains such fields headers |order_id|
+
+Scenario: Check row content for table: ITEM
+
+When Get row of table ITEM with 5
+Then Row contains such fields headers |header|price|
+And Row not contains such fields headers |type|city|
+And Row field: header has such value: Install plumber
+And Row field: price has such value: 40.0
+
+Scenario: Check row content for table: ORDERING
+
+When Get row of table ORDERING with 2
+Then Row contains such fields headers |description|status|item_id|credit_card_id|
+And Row not contains such fields headers |type|other|
+And Row field: description has such value: Deliver to Myshkova, Stynova 15/15 after 18:00
+And Row field: status has such value: Pending
+And Row field: item_id has such value: 2
+And Row field: credit_card_id has such value: 7
+
+Scenario: Check row content for table: RECHARGE
+
+When Get row of table RECHARGE with 3
+Then Row contains such fields headers |amount|payment_type|
+And Row not contains such fields headers |order|
+And Row field: amount has such value: 1234.0
+And Row field: payment_type has such value: Card
+
+Scenario: Check row content for table: SEQUENCES
+
+When Get first row of table SEQUENCES where |seq_name           |
+                                            |RECHARGE_SEQUENCE  |
+Then Row contains such fields headers |seq_number|
+And Row not contains such fields headers |order|
+And Row field: seq_number has such value: 4
+
+Scenario: Check row content for table: USER_PROFILE
+
+When Get row of table USER_PROFILE with 3
+Then Row contains such fields headers |Type|
+And Row not contains such fields headers |order_id|
+And Row field: TYPE has such value: DBA

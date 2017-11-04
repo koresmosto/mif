@@ -81,6 +81,6 @@ public class DBSteps {
     private List<Map<String, Object>> getTableRowsByWhereCondition(String table, ExamplesTable keyValue) {
         return this.jdbcTemplate.queryForList("SELECT * from " + table + " where "
                 + keyValue.getRows().get(0).entrySet().stream()
-                .map(e -> e.getKey() + "=" + e.getValue()).reduce((a, b) -> a + " and " + b).get());
+                .map(e -> e.getKey() + "='" + e.getValue() + "'").reduce((a, b) -> a + " and " + b).get());
     }
 }
