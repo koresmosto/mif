@@ -4,9 +4,12 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.jbehave.core.model.ExamplesTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,19 +20,49 @@ public class DBSteps {
     private JdbcTemplate jdbcTemplate;
 
     private int rowCount;
+    private Map<String, Object> row;
 
     @Given("JdbcTemplate instance")
-    public void jdbcTemplate() {
+    public void jdbcTemplateInstance() {
         assertThat(jdbcTemplate).isNotNull();
     }
 
     @When("Get row count of table $table")
-    public void entitiesCount(@Named("table") String table) {
+    public void getRowCountOfTable(@Named("table") String table) {
         rowCount = this.jdbcTemplate.queryForObject("SELECT COUNT(*) from " + table, Integer.class);
     }
 
     @Then("Row count of table is $rowCount")
-    public void rowCount(@Named("rowCount") int count) {
+    public void rowCountOfTableIs(@Named("rowCount") int count) {
         assertThat(rowCount).isEqualTo(count);
+    }
+
+    @When("Get row of table $table with $id")
+    public void rowsOfTable(@Named("table") String table, @Named("id") int id) {
+        row = this.jdbcTemplate.queryForMap("SELECT * from " + table + " where id=" + id);
+    }
+
+    @Then("Row contains such fields headers $fields")
+    public void rowContaisSuchFieldsHeader(@Named("fields") ExamplesTable fields) {
+        assertThat(fields.getHeaders().stream()
+                .allMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p)))).isTrue();
+    }
+
+    @Then("Row not contains such fields headers $fields")
+    public void rowNotContaisSuchFieldsHeader(@Named("fields") ExamplesTable fields) {
+        assertThat(fields.getHeaders().stream()
+                .anyMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p)))).isFalse();
+    }
+
+    @Then("Row contains any of such fields headers $fields")
+    public void rowNotContaisAnyOfSuchFieldsHeader(@Named("fields") ExamplesTable fields) {
+        assertThat(fields.getHeaders().stream()
+                .anyMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p)))).isTrue();
+    }
+
+    @Then("Row field: $field has such value $value")
+    public void rowFieldHasSuchValue(@Named("field") String field, @Named("value") String value) {
+        assertThat(row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get()))
+                .isEqualTo(value);
     }
 }
