@@ -14,6 +14,7 @@ jobs:
     branches:
       only:
         - develop
+        - jbehave_test
         - /rc-.*/
     steps:
 
