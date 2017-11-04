@@ -65,6 +65,15 @@
                     <addResources>false</addResources>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*SystemTesting.java</include>
+                        <include>**/*Stories.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

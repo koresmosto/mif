@@ -30,7 +30,8 @@ jobs:
             - ~/.m2
           key: makeitfine-{{ checksum "pom.xml" }}
 
-      - run: mvn clean verify -P circleCI
+      - run: mvn clean test-compile -P circleCI
+      - run: mvn verify -P circleCI -pl mainside
 
 #      - store_test_results:
 #          path: target/surefire-reports
