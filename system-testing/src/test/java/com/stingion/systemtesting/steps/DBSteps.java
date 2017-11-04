@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -70,5 +71,16 @@ public class DBSteps {
     public void rowFieldHasNullValue(@Named("field") String field) {
         assertThat(row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get()))
                 .isNull();
+    }
+
+    @When("Get first row of table $table where $keyValue")
+    public void GetRowsBySuchParams(@Named("table") String table, @Named("keyValue") ExamplesTable keyValue) {
+        row = getTableRowsByWhereCondition(table, keyValue).get(0);
+    }
+
+    private List<Map<String, Object>> getTableRowsByWhereCondition(String table, ExamplesTable keyValue) {
+        return this.jdbcTemplate.queryForList("SELECT * from " + table + " where "
+                + keyValue.getRows().get(0).entrySet().stream()
+                .map(e -> e.getKey() + "=" + e.getValue()).reduce((a, b) -> a + " and " + b).get());
     }
 }

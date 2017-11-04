@@ -35,3 +35,12 @@ And Row field: LAST_NAME has such value: Userino
 And Row field: PHONE_NUMBER has such value: 0725557763
 And Row field: birth_day has such value: 1980-08-29 00:00:00.0
 And Row field: middle_name not set (has null-value)
+
+Scenario: Check row content for table: APP_USER_USER_PROFILE
+
+When Get first row of table APP_USER_USER_PROFILE where |USER_ID|USER_PROFILE_ID|
+                                                        |6      |3              |
+Then Row contains such fields headers |user_id|user_profile_id|
+And Row not contains such fields headers |other_id|
+And Row field: user_profile_id has such value: 3
+And Row field: USER_ID has such value: 6
