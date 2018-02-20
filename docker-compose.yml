@@ -22,6 +22,8 @@ services:
       - mysql
 #    build: .
     image: maven:3.5-ibmjava-alpine
+    environment:
+      docker_env: "true"
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.3
@@ -30,7 +32,7 @@ services:
     working_dir: /data/original
     command: /bin/sh -c "mvn clean"
     working_dir: /data/original/mainside
-    command: /bin/sh -c "mvn process-resources flyway:clean flyway:migrate -Pdocker"
+    command: /bin/sh -c "mvn process-resources flyway:clean flyway:migrate"
     stdin_open: true
     tty: true
 
