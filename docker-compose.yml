@@ -1,0 +1,48 @@
+version: '2.1'
+
+services:
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+#      MYSQL_USER: "makeitfinemysql"
+#      MYSQL_PASSWORD: "makeitfine121"
+#      MYSQL_DATABASE: "makeitfinemysql"
+#      MYSQL_ROOT_HOST: "%"
+    volumes:
+      - mysql_data:/var/lib/mysql
+#      restart: always
+    networks:
+      mifnet_back:
+        ipv4_address: 172.16.238.2
+
+  mif:
+    depends_on:
+      - mysql
+#    build: .
+    image: maven:3.5-ibmjava-alpine
+    networks:
+      mifnet_back:
+        ipv4_address: 172.16.238.3
+    volumes:
+      - .:/data/original
+    working_dir: /data/original
+    command: /bin/sh -c "mvn clean"
+    working_dir: /data/original/mainside
+    command: /bin/sh -c "mvn process-resources flyway:clean flyway:migrate -Pdocker"
+    stdin_open: true
+    tty: true
+
+
+volumes:
+  mysql_data:
+
+networks:
+  mifnet_back:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1

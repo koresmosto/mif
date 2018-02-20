@@ -143,5 +143,19 @@
                 <springDBConf>config_h2</springDBConf>
             </properties>
         </profile>
+        <profile>
+            <id>docker</id>
+            <activation>
+                <property>
+                    <name>docker</name>
+                </property>
+            </activation>
+            <properties>
+                <docker.ip>172.16.238.2</docker.ip>
+                <db.url>jdbc:mysql://${docker.ip}/makeitfinemysql</db.url><!-- default port is 3306 -->
+                <db.username>root</db.username>
+                <db.password>root</db.password>
+            </properties>
+        </profile>
     </profiles>
 </project>
