@@ -121,11 +121,13 @@
             </properties>
         </profile>
         <profile>
-            <id>no debugging</id>
+            <!--no debug-->
+            <id>debugless</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
                 <property>
-                    <name>nod</name>
+                    <name>env.nodebug</name>
+                    <value>true</value>
                 </property>
             </activation>
             <properties>

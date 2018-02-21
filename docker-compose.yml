@@ -24,6 +24,7 @@ services:
     container_name: j8m
     environment:
       docker_env: "true"
+      nodebug: "false"
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.3
@@ -36,9 +37,13 @@ services:
     working_dir: /data/original
     command: /bin/sh -c "mvn verify  > /data/log.txt"
     working_dir: /data/original/mainside
-    command: /bin/sh -c "mvn spring-boot:run -Dnod  > /data/log.txt"
+    command: /bin/sh -c "mvn spring-boot:run  > /data/log.txt"
     stdin_open: true
     tty: true
+    ## Usefull commands:
+    # tail -f /data/log.txt
+    # watch -n 1 netstat -lpn
+    #
 #    entrypoint: /bin/sh -c
 
 volumes:
