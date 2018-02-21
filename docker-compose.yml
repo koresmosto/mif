@@ -4,6 +4,7 @@ services:
 
   mysql:
     image: mysql
+    container_name: mys
     environment:
       MYSQL_ROOT_PASSWORD: "root"
 #      MYSQL_USER: "makeitfinemysql"
@@ -12,16 +13,15 @@ services:
 #      MYSQL_ROOT_HOST: "%"
     volumes:
       - mysql_data:/var/lib/mysql
-#      restart: always
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.2
 
-  mif:
+  java8_maven:
     depends_on:
       - mysql
-#    build: .
     image: maven:3.5-ibmjava-alpine
+    container_name: j8m
     environment:
       docker_env: "true"
     networks:
@@ -30,12 +30,16 @@ services:
     volumes:
       - .:/data/original
     working_dir: /data/original
-    command: /bin/sh -c "mvn clean"
+    command: /bin/sh -c "mvn clean  > /data/log.txt"
     working_dir: /data/original/mainside
-    command: /bin/sh -c "mvn process-resources flyway:clean flyway:migrate"
+    command: /bin/sh -c "mvn process-resources flyway:clean flyway:migrate > /data/log.txt"
+    working_dir: /data/original
+    command: /bin/sh -c "mvn verify  > /data/log.txt"
+    working_dir: /data/original/mainside
+    command: /bin/sh -c "mvn spring-boot:run -Dnod  > /data/log.txt"
     stdin_open: true
     tty: true
-
+#    entrypoint: /bin/sh -c
 
 volumes:
   mysql_data:

@@ -146,9 +146,6 @@
         <profile>
             <id>docker</id>
             <activation>
-                <!--<property>-->
-                    <!--<name>docker</name>-->
-                <!--</property>-->
                 <property>
                     <name>env.docker_env</name>
                     <value>true</value>
