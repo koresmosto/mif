@@ -40,11 +40,11 @@ services:
     command: /bin/sh -c "mvn spring-boot:run  > /data/log.txt"
     stdin_open: true
     tty: true
-    ## Usefull commands:
+    ## Usefull commands:docke
     # tail -f /data/log.txt
     # watch -n 1 netstat -lpn
     #
-#    entrypoint: /bin/sh -c
+    #entrypoint: /bin/sh -c
 
 volumes:
   mysql_data:

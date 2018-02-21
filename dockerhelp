@@ -1,0 +1,7 @@
+##
+# execute 'source /data/original/dockerhelp'
+##
+#!/bin/sh
+echo 'aliases active'
+alias w='watch -n 1 netstat -lpn'
+alias t='tail -f /data/log.txt'
