@@ -20,3 +20,5 @@ wiki/
 
 #sonar
 .sonar/
+
+*.tmpf

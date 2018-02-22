@@ -10,16 +10,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private CustomUserDetailsService authProvider;
+    @Autowired
+    private CustomUserDetailsService authProvider;
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(authProvider);
-        auth.inMemoryAuthentication()
-                .withUser("temporary").password("temporary").roles("ADMIN")
-                .and()
-                .withUser("user").password("userPass").roles("USER");
+        auth.userDetailsService(authProvider);
     }
 
     @Override
@@ -28,10 +24,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/**").access("hasRole('ADMIN') or hasRole('USER')").and()
                 .csrf().disable()
                 .formLogin()
-//                .loginPage("/login")
-//                .usernameParameter("ssoId")
-//                .passwordParameter("password")
-//                .failureUrl("/Access_Denied");
+                .loginPage("/login")
+                .usernameParameter("ssoId")
+                .passwordParameter("password")
+                .failureUrl("/Access_Denied")
                 .and().logout();
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/Access_Denied");
         http.headers().frameOptions().disable();
