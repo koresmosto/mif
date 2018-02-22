@@ -35,7 +35,6 @@
         <db.username>makeitfineoralce</db.username>
         <db.password>makeitfine123</db.password>
         <db.migration>db/migration/oracle</db.migration>
-        <jvmargs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080</jvmargs>
         <springDBConf>config_mysql</springDBConf>
     </properties>
 
@@ -121,17 +120,15 @@
             </properties>
         </profile>
         <profile>
-            <!--no debug-->
-            <id>debugless</id>
+            <id>debug</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
                 <property>
-                    <name>env.nodebug</name>
+                    <name>env.indebug</name>
                     <value>true</value>
                 </property>
             </activation>
             <properties>
-                <jvmargs></jvmargs>
+                <jvmargs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080</jvmargs>
             </properties>
         </profile>
         <profile>

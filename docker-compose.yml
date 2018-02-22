@@ -24,7 +24,7 @@ services:
     container_name: j8m
     environment:
       docker_env: "true"
-      nodebug: "false"
+      indebug: "true"
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.3
