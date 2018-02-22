@@ -20,7 +20,8 @@ services:
   java8_maven:
     depends_on:
       - mysql
-    image: maven:3.5-ibmjava-alpine
+#    image: maven:3.5-ibmjava-alpine
+    image: stingion/practice:j8m_repos # docker with saved .m2/repositories
     container_name: j8m
     environment:
       docker_env: "true"
