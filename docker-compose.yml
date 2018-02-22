@@ -34,13 +34,15 @@ services:
     volumes:
       - .:/data/original
     working_dir: /data/original
-    command: /bin/sh -c "mvn clean  > /data/log.txt"
-    working_dir: /data/original/mainside
-    command: /bin/sh -c "mvn process-resources flyway:clean flyway:migrate > /data/log.txt"
-    working_dir: /data/original
-    command: /bin/sh -c "mvn verify  > /data/log.txt"
-    working_dir: /data/original/mainside
-    command: /bin/sh -c "mvn spring-boot:run  > /data/log.txt"
+    command: # 3 lines (before 'cd mainside' can be deleted for fast dev)
+      - /bin/sh
+      - -c
+      - |
+          mvn clean  > /data/log.txt
+          mvn process-resources flyway:clean flyway:migrate -pl mainside >> /data/log.txt
+          mvn clean verify >> /data/log.txt
+          cd mainside
+          mvn spring-boot:run >> /data/log.txt
     stdin_open: true
     tty: true
     ## Usefull commands:docke
