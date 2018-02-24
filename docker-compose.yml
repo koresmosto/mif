@@ -16,6 +16,8 @@ services:
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.2
+    ports:
+      - 3311:3306
 
   java8_maven:
     depends_on:
@@ -31,10 +33,11 @@ services:
         ipv4_address: 172.16.238.3
     ports:
       - 8085:8080
+      - 5010:5005
     volumes:
       - .:/data/original
     working_dir: /data/original
-    command: # 3 lines (before 'cd mainside' can be deleted for fast dev)
+    command: # 3 lines (before 'cd mainside' can be deleted for fast dev); it's needed to create 'makeitfinemysql' DB
       - /bin/sh
       - -c
       - |
