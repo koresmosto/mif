@@ -5,14 +5,10 @@ services:
   mysql:
     image: mysql
     container_name: mys
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "root"
-#      MYSQL_USER: "makeitfinemysql"
-#      MYSQL_PASSWORD: "makeitfine121"
-#      MYSQL_DATABASE: "makeitfinemysql"
-#      MYSQL_ROOT_HOST: "%"
-    volumes:
-      - mysql_data:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: mypassword
+      MYSQL_DATABASE: drupal3
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.2
@@ -44,9 +40,7 @@ services:
           cd makeitfine
           mvn clean  > /data/log.txt
           mvn process-resources flyway:clean flyway:migrate -pl mainside >> /data/log.txt
-          mvn clean verify >> /data/log.txt
-          cd mainside
-          mvn spring-boot:run >> /data/log.txt
+          sleep 300s
     stdin_open: true
     tty: true
     ## Usefull commands:docke
@@ -54,9 +48,6 @@ services:
     # watch -n 1 netstat -lpn
     #
     #entrypoint: /bin/sh -c
-
-volumes:
-  mysql_data:
 
 networks:
   mifnet_back:
