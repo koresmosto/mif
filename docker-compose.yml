@@ -7,8 +7,8 @@ services:
     container_name: mys
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: drupal3
+      MYSQL_ROOT_PASSWORD: rootpassdocker
+      MYSQL_DATABASE: makeitfinemysqldocker
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.2
@@ -18,7 +18,6 @@ services:
   java8_maven:
     depends_on:
       - mysql
-#    image: maven:3.5-ibmjava-alpine
     image: stingion/practice:j8m_repos # docker with saved .m2/repositories
     container_name: j8m
     environment:
@@ -32,7 +31,6 @@ services:
       - 5010:5005
     volumes:
       - .:/data/original
-#    working_dir: /data/makeitfine
     command: # 3 lines (before 'cd mainside' can be deleted for fast dev)
       - /bin/sh
       - -c
@@ -43,14 +41,11 @@ services:
           cd makeitfine
           mvn clean  > /data/log.txt
           mvn process-resources flyway:clean flyway:migrate -pl mainside >> /data/log.txt
-          sleep 300s
+          mvn clean verify >> /data/log.txt
+          cd mainside
+          mvn spring-boot:run >> /data/log.txt
     stdin_open: true
     tty: true
-    ## Usefull commands:docke
-    # tail -f /data/log.txt
-    # watch -n 1 netstat -lpn
-    #
-    #entrypoint: /bin/sh -c
 
 networks:
   mifnet_back:

@@ -152,9 +152,9 @@
             </activation>
             <properties>
                 <docker.ip>172.16.238.2</docker.ip>
-                <db.url>jdbc:mysql://${docker.ip}/drupal3</db.url><!-- default port is 3306 -->
+                <db.url>jdbc:mysql://${docker.ip}/makeitfinemysqldocker</db.url><!-- default port is 3306 -->
                 <db.username>root</db.username>
-                <db.password>mypassword</db.password>
+                <db.password>rootpassdocker</db.password>
             </properties>
         </profile>
     </profiles>
