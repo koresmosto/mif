@@ -5,14 +5,10 @@ services:
   mysql:
     image: mysql
     container_name: mys
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "root"
-#      MYSQL_USER: "makeitfinemysql"
-#      MYSQL_PASSWORD: "makeitfine121"
-#      MYSQL_DATABASE: "makeitfinemysql"
-#      MYSQL_ROOT_HOST: "%"
-    volumes:
-      - mysql_data:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: mypassword
+      MYSQL_DATABASE: drupal3
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.2
@@ -27,7 +23,7 @@ services:
     container_name: j8m
     environment:
       docker_env: "true"
-      indebug: "true"
+      indebug: "false"
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.3
@@ -36,16 +32,18 @@ services:
       - 5010:5005
     volumes:
       - .:/data/original
-    working_dir: /data/original
-    command: # 3 lines (before 'cd mainside' can be deleted for fast dev); it's needed to create 'makeitfinemysql' DB
+#    working_dir: /data/makeitfine
+    command: # 3 lines (before 'cd mainside' can be deleted for fast dev)
       - /bin/sh
       - -c
       - |
+          cd /data
+          echo 'tail -f /data/log.txt' >> output.sh
+          cp -R /data/original /data/makeitfine
+          cd makeitfine
           mvn clean  > /data/log.txt
           mvn process-resources flyway:clean flyway:migrate -pl mainside >> /data/log.txt
-          mvn clean verify >> /data/log.txt
-          cd mainside
-          mvn spring-boot:run >> /data/log.txt
+          sleep 300s
     stdin_open: true
     tty: true
     ## Usefull commands:docke
@@ -53,9 +51,6 @@ services:
     # watch -n 1 netstat -lpn
     #
     #entrypoint: /bin/sh -c
-
-volumes:
-  mysql_data:
 
 networks:
   mifnet_back:
