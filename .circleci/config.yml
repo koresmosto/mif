@@ -5,17 +5,12 @@ jobs:
     working_directory: ~/makeitfine
 
     docker:
-      - image: circleci/openjdk:8-jdk-browsers
+      - image: maven:3-jdk-8-alpine
 
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx2048m
 
-    branches:
-      only:
-        - develop
-        - jbehave_test
-        - /rc-.*/
     steps:
 
       - checkout
@@ -23,6 +18,8 @@ jobs:
       - restore_cache:
           key: makeitfine-{{ checksum "pom.xml" }}
 
+#      - run: apk update
+#      - run: apk add mvn
       - run: mvn dependency:go-offline
 
       - save_cache:
@@ -38,3 +35,20 @@ jobs:
 
 #      - store_artifacts:
 #          path: target/practice-1.0-SNAPSHOT.jar
+  temp_flow:  #only for demo/probe targets
+      docker:
+        - image: openjdk:8-jdk-alpine
+      steps:
+        - run: echo "java -version"
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build:
+          filters:
+            branches:
+                  only:
+                    - develop
+                    - jbehave_test
+                    - /rc-.*/
+      - temp_flow
