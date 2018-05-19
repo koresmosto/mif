@@ -39,7 +39,7 @@ jobs:
       docker:
         - image: openjdk:8-jdk-alpine
       steps:
-        - run: echo "java -version"
+        - run: java -version
 workflows:
   version: 2
   build-and-test:
