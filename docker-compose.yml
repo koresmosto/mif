@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.0'
 
 services:
 
@@ -9,6 +9,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassdocker
       MYSQL_DATABASE: makeitfinemysqldocker
+      MYSQL_USER: makeitfineuser
+      MYSQL_PASSWORD: makeitfinepass
     networks:
       mifnet_back:
         ipv4_address: 172.16.238.2
