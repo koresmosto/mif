@@ -7,4 +7,5 @@ Portal will be used by:
 * People needed building, repairing and such sort of work
 * All you can order, estimate workers and job
 
- 
+ #### Usage
+ See [WIKI](https://bitbucket.org/callistomoon/makeitfine/wiki/Usage)
