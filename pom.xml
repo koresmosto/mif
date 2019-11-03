@@ -31,7 +31,7 @@
 
         <db.driver>oracle.jdbc.OracleDriver</db.driver>
         <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
-        <db.url>jdbc:oracle:thin:@//localhost/xe?useSSL=false</db.url> <!-- default port is 1521 -->
+        <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
         <db.username>makeitfineoralce</db.username>
         <db.password>makeitfine123</db.password>
         <db.migration>db/migration/oracle</db.migration>
@@ -96,7 +96,7 @@
             <properties>
                 <db.driver>com.mysql.jdbc.Driver</db.driver>
                 <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-                <db.url>jdbc:mysql://localhost/makeitfinemysql?useSSL=false</db.url><!-- default port is 3306 -->
+                <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url><!-- default port is 3306 -->
                 <db.username>makeitfinemysql</db.username>
                 <db.password>makeitfine121</db.password>
                 <db.migration>db/migration/mysql</db.migration>
@@ -113,7 +113,7 @@
             <properties>
                 <db.driver>oracle.jdbc.OracleDriver</db.driver>
                 <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
-                <db.url>jdbc:oracle:thin:@//localhost/xe?useSSL=false</db.url> <!-- default port is 1521 -->
+                <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
                 <db.username>makeitfineoralce</db.username>
                 <db.password>makeitfine123</db.password>
                 <db.migration>db/migration/oracle</db.migration>
@@ -152,7 +152,7 @@
             </activation>
             <properties>
                 <app_in_docker>mysql_server</app_in_docker>
-                <db.url>jdbc:mysql://${app_in_docker}/makeitfinemysqldocker?useSSL=false</db.url><!-- default port is 3306 -->
+                <db.url>jdbc:mysql://${app_in_docker}/makeitfinemysqldocker</db.url><!-- default port is 3306 -->
                 <db.username>makeitfineuser</db.username>
                 <db.password>makeitfinepass</db.password>
             </properties>
