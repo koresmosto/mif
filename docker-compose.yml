@@ -38,7 +38,7 @@ services:
     command: # 3 lines before 'cd mainside' can be 'changed to mvn clean verify' for fast dev
       - /bin/sh
       - -c
-      - |pp
+      - |
           cd /data
           echo 'tail -f /data/log.txt' >> output.sh
           cp -R /data/original /data/makeitfine
