@@ -3,6 +3,7 @@ package com.stingion.makeitfine.data.service;
 import com.stingion.makeitfine.testconfiguration.MajorTestConfiguration;
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
 import com.stingion.makeitfine.data.repository.util.EntityHelper;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @Import(MajorTestConfiguration.class)
 @Transactional
+@Ignore
 public class EntityServiceTestAncestor<T> {
 
     @Autowired

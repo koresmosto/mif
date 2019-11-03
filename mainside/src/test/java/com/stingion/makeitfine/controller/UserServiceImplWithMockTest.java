@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.Optional;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,7 +48,7 @@ public class UserServiceImplWithMockTest {
     @Before
     public void setUp() {
         User user = new User();
-        when(userRepository.findOne(any(Integer.class))).thenReturn(user);
+        when(userRepository.findById(any(Integer.class))).thenReturn(Optional.of(user));
     }
 
     @Test

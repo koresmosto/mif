@@ -23,7 +23,7 @@ public class EntityServiceImpl<T> implements EntityService<T> {
 
     @Override
     public T findById(int id) {
-        return entityRepository.findOne(id);
+        return entityRepository.findById(id).orElse(null);
     }
 
     @Override

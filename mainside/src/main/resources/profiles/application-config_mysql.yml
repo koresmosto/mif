@@ -28,11 +28,9 @@ spring:
     properties:
       hibernate:
         dialect: @hibernate.dialect@
-
-# FLYWAY
-flyway:
-  enabled: false
-  url: @db.url@
-  user: @db.username@
-  password: @db.password@
-  locations: classpath:@db.migration@
+  flyway:
+    enabled: false
+    url: @db.url@
+    user: @db.username@
+    password: @db.password@
+    locations: classpath:@db.migration@
