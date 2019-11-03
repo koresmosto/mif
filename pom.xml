@@ -151,8 +151,8 @@
                 </property>
             </activation>
             <properties>
-                <docker.ip>172.16.238.2</docker.ip>
-                <db.url>jdbc:mysql://${docker.ip}/makeitfinemysqldocker?useSSL=false</db.url><!-- default port is 3306 -->
+                <app_in_docker>mysql_server</app_in_docker>
+                <db.url>jdbc:mysql://${app_in_docker}/makeitfinemysqldocker?useSSL=false</db.url><!-- default port is 3306 -->
                 <db.username>makeitfineuser</db.username>
                 <db.password>makeitfinepass</db.password>
             </properties>

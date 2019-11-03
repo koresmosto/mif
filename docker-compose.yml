@@ -1,4 +1,4 @@
-version: '2.0'
+version: '3.7'
 
 services:
 
@@ -13,30 +13,32 @@ services:
       MYSQL_PASSWORD: makeitfinepass
     networks:
       mifnet_back:
-        ipv4_address: 172.16.238.2
+        aliases:
+          - mysql_server
     ports:
       - 3311:3306
 
   java8_maven:
     depends_on:
       - mysql
-    image: stingion/practice:j8m_repos # docker with saved .m2/repositories
+    image: stingion/practice:j8m_repos # docker with '.m2/repositories' saved
     container_name: j8m
     environment:
       docker_env: "true"
-      indebug: "false"
+      indebug: "true"
     networks:
       mifnet_back:
-        ipv4_address: 172.16.238.3
+        aliases:
+          - app_server
     ports:
       - 8085:8080
       - 5010:5005
     volumes:
       - .:/data/original
-    command: # 3 lines (before 'cd mainside' can be deleted for fast dev)
+    command: # 3 lines before 'cd mainside' can be 'changed to mvn clean verify' for fast dev
       - /bin/sh
       - -c
-      - |
+      - |pp
           cd /data
           echo 'tail -f /data/log.txt' >> output.sh
           cp -R /data/original /data/makeitfine
@@ -51,9 +53,4 @@ services:
 
 networks:
   mifnet_back:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.16.238.0/24
-        gateway: 172.16.238.1
+    driver: "bridge"
