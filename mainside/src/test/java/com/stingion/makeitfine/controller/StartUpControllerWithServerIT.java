@@ -25,7 +25,7 @@ public class StartUpControllerWithServerIT {
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/projectName",
-                String.class)).contains("Make it fine <makeitfine>");
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/info",
+                String.class)).contains("Make it fine \"makeitfine\"");
     }
 }

@@ -27,7 +27,7 @@ public class StartUpControllerWithMockMvcTest {
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/projectName")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Make it fine <makeitfine>")));
+        this.mockMvc.perform(get("/info?details=projectName")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Make it fine \"makeitfine\"")));
     }
 }
