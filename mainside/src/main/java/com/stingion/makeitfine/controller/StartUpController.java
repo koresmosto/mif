@@ -1,4 +1,4 @@
-package com.stingion.makeitfine.itplaying;
+package com.stingion.makeitfine.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

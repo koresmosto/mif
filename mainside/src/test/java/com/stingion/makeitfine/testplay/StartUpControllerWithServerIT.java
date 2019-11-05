@@ -1,4 +1,4 @@
-package com.stingion.makeitfine.itplaying;
+package com.stingion.makeitfine.testplay;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

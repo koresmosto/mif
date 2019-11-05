@@ -1,10 +1,11 @@
 package com.stingion.makeitfine.data.service;
 
+import com.stingion.makeitfine.data.repository.util.EntityHelper;
 import com.stingion.makeitfine.testconfiguration.MajorTestConfiguration;
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
-import com.stingion.makeitfine.data.repository.util.EntityHelper;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @Import(MajorTestConfiguration.class)
 @Transactional
-@Ignore
+@Disabled
 public class EntityServiceTestAncestor<T> {
 
     @Autowired
@@ -42,6 +43,7 @@ public class EntityServiceTestAncestor<T> {
         assertThat(entityService.findById(entityTestData.getId()).toString()).isEqualTo(entityTestData.getFindById());
     }
 
+    @DisplayName("Delete entity from storage")
     @Test
     public void deleteTest() {
         int beforeDelete = eH.getCount();
@@ -53,6 +55,7 @@ public class EntityServiceTestAncestor<T> {
         assertThat(!eH.isExist(entity));
     }
 
+    @DisplayName("Insert entity into storage")
     @Test
     public void saveTest() {
         int beforeSave = eH.getCount();

@@ -1,5 +1,6 @@
-package com.stingion.makeitfine.itplaying;
+package com.stingion.makeitfine.testplay;
 
+import com.stingion.makeitfine.controller.StartUpController;
 import com.stingion.makeitfine.testconfiguration.IgnoreSecurityConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;

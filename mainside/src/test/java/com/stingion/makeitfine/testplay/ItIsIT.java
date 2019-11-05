@@ -1,8 +1,8 @@
-package com.stingion.makeitfine.itplaying;
+package com.stingion.makeitfine.testplay;
 
 import com.stingion.makeitfine.testconfiguration.MajorTestConfiguration;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("it")
 @Import(MajorTestConfiguration.class)
-@Ignore
+@Disabled
 public class ItIsIT {
     @Autowired
     private JdbcTemplate template;
