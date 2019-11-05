@@ -1,6 +1,7 @@
-package com.stingion.makeitfine;
+package com.stingion.makeitfine.itplaying;
 
 import com.stingion.makeitfine.testconfiguration.MajorTestConfiguration;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//Todo: remove it's probe test in future
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("it")
 @Import(MajorTestConfiguration.class)
-public class ItisIT {
+@Ignore
+public class ItIsIT {
     @Autowired
     private JdbcTemplate template;
 

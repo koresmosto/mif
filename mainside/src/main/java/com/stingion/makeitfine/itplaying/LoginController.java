@@ -1,4 +1,4 @@
-package com.stingion.makeitfine.controller;
+package com.stingion.makeitfine.itplaying;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -20,24 +20,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         if (!securityIgnore) {
-            auth.userDetailsService(authProvider);
+            configureGlobalSecurityIfSecurityON(auth);
         }
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         if (!securityIgnore) {
-            http.authorizeRequests().antMatchers("/login**", "/public/**").permitAll();
-            http.authorizeRequests().antMatchers("/**").access("hasRole('ADMIN') or hasRole('USER')").and()
-                    .csrf().disable()
-                    .formLogin()
-                    .loginPage("/login")
-                    .usernameParameter("ssoId")
-                    .passwordParameter("password")
-                    .failureUrl("/Access_Denied")
-                    .and().logout();
-            http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/Access_Denied");
-            http.headers().frameOptions().disable();
+            configureIfSecurityIsON(http);
         }
+    }
+
+    private void configureGlobalSecurityIfSecurityON(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(authProvider);
+    }
+
+    private void configureIfSecurityIsON(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/login**", "/public/**").permitAll();
+        http.authorizeRequests().antMatchers("/**").access("hasRole('ADMIN') or hasRole('USER')").and()
+                .csrf().disable()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("ssoId")
+                .passwordParameter("password")
+                .failureUrl("/Access_Denied")
+                .and().logout();
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+        http.headers().frameOptions().disable();
     }
 }

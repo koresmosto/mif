@@ -1,4 +1,4 @@
-package com.stingion.makeitfine.controller;
+package com.stingion.makeitfine.itplaying;
 
 import com.stingion.makeitfine.data.service.UserService;
 import org.junit.Test;

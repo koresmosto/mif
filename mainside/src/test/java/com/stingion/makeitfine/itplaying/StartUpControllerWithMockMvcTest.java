@@ -1,4 +1,4 @@
-package com.stingion.makeitfine.controller;
+package com.stingion.makeitfine.itplaying;
 
 import com.stingion.makeitfine.testconfiguration.IgnoreSecurityConfiguration;
 import org.junit.Test;

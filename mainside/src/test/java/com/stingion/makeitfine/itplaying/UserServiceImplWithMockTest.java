@@ -1,4 +1,4 @@
-package com.stingion.makeitfine.controller;
+package com.stingion.makeitfine.itplaying;
 
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.repository.UserRepository;

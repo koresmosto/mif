@@ -24,6 +24,7 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
     @Transactional
     public User findBySSO(String sso) {
         Session session = entityManager.unwrap(Session.class);
+        //todo: solve issue with deprecated
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.eq("ssoId", sso));
         return (User) criteria.uniqueResult();

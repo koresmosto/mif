@@ -1,7 +1,7 @@
 /*
  * Created in scope of "Make it fine" project
  */
-package com.stingion.makeitfine.controller.exceptionhandling;
+package com.stingion.makeitfine.itplaying.exceptionhandling;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
