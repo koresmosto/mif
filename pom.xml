@@ -94,7 +94,8 @@
                 </property>
             </activation>
             <properties>
-                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <!-- todo: change driver to: com.mysql.cj.jdbc.Driver'-->
+                <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
                 <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
                 <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url><!-- default port is 3306 -->
                 <db.username>makeitfinemysql</db.username>
@@ -128,7 +129,8 @@
                 </property>
             </activation>
             <properties>
-                <jvmargs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080</jvmargs>
+                <jvmargs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080
+                </jvmargs>
             </properties>
         </profile>
         <profile>
@@ -152,7 +154,8 @@
             </activation>
             <properties>
                 <mysql_server_in_docker>mysql_server</mysql_server_in_docker>
-                <db.url>jdbc:mysql://${mysql_server_in_docker}/makeitfinemysqldocker</db.url><!-- default port is 3306 -->
+                <db.url>jdbc:mysql://${mysql_server_in_docker}/makeitfinemysqldocker
+                </db.url><!-- default port is 3306 -->
                 <db.username>makeitfineuser</db.username>
                 <db.password>makeitfinepass</db.password>
             </properties>
