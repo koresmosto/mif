@@ -8,8 +8,12 @@ import com.stingion.makeitfine.testconfiguration.IgnoreSecurityConfiguration;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,6 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
@@ -68,10 +73,32 @@ class UserControllerTest {
     }
 
     @Test
+    @RepeatedTest(3)
     void getUser() throws Exception {
-        mockMvc.perform(get("/user/2")).andDo(
+        int id = 2;
+        mockMvc.perform(get("/user/" + id)).andDo(
                 print()
         ).andExpect(status().isOk())
-                .andExpect(content().string(Matchers.allOf(containsString("2"))));
+                .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {3, 4, 5})
+    @MethodSource("intNumbs")
+    void getUserParam(int id) throws Exception {
+        User userById = new User();
+        userById.setId(id);
+        userList.add(userById);
+
+        when(userService.findById(id)).thenReturn(userList.get(id - 1));
+
+        mockMvc.perform(get("/user/" + id)).andDo(
+                print()
+        ).andExpect(status().isOk())
+                .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+    }
+
+    private static final Stream<Integer> intNumbs() {
+        return Stream.iterate(6, i -> i + 1).limit(3);
     }
 }
