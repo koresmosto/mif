@@ -8,7 +8,7 @@ import java.util.List;
 public interface EntityService<T> {
     List<T> findAll();
 
-    T findById(int id);
+    T findById(Integer id);
 
     T save(T entity);
 

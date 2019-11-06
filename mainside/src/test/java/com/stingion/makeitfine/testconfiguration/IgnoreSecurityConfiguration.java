@@ -30,7 +30,7 @@ public class IgnoreSecurityConfiguration {
             }
 
             @Override
-            public User findById(int id) {
+            public User findById(Integer id) {
                 return null;
             }
 

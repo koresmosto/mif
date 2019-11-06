@@ -8,12 +8,15 @@ import com.stingion.makeitfine.testconfiguration.IgnoreSecurityConfiguration;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.ArgumentMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -26,6 +29,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -62,6 +69,10 @@ class UserControllerTest {
         when(userService.findAll()).thenReturn(userList);
         when(userService.findById(1)).thenReturn(userList.get(0));
         when(userService.findById(2)).thenReturn(userList.get(1));
+
+        IllegalArgumentException idShouldBePositiveException = new IllegalArgumentException("id should be positive");
+
+        doThrow(idShouldBePositiveException).when(userService).findById(argThat(new NumberIsNotPositive()));
     }
 
     @Test
@@ -98,7 +109,25 @@ class UserControllerTest {
                 .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
     }
 
+    @TestFactory
+    public Stream<DynamicTest> translateDynamicTestsFromStream() {
+        return Stream.of(-717, -2, -1, 0)
+                .map(id ->
+                        DynamicTest.dynamicTest("Test negative scenario with no id = " + id, () -> {
+                            Throwable excep = assertThrows(IllegalArgumentException.class, () -> userService.findById(id));
+                            assertTrue(excep.getMessage().equalsIgnoreCase("id should be positive"));
+                        })
+                );
+    }
+
     private static final Stream<Integer> intNumbs() {
         return Stream.iterate(6, i -> i + 1).limit(3);
+    }
+
+    public static class NumberIsNotPositive implements ArgumentMatcher<Integer> {
+        @Override
+        public boolean matches(Integer argument) {
+            return argument < 1;
+        }
     }
 }

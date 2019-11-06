@@ -22,7 +22,7 @@ public class EntityServiceImpl<T> implements EntityService<T> {
     }
 
     @Override
-    public T findById(int id) {
+    public T findById(Integer id) {
         return entityRepository.findById(id).get();
     }
 
