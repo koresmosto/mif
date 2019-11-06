@@ -4,14 +4,14 @@ import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.repository.UserRepository;
 import com.stingion.makeitfine.data.service.UserService;
 import com.stingion.makeitfine.data.service.impl.UserServiceImpl;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class UserServiceImplWithMockTest {
 
     @TestConfiguration
@@ -45,7 +45,7 @@ public class UserServiceImplWithMockTest {
     @MockBean
     private EntityManagerFactory entityManagerFactory;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         User user = new User();
         when(userRepository.findById(any(Integer.class))).thenReturn(Optional.of(user));
