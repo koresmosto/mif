@@ -9,6 +9,8 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
@@ -34,8 +36,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.containsString;
@@ -144,9 +148,17 @@ class UserControllerTest {
         }
     }
 
+    static class DisplayNameGen extends DisplayNameGenerator.ReplaceUnderscores {
+        @Override
+        public String generateDisplayNameForMethod(Class<?> testClass, Method testMethod) {
+            return UUID.randomUUID().toString();
+        }
+    }
+
     @Nested
     @ExtendWith(TemplateProvider.class)
     @DisplayName("Testing template on userService")
+    @DisplayNameGeneration(DisplayNameGen.class)
     public class UserControllerWithTemplateTest {
 
         @BeforeEach
@@ -157,7 +169,6 @@ class UserControllerTest {
         }
 
         @TestTemplate
-        @DisplayName("1")
         void testUserWithHighNumberId(Integer id) {
             assertNotNull(userService.findById(id));
         }
