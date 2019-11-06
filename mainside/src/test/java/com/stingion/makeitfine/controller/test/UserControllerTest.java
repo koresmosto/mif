@@ -8,11 +8,20 @@ import com.stingion.makeitfine.testconfiguration.IgnoreSecurityConfiguration;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.Extension;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolver;
+import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
+import org.junit.jupiter.api.extension.TestTemplateInvocationContextProvider;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -25,13 +34,17 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -124,10 +137,71 @@ class UserControllerTest {
         return Stream.iterate(6, i -> i + 1).limit(3);
     }
 
-    public static class NumberIsNotPositive implements ArgumentMatcher<Integer> {
+    private class NumberIsNotPositive implements ArgumentMatcher<Integer> {
         @Override
         public boolean matches(Integer argument) {
             return argument < 1;
+        }
+    }
+
+    @Nested
+    @ExtendWith(TemplateProvider.class)
+    @DisplayName("Testing template on userService")
+    public class UserControllerWithTemplateTest {
+
+        @BeforeEach
+        private void beforeEach() {
+            IllegalArgumentException idShouldBePositiveException = new IllegalArgumentException("id should be positive");
+            doReturn(new User()).when(userService).findById(anyInt());
+            doThrow(idShouldBePositiveException).when(userService).findById(argThat(new NumberIsNotPositive()));
+        }
+
+        @TestTemplate
+        @DisplayName("1")
+        void testUserWithHighNumberId(Integer id) {
+            assertNotNull(userService.findById(id));
+        }
+    }
+
+    public static class TemplateProvider implements TestTemplateInvocationContextProvider {
+
+        @Override
+        public boolean supportsTestTemplate(ExtensionContext context) {
+            return true;
+        }
+
+        @Override
+        public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(
+                ExtensionContext context) {
+            return Stream
+                    .of(invocationContext(10000), invocationContext(2123434234), invocationContext(1000023423));
+        }
+
+        private TestTemplateInvocationContext invocationContext(Integer parameter) {
+            return new TestTemplateInvocationContext() {
+                @Override
+                public String getDisplayName(int invocationIndex) {
+                    return "Number: " + parameter;
+                }
+
+                @Override
+                public List<Extension> getAdditionalExtensions() {
+                    return Collections.singletonList(new ParameterResolver() {
+                        @Override
+                        public boolean supportsParameter(ParameterContext parameterContext,
+                                                         ExtensionContext extensionContext) {
+                            return parameterContext.getParameter().getType()
+                                    .equals(Integer.class);
+                        }
+
+                        @Override
+                        public Object resolveParameter(ParameterContext parameterContext,
+                                                       ExtensionContext extensionContext) {
+                            return parameter;
+                        }
+                    });
+                }
+            };
         }
     }
 }
