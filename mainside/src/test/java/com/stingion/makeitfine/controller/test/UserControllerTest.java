@@ -14,9 +14,11 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.TestTemplate;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -40,6 +42,7 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.containsString;
@@ -56,10 +59,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * To run tagged test:
+ * mvn -Dgroups="simple" test
+ * mvn -DexcludedGroups="other" test
+ */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 @ActiveProfiles("test")
 @Import(IgnoreSecurityConfiguration.class)
+@Tag("userController")
 class UserControllerTest {
 
     @Autowired
@@ -93,6 +102,7 @@ class UserControllerTest {
     }
 
     @Test
+    @Tag("simple")
     void listAllUsers() throws Exception {
         mockMvc.perform(get("/user")).andDo(
                 print()
@@ -100,6 +110,17 @@ class UserControllerTest {
                 .andExpect(content().string(Matchers.allOf(containsString("2"), containsString("1"))));
     }
 
+    @Test
+    @Tag("simple")
+    void getUserOne() throws Exception {
+        int id = 1;
+        mockMvc.perform(get("/user/" + id)).andDo(
+                print()
+        ).andExpect(status().isOk())
+                .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+    }
+
+    @Timeout(value = 250, unit = TimeUnit.MILLISECONDS)
     @Test
     @RepeatedTest(3)
     void getUser() throws Exception {
