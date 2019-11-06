@@ -74,8 +74,4 @@ class UserControllerTest {
         ).andExpect(status().isOk())
                 .andExpect(content().string(Matchers.allOf(containsString("2"))));
     }
-
-    @Test
-    void greeting() {
-    }
 }
