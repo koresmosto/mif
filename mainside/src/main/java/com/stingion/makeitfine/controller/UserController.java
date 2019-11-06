@@ -26,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("user")
+//todo: update Swagger && legacy code for it
 @Api(description = "REST API for edit/delete/create users")
 public class UserController {
 

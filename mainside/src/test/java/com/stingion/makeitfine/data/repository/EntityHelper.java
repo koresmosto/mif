@@ -1,4 +1,4 @@
-package com.stingion.makeitfine.data.repository.util;
+package com.stingion.makeitfine.data.repository;
 
 import lombok.AccessLevel;
 import lombok.Setter;

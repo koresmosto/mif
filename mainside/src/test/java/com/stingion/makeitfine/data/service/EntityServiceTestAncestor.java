@@ -1,6 +1,6 @@
 package com.stingion.makeitfine.data.service;
 
-import com.stingion.makeitfine.data.repository.util.EntityHelper;
+import com.stingion.makeitfine.data.repository.EntityHelper;
 import com.stingion.makeitfine.testconfiguration.MajorTestConfiguration;
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
 import org.junit.Test;
@@ -38,6 +38,7 @@ public class EntityServiceTestAncestor<T> {
         assertThat(entityService.findAll().toString()).isEqualTo(entityTestData.getFindAll());
     }
 
+    //todo: move test to test from junit 5
     @Test
     public void findByIdTest() {
         assertThat(entityService.findById(entityTestData.getId()).toString()).isEqualTo(entityTestData.getFindById());
