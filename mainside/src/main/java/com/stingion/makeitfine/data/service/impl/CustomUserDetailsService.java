@@ -45,7 +45,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         LOG.info("Logged user = {}", user);
 
-        return new org.springframework.security.core.userdetails.User(user.getSsoId(), "{noop}" + user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(),
                 user.getState().equals(State.ACTIVE), true, true, true, getGrantedAuthorities(user));
     }
 
