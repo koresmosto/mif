@@ -1,5 +1,8 @@
 package com.stingion.makeitfine.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +16,7 @@ import java.util.function.Supplier;
  * Created by joe on 02.06.17.
  */
 @Controller
+@Api(tags = "StartUpController")
 public class StartUpController {
 
     enum AboutProjectInfo {
@@ -55,8 +59,14 @@ public class StartUpController {
     }
 
     @GetMapping("info")
+    @ApiOperation(value = "Information about project details",
+            notes = "This page is allowed without authorization")
     public @ResponseBody
-    String greeting(@RequestParam(value = "details", required = false) String details) {
+    String greeting(@RequestParam(value = "details", required = false)
+                    @ApiParam(value = "Specify details for output",
+                            defaultValue = "any value",
+                            allowableValues = "author, purpose, stage"
+                    ) String details) {
         var otherValue = "any value";
         switch (Optional.ofNullable(details).orElse(otherValue).toLowerCase()) {
             case "author":
