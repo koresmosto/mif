@@ -35,6 +35,7 @@
         <db.username>makeitfineoralce</db.username>
         <db.password>makeitfine123</db.password>
         <db.migration>db/migration/oracle</db.migration>
+        <!-- todo: think of deleting <springDBConf> definition here; add it to mysql profile -->
         <springDBConf>config_mysql</springDBConf>
     </properties>
 
@@ -109,6 +110,7 @@
                     <excludes>
                         <exclude>**/*IT</exclude>
                     </excludes>
+                    <excludedGroups>excluded</excludedGroups>
                 </configuration>
             </plugin>
         </plugins>
@@ -124,7 +126,6 @@
                 </property>
             </activation>
             <properties>
-                <!-- todo: change driver to: com.mysql.cj.jdbc.Driver'-->
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
                 <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
                 <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url><!-- default port is 3306 -->

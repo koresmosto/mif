@@ -1,8 +1,5 @@
 ## SPRING
 spring:
-  #Profiles
-#  profiles:
-#      include: @springDBConf@
 
   mvc:
     view:

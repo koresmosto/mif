@@ -69,6 +69,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Import(IgnoreSecurityConfiguration.class)
 @Tag("userController")
+@Tag("excluded")
 class UserControllerTest {
 
     @Autowired

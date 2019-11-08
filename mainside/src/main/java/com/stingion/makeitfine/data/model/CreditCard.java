@@ -48,7 +48,7 @@ public class CreditCard {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "CreditCard_gen")
     private Integer id;
 
-    @Column(name = "NUMBER", unique = true)//todo:think of 16 digits number
+    @Column(name = "NUMBER", unique = true)//todo:think of 16 digits number (Special type for it)
     private Long number;
 
     @Column(name = "TYPE", nullable = false, columnDefinition = "enum('MasterCard','Visa')")

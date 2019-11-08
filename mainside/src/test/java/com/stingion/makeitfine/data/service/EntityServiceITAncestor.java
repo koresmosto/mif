@@ -1,7 +1,6 @@
 package com.stingion.makeitfine.data.service;
 
 import com.stingion.makeitfine.data.repository.EntityHelper;
-import com.stingion.makeitfine.testconfiguration.MajorTestConfiguration;
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -18,11 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ActiveProfiles("test")
-@Import(MajorTestConfiguration.class)
+@ActiveProfiles("integration_test")
+@Import(ServiceTestConfiguration.class)
 @Transactional
 @Disabled
-public class EntityServiceTestAncestor<T> {
+public class EntityServiceITAncestor<T> {
 
     @Autowired
     protected EntityHelper<T> eH;

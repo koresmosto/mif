@@ -2,6 +2,7 @@ package com.stingion.makeitfine.testplay;
 
 import com.stingion.makeitfine.testconfiguration.MajorTestConfiguration;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("it")
 @Import(MajorTestConfiguration.class)
 @Disabled
+@Tag("excluded")
 public class ItIsIT {
     @Autowired
     private JdbcTemplate template;
