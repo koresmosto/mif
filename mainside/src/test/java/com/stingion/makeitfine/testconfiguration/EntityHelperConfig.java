@@ -8,7 +8,7 @@ import com.stingion.makeitfine.data.model.Ordering;
 import com.stingion.makeitfine.data.model.Recharge;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.model.UserProfile;
-import com.stingion.makeitfine.data.repository.EntityHelper;
+import com.stingion.makeitfine.data.service.EntityHelper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 

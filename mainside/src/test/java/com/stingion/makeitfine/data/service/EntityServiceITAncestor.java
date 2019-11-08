@@ -1,6 +1,5 @@
 package com.stingion.makeitfine.data.service;
 
-import com.stingion.makeitfine.data.repository.EntityHelper;
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;

@@ -1,12 +1,14 @@
 package com.stingion.makeitfine.controller.it;
 
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import javax.annotation.PostConstruct;
 
@@ -15,18 +17,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@ActiveProfiles("it")
-@Tag("excluded")
+@ActiveProfiles("integration_test")
+@TestPropertySource("classpath:props.yml")
+@ConfigurationProperties(prefix = "test.integration")
 class StartUpControllerIT {
 
     @LocalServerPort
     private int port;
 
+    @Value("${protocolHost}")
+    private String protocolHost;
+
     private String hostPort;
 
     @PostConstruct
     private void init() {
-        hostPort = "http://localhost:" + port;
+        hostPort = protocolHost + ":" + port;
     }
 
     @Autowired
