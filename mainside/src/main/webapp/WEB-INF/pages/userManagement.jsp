@@ -47,8 +47,26 @@
                                        ng-minlength="3"/>
                                 <div class="has-error" ng-show="myForm.$dirty">
                                     <span ng-show="myForm.ssoid.$error.required">This is a required field</span>
-                                    <span ng-show="myForm.ssoid.$error.minlength">Minimum length required is 5</span>
+                                    <span ng-show="myForm.ssoid.$error.minlength">Minimum length required is 3</span>
                                     <span ng-show="myForm.ssoid.$invalid">This field is invalid </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable" for="password">Password</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="ctrl.user.password" name="password" id="password"
+                                       class="username form-control input-sm" placeholder="Enter your password"
+                                       title="- Entering password is in normal form&#xA;- Showing password is in BCrypt encoded form"
+                                       required
+                                       ng-minlength="5"/>
+                                <div class="has-error" ng-show="myForm.$dirty">
+                                    <span ng-show="myForm.password.$error.required">This is a required field</span>
+                                    <span ng-show="myForm.password.$error.minlength">Minimum length required is 5</span>
+                                    <span ng-show="myForm.password.$invalid">This field is invalid </span>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +106,6 @@
                         </div>
                     </div>
 
-
                     <div class="row">
                         <div class="form-actions floatRight">
                             <input type="submit" value="{{!ctrl.user.id ? 'Add' : 'Update'}}"
@@ -110,6 +127,7 @@
                     <tr>
                         <th>Id.</th>
                         <th>SsoId</th>
+                        <th>Password</th>
                         <th>Email</th>
                         <th>State</th>
                         <th width="20%"></th>
@@ -119,6 +137,14 @@
                     <tr ng-repeat="u in ctrl.users">
                         <td><span ng-bind="u.id"></span></td>
                         <td><span ng-bind="u.ssoId"></span></td>
+                        <td>
+                            <div>
+                                <span title="{{u.password}}"
+                                      ng-bind="'...' + u.password.substring(u.password.length-7,u.password.length)">
+                                </span>
+                                <span><button class="btn" data-clipboard-text="{{u.password}}">Copy</button></span>
+                            </div>
+                        </td>
                         <td><span ng-bind="u.email"></span></td>
                         <td><span ng-bind="u.state"></span></td>
                         <td>
@@ -136,7 +162,8 @@
         </div>
     </div>
 
-    <script src="/public/js/angular.js"></script>
+    <script src="/public/js/lib/import/angular.js"></script>
+    <script src="/public/js/lib/clipboard_aux.js"></script>
     <script src="/public/js/app.js"></script>
     <script src="/public/js/service/user_service.js"></script>
     <script src="/public/js/controller/user_controller.js"></script>

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.stingion.makeitfine.controller.UserController;
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.util.UserPasswordEncoder;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,6 +71,9 @@ class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private UserPasswordEncoder passwordEncoder;
 
     @MockBean
     private UserService userService;

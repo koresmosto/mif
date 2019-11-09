@@ -2,6 +2,7 @@ package com.stingion.makeitfine.controller;
 
 import com.stingion.makeitfine.data.model.User;
 import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.util.UserPasswordEncoder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -34,6 +35,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserPasswordEncoder passwordEncoder;
+
     @GetMapping("userManagement")
     public ModelAndView getIndexPage() {
         return new ModelAndView("userManagement");
@@ -56,6 +60,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
+        passwordEncoder.encodePassword(user);
+
         userService.save(user);
         LOG.info("User created {}", user);
 
@@ -70,6 +76,8 @@ public class UserController {
         if (currentUser == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        passwordEncoder.encodePassword(user);
 
         currentUser.setSsoId(user.getSsoId());
         currentUser.setPassword(user.getPassword());
