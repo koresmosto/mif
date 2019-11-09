@@ -1,13 +1,11 @@
 package com.stingion.makeitfine.testplay;
 
 import com.stingion.makeitfine.controller.StartUpController;
-import com.stingion.makeitfine.testconfiguration.IgnoreSecurityConfiguration;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(StartUpController.class)
 @ActiveProfiles("test")
-@Import(IgnoreSecurityConfiguration.class)
 @Tag("excluded")
 public class StartUpControllerWithMockMvcTest {
 

@@ -2,8 +2,10 @@ package com.stingion.makeitfine.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,21 +20,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value("${security.ignore:false}")
     private boolean securityIgnore;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    @Configuration
+    @ConditionalOnProperty(
+            value = "security.ignore",
+            havingValue = "false",
+            matchIfMissing = true)
+    public static class SecurityAuxiliaryConfiguration {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        @Autowired
+        private UserDetailsService userDetailsService;
+
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+
+        @Bean
+        public DaoAuthenticationProvider authProvider() {
+            DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+            authProvider.setUserDetailsService(userDetailsService);
+            authProvider.setPasswordEncoder(passwordEncoder());
+            return authProvider;
+        }
     }
 
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
+    @Autowired(required = false)
+    private AuthenticationProvider authProvider;
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,7 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private void configureGlobalSecurityIfSecurityON(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider());
+        auth.authenticationProvider(authProvider);
     }
 
     private void configureIfSecurityIsON(HttpSecurity http) throws Exception {
