@@ -1,7 +1,6 @@
 package com.stingion.makeitfine.testplay;
 
 import com.stingion.makeitfine.data.service.UserService;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles("it")
+@ActiveProfiles("integration_test")
 @SpringBootTest
-@Tag("excluded")
 public class UserServiceImplIT {
 
     @Autowired

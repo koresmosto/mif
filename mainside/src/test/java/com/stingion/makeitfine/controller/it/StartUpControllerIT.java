@@ -18,7 +18,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("integration_test")
-@TestPropertySource("classpath:props.yml")
+@TestPropertySource("classpath:values-test.yml")
 @ConfigurationProperties(prefix = "test.integration")
 class StartUpControllerIT {
 

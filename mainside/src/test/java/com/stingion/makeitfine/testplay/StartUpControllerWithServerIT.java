@@ -1,6 +1,5 @@
 package com.stingion.makeitfine.testplay;
 
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@ActiveProfiles("it")
-@Tag("excluded")
+@ActiveProfiles("integration_test")
 public class StartUpControllerWithServerIT {
 
     @LocalServerPort

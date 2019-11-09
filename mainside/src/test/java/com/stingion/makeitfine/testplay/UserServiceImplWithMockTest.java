@@ -23,7 +23,6 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-//@Tag("excluded")
 public class UserServiceImplWithMockTest {
 
     @TestConfiguration

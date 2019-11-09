@@ -1,7 +1,6 @@
 package com.stingion.makeitfine.testplay;
 
 import com.stingion.makeitfine.controller.StartUpController;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(StartUpController.class)
 @ActiveProfiles("test")
-@Tag("excluded")
 public class StartUpControllerWithMockMvcTest {
 
     @Autowired
