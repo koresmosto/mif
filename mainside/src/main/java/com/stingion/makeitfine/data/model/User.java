@@ -30,7 +30,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "password")
 @EqualsAndHashCode(of = "ssoId")
 @Table(name = "APP_USER")
 @Inheritance(strategy = InheritanceType.JOINED)
