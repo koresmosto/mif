@@ -57,6 +57,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         if (userService.findBySSO(user.getSsoId()) != null) {
+            LOG.debug("User with ssoID {} exists", user.getSsoId());
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 

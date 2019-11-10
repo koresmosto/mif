@@ -24,6 +24,10 @@
         <appender-ref ref="rollingFile"/>
     </logger>
 
+    <logger name="com.stingion.makeitfine" level="DEBUG">
+        <appender-ref ref="console"/>
+    </logger>
+
     <!--log4jdbc -->
     <logger name="jdbc.sqltiming" level="INFO"/>
 
