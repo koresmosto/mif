@@ -47,13 +47,20 @@
                             <label class="col-md-2 control-lable" for="ssoid">SsoId</label>
                             <div class="col-md-7">
                                 <input type="text" ng-model="ctrl.user.ssoId" name="ssoid" id="ssoid"
+                                       ng-focus="isFocusOnSsoIdInput=true" ng-blur="isFocusOnSsoIdInput=false"
                                        class="username form-control input-sm"
                                        placeholder="Enter your name" required
                                        ng-minlength="3"/>
-                                <div class="has-error" ng-show="myForm.$dirty">
-                                    <span ng-show="myForm.ssoid.$error.required">This is a required field</span>
-                                    <span ng-show="myForm.ssoid.$error.minlength">Minimum length required is 3</span>
-                                    <span ng-show="myForm.ssoid.$invalid">This field is invalid </span>
+                                <div class="has-error" ng-show="myForm.ssoid.$dirty">
+                                    <span ng-show="myForm.ssoid.$error.required  && !isFocusOnSsoIdInput">
+                                        This is a required field
+                                    </span>
+                                    <span ng-show="myForm.ssoid.$error.minlength  && !isFocusOnSsoIdInput">
+                                        Minimum length required is 3
+                                    </span>
+                                    <span ng-show="myForm.ssoid.$invalid  && !isFocusOnSsoIdInput">
+                                        This field is invalid
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -64,14 +71,22 @@
                             <label class="col-md-2 control-lable" for="password">Password</label>
                             <div class="col-md-7">
                                 <input type="text" ng-model="ctrl.user.password" name="password" id="password"
+                                       ng-focus="isFocusOnPasswordInput=true" ng-blur="isFocusOnPasswordInput=false"
                                        class="username form-control input-sm" placeholder="Enter your password"
-                                       title="- Entering password is in normal form&#xA;- Showing password is in BCrypt encoded form"
+                                       title="- Entering password is in normal form&#xA;
+                                       - Showing password is in BCrypt encoded form"
                                        required
                                        ng-minlength="5"/>
-                                <div class="has-error" ng-show="myForm.$dirty">
-                                    <span ng-show="myForm.password.$error.required">This is a required field</span>
-                                    <span ng-show="myForm.password.$error.minlength">Minimum length required is 5</span>
-                                    <span ng-show="myForm.password.$invalid">This field is invalid </span>
+                                <div class="has-error" ng-show="myForm.password.$dirty">
+                                    <span ng-show="myForm.password.$error.required && !isFocusOnPasswordInput">
+                                        This is a required field
+                                    </span>
+                                    <span ng-show="myForm.password.$error.minlength && !isFocusOnPasswordInput">
+                                        Minimum length required is 5
+                                    </span>
+                                    <span ng-show="myForm.password.$invalid && !isFocusOnPasswordInput">
+                                        This field is invalid
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -82,10 +97,15 @@
                             <label class="col-md-2 control-lable" for="email">Email</label>
                             <div class="col-md-7">
                                 <input type="email" ng-model="ctrl.user.email" name="email" id="email"
+                                       ng-focus="isFocusOnEmailInput=true" ng-blur="isFocusOnEmailInput=false"
                                        class="email form-control input-sm" placeholder="Enter your Email" required/>
-                                <div class="has-error" ng-show="myForm.$dirty">
-                                    <span ng-show="myForm.email.$error.required">This is a required field</span>
-                                    <span ng-show="myForm.email.$invalid">This field is invalid </span>
+                                <div class="has-error" ng-show="myForm.email.$dirty">
+                                    <span ng-show="myForm.email.$error.required && !isFocusOnEmailInput">
+                                        This is a required field
+                                    </span>
+                                    <span ng-show="myForm.email.$invalid && !isFocusOnEmailInput">
+                                        This field is invalid
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -96,6 +116,7 @@
                             <label class="col-md-2 control-lable" for="state">State</label>
                             <div class="col-md-7">
                                 <select ng-model="ctrl.user.state" class="username form-control input-sm" id="state"
+                                        ng-focus="isFocusOnStateInput=true" ng-blur="isFocusOnStateInput=false"
                                         placeholder="Enter your Address. [This field is validation free]" required>
                                     <option ng-selected="ctrl.user.state == key"
                                             ng-repeat="(key, value) in userStatesMap"
@@ -103,9 +124,13 @@
                                         {{value}}
                                     </option>
                                 </select>
-                                <div class="has-error" ng-show="myForm.$dirty">
-                                    <span ng-show="myForm.state.$error.required">This is a required field</span>
-                                    <span ng-show="myForm.state.$invalid">This field is invalid </span>
+                                <div class="has-error" ng-show="myForm.state.$dirty">
+                                    <span ng-show="myForm.state.$error.required && !isFocusOnStateInput">
+                                        This is a required field
+                                    </span>
+                                    <span ng-show="myForm.state.$invalid && !isFocusOnStateInput">
+                                        This field is invalid
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -115,8 +140,8 @@
                         <div class="form-actions floatRight">
                             <input type="submit" value="{{!ctrl.user.id ? 'Add' : 'Update'}}"
                                    class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
-                            <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm"
-                                    ng-disabled="myForm.$pristine">Reset Form
+                            <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm">
+                                Reset Form
                             </button>
                         </div>
                     </div>
