@@ -1,5 +1,13 @@
+## It's main timeout configuration for server and security in Spring
+server:
+  servlet:
+    session:
+      timeout: 1h
+
 ## SPRING
 spring:
+  session:
+    timeout: 1h
 
   mvc:
     view:
