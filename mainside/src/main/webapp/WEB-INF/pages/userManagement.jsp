@@ -28,6 +28,10 @@
         .email.ng-dirty.ng-invalid-email {
             background-color: yellow;
         }
+
+        input.form-control, select.form-control {
+            width: 62ch;
+        }
     </style>
     <link href="/public/app-user.css" rel="stylesheet"/>
     </head>
@@ -43,7 +47,8 @@
                             <label class="col-md-2 control-lable" for="ssoid">SsoId</label>
                             <div class="col-md-7">
                                 <input type="text" ng-model="ctrl.user.ssoId" name="ssoid" id="ssoid"
-                                       class="username form-control input-sm" placeholder="Enter your name" required
+                                       class="username form-control input-sm"
+                                       placeholder="Enter your name" required
                                        ng-minlength="3"/>
                                 <div class="has-error" ng-show="myForm.$dirty">
                                     <span ng-show="myForm.ssoid.$error.required">This is a required field</span>
