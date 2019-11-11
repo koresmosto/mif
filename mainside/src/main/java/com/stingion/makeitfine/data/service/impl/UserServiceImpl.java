@@ -3,7 +3,7 @@
  */
 package com.stingion.makeitfine.data.service.impl;
 
-import com.stingion.makeitfine.data.model.User;
+import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.UserService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

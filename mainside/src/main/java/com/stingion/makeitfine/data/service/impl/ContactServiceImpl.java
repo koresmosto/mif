@@ -3,7 +3,7 @@
  */
 package com.stingion.makeitfine.data.service.impl;
 
-import com.stingion.makeitfine.data.model.Contact;
+import com.stingion.makeitfine.data.model.user.Contact;
 import com.stingion.makeitfine.data.service.ContactService;
 import org.springframework.stereotype.Service;
 

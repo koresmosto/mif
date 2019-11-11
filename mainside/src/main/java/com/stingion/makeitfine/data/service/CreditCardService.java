@@ -3,7 +3,7 @@
  */
 package com.stingion.makeitfine.data.service;
 
-import com.stingion.makeitfine.data.model.CreditCard;
+import com.stingion.makeitfine.data.model.payment.CreditCard;
 
 public interface CreditCardService extends EntityService<CreditCard> {
 }

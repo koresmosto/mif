@@ -4,6 +4,7 @@
 
 package com.stingion.makeitfine.data.model;
 
+import com.stingion.makeitfine.data.model.payment.Recharge;
 import lombok.ToString;
 
 import javax.persistence.DiscriminatorValue;

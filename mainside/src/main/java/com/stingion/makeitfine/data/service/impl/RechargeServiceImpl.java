@@ -3,7 +3,7 @@
  */
 package com.stingion.makeitfine.data.service.impl;
 
-import com.stingion.makeitfine.data.model.Recharge;
+import com.stingion.makeitfine.data.model.payment.Recharge;
 import com.stingion.makeitfine.data.service.RechargeService;
 import org.springframework.stereotype.Service;
 

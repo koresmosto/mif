@@ -2,8 +2,11 @@
  * Created in scope of "Make it fine" project
  */
 
-package com.stingion.makeitfine.data.model;
+package com.stingion.makeitfine.data.model.payment;
 
+import com.stingion.makeitfine.data.model.Bank;
+import com.stingion.makeitfine.data.model.Ordering;
+import com.stingion.makeitfine.data.model.user.Contact;
 import com.stingion.makeitfine.data.model.utils.CardType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

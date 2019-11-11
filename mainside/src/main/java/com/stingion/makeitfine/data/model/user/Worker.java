@@ -2,7 +2,7 @@
  * Created in scope of "Make it fine" project
  */
 
-package com.stingion.makeitfine.data.model;
+package com.stingion.makeitfine.data.model.user;
 
 import lombok.ToString;
 
@@ -11,8 +11,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CUSTOMER")
+@Table(name = "WORKER")
 @PrimaryKeyJoinColumn(name = "ID")
 @ToString(callSuper = true)
-public class Customer extends Contact {
+public class Worker extends Contact {
 }

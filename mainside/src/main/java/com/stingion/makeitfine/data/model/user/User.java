@@ -2,8 +2,9 @@
  * Created in scope of "Make it fine" project
  */
 
-package com.stingion.makeitfine.data.model;
+package com.stingion.makeitfine.data.model.user;
 
+import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.AttrConverter;
 import com.stingion.makeitfine.data.model.utils.State;
 import lombok.EqualsAndHashCode;

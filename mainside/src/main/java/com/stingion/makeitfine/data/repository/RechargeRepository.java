@@ -3,7 +3,7 @@
  */
 package com.stingion.makeitfine.data.repository;
 
-import com.stingion.makeitfine.data.model.Recharge;
+import com.stingion.makeitfine.data.model.payment.Recharge;
 
 public interface RechargeRepository extends EntityRepository<Recharge> {
 }

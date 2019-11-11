@@ -1,12 +1,12 @@
 package com.stingion.makeitfine.testconfiguration;
 
 import com.stingion.makeitfine.data.model.Bank;
-import com.stingion.makeitfine.data.model.Contact;
-import com.stingion.makeitfine.data.model.CreditCard;
+import com.stingion.makeitfine.data.model.user.Contact;
+import com.stingion.makeitfine.data.model.payment.CreditCard;
 import com.stingion.makeitfine.data.model.Item;
 import com.stingion.makeitfine.data.model.Ordering;
-import com.stingion.makeitfine.data.model.Recharge;
-import com.stingion.makeitfine.data.model.User;
+import com.stingion.makeitfine.data.model.payment.Recharge;
+import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.service.EntityHelper;
 import org.springframework.context.annotation.Configuration;

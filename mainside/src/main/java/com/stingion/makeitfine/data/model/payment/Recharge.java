@@ -2,7 +2,7 @@
  * Created in scope of "Make it fine" project
  */
 
-package com.stingion.makeitfine.data.model;
+package com.stingion.makeitfine.data.model.payment;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
