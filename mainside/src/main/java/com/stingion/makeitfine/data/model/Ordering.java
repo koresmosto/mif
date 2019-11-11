@@ -2,10 +2,6 @@
  * Created in scope of "Make it fine" project
  */
 
-/*
- * Created in scope of "Make it fine" project
- */
-
 package com.stingion.makeitfine.data.model;
 
 import com.stingion.makeitfine.data.model.utils.OrderingStatus;
@@ -65,4 +61,12 @@ public class Ordering {
     @ManyToOne
     @JoinColumn(name = "CREDIT_CARD_ID")
     private CreditCard creditCard;
+
+    // If you tell Hibernate to generate your primary key values, you need to use a fixed hash code,
+    // https://developer.jboss.org/wiki/EqualsAndHashCode?_sscc=t
+    // https://thoughts-on-java.org/ultimate-guide-to-implementing-equals-and-hashcode-with-hibernate/
+    @Override
+    public int hashCode() {
+        return 31;
+    }
 }

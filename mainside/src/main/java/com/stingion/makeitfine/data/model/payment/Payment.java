@@ -49,4 +49,10 @@ public class Payment {
 
     @Column(name = "AMOUNT")
     private Double amount;
+
+    // See: Ordering hashcode method comment
+    @Override
+    public int hashCode() {
+        return 37;
+    }
 }

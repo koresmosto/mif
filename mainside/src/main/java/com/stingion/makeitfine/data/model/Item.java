@@ -28,7 +28,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "ITEM")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "header")
 @ToString(exclude = {"orders"})
 @Getter
 @Setter

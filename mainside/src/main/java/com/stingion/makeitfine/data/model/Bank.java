@@ -28,7 +28,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "BANK")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "name")
 @ToString(exclude = {"creditCards"})
 @Getter
 @Setter
