@@ -222,7 +222,7 @@ public class ServiceTestConfiguration {
 
         return new EntityTestData<>(
                 id,
-                "[Cach(super=Recharge(id=1, amount=234.3)), Recharge(id=2, amount=62343.31), Card(super=Recharge(id=3, amount=1234.0))]",
+                "[Cash(super=Recharge(id=1, amount=234.3)), Recharge(id=2, amount=62343.31), Card(super=Recharge(id=3, amount=1234.0))]",
                 "Recharge(id=2, amount=62343.31)",
                 rechargeSaved,
                 rechargeUpdated

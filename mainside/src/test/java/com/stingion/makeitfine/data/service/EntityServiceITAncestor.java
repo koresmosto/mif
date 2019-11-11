@@ -33,13 +33,13 @@ public class EntityServiceITAncestor<T> {
 
     @Test
     public void findAllTest() {
-        assertThat(entityService.findAll().toString()).isEqualTo(entityTestData.getFindAll());
+        assertThat(entityTestData.getFindAll()).isEqualTo(entityService.findAll().toString());
     }
 
     //todo: move test to test from junit 5
     @Test
     public void findByIdTest() {
-        assertThat(entityService.findById(entityTestData.getId()).toString()).isEqualTo(entityTestData.getFindById());
+        assertThat(entityTestData.getFindById()).isEqualTo(entityService.findById(entityTestData.getId()).toString());
     }
 
     @DisplayName("Delete entity from storage")
@@ -77,7 +77,7 @@ public class EntityServiceITAncestor<T> {
 
         T entityAfterUpdate = entityService.findById(entityTestData.getId());
 
-        assertThat(entityAfterUpdate.toString()).isEqualTo(entityTestData.getUpdateEntity().toString());
+        assertThat(entityTestData.getUpdateEntity().toString()).isEqualTo(entityAfterUpdate.toString());
         assertThat(beforeUpdate == afterUpdate);
     }
 }
