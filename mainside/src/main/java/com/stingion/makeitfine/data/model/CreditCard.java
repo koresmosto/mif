@@ -1,8 +1,15 @@
 /*
+ * Created under not commercial project "Make it fine "
+ *
+ * Copyright 2017-2019
+ * @author stingion
+ */
+
+/*
  * Created in scope of "Make it fine" project
  */
 
-package com.stingion.makeitfine.data.model.payment;
+package com.stingion.makeitfine.data.model;
 
 import com.stingion.makeitfine.data.model.Bank;
 import com.stingion.makeitfine.data.model.Ordering;

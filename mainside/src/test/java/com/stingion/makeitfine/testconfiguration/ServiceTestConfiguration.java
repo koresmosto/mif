@@ -2,10 +2,10 @@ package com.stingion.makeitfine.testconfiguration;
 
 import com.stingion.makeitfine.data.model.Bank;
 import com.stingion.makeitfine.data.model.user.Contact;
-import com.stingion.makeitfine.data.model.payment.CreditCard;
+import com.stingion.makeitfine.data.model.CreditCard;
 import com.stingion.makeitfine.data.model.Item;
 import com.stingion.makeitfine.data.model.Ordering;
-import com.stingion.makeitfine.data.model.payment.Recharge;
+import com.stingion.makeitfine.data.model.payment.Payment;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.CardType;
@@ -16,7 +16,7 @@ import com.stingion.makeitfine.data.service.ContactService;
 import com.stingion.makeitfine.data.service.CreditCardService;
 import com.stingion.makeitfine.data.service.ItemService;
 import com.stingion.makeitfine.data.service.OrderingService;
-import com.stingion.makeitfine.data.service.RechargeService;
+import com.stingion.makeitfine.data.service.PaymentService;
 import com.stingion.makeitfine.data.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -52,7 +52,7 @@ public class ServiceTestConfiguration {
     private OrderingService orderingService;
 
     @Autowired
-    private RechargeService rechargeService;
+    private PaymentService paymentService;
 
     @AllArgsConstructor
     @NoArgsConstructor
@@ -211,21 +211,21 @@ public class ServiceTestConfiguration {
     }
 
     @Bean
-    public EntityTestData<Recharge> rechargeEntityTestData() {
+    public EntityTestData<Payment> paymentEntityTestData() {
         int id = 2;
 
-        Recharge rechargeSaved = new Recharge();
-        rechargeSaved.setAmount(222.33D);
+        Payment paymentSaved = new Payment();
+        paymentSaved.setAmount(222.33D);
 
-        Recharge rechargeUpdated = rechargeService.findById(id);
-        rechargeUpdated.setAmount(0D);
+        Payment paymentUpdated = paymentService.findById(id);
+        paymentUpdated.setAmount(0D);
 
         return new EntityTestData<>(
                 id,
-                "[Cash(super=Recharge(id=1, amount=234.3)), Recharge(id=2, amount=62343.31), Card(super=Recharge(id=3, amount=1234.0))]",
-                "Recharge(id=2, amount=62343.31)",
-                rechargeSaved,
-                rechargeUpdated
+                "[Cash(super=Payment(id=1, amount=234.3)), Payment(id=2, amount=62343.31), Card(super=Payment(id=3, amount=1234.0))]",
+                "Payment(id=2, amount=62343.31)",
+                paymentSaved,
+                paymentUpdated
         );
     }
 }

@@ -4,7 +4,6 @@
 
 package com.stingion.makeitfine.data.model;
 
-import com.stingion.makeitfine.data.model.payment.CreditCard;
 import com.stingion.makeitfine.data.model.utils.ModelConstants;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

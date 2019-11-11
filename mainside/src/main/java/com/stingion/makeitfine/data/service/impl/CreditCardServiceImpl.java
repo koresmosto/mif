@@ -3,7 +3,7 @@
  */
 package com.stingion.makeitfine.data.service.impl;
 
-import com.stingion.makeitfine.data.model.payment.CreditCard;
+import com.stingion.makeitfine.data.model.CreditCard;
 import com.stingion.makeitfine.data.service.CreditCardService;
 import org.springframework.stereotype.Service;
 

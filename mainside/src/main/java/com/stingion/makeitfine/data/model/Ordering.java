@@ -8,7 +8,6 @@
 
 package com.stingion.makeitfine.data.model;
 
-import com.stingion.makeitfine.data.model.payment.CreditCard;
 import com.stingion.makeitfine.data.model.utils.OrderingStatus;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

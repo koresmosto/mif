@@ -29,22 +29,22 @@ import javax.persistence.TableGenerator;
 @Getter
 @Setter
 @ToString
-@Table(name = "RECHARGE")
+@Table(name = "PAYMENT")
 @EqualsAndHashCode(of = {"id"})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "PAYMENT_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Undefined")
-public class Recharge {
+public class Payment {
     @TableGenerator(
-            name = "Recharge_gen",
+            name = "Payment_gen",
             table = "SEQUENCES",
             pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_NUMBER",
-            pkColumnValue = "RECHARGE_SEQUENCE",
+            pkColumnValue = "PAYMENT_SEQUENCE",
             allocationSize = 1)
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Recharge_gen")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Payment_gen")
     private int id;
 
     @Column(name = "AMOUNT")

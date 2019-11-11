@@ -15,5 +15,5 @@ import javax.persistence.Entity;
 @Entity
 @ToString(callSuper = true)
 @DiscriminatorValue("Cash")
-public class Cash extends Recharge {
+public class Cash extends Payment {
 }

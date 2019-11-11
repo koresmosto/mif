@@ -1,10 +1,17 @@
 /*
+ * Created under not commercial project "Make it fine "
+ *
+ * Copyright 2017-2019
+ * @author stingion
+ */
+
+/*
  * Created in scope of "Make it fine" project
  */
 
-package com.stingion.makeitfine.data.model;
+package com.stingion.makeitfine.data.model.payment;
 
-import com.stingion.makeitfine.data.model.payment.Recharge;
+import com.stingion.makeitfine.data.model.payment.Payment;
 import lombok.ToString;
 
 import javax.persistence.DiscriminatorValue;
@@ -16,5 +23,5 @@ import javax.persistence.Entity;
 @Entity
 @ToString(callSuper = true)
 @DiscriminatorValue("Card")
-public class Card extends Recharge {
+public class Card extends Payment {
 }
