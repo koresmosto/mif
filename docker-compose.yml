@@ -18,10 +18,9 @@ services:
     ports:
       - 3311:3306
 
-  java8_maven:
+  java11_maven:
     depends_on:
       - mysql
-#    image: stingion/practice:j8m_repos # docker with '.m2/repositories' saved
     image: adoptopenjdk/maven-openjdk11
     container_name: j11m
     environment:
@@ -36,22 +35,30 @@ services:
       - 5010:5005
     volumes:
       - .:/data/original
+      - type: volume
+        source: mifrepo_m2
+        target: /root/.m2/repository
+        #Todo: Remove sleep 5s from command changed by something else
     command: # 3 lines before 'cd mainside' can be 'changed to mvn clean verify' for fast dev
       - /bin/sh
       - -c
       - |
-          cd /data
-          echo 'tail -f /data/log.txt' >> output.sh
-          cp -R /data/original /data/makeitfine
-          cd makeitfine
-          mvn clean  > /data/log.txt
-          mvn process-resources flyway:clean flyway:migrate -pl mainside >> /data/log.txt
-          mvn clean verify >> /data/log.txt
-          cd mainside
-          mvn spring-boot:run >> /data/log.txt
+        cd /data
+        echo 'tail -f /data/log.txt' >> output.sh
+        cp -R /data/original /data/makeitfine
+        cd makeitfine
+        mvn clean  > /data/log.txt
+        echo "Necessary empirical/experimental sleep 5s (for mvn repos init && mysql connection)" >> /data/log.txt
+        sleep 5s
+        mvn process-resources flyway:clean flyway:migrate -pl mainside >> /data/log.txt
+        mvn clean verify >> /data/log.txt
+        cd mainside
+        mvn spring-boot:run >> /data/log.txt
     stdin_open: true
     tty: true
 
 networks:
   mifnet_back:
     driver: "bridge"
+volumes:
+  mifrepo_m2:
