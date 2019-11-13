@@ -1,4 +1,3 @@
-/** Created in scope of "Make it fine" project */
 package com.stingion.makeitfine.data.repository;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

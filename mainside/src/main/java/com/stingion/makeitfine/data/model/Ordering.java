@@ -1,7 +1,3 @@
-/*
- * Created in scope of "Make it fine" project
- */
-
 package com.stingion.makeitfine.data.model;
 
 import com.stingion.makeitfine.data.model.utils.OrderingStatus;
