@@ -8,14 +8,16 @@ package com.stingion.makeitfine.data.service.impl;
 
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.UserService;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Service
 public class UserServiceImpl extends EntityServiceImpl<User> implements UserService {
@@ -26,9 +28,13 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
   @Transactional
   public User findBySSO(String sso) {
     Session session = entityManager.unwrap(Session.class);
-    // todo: solve issue with deprecated
-    Criteria criteria = session.createCriteria(User.class);
-    criteria.add(Restrictions.eq("ssoId", sso));
-    return (User) criteria.uniqueResult();
+
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<User> criteria = builder.createQuery(User.class);
+    Root<User> userRoot = criteria.from(User.class);
+    criteria.select(userRoot);
+    criteria.where(builder.equal(userRoot.get("ssoId"), sso));
+    List<User> users = entityManager.createQuery(criteria).getResultList();
+    return users.isEmpty() ? null : users.get(0);
   }
 }
