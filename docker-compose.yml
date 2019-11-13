@@ -25,7 +25,8 @@ services:
     container_name: j11m
     environment:
       docker_env: "true"
-      indebug: "false"
+      #Debug mode isn't working for Java 11 (issue planed to be fixed)
+      indebug: "true"
     networks:
       mifnet_back:
         aliases:
