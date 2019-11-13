@@ -14,17 +14,17 @@ import java.util.Date;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+  private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(value = {Error.class, Exception.class, RuntimeException.class})
-    public ModelAndView handleIOException(HttpServletRequest request, Exception e) {
-        logger.error(e.getMessage(), e);
+  @ExceptionHandler(value = {Error.class, Exception.class, RuntimeException.class})
+  public ModelAndView handleIOException(HttpServletRequest request, Exception e) {
+    logger.error(e.getMessage(), e);
 
-        ModelAndView mav = new ModelAndView("error/generic_error");
-        mav.addObject("datetime", new Date());
-        mav.addObject("exception", e);
-        mav.addObject("url", request.getRequestURL());
+    ModelAndView mav = new ModelAndView("error/generic_error");
+    mav.addObject("datetime", new Date());
+    mav.addObject("exception", e);
+    mav.addObject("url", request.getRequestURL());
 
-        return mav;
-    }
+    return mav;
+  }
 }

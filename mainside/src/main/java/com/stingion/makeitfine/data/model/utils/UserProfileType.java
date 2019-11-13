@@ -1,17 +1,17 @@
 package com.stingion.makeitfine.data.model.utils;
 
 public enum UserProfileType {
-    USER("USER"),
-    DBA("DBA"),
-    ADMIN("ADMIN");
+  USER("USER"),
+  DBA("DBA"),
+  ADMIN("ADMIN");
 
-    String userProfileType;
+  String userProfileType;
 
-    private UserProfileType(String userProfileType) {
-        this.userProfileType = userProfileType;
-    }
+  private UserProfileType(String userProfileType) {
+    this.userProfileType = userProfileType;
+  }
 
-    public String getUserProfileType() {
-        return userProfileType;
-    }
+  public String getUserProfileType() {
+    return userProfileType;
+  }
 }

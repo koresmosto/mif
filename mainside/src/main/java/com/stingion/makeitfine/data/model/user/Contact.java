@@ -24,18 +24,18 @@ import java.util.Date;
 @PrimaryKeyJoinColumn(name = "ID")
 public class Contact extends User {
 
-    @Column(name = "FIRST_NAME", nullable = false)
-    private String firstName;
+  @Column(name = "FIRST_NAME", nullable = false)
+  private String firstName;
 
-    @Column(name = "MIDDLE_NAME")
-    private String middleName;
+  @Column(name = "MIDDLE_NAME")
+  private String middleName;
 
-    @Column(name = "LAST_NAME", nullable = false)
-    private String lastName;
+  @Column(name = "LAST_NAME", nullable = false)
+  private String lastName;
 
-    @Column(name = "BIRTH_DAY", nullable = false)
-    private Date birthDay;
+  @Column(name = "BIRTH_DAY", nullable = false)
+  private Date birthDay;
 
-    @Column(name = "PHONE_NUMBER")
-    private String phoneNumber;
+  @Column(name = "PHONE_NUMBER")
+  private String phoneNumber;
 }

@@ -1,6 +1,4 @@
-/**
- * Created in scope of "Make it fine" project
- */
+/** Created in scope of "Make it fine" project */
 package com.stingion.makeitfine.data.service.impl;
 
 import com.stingion.makeitfine.data.model.user.User;
@@ -17,16 +15,15 @@ import javax.persistence.PersistenceContext;
 @Service
 public class UserServiceImpl extends EntityServiceImpl<User> implements UserService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+  @PersistenceContext private EntityManager entityManager;
 
-    @Override
-    @Transactional
-    public User findBySSO(String sso) {
-        Session session = entityManager.unwrap(Session.class);
-        //todo: solve issue with deprecated
-        Criteria criteria = session.createCriteria(User.class);
-        criteria.add(Restrictions.eq("ssoId", sso));
-        return (User) criteria.uniqueResult();
-    }
+  @Override
+  @Transactional
+  public User findBySSO(String sso) {
+    Session session = entityManager.unwrap(Session.class);
+    // todo: solve issue with deprecated
+    Criteria criteria = session.createCriteria(User.class);
+    criteria.add(Restrictions.eq("ssoId", sso));
+    return (User) criteria.uniqueResult();
+  }
 }

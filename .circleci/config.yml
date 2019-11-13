@@ -18,8 +18,8 @@ jobs:
       - restore_cache:
           key: makeitfine-{{ checksum "pom.xml" }}
 
-#      - run: apk update
-#      - run: apk add mvn
+      #      - run: apk update
+      #      - run: apk add mvn
       - run: mvn dependency:go-offline
 
       - save_cache:
@@ -30,16 +30,16 @@ jobs:
       - run: mvn clean test-compile -P circleCI
       - run: mvn verify -P circleCI -pl mainside
 
-#      - store_test_results:
-#          path: target/surefire-reports
+  #      - store_test_results:
+  #          path: target/surefire-reports
 
-#      - store_artifacts:
-#          path: target/practice-1.0-SNAPSHOT.jar
+  #      - store_artifacts:
+  #          path: target/practice-1.0-SNAPSHOT.jar
   temp_flow:  #only for demo/probe targets
-      docker:
-        - image: adoptopenjdk/openjdk11:jdk-11.0.4_11-alpine
-      steps:
-        - run: java -version
+    docker:
+      - image: adoptopenjdk/openjdk11:jdk-11.0.4_11-alpine
+    steps:
+      - run: java -version
 workflows:
   version: 2
   build-and-test:
@@ -47,8 +47,8 @@ workflows:
       - build:
           filters:
             branches:
-                  only:
-                    - develop
-                    - jbehave_test
-                    - /rc-.*/
+              only:
+                - develop
+                - jbehave_test
+                - /rc-.*/
       - temp_flow

@@ -14,5 +14,4 @@ import javax.persistence.Table;
 @Table(name = "WORKER")
 @PrimaryKeyJoinColumn(name = "ID")
 @ToString(callSuper = true)
-public class Worker extends Contact {
-}
+public class Worker extends Contact {}

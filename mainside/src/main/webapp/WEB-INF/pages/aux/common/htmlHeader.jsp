@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
 
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <link rel="icon" href="${contextPath}/public/images/mifava.jpg" type="image/x-icon">
 <link rel="shortcut icon" href="${contextPath}/public/images/mifava.jpg" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="${contextPath}/public/bootstrap/css/bootstrap.min.css">

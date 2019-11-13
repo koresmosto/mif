@@ -22,9 +22,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-/**
- * Created on 12.06.17.
- */
+/** Created on 12.06.17. */
 @Entity
 @Getter
 @Setter
@@ -35,24 +33,24 @@ import javax.persistence.TableGenerator;
 @DiscriminatorColumn(name = "PAYMENT_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Undefined")
 public class Payment {
-    @TableGenerator(
-            name = "Payment_gen",
-            table = "SEQUENCES",
-            pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_NUMBER",
-            pkColumnValue = "PAYMENT_SEQUENCE",
-            allocationSize = 1)
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Payment_gen")
-    private int id;
+  @TableGenerator(
+      name = "Payment_gen",
+      table = "SEQUENCES",
+      pkColumnName = "SEQ_NAME",
+      valueColumnName = "SEQ_NUMBER",
+      pkColumnValue = "PAYMENT_SEQUENCE",
+      allocationSize = 1)
+  @Id
+  @Column(name = "ID")
+  @GeneratedValue(strategy = GenerationType.TABLE, generator = "Payment_gen")
+  private int id;
 
-    @Column(name = "AMOUNT")
-    private Double amount;
+  @Column(name = "AMOUNT")
+  private Double amount;
 
-    // See: Ordering hashcode method comment
-    @Override
-    public int hashCode() {
-        return 37;
-    }
+  // See: Ordering hashcode method comment
+  @Override
+  public int hashCode() {
+    return 37;
+  }
 }

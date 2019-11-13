@@ -23,9 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import java.util.Set;
 
-/**
- * Created on 12.06.17.
- */
+/** Created on 12.06.17. */
 @Entity
 @Table(name = "ITEM")
 @EqualsAndHashCode(of = "header")
@@ -35,30 +33,30 @@ import java.util.Set;
 @NoArgsConstructor
 public class Item {
 
-    @TableGenerator(
-            name = "Item_gen",
-            table = "SEQUENCES",
-            pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_NUMBER",
-            pkColumnValue = "ITEM_SEQUENCE",
-            allocationSize = 1)
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Item_gen")
-    private Integer id;
+  @TableGenerator(
+      name = "Item_gen",
+      table = "SEQUENCES",
+      pkColumnName = "SEQ_NAME",
+      valueColumnName = "SEQ_NUMBER",
+      pkColumnValue = "ITEM_SEQUENCE",
+      allocationSize = 1)
+  @Id
+  @Column(name = "ID")
+  @GeneratedValue(strategy = GenerationType.TABLE, generator = "Item_gen")
+  private Integer id;
 
-    @Column(name = "HEADER", unique = true)
-    @Length(min = ModelConstants.MIN_ITEM_LENGTH)
-    private String header;
+  @Column(name = "HEADER", unique = true)
+  @Length(min = ModelConstants.MIN_ITEM_LENGTH)
+  private String header;
 
-    @Column(name = "PRICE")
-    private Double price;
+  @Column(name = "PRICE")
+  private Double price;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Ordering> orders;
+  @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<Ordering> orders;
 
-    public Item(String header, Double price) {
-        this.header = header;
-        this.price = price;
-    }
+  public Item(String header, Double price) {
+    this.header = header;
+    this.price = price;
+  }
 }

@@ -58,183 +58,190 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * To run tagged test:
- * mvn -Dgroups="simple" test
- * mvn -DexcludedGroups="other" test
- */
+/** To run tagged test: mvn -Dgroups="simple" test mvn -DexcludedGroups="other" test */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 @ActiveProfiles("test")
 @Tag("userController")
 class UserControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-    @MockBean
-    private UserPasswordEncoder passwordEncoder;
+  @MockBean private UserPasswordEncoder passwordEncoder;
 
-    @MockBean
-    private UserService userService;
+  @MockBean private UserService userService;
 
-    private static List<User> userList;
+  private static List<User> userList;
 
-    @BeforeAll
-    private static void beforeClass() {
-        User user1 = new User();
-        user1.setId(1);
+  @BeforeAll
+  private static void beforeClass() {
+    User user1 = new User();
+    user1.setId(1);
 
-        User user2 = new User();
-        user2.setId(2);
+    User user2 = new User();
+    user2.setId(2);
 
-        userList = Lists.newArrayList(user1, user2);
+    userList = Lists.newArrayList(user1, user2);
+  }
+
+  @BeforeEach
+  private void beforeEach() {
+    when(userService.findAll()).thenReturn(userList);
+    when(userService.findById(1)).thenReturn(userList.get(0));
+    when(userService.findById(2)).thenReturn(userList.get(1));
+
+    IllegalArgumentException idShouldBePositiveException =
+        new IllegalArgumentException("id should be positive");
+
+    doThrow(idShouldBePositiveException)
+        .when(userService)
+        .findById(argThat(new NumberIsNotPositive()));
+  }
+
+  @Test
+  @Tag("simple")
+  void listAllUsers() throws Exception {
+    mockMvc
+        .perform(get("/user"))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().string(Matchers.allOf(containsString("2"), containsString("1"))));
+  }
+
+  @Test
+  @Tag("simple")
+  void getUserOne() throws Exception {
+    int id = 1;
+    mockMvc
+        .perform(get("/user/" + id))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+  }
+
+  @Timeout(value = 250, unit = TimeUnit.MILLISECONDS)
+  @Test
+  @RepeatedTest(3)
+  void getUser() throws Exception {
+    int id = 2;
+    mockMvc
+        .perform(get("/user/" + id))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {3, 4, 5})
+  @MethodSource("intNumbs")
+  void getUserParam(int id) throws Exception {
+    User userById = new User();
+    userById.setId(id);
+    userList.add(userById);
+
+    when(userService.findById(id)).thenReturn(userList.get(id - 1));
+
+    mockMvc
+        .perform(get("/user/" + id))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+  }
+
+  @TestFactory
+  public Stream<DynamicTest> translateDynamicTestsFromStream() {
+    return Stream.of(-717, -2, -1, 0)
+        .map(
+            id ->
+                DynamicTest.dynamicTest(
+                    "Test negative scenario with no id = " + id,
+                    () -> {
+                      Throwable excep =
+                          assertThrows(
+                              IllegalArgumentException.class, () -> userService.findById(id));
+                      assertTrue(excep.getMessage().equalsIgnoreCase("id should be positive"));
+                    }));
+  }
+
+  private static final Stream<Integer> intNumbs() {
+    return Stream.iterate(6, i -> i + 1).limit(3);
+  }
+
+  private class NumberIsNotPositive implements ArgumentMatcher<Integer> {
+    @Override
+    public boolean matches(Integer argument) {
+      return argument < 1;
     }
+  }
+
+  static class DisplayNameGen extends DisplayNameGenerator.ReplaceUnderscores {
+    @Override
+    public String generateDisplayNameForMethod(Class<?> testClass, Method testMethod) {
+      return UUID.randomUUID().toString();
+    }
+  }
+
+  @Nested
+  @ExtendWith(TemplateProvider.class)
+  @DisplayName("Testing template on userService")
+  @DisplayNameGeneration(DisplayNameGen.class)
+  public class UserControllerWithTemplateTest {
 
     @BeforeEach
     private void beforeEach() {
-        when(userService.findAll()).thenReturn(userList);
-        when(userService.findById(1)).thenReturn(userList.get(0));
-        when(userService.findById(2)).thenReturn(userList.get(1));
-
-        IllegalArgumentException idShouldBePositiveException = new IllegalArgumentException("id should be positive");
-
-        doThrow(idShouldBePositiveException).when(userService).findById(argThat(new NumberIsNotPositive()));
+      IllegalArgumentException idShouldBePositiveException =
+          new IllegalArgumentException("id should be positive");
+      doReturn(new User()).when(userService).findById(anyInt());
+      doThrow(idShouldBePositiveException)
+          .when(userService)
+          .findById(argThat(new NumberIsNotPositive()));
     }
 
-    @Test
-    @Tag("simple")
-    void listAllUsers() throws Exception {
-        mockMvc.perform(get("/user")).andDo(
-                print()
-        ).andExpect(status().isOk())
-                .andExpect(content().string(Matchers.allOf(containsString("2"), containsString("1"))));
+    @TestTemplate
+    void testUserWithHighNumberId(Integer id) {
+      assertNotNull(userService.findById(id));
+    }
+  }
+
+  public static class TemplateProvider implements TestTemplateInvocationContextProvider {
+
+    @Override
+    public boolean supportsTestTemplate(ExtensionContext context) {
+      return true;
     }
 
-    @Test
-    @Tag("simple")
-    void getUserOne() throws Exception {
-        int id = 1;
-        mockMvc.perform(get("/user/" + id)).andDo(
-                print()
-        ).andExpect(status().isOk())
-                .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+    @Override
+    public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(
+        ExtensionContext context) {
+      return Stream.of(
+          invocationContext(10000), invocationContext(2123434234), invocationContext(1000023423));
     }
 
-    @Timeout(value = 250, unit = TimeUnit.MILLISECONDS)
-    @Test
-    @RepeatedTest(3)
-    void getUser() throws Exception {
-        int id = 2;
-        mockMvc.perform(get("/user/" + id)).andDo(
-                print()
-        ).andExpect(status().isOk())
-                .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {3, 4, 5})
-    @MethodSource("intNumbs")
-    void getUserParam(int id) throws Exception {
-        User userById = new User();
-        userById.setId(id);
-        userList.add(userById);
-
-        when(userService.findById(id)).thenReturn(userList.get(id - 1));
-
-        mockMvc.perform(get("/user/" + id)).andDo(
-                print()
-        ).andExpect(status().isOk())
-                .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
-    }
-
-    @TestFactory
-    public Stream<DynamicTest> translateDynamicTestsFromStream() {
-        return Stream.of(-717, -2, -1, 0)
-                .map(id ->
-                        DynamicTest.dynamicTest("Test negative scenario with no id = " + id, () -> {
-                            Throwable excep = assertThrows(IllegalArgumentException.class, () -> userService.findById(id));
-                            assertTrue(excep.getMessage().equalsIgnoreCase("id should be positive"));
-                        })
-                );
-    }
-
-    private static final Stream<Integer> intNumbs() {
-        return Stream.iterate(6, i -> i + 1).limit(3);
-    }
-
-    private class NumberIsNotPositive implements ArgumentMatcher<Integer> {
+    private TestTemplateInvocationContext invocationContext(Integer parameter) {
+      return new TestTemplateInvocationContext() {
         @Override
-        public boolean matches(Integer argument) {
-            return argument < 1;
-        }
-    }
-
-    static class DisplayNameGen extends DisplayNameGenerator.ReplaceUnderscores {
-        @Override
-        public String generateDisplayNameForMethod(Class<?> testClass, Method testMethod) {
-            return UUID.randomUUID().toString();
-        }
-    }
-
-    @Nested
-    @ExtendWith(TemplateProvider.class)
-    @DisplayName("Testing template on userService")
-    @DisplayNameGeneration(DisplayNameGen.class)
-    public class UserControllerWithTemplateTest {
-
-        @BeforeEach
-        private void beforeEach() {
-            IllegalArgumentException idShouldBePositiveException = new IllegalArgumentException("id should be positive");
-            doReturn(new User()).when(userService).findById(anyInt());
-            doThrow(idShouldBePositiveException).when(userService).findById(argThat(new NumberIsNotPositive()));
-        }
-
-        @TestTemplate
-        void testUserWithHighNumberId(Integer id) {
-            assertNotNull(userService.findById(id));
-        }
-    }
-
-    public static class TemplateProvider implements TestTemplateInvocationContextProvider {
-
-        @Override
-        public boolean supportsTestTemplate(ExtensionContext context) {
-            return true;
+        public String getDisplayName(int invocationIndex) {
+          return "Number: " + parameter;
         }
 
         @Override
-        public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(
-                ExtensionContext context) {
-            return Stream
-                    .of(invocationContext(10000), invocationContext(2123434234), invocationContext(1000023423));
-        }
-
-        private TestTemplateInvocationContext invocationContext(Integer parameter) {
-            return new TestTemplateInvocationContext() {
+        public List<Extension> getAdditionalExtensions() {
+          return Collections.singletonList(
+              new ParameterResolver() {
                 @Override
-                public String getDisplayName(int invocationIndex) {
-                    return "Number: " + parameter;
+                public boolean supportsParameter(
+                    ParameterContext parameterContext, ExtensionContext extensionContext) {
+                  return parameterContext.getParameter().getType().equals(Integer.class);
                 }
 
                 @Override
-                public List<Extension> getAdditionalExtensions() {
-                    return Collections.singletonList(new ParameterResolver() {
-                        @Override
-                        public boolean supportsParameter(ParameterContext parameterContext,
-                                                         ExtensionContext extensionContext) {
-                            return parameterContext.getParameter().getType()
-                                    .equals(Integer.class);
-                        }
-
-                        @Override
-                        public Object resolveParameter(ParameterContext parameterContext,
-                                                       ExtensionContext extensionContext) {
-                            return parameter;
-                        }
-                    });
+                public Object resolveParameter(
+                    ParameterContext parameterContext, ExtensionContext extensionContext) {
+                  return parameter;
                 }
-            };
+              });
         }
+      };
     }
+  }
 }

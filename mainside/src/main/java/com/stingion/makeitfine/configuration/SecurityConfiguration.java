@@ -17,65 +17,67 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Value("${security.ignore:false}")
-    private boolean securityIgnore;
+  @Value("${security.ignore:false}")
+  private boolean securityIgnore;
 
-    @Configuration
-    @ConditionalOnProperty(
-            value = "security.ignore",
-            havingValue = "false",
-            matchIfMissing = true)
-    public static class SecurityAuxiliaryConfiguration {
+  @Configuration
+  @ConditionalOnProperty(value = "security.ignore", havingValue = "false", matchIfMissing = true)
+  public static class SecurityAuxiliaryConfiguration {
 
-        @Autowired
-        private UserDetailsService userDetailsService;
+    @Autowired private UserDetailsService userDetailsService;
 
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder();
-        }
-
-        @Bean
-        public DaoAuthenticationProvider authProvider() {
-            DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-            authProvider.setUserDetailsService(userDetailsService);
-            authProvider.setPasswordEncoder(passwordEncoder());
-            return authProvider;
-        }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+      return new BCryptPasswordEncoder();
     }
 
-    @Autowired(required = false)
-    private AuthenticationProvider authProvider;
-
-    @Autowired
-    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        if (!securityIgnore) {
-            configureGlobalSecurityIfSecurityON(auth);
-        }
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+      DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+      authProvider.setUserDetailsService(userDetailsService);
+      authProvider.setPasswordEncoder(passwordEncoder());
+      return authProvider;
     }
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        if (!securityIgnore) {
-            configureIfSecurityIsON(http);
-        }
-    }
+  @Autowired(required = false)
+  private AuthenticationProvider authProvider;
 
-    private void configureGlobalSecurityIfSecurityON(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider);
+  @Autowired
+  public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+    if (!securityIgnore) {
+      configureGlobalSecurityIfSecurityON(auth);
     }
+  }
 
-    private void configureIfSecurityIsON(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login**", "/public/**").permitAll();
-        http.authorizeRequests().antMatchers("/**").access("hasRole('ADMIN') or hasRole('USER')").and()
-                .csrf().disable()
-                .formLogin()
-                .loginPage("/login")
-                .usernameParameter("ssoId")
-                .passwordParameter("password")
-                .failureUrl("/Access_Denied")
-                .and().logout();
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/Access_Denied");
-        http.headers().frameOptions().disable();
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    if (!securityIgnore) {
+      configureIfSecurityIsON(http);
     }
+  }
+
+  private void configureGlobalSecurityIfSecurityON(AuthenticationManagerBuilder auth)
+      throws Exception {
+    auth.authenticationProvider(authProvider);
+  }
+
+  private void configureIfSecurityIsON(HttpSecurity http) throws Exception {
+    http.authorizeRequests().antMatchers("/login**", "/public/**").permitAll();
+    http.authorizeRequests()
+        .antMatchers("/**")
+        .access("hasRole('ADMIN') or hasRole('USER')")
+        .and()
+        .csrf()
+        .disable()
+        .formLogin()
+        .loginPage("/login")
+        .usernameParameter("ssoId")
+        .passwordParameter("password")
+        .failureUrl("/Access_Denied")
+        .and()
+        .logout();
+    http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+    http.headers().frameOptions().disable();
+  }
 }

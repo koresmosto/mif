@@ -5,15 +5,12 @@ import org.junit.jupiter.api.Test;
 
 public class UserProfileServiceIT extends EntityServiceITAncestor<UserProfile> {
 
-    @Test
-    public void deleteTest() {
-    }
+  @Test
+  public void deleteTest() {}
 
-    @Test
-    public void saveTest() {
-    }
+  @Test
+  public void saveTest() {}
 
-    @Test
-    public void updateTest() {
-    }
+  @Test
+  public void updateTest() {}
 }

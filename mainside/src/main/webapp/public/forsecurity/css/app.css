@@ -1,5 +1,5 @@
-html{
-    background-color:#2F2F2F;
+html {
+    background-color: #2F2F2F;
 }
 
 body, #mainWrapper {
@@ -20,23 +20,23 @@ body, #mainWrapper {
     background-image: linear-gradient(to top, #EDEDED 0%, #EAEAEA 8%, #2F2F2F 100%, #AAAAAA 100%);
 }
 
-body, #mainWrapper, .form-control{
-    font-size:12px!important;
+body, #mainWrapper, .form-control {
+    font-size: 12px !important;
 }
 
 #mainWrapper {
     height: 100vh;
-    padding-left:10px;
-    padding-right:10px;
-    padding-bottom:10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
 }
 
-#authHeaderWrapper{
-    clear:both;
+#authHeaderWrapper {
+    clear: both;
     width: 100%;
-    height:3%;
-    padding-top:5px;
-    padding-bottom:5px;
+    height: 3%;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .login-container {
@@ -51,6 +51,7 @@ body, #mainWrapper, .form-control{
     width: 80%;
     margin: auto;
 }
+
 .login-form {
     padding: 10%;
 }

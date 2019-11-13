@@ -14,19 +14,23 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.stingion.makeitfine"))
-                .build()
-                .apiInfo(apiInfo())
-                .tags(new Tag("LoginController", "Login based with Spring security"),
-                        new Tag("StartUpController", "Index page"),
-                        new Tag("UserController", "REST API for CRUD operations for users"));
-    }
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("com.stingion.makeitfine"))
+        .build()
+        .apiInfo(apiInfo())
+        .tags(
+            new Tag("LoginController", "Login based with Spring security"),
+            new Tag("StartUpController", "Index page"),
+            new Tag("UserController", "REST API for CRUD operations for users"));
+  }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Swagger API for \"Make it fine\" project").version("1.0.0").build();
-    }
+  private ApiInfo apiInfo() {
+    return new ApiInfoBuilder()
+        .title("Swagger API for \"Make it fine\" project")
+        .version("1.0.0")
+        .build();
+  }
 }

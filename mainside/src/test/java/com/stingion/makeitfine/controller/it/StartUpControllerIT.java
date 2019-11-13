@@ -22,45 +22,44 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ConfigurationProperties(prefix = "test.integration")
 class StartUpControllerIT {
 
-    @LocalServerPort
-    private int port;
+  @LocalServerPort private int port;
 
-    @Value("${protocolHost}")
-    private String protocolHost;
+  @Value("${protocolHost}")
+  private String protocolHost;
 
-    private String hostPort;
+  private String hostPort;
 
-    @PostConstruct
-    private void init() {
-        hostPort = protocolHost + ":" + port;
+  @PostConstruct
+  private void init() {
+    hostPort = protocolHost + ":" + port;
+  }
+
+  @Autowired private TestRestTemplate restTemplate;
+
+  @Test
+  void index() {
+    String[] responseBody = new String[] {getResponseBody("/index"), getResponseBody("/")};
+
+    for (String r : responseBody) {
+      assertTrue(r.contains("English"));
+      assertTrue(r.contains(" | "));
+      assertTrue(r.contains("Русский"));
+      assertTrue(r.contains("Make it fine"));
+      assertTrue(r.contains("Домашняя страница") || r.contains("Home page"));
     }
+  }
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+  @Test
+  void greeting() {
+    assertEquals("Make it fine \"makeitfine\"", getResponseBody("/info"));
+    assertEquals("Make it fine \"makeitfine\"", getResponseBody("/info?details=any"));
+    assertEquals("Stingion : stingion@gmail.com", getResponseBody("/info?details=author"));
+    assertEquals("Social Network for workers", getResponseBody("/info?details=Purpose"));
+    assertEquals(
+        "Development stage : development milestone", getResponseBody("/info?details=stage"));
+  }
 
-    @Test
-    void index() {
-        String[] responseBody = new String[]{getResponseBody("/index"), getResponseBody("/")};
-
-        for (String r : responseBody) {
-            assertTrue(r.contains("English"));
-            assertTrue(r.contains(" | "));
-            assertTrue(r.contains("Русский"));
-            assertTrue(r.contains("Make it fine"));
-            assertTrue(r.contains("Домашняя страница") || r.contains("Home page"));
-        }
-    }
-
-    @Test
-    void greeting() {
-        assertEquals("Make it fine \"makeitfine\"", getResponseBody("/info"));
-        assertEquals("Make it fine \"makeitfine\"", getResponseBody("/info?details=any"));
-        assertEquals("Stingion : stingion@gmail.com", getResponseBody("/info?details=author"));
-        assertEquals("Social Network for workers", getResponseBody("/info?details=Purpose"));
-        assertEquals("Development stage : development milestone", getResponseBody("/info?details=stage"));
-    }
-
-    private String getResponseBody(String relativePath) {
-        return restTemplate.getForEntity(hostPort + relativePath, String.class).getBody();
-    }
+  private String getResponseBody(String relativePath) {
+    return restTemplate.getForEntity(hostPort + relativePath, String.class).getBody();
+  }
 }
