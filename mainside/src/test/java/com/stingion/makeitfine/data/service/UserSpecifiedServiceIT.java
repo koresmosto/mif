@@ -26,10 +26,10 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @ActiveProfiles("integration_test")
 @Transactional
-class UserStatisticsServiceIT {
+class UserSpecifiedServiceIT {
 
   @Autowired
-  private UserStatisticsService userStatisticsService;
+  private UserSpecifiedService userSpecifiedService;
 
   @Autowired
   private UserService userService;
@@ -50,7 +50,7 @@ class UserStatisticsServiceIT {
         userService.findById(5),
         userService.findById(6)
     );
-    List<User> usersActual = userStatisticsService.roleUsers(userProfileType);
+    List<User> usersActual = userSpecifiedService.roleUsers(userProfileType);
     assertEquals(usersExpected, usersActual);
   }
 
@@ -66,7 +66,7 @@ class UserStatisticsServiceIT {
         userService.findById(8)
     );
 
-    List<User> usersActual = userStatisticsService.stateUsers(userState);
+    List<User> usersActual = userSpecifiedService.stateUsers(userState);
     assertEquals(usersExpected, usersActual);
   }
 }

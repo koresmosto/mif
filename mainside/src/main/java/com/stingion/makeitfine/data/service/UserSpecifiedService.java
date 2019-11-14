@@ -12,7 +12,7 @@ import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.model.utils.UserProfileType;
 import java.util.List;
 
-public interface UserStatisticsService {
+public interface UserSpecifiedService {
 
   /**
    * Get list of users of specified email host (e.g gmail.com, yahoo.com, ukr.net)

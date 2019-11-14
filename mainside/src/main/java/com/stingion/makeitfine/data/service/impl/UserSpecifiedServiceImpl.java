@@ -11,14 +11,14 @@ import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.model.utils.UserProfileType;
 import com.stingion.makeitfine.data.service.UserService;
-import com.stingion.makeitfine.data.service.UserStatisticsService;
+import com.stingion.makeitfine.data.service.UserSpecifiedService;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserStatisticsServiceImpl implements UserStatisticsService {
+public class UserSpecifiedServiceImpl implements UserSpecifiedService {
 
   @Autowired
   private UserService userService;
