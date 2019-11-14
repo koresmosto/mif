@@ -25,7 +25,9 @@ public class UserSpecifiedServiceImpl implements UserSpecifiedService {
 
   @Override
   public List<User> specifiedMailServiceUsers(String emailHost) {
-    throw new UnsupportedOperationException();
+    return userService.findAll().stream()
+        .filter(user -> user.getEmail().toLowerCase().endsWith(emailHost.toLowerCase()))
+        .collect(Collectors.toList());
   }
 
   @Override

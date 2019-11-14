@@ -39,17 +39,30 @@ class UserSpecifiedServiceIT {
 
   @Test
   void specifiedMailServiceUsers() {
+    String emailServerName = "xyz.com";
+
+    List<User> usersExpected = Lists.newArrayList(
+        userService.findById(1),
+        userService.findById(2),
+        userService.findById(3),
+        userService.findById(4),
+        userService.findById(5)
+    );
+
+    List<User> usersActual = userSpecifiedService.specifiedMailServiceUsers(emailServerName);
+    assertEquals(usersExpected, usersActual);
   }
 
   @Test
   void roleUsers() {
-    userProfileService.findByUserProfileType(UserProfileType.DBA);
     UserProfileType userProfileType = UserProfileType.DBA;
+
     List<User> usersExpected = Lists.newArrayList(
         userService.findById(4),
         userService.findById(5),
         userService.findById(6)
     );
+
     List<User> usersActual = userSpecifiedService.roleUsers(userProfileType);
     assertEquals(usersExpected, usersActual);
   }
