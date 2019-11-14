@@ -16,6 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,14 +29,26 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
   @Override
   @Transactional
   public User findBySSO(String sso) {
-    Session session = entityManager.unwrap(Session.class);
-
-    CriteriaBuilder builder = session.getCriteriaBuilder();
-    CriteriaQuery<User> criteria = builder.createQuery(User.class);
-    Root<User> userRoot = criteria.from(User.class);
-    criteria.select(userRoot);
-    criteria.where(builder.equal(userRoot.get("ssoId"), sso));
-    List<User> users = entityManager.createQuery(criteria).getResultList();
+    CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(sso.toLowerCase(), "ssoId");
+    List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
     return users.isEmpty() ? null : users.get(0);
+  }
+
+  @Override
+  public User findByEmail(String email) {
+    CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(email.toLowerCase(), "email");
+    List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
+    return users.isEmpty() ? null : users.get(0);
+  }
+
+  @NotNull
+  private CriteriaQuery<User> getUserCriteriaQuery(String userAttribute, String email) {
+    Session session = entityManager.unwrap(Session.class);
+    CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+    CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+    Root<User> userRoot = criteriaQuery.from(User.class);
+    criteriaQuery.select(userRoot);
+    criteriaQuery.where(criteriaBuilder.equal(userRoot.get(email), userAttribute));
+    return criteriaQuery;
   }
 }
