@@ -46,8 +46,10 @@
                         <div class="form-group col-md-12">
                             <label class="col-md-2 control-lable" for="ssoid">SsoId</label>
                             <div class="col-md-7">
-                                <input type="text" ng-model="ctrl.user.ssoId" name="ssoid" id="ssoid"
-                                       ng-focus="isFocusOnSsoIdInput=true" ng-blur="isFocusOnSsoIdInput=false"
+                                <input type="text" ng-model="ctrl.user.ssoId" name="ssoid"
+                                       id="ssoid"
+                                       ng-focus="isFocusOnSsoIdInput=true"
+                                       ng-blur="isFocusOnSsoIdInput=false"
                                        class="username form-control input-sm"
                                        placeholder="Enter your name" required
                                        ng-minlength="3"/>
@@ -70,9 +72,12 @@
                         <div class="form-group col-md-12">
                             <label class="col-md-2 control-lable" for="password">Password</label>
                             <div class="col-md-7">
-                                <input type="text" ng-model="ctrl.user.password" name="password" id="password"
-                                       ng-focus="isFocusOnPasswordInput=true" ng-blur="isFocusOnPasswordInput=false"
-                                       class="username form-control input-sm" placeholder="Enter your password"
+                                <input type="text" ng-model="ctrl.user.password" name="password"
+                                       id="password"
+                                       ng-focus="isFocusOnPasswordInput=true"
+                                       ng-blur="isFocusOnPasswordInput=false"
+                                       class="username form-control input-sm"
+                                       placeholder="Enter your password"
                                        title="- Entering password is in normal form&#xA;
                                        - Showing password is in BCrypt encoded form"
                                        required
@@ -96,9 +101,12 @@
                         <div class="form-group col-md-12">
                             <label class="col-md-2 control-lable" for="email">Email</label>
                             <div class="col-md-7">
-                                <input type="email" ng-model="ctrl.user.email" name="email" id="email"
-                                       ng-focus="isFocusOnEmailInput=true" ng-blur="isFocusOnEmailInput=false"
-                                       class="email form-control input-sm" placeholder="Enter your Email" required/>
+                                <input type="email" ng-model="ctrl.user.email" name="email"
+                                       id="email"
+                                       ng-focus="isFocusOnEmailInput=true"
+                                       ng-blur="isFocusOnEmailInput=false"
+                                       class="email form-control input-sm"
+                                       placeholder="Enter your Email" required/>
                                 <div class="has-error" ng-show="myForm.email.$dirty">
                                     <span ng-show="myForm.email.$error.required && !isFocusOnEmailInput">
                                         This is a required field
@@ -115,9 +123,12 @@
                         <div class="form-group col-md-12">
                             <label class="col-md-2 control-lable" for="state">State</label>
                             <div class="col-md-7">
-                                <select ng-model="ctrl.user.state" class="username form-control input-sm" id="state"
-                                        ng-focus="isFocusOnStateInput=true" ng-blur="isFocusOnStateInput=false"
-                                        placeholder="Enter your Address. [This field is validation free]" required>
+                                <select ng-model="ctrl.user.state"
+                                        class="username form-control input-sm" id="state"
+                                        ng-focus="isFocusOnStateInput=true"
+                                        ng-blur="isFocusOnStateInput=false"
+                                        placeholder="Enter your Address. [This field is validation free]"
+                                        required>
                                     <option ng-selected="ctrl.user.state == key"
                                             ng-repeat="(key, value) in userStatesMap"
                                             ng-value="key">
@@ -140,7 +151,8 @@
                         <div class="form-actions floatRight">
                             <input type="submit" value="{{!ctrl.user.id ? 'Add' : 'Update'}}"
                                    class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
-                            <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm">
+                            <button type="button" ng-click="ctrl.reset()"
+                                    class="btn btn-warning btn-sm">
                                 Reset Form
                             </button>
                         </div>
@@ -172,16 +184,19 @@
                                 <span title="{{u.password}}"
                                       ng-bind="'...' + u.password.substring(u.password.length-7,u.password.length)">
                                 </span>
-                                <span><button class="btn" data-clipboard-text="{{u.password}}">Copy</button></span>
+                                <span><button class="btn"
+                                              data-clipboard-text="{{u.password}}">Copy</button></span>
                             </div>
                         </td>
                         <td><span ng-bind="u.email"></span></td>
                         <td><span ng-bind="u.state"></span></td>
                         <td>
-                            <button type="button" ng-click="ctrl.edit(u.id)" class="btn btn-success custom-width">
+                            <button type="button" ng-click="ctrl.edit(u.id)"
+                                    class="btn btn-success custom-width">
                                 Edit
                             </button>
-                            <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">
+                            <button type="button" ng-click="ctrl.remove(u.id)"
+                                    class="btn btn-danger custom-width">
                                 Remove
                             </button>
                         </td>

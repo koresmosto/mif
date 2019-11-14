@@ -11,6 +11,8 @@ import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.service.UserService;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +24,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
   private static final Logger LOG = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
-  @Autowired private UserService userService;
+  @Autowired
+  private UserService userService;
 
   @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {

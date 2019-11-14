@@ -7,6 +7,10 @@
 
 package com.stingion.systemtesting.steps;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+import java.util.Map;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
@@ -16,15 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Component
 public class DBSteps {
 
-  @Autowired private JdbcTemplate jdbcTemplate;
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
 
   private int rowCount;
   private Map<String, Object> row;
@@ -52,39 +52,39 @@ public class DBSteps {
   @Then("Row contains such fields headers $fields")
   public void rowContaisSuchFieldsHeader(@Named("fields") ExamplesTable fields) {
     assertThat(
-            fields.getHeaders().stream()
-                .allMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p))))
+        fields.getHeaders().stream()
+            .allMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p))))
         .isTrue();
   }
 
   @Then("Row not contains such fields headers $fields")
   public void rowNotContaisSuchFieldsHeader(@Named("fields") ExamplesTable fields) {
     assertThat(
-            fields.getHeaders().stream()
-                .anyMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p))))
+        fields.getHeaders().stream()
+            .anyMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p))))
         .isFalse();
   }
 
   @Then("Row contains any of such fields headers $fields")
   public void rowNotContaisAnyOfSuchFieldsHeader(@Named("fields") ExamplesTable fields) {
     assertThat(
-            fields.getHeaders().stream()
-                .anyMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p))))
+        fields.getHeaders().stream()
+            .anyMatch(p -> row.keySet().stream().anyMatch(f -> f.equalsIgnoreCase(p))))
         .isTrue();
   }
 
   @Then("Row field: $field has such value: $value")
   public void rowFieldHasSuchValue(@Named("field") String field, @Named("value") String value) {
     assertThat(
-            row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get())
-                .toString())
+        row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get())
+            .toString())
         .isEqualTo(value);
   }
 
   @Then("Row field: $field not set (has null-value)")
   public void rowFieldHasNullValue(@Named("field") String field) {
     assertThat(
-            row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get()))
+        row.get(row.keySet().stream().filter(k -> k.equalsIgnoreCase(field)).findFirst().get()))
         .isNull();
   }
 
@@ -101,8 +101,8 @@ public class DBSteps {
             + table
             + " where "
             + keyValue.getRows().get(0).entrySet().stream()
-                .map(e -> e.getKey() + "='" + e.getValue() + "'")
-                .reduce((a, b) -> a + " and " + b)
-                .get());
+            .map(e -> e.getKey() + "='" + e.getValue() + "'")
+            .reduce((a, b) -> a + " and " + b)
+            .get());
   }
 }

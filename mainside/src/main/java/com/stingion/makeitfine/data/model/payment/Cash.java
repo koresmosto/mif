@@ -7,13 +7,16 @@
 
 package com.stingion.makeitfine.data.model.payment;
 
-import lombok.ToString;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import lombok.ToString;
 
-/** Created on 12.06.17. */
+/**
+ * Created on 12.06.17.
+ */
 @Entity
 @ToString(callSuper = true)
 @DiscriminatorValue("Cash")
-public class Cash extends Payment {}
+public class Cash extends Payment {
+
+}

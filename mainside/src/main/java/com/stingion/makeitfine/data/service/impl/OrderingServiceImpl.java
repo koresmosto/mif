@@ -12,4 +12,6 @@ import com.stingion.makeitfine.data.service.OrderingService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderingServiceImpl extends EntityServiceImpl<Ordering> implements OrderingService {}
+public class OrderingServiceImpl extends EntityServiceImpl<Ordering> implements OrderingService {
+
+}

@@ -17,7 +17,8 @@
     </jsp:attribute>
     <jsp:body>
         <h2>
-            <spring:message code="dear"/> <strong>${user}</strong>, <spring:message code="youAreNotAuthorized"/>.
+            <spring:message code="dear"/> <strong>${user}</strong>, <spring:message
+                code="youAreNotAuthorized"/>.
         </h2>
     </jsp:body>
 </t:genericpage>

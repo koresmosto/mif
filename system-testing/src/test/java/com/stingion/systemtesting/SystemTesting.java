@@ -7,6 +7,8 @@
 
 package com.stingion.systemtesting;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.failures.FailingUponPendingStep;
 import org.jbehave.core.io.CodeLocations;
@@ -27,14 +29,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SystemTesting extends JUnitStories {
 
-  @Autowired private ApplicationContext applicationContext;
+  @Autowired
+  private ApplicationContext applicationContext;
 
   public SystemTesting() {
     initJBehaveConfiguration();

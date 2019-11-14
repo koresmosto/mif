@@ -1,93 +1,99 @@
 'use strict';
 
-angular.module('myApp').controller('UserController', ['$scope', 'UserService', function ($scope, UserService) {
+angular.module('myApp').controller('UserController',
+    ['$scope', 'UserService', function ($scope, UserService) {
 
-    var self = this;
-    self.user = {id: null, username: '', address: '', email: ''};
-    self.users = [];
+      var self = this;
+      self.user = {id: null, username: '', address: '', email: ''};
+      self.users = [];
 
-    self.submit = submit;
-    self.edit = edit;
-    self.remove = remove;
-    self.reset = reset;
+      self.submit = submit;
+      self.edit = edit;
+      self.remove = remove;
+      self.reset = reset;
 
-    fetchAllUsers();
+      fetchAllUsers();
 
-    $scope.userStatesMap = {"ACTIVE": "Active", "INACTIVE": "Inactive", "DELETED": "Deleted", "LOCKED": "Locked"};
+      $scope.userStatesMap = {
+        "ACTIVE": "Active",
+        "INACTIVE": "Inactive",
+        "DELETED": "Deleted",
+        "LOCKED": "Locked"
+      };
 
-    function fetchAllUsers() {
+      function fetchAllUsers() {
         UserService.fetchAllUsers()
-            .then(
-                function (d) {
-                    self.users = d;
-                },
-                function (errResponse) {
-                    console.error('Error while fetching Users');
-                }
-            );
-    }
+        .then(
+            function (d) {
+              self.users = d;
+            },
+            function (errResponse) {
+              console.error('Error while fetching Users');
+            }
+        );
+      }
 
-    function createUser(user) {
+      function createUser(user) {
         UserService.createUser(user)
-            .then(
-                fetchAllUsers,
-                function (errResponse) {
-                    console.error('Error while creating User');
-                }
-            );
-    }
+        .then(
+            fetchAllUsers,
+            function (errResponse) {
+              console.error('Error while creating User');
+            }
+        );
+      }
 
-    function updateUser(user, id) {
+      function updateUser(user, id) {
         UserService.updateUser(user, id)
-            .then(
-                fetchAllUsers,
-                function (errResponse) {
-                    console.error('Error while updating User');
-                }
-            );
-    }
+        .then(
+            fetchAllUsers,
+            function (errResponse) {
+              console.error('Error while updating User');
+            }
+        );
+      }
 
-    function deleteUser(id) {
+      function deleteUser(id) {
         UserService.deleteUser(id)
-            .then(
-                fetchAllUsers,
-                function (errResponse) {
-                    console.error('Error while deleting User');
-                }
-            );
-    }
+        .then(
+            fetchAllUsers,
+            function (errResponse) {
+              console.error('Error while deleting User');
+            }
+        );
+      }
 
-    function submit() {
+      function submit() {
         if (self.user.id === null) {
-            console.log('Saving New User', self.user);
-            createUser(self.user);
+          console.log('Saving New User', self.user);
+          createUser(self.user);
         } else {
-            updateUser(self.user, self.user.id);
-            console.log('User updated with id ', self.user.id);
+          updateUser(self.user, self.user.id);
+          console.log('User updated with id ', self.user.id);
         }
         reset();
-    }
+      }
 
-    function edit(id) {
+      function edit(id) {
         console.log('id to be edited', id);
         for (var i = 0; i < self.users.length; i++) {
-            if (self.users[i].id === id) {
-                self.user = angular.copy(self.users[i]);
-                break;
-            }
+          if (self.users[i].id === id) {
+            self.user = angular.copy(self.users[i]);
+            break;
+          }
         }
-    }
+      }
 
-    function remove(id) {
+      function remove(id) {
         console.log('id to be deleted', id);
         if (self.user.id === id) {//clean form if the user to be deleted is shown there.
-            reset();
+          reset();
         }
         deleteUser(id);
-    }
+      }
 
-    function reset() {
+      function reset() {
         self.user = {id: null, username: '', address: '', email: ''};
         $scope.myForm.$setPristine(); //reset Form
-    }
-}]);
+      }
+    }]);

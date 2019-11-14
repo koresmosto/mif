@@ -7,11 +7,6 @@
 
 package com.stingion.makeitfine.data.model.payment;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -24,8 +19,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-/** Created on 12.06.17. */
+/**
+ * Created on 12.06.17.
+ */
 @Entity
 @Getter
 @Setter
@@ -36,6 +37,7 @@ import javax.persistence.TableGenerator;
 @DiscriminatorColumn(name = "PAYMENT_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Undefined")
 public class Payment {
+
   @TableGenerator(
       name = "Payment_gen",
       table = "SEQUENCES",

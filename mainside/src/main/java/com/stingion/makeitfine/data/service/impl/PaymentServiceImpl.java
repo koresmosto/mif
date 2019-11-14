@@ -12,4 +12,6 @@ import com.stingion.makeitfine.data.service.PaymentService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PaymentServiceImpl extends EntityServiceImpl<Payment> implements PaymentService {}
+public class PaymentServiceImpl extends EntityServiceImpl<Payment> implements PaymentService {
+
+}

@@ -7,11 +7,13 @@
 
 package com.stingion.makeitfine.data.model.utils;
 
+import java.util.Arrays;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Convert;
-import java.util.Arrays;
 
-/** Created by joe on 11.06.17. */
+/**
+ * Created by joe on 11.06.17.
+ */
 public class AttrConverter {
 
   @Convert

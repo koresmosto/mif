@@ -12,4 +12,6 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ImportResource("classpath:spring/context.xml")
-public class ContextConfig {}
+public class ContextConfig {
+
+}

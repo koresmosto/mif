@@ -9,21 +9,21 @@ package com.stingion.makeitfine.data.service.impl;
 
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.UserService;
-import org.hibernate.Session;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.List;
+import org.hibernate.Session;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl extends EntityServiceImpl<User> implements UserService {
 
-  @PersistenceContext private EntityManager entityManager;
+  @PersistenceContext
+  private EntityManager entityManager;
 
   @Override
   @Transactional

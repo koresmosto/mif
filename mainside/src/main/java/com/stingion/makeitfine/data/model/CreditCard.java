@@ -9,11 +9,7 @@ package com.stingion.makeitfine.data.model;
 
 import com.stingion.makeitfine.data.model.user.Contact;
 import com.stingion.makeitfine.data.model.utils.CardType;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,9 +23,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.util.Set;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-/** Created on 12.06.17. */
+/**
+ * Created on 12.06.17.
+ */
 @Entity
 @Table(name = "CREDIT_CARD")
 @EqualsAndHashCode(of = "number")

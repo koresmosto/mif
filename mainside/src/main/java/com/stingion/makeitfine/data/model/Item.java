@@ -8,13 +8,7 @@
 package com.stingion.makeitfine.data.model;
 
 import com.stingion.makeitfine.data.model.utils.ModelConstants;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.validator.constraints.Length;
-
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,9 +18,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.util.Set;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
-/** Created on 12.06.17. */
+/**
+ * Created on 12.06.17.
+ */
 @Entity
 @Table(name = "ITEM")
 @EqualsAndHashCode(of = "header")

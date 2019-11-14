@@ -9,15 +9,15 @@ package com.stingion.makeitfine.data.service.impl;
 
 import com.stingion.makeitfine.data.repository.EntityRepository;
 import com.stingion.makeitfine.data.service.EntityService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Transactional
 public class EntityServiceImpl<T> implements EntityService<T> {
 
-  @Autowired private EntityRepository<T> entityRepository;
+  @Autowired
+  private EntityRepository<T> entityRepository;
 
   @Override
   public List<T> findAll() {

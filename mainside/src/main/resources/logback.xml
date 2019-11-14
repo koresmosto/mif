@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{106} - %msg%n</pattern>
-        </encoder>
-    </appender>
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{106} - %msg%n</pattern>
+    </encoder>
+  </appender>
 
-    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/tmp/logs/makeitfine.log</file>
-        <encoder>
-            <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{106} - %msg%n</pattern>
-        </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/tmp/logs/makeitfine.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
+  <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>/tmp/logs/makeitfine.log</file>
+    <encoder>
+      <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{106} - %msg%n</pattern>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>/tmp/logs/makeitfine.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>10MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+  </appender>
 
-    <!-- project default level -->
-    <logger name="com.stingion.makeitfine" level="INFO">
-        <appender-ref ref="rollingFile"/>
-    </logger>
+  <!-- project default level -->
+  <logger name="com.stingion.makeitfine" level="INFO">
+    <appender-ref ref="rollingFile"/>
+  </logger>
 
-    <logger name="com.stingion.makeitfine" level="DEBUG">
-        <appender-ref ref="console"/>
-    </logger>
+  <logger name="com.stingion.makeitfine" level="DEBUG">
+    <appender-ref ref="console"/>
+  </logger>
 
-    <!--log4jdbc -->
-    <logger name="jdbc.sqltiming" level="INFO"/>
+  <!--log4jdbc -->
+  <logger name="jdbc.sqltiming" level="INFO"/>
 
-    <root level="INFO">
-        <appender-ref ref="console"/>
-    </root>
+  <root level="INFO">
+    <appender-ref ref="console"/>
+  </root>
 
-    <root level="ERROR">
-        <appender-ref ref="rollingFile"/>
-    </root>
+  <root level="ERROR">
+    <appender-ref ref="rollingFile"/>
+  </root>
 
 </configuration>

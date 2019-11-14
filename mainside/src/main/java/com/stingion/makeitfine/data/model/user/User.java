@@ -10,11 +10,7 @@ package com.stingion.makeitfine.data.model.user;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.AttrConverter;
 import com.stingion.makeitfine.data.model.utils.State;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -29,7 +25,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.util.Set;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter

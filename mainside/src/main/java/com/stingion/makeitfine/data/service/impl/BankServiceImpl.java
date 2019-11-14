@@ -12,4 +12,6 @@ import com.stingion.makeitfine.data.service.BankService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BankServiceImpl extends EntityServiceImpl<Bank> implements BankService {}
+public class BankServiceImpl extends EntityServiceImpl<Bank> implements BankService {
+
+}

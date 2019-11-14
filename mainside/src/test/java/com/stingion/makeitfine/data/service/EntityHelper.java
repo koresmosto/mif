@@ -7,28 +7,28 @@
 
 package com.stingion.makeitfine.data.service;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import lombok.AccessLevel;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-
 public class EntityHelper<T> {
 
-  @PersistenceContext private EntityManager entityManager;
+  @PersistenceContext
+  private EntityManager entityManager;
 
   @Setter(value = AccessLevel.PROTECTED)
   private Class<T> entityClass;
 
   public int getCount() {
     return ((Long)
-            entityManager
-                .createQuery("select count(*) from " + getEntityClass().getSimpleName())
-                .getSingleResult())
+        entityManager
+            .createQuery("select count(*) from " + getEntityClass().getSimpleName())
+            .getSingleResult())
         .intValue();
   }
 

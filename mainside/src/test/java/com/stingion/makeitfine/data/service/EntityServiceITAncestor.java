@@ -7,6 +7,8 @@
 
 package com.stingion.makeitfine.data.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -19,8 +21,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ActiveProfiles("integration_test")
@@ -29,11 +29,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Disabled
 public class EntityServiceITAncestor<T> {
 
-  @Autowired protected EntityHelper<T> eH;
+  @Autowired
+  protected EntityHelper<T> eH;
 
-  @Autowired protected EntityService<T> entityService;
+  @Autowired
+  protected EntityService<T> entityService;
 
-  @Autowired protected ServiceTestConfiguration.EntityTestData<T> entityTestData;
+  @Autowired
+  protected ServiceTestConfiguration.EntityTestData<T> entityTestData;
 
   @Test
   public void findAllTest() {

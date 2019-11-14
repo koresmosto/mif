@@ -12,4 +12,6 @@ import com.stingion.makeitfine.data.service.ItemService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ItemServiceImpl extends EntityServiceImpl<Item> implements ItemService {}
+public class ItemServiceImpl extends EntityServiceImpl<Item> implements ItemService {
+
+}

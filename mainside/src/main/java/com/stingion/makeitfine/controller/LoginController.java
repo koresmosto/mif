@@ -8,6 +8,8 @@
 package com.stingion.makeitfine.controller;
 
 import io.swagger.annotations.Api;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,12 +19,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 @Controller
 @Api(tags = "LoginController")
 public class LoginController {
+
   @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
   public String accessDeniedPage(ModelMap model) {
     model.addAttribute("user", getPrincipal());

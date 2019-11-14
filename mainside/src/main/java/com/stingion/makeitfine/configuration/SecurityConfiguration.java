@@ -31,7 +31,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @ConditionalOnProperty(value = "security.ignore", havingValue = "false", matchIfMissing = true)
   public static class SecurityAuxiliaryConfiguration {
 
-    @Autowired private UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

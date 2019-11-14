@@ -7,11 +7,31 @@
 
 package com.stingion.makeitfine.controller.test;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.google.common.collect.Lists;
 import com.stingion.makeitfine.controller.UserController;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.UserService;
 import com.stingion.makeitfine.util.UserPasswordEncoder;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,39 +64,23 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
-
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-/** To run tagged test: mvn -Dgroups="simple" test mvn -DexcludedGroups="other" test */
+/**
+ * To run tagged test: mvn -Dgroups="simple" test mvn -DexcludedGroups="other" test
+ */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 @ActiveProfiles("test")
 @Tag("userController")
 class UserControllerTest {
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private UserPasswordEncoder passwordEncoder;
+  @MockBean
+  private UserPasswordEncoder passwordEncoder;
 
-  @MockBean private UserService userService;
+  @MockBean
+  private UserService userService;
 
   private static List<User> userList;
 
@@ -175,6 +179,7 @@ class UserControllerTest {
   }
 
   private class NumberIsNotPositive implements ArgumentMatcher<Integer> {
+
     @Override
     public boolean matches(Integer argument) {
       return argument < 1;
@@ -182,6 +187,7 @@ class UserControllerTest {
   }
 
   static class DisplayNameGen extends DisplayNameGenerator.ReplaceUnderscores {
+
     @Override
     public String generateDisplayNameForMethod(Class<?> testClass, Method testMethod) {
       return UUID.randomUUID().toString();

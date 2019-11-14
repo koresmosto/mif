@@ -25,6 +25,8 @@ import com.stingion.makeitfine.data.service.ItemService;
 import com.stingion.makeitfine.data.service.OrderingService;
 import com.stingion.makeitfine.data.service.PaymentService;
 import com.stingion.makeitfine.data.service.UserService;
+import java.util.Date;
+import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,32 +35,39 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 
-import java.util.Date;
-import java.util.Random;
-
 @TestConfiguration
 @ImportResource("classpath:spring-test/context-test.xml")
 public class ServiceTestConfiguration {
 
-  @Autowired private UserService userService;
+  @Autowired
+  private UserService userService;
 
-  @Autowired private BankService bankService;
+  @Autowired
+  private BankService bankService;
 
-  @Autowired private ContactService contactService;
+  @Autowired
+  private ContactService contactService;
 
-  @Autowired private CreditCardService creditCardService;
+  @Autowired
+  private CreditCardService creditCardService;
 
-  @Autowired private ItemService itemService;
+  @Autowired
+  private ItemService itemService;
 
-  @Autowired private OrderingService orderingService;
+  @Autowired
+  private OrderingService orderingService;
 
-  @Autowired private PaymentService paymentService;
+  @Autowired
+  private PaymentService paymentService;
 
   @AllArgsConstructor
   @NoArgsConstructor
   @Data
   public class EntityTestData<T> {
-    /** Id for findById, delete, update checking */
+
+    /**
+     * Id for findById, delete, update checking
+     */
     private int id;
 
     private String findAll;

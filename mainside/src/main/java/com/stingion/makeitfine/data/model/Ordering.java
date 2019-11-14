@@ -8,12 +8,6 @@
 package com.stingion.makeitfine.data.model;
 
 import com.stingion.makeitfine.data.model.utils.OrderingStatus;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,8 +19,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-/** Created on 12.06.17. */
+/**
+ * Created on 12.06.17.
+ */
 @Entity
 @Table(name = "ORDERING")
 @EqualsAndHashCode(of = "id")
