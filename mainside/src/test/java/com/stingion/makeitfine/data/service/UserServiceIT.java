@@ -22,16 +22,14 @@ public class UserServiceIT extends EntityServiceITAncestor<User> {
   @Test
   void findBySSO() {
     User userExcepted = userService.findById(5);
-    User userActual = userService.findBySSO("kenny");
-
-    assertEquals(userExcepted, userActual);
+    assertEquals(userExcepted, userService.findBySSO("kenny"));
+    assertEquals(userExcepted, userService.findBySSO("KENNY"));
   }
 
   @Test
   void findByEmail() {
     User userExcepted = userService.findById(3);
-    User userActual = userService.findByEmail("SAMY@XYZ.COM");
-
-    assertEquals(userExcepted, userActual);
+    assertEquals(userExcepted, userService.findByEmail("SAMY@XYZ.COM"));
+    assertEquals(userExcepted, userService.findByEmail("samy@xyz.com"));
   }
 }
