@@ -19,7 +19,7 @@ public interface UserProfileService extends EntityService<UserProfile> {
    * @throws UnsupportedOperationException
    */
   @Override
-  UserProfile save(UserProfile entity) throws UnsupportedOperationException;
+  UserProfile save(UserProfile entity);
 
   /**
    * Not supported method
@@ -29,7 +29,7 @@ public interface UserProfileService extends EntityService<UserProfile> {
    * @throws UnsupportedOperationException
    */
   @Override
-  UserProfile update(UserProfile entity) throws UnsupportedOperationException;
+  UserProfile update(UserProfile entity);
 
   /**
    * Not supported method
@@ -38,5 +38,5 @@ public interface UserProfileService extends EntityService<UserProfile> {
    * @throws UnsupportedOperationException
    */
   @Override
-  void delete(UserProfile entity) throws UnsupportedOperationException;
+  void delete(UserProfile entity);
 }

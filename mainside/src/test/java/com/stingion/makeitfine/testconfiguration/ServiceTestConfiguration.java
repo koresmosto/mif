@@ -24,6 +24,7 @@ import com.stingion.makeitfine.data.service.CreditCardService;
 import com.stingion.makeitfine.data.service.ItemService;
 import com.stingion.makeitfine.data.service.OrderingService;
 import com.stingion.makeitfine.data.service.PaymentService;
+import com.stingion.makeitfine.data.service.UserProfileService;
 import com.stingion.makeitfine.data.service.UserService;
 import java.util.Date;
 import java.util.Random;
@@ -59,6 +60,9 @@ public class ServiceTestConfiguration {
 
   @Autowired
   private PaymentService paymentService;
+
+  @Autowired
+  private UserProfileService userProfileService;
 
   @AllArgsConstructor
   @NoArgsConstructor
@@ -101,12 +105,18 @@ public class ServiceTestConfiguration {
   public EntityTestData<UserProfile> userProfileTestData() {
     int id = 2;
 
+    UserProfile userProfileSaved = new UserProfile();
+    userProfileSaved.setType("PERMISSIONLESS");
+
+    UserProfile userProfileUpdated = userProfileService.findById(id);
+    userProfileUpdated.setType("FULL");
+
     return new EntityTestData<>(
         id,
         "[UserProfile(id=1, type=USER), UserProfile(id=2, type=ADMIN), UserProfile(id=3, type=DBA)]",
         "UserProfile(id=2, type=ADMIN)",
-        null,
-        null);
+        userProfileSaved,
+        userProfileUpdated);
   }
 
   @Bean
