@@ -4,6 +4,7 @@
  * Copyright 2017-2019
  * @author stingion
  */
+
 package com.stingion.makeitfine.data.service.impl;
 
 import com.stingion.makeitfine.data.model.user.User;

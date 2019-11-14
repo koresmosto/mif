@@ -4,6 +4,7 @@
  * Copyright 2017-2019
  * @author stingion
  */
+
 package com.stingion.makeitfine.testconfiguration;
 
 import org.springframework.boot.test.context.TestConfiguration;

@@ -4,6 +4,7 @@
  * Copyright 2017-2019
  * @author stingion
  */
+
 package com.stingion.makeitfine.data.repository;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

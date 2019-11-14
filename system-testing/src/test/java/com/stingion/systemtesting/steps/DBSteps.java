@@ -4,6 +4,7 @@
  * Copyright 2017-2019
  * @author stingion
  */
+
 package com.stingion.systemtesting.steps;
 
 import org.jbehave.core.annotations.Given;
