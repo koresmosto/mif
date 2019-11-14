@@ -82,4 +82,11 @@ class UserSpecifiedServiceIT {
     List<User> usersActual = userSpecifiedService.stateUsers(userState);
     assertEquals(usersExpected, usersActual);
   }
+
+  @Test
+  void isAdminEmail() {
+    assertEquals(false, userSpecifiedService.isAdminEmail("any_email@xyz.com"));
+    assertEquals(true, userSpecifiedService.isAdminEmail("bill@xyz.com"));
+    assertEquals(true, userSpecifiedService.isAdminEmail("ADMIN@XYZ.COM"));
+  }
 }
