@@ -8,6 +8,8 @@
 package com.stingion.makeitfine.data.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.common.collect.Lists;
 import com.stingion.makeitfine.data.model.user.User;
@@ -85,8 +87,16 @@ class UserSpecifiedServiceIT {
 
   @Test
   void isAdminEmail() {
-    assertEquals(false, userSpecifiedService.isAdminEmail("any_email@xyz.com"));
-    assertEquals(true, userSpecifiedService.isAdminEmail("bill@xyz.com"));
-    assertEquals(true, userSpecifiedService.isAdminEmail("ADMIN@XYZ.COM"));
+    assertFalse(userSpecifiedService.isActiveAdminEmail("some word"));
+    assertFalse(userSpecifiedService.isActiveAdminEmail("any_email@xyz.com"));
+    assertFalse(userSpecifiedService.isActiveAdminEmail("bill@xyz.com"));
+    assertFalse(userSpecifiedService.isActiveAdminEmail("BILL@XYZ.COM"));
+    assertFalse(userSpecifiedService.isActiveAdminEmail("samy@xyz.com"));
+    assertFalse(userSpecifiedService.isActiveAdminEmail("SAMY@XYZ.COM"));
+    assertFalse(userSpecifiedService.isActiveAdminEmail("kenny@xyz.com"));
+    assertFalse(userSpecifiedService.isActiveAdminEmail("nicloe@xyz.com"));
+
+    assertTrue(userSpecifiedService.isActiveAdminEmail("admin@xxx.xxx"));
+    assertTrue(userSpecifiedService.isActiveAdminEmail("ADMIN@xxx.xxx"));
   }
 }

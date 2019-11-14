@@ -39,10 +39,10 @@ public interface UserSpecifiedService {
   List<User> stateUsers(State userState);
 
   /**
-   * Check whether email belongs to any admin
+   * Check whether email belongs to any active admin
    *
    * @param email given email address
    * @return check result
    */
-  boolean isAdminEmail(String email);
+  boolean isActiveAdminEmail(String email);
 }
