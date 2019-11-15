@@ -7,9 +7,12 @@
 
 package com.stingion.makeitfine.data.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.common.collect.Lists;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,7 @@ class EmailServiceIT {
   private EmailService emailService;
 
   @Test
-  void isAdminEmail() {
+  void isActiveAdminEmail() {
     assertFalse(emailService.isActiveAdminEmail("some word"));
     assertFalse(emailService.isActiveAdminEmail("any_email@xyz.com"));
     assertFalse(emailService.isActiveAdminEmail("bill@xyz.com"));
@@ -40,5 +43,22 @@ class EmailServiceIT {
 
     assertTrue(emailService.isActiveAdminEmail("admin@xxx.xxx"));
     assertTrue(emailService.isActiveAdminEmail("ADMIN@xxx.xxx"));
+  }
+
+  @Test
+  void sortedUsersEmails() {
+    List<String> expected = Lists.newArrayList(
+        "admin@xxx.xxx",
+        "bill@xyz.com",
+        "danny@xyz.com",
+        "kenny@xyz.com",
+        "nicloe@xyz.com",
+        "samy@xyz.com",
+        "sudo@xxx.xxx",
+        "tsuser@xxx.xxx"
+    );
+    List<String> actual = emailService.sortedUsersEmails();
+
+    assertEquals(expected, actual);
   }
 }

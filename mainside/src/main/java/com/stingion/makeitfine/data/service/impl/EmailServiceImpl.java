@@ -12,7 +12,9 @@ import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.model.utils.UserProfileType;
 import com.stingion.makeitfine.data.service.EmailService;
 import com.stingion.makeitfine.data.service.UserService;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +43,11 @@ public class EmailServiceImpl implements EmailService {
                 )
             )
             .orElse(false);
+  }
+
+  @Override
+  public List<String> sortedUsersEmails() {
+    return userService.findAll().stream().map(user -> user.getEmail()).sorted()
+        .collect(Collectors.toList());
   }
 }

@@ -7,6 +7,8 @@
 
 package com.stingion.makeitfine.data.service;
 
+import java.util.List;
+
 public interface EmailService {
 
   /**
@@ -16,4 +18,6 @@ public interface EmailService {
    * @return check result
    */
   boolean isActiveAdminEmail(String email);
+
+  List<String> sortedUsersEmails();
 }
