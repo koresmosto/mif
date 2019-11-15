@@ -7,6 +7,9 @@
 
 package com.stingion.makeitfine.data.service;
 
+import java.util.List;
+
 public interface InfoService {
 
+  List<String> usersAndItsRoles();
 }
