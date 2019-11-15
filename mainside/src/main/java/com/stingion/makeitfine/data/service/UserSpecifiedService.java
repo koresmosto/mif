@@ -37,12 +37,4 @@ public interface UserSpecifiedService {
    * @return users
    */
   List<User> stateUsers(State userState);
-
-  /**
-   * Check whether email belongs to any active admin
-   *
-   * @param email given email address
-   * @return check result
-   */
-  boolean isActiveAdminEmail(String email);
 }
