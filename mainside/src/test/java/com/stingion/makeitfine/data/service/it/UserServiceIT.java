@@ -8,6 +8,8 @@
 package com.stingion.makeitfine.data.service.it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.UserService;
@@ -32,5 +34,13 @@ public class UserServiceIT extends EntityServiceITAncestor<User> {
     User userExcepted = userService.findById(3);
     assertEquals(userExcepted, userService.findByEmail("SAMY@XYZ.COM"));
     assertEquals(userExcepted, userService.findByEmail("samy@xyz.com"));
+  }
+
+  @Test
+  void isSsoIdOrEmailUserExists() {
+    assertFalse(userService.isSsoIdOrEmailUserExists("anyUserSsoId"));
+    assertFalse(userService.isSsoIdOrEmailUserExists("anyUserEmail@xxx.xxx"));
+    assertTrue(userService.isSsoIdOrEmailUserExists("admin"));
+    assertTrue(userService.isSsoIdOrEmailUserExists("kenny@xyz.com"));
   }
 }
