@@ -5,13 +5,14 @@
  *  @author stingion
  */
 
-package com.stingion.makeitfine.data.service;
+package com.stingion.makeitfine.data.service.it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.common.collect.Lists;
+import com.stingion.makeitfine.data.service.EmailService;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

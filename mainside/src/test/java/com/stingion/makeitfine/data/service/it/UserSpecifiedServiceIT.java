@@ -5,7 +5,7 @@
  *  @author stingion
  */
 
-package com.stingion.makeitfine.data.service;
+package com.stingion.makeitfine.data.service.it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,6 +13,9 @@ import com.google.common.collect.Lists;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.model.utils.UserProfileType;
+import com.stingion.makeitfine.data.service.UserProfileService;
+import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.data.service.UserSpecifiedService;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

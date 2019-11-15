@@ -5,11 +5,12 @@
  *  @author stingion
  */
 
-package com.stingion.makeitfine.data.service;
+package com.stingion.makeitfine.data.service.it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.google.common.collect.Lists;
+import com.stingion.makeitfine.data.service.InfoService;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
