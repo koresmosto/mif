@@ -207,7 +207,7 @@
         </div>
     </div>
 
-    <script src="/public/js/lib/import/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular.js"></script>
     <script src="/public/js/lib/clipboard_aux.js"></script>
     <script src="/public/js/app.js"></script>
     <script src="/public/js/service/user_service.js"></script>
