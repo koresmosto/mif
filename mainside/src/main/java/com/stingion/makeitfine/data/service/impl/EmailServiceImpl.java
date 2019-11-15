@@ -13,6 +13,7 @@ import com.stingion.makeitfine.data.model.utils.UserProfileType;
 import com.stingion.makeitfine.data.service.EmailService;
 import com.stingion.makeitfine.data.service.UserService;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -49,5 +50,11 @@ public class EmailServiceImpl implements EmailService {
   public List<String> sortedUsersEmails() {
     return userService.findAll().stream().map(user -> user.getEmail()).sorted()
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public Map<String, String> ssoIdEmails() {
+    return userService.findAll().stream()
+        .collect(Collectors.toMap(user -> user.getSsoId(), user -> user.getEmail()));
   }
 }

@@ -8,6 +8,7 @@
 package com.stingion.makeitfine.data.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmailService {
 
@@ -20,4 +21,11 @@ public interface EmailService {
   boolean isActiveAdminEmail(String email);
 
   List<String> sortedUsersEmails();
+
+  /**
+   * Get map of ssoId -> email of users
+   *
+   * @return ssoId:email map
+   */
+  Map<String, String> ssoIdEmails();
 }
