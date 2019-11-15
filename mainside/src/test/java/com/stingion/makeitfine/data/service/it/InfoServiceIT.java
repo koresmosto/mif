@@ -32,14 +32,14 @@ class InfoServiceIT {
   @Test
   void usersAndItsRoles() {
     List<String> expected = Lists.newArrayList(
-        "admin : { ADMIN }",
-        "bill : { USER }",
-        "danny : { USER }",
-        "kenny : { ADMIN, DBA }",
-        "nicole : { DBA }",
-        "sam : { ADMIN }",
-        "sudo : { USER, ADMIN, DBA }",
-        "tsuser : { USER }"
+        "admin:{ADMIN}",
+        "bill:{USER}",
+        "danny:{USER}",
+        "kenny:{ADMIN,DBA}",
+        "nicole:{DBA}",
+        "sam:{ADMIN}",
+        "sudo:{USER,ADMIN,DBA}",
+        "tsuser:{USER}"
     );
 
     assertEquals(expected, infoService.usersAndItsRoles());
