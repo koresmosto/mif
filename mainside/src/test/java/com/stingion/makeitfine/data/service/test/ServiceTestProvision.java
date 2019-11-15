@@ -27,6 +27,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public abstract class ServiceTestProvision {
 
+  @FunctionalInterface
+  private interface U<U extends User> {
+
+    U create();
+  }
+
   @Mock
   private UserService userService;
 
@@ -40,15 +46,17 @@ public abstract class ServiceTestProvision {
 
   @BeforeEach
   void beforeEach() {
-    User user1 = new User();
+    U u = User::new;
+
+    User user1 = u.create();
     user1.setSsoId("user1");
     user1.setEmail("user1@any.xxxmail");
 
-    User user2 = new User();
+    User user2 = u.create();
     user2.setSsoId("user2");
     user2.setEmail("user2@any.xyz");
 
-    User user3 = new User();
+    User user3 = u.create();
     user3.setSsoId("user3");
     user3.setEmail("user3@any.xxxmail");
 
