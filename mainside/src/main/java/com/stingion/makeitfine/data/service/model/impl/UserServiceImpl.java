@@ -5,10 +5,10 @@
  * @author stingion
  */
 
-package com.stingion.makeitfine.data.service.impl;
+package com.stingion.makeitfine.data.service.model.impl;
 
 import com.stingion.makeitfine.data.model.user.User;
-import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.data.service.model.UserService;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;

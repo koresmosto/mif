@@ -8,7 +8,7 @@
 package com.stingion.makeitfine.controller;
 
 import com.stingion.makeitfine.data.model.user.User;
-import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.data.service.model.UserService;
 import com.stingion.makeitfine.util.UserPasswordEncoder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

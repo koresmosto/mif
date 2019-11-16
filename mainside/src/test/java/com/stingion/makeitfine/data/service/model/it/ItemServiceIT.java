@@ -5,7 +5,7 @@
  *  @author stingion
  */
 
-package com.stingion.makeitfine.data.service.it;
+package com.stingion.makeitfine.data.service.model.it;
 
 import com.stingion.makeitfine.data.model.Item;
 

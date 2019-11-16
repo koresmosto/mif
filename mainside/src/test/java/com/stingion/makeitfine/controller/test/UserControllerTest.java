@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.google.common.collect.Lists;
 import com.stingion.makeitfine.controller.UserController;
 import com.stingion.makeitfine.data.model.user.User;
-import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.data.service.model.UserService;
 import com.stingion.makeitfine.util.UserPasswordEncoder;
 import java.lang.reflect.Method;
 import java.util.Collections;

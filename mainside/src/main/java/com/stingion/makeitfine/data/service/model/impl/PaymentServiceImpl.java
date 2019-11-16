@@ -5,10 +5,10 @@
  * @author stingion
  */
 
-package com.stingion.makeitfine.data.service.impl;
+package com.stingion.makeitfine.data.service.model.impl;
 
 import com.stingion.makeitfine.data.model.payment.Payment;
-import com.stingion.makeitfine.data.service.PaymentService;
+import com.stingion.makeitfine.data.service.model.PaymentService;
 import org.springframework.stereotype.Service;
 
 @Service

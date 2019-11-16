@@ -15,7 +15,7 @@ import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.payment.Payment;
 import com.stingion.makeitfine.data.model.user.Contact;
 import com.stingion.makeitfine.data.model.user.User;
-import com.stingion.makeitfine.data.service.it.EntityHelper;
+import com.stingion.makeitfine.data.service.model.it.EntityHelper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 

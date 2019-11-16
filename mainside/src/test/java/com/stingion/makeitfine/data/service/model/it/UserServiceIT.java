@@ -5,14 +5,14 @@
  *  @author stingion
  */
 
-package com.stingion.makeitfine.data.service.it;
+package com.stingion.makeitfine.data.service.model.it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.stingion.makeitfine.data.model.user.User;
-import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.data.service.model.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

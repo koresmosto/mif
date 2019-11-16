@@ -5,11 +5,11 @@
  *  @author stingion
  */
 
-package com.stingion.makeitfine.data.service.it;
+package com.stingion.makeitfine.data.service.model.it;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.stingion.makeitfine.data.service.EntityService;
+import com.stingion.makeitfine.data.service.model.EntityService;
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;

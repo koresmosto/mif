@@ -11,7 +11,7 @@ import com.google.common.collect.Sets;
 import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.model.utils.UserProfileType;
 import com.stingion.makeitfine.data.service.EmailService;
-import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.data.service.model.UserService;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

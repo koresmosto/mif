@@ -5,10 +5,10 @@
  * @author stingion
  */
 
-package com.stingion.makeitfine.data.service.impl;
+package com.stingion.makeitfine.data.service.model.impl;
 
 import com.stingion.makeitfine.data.repository.EntityRepository;
-import com.stingion.makeitfine.data.service.EntityService;
+import com.stingion.makeitfine.data.service.model.EntityService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;

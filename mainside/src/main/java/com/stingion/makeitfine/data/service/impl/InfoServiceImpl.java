@@ -9,7 +9,7 @@ package com.stingion.makeitfine.data.service.impl;
 
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.InfoService;
-import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.data.service.model.UserService;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;

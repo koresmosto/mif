@@ -14,7 +14,7 @@ import com.google.common.collect.Sets;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.UserProfileType;
-import com.stingion.makeitfine.data.service.UserService;
+import com.stingion.makeitfine.data.service.model.UserService;
 import com.stingion.makeitfine.data.service.impl.EmailServiceImpl;
 import com.stingion.makeitfine.data.service.impl.InfoServiceImpl;
 import org.junit.jupiter.api.BeforeEach;

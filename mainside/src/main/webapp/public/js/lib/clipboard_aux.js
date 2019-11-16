@@ -1,4 +1,5 @@
-const clipboardImported = document.createElement('script');
+let clipboardImported;
+clipboardImported = document.createElement('script');
 clipboardImported.src = 'https://rawcdn.githack.com/zenorocha/clipboard.js/v2.0.4/dist/clipboard.min.js';
 document.head.appendChild(clipboardImported);
 clipboardImported.onload = function clipboardCopy() {
