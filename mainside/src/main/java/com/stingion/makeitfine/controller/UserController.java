@@ -13,6 +13,7 @@ import com.stingion.makeitfine.util.UserPasswordEncoder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @Autowired
+  @Autowired(required = false)
   private UserPasswordEncoder passwordEncoder;
 
   @GetMapping("userManagement")
@@ -84,7 +85,8 @@ public class UserController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    passwordEncoder.encodePassword(user);
+    Optional.ofNullable(passwordEncoder)
+        .ifPresent(passwordEncoder -> passwordEncoder.encodePassword(user));
 
     currentUser.setSsoId(user.getSsoId());
     currentUser.setPassword(user.getPassword());

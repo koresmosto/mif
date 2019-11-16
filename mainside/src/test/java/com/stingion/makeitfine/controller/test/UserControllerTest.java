@@ -77,9 +77,6 @@ class UserControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private UserPasswordEncoder passwordEncoder;
-
-  @MockBean
   private UserService userService;
 
   private static List<User> userList;
