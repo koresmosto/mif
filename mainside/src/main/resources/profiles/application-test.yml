@@ -1,2 +1,2 @@
 security:
-  ignore: true
+  enable: false

@@ -7,12 +7,12 @@
 
 package com.stingion.makeitfine.configuration;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,58 +22,53 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@ConditionalOnProperty(value = "security.enable", havingValue = "true", matchIfMissing = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Value("${security.ignore:false}")
-  private boolean securityIgnore;
+  @Value("${security.enable:true}")
+  private boolean securityEnable;
 
-  @Configuration
-  @ConditionalOnProperty(value = "security.ignore", havingValue = "false", matchIfMissing = true)
-  public static class SecurityAuxiliaryConfiguration {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-      return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-      DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-      authProvider.setUserDetailsService(userDetailsService);
-      authProvider.setPasswordEncoder(passwordEncoder());
-      return authProvider;
-    }
-  }
-
-  @Autowired(required = false)
-  private AuthenticationProvider authProvider;
+  @Value("${security.antPattern:'/**'}")
+  private String antPattern;
 
   @Autowired
-  public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-    if (!securityIgnore) {
+  private UserDetailsService userDetailsService;
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public DaoAuthenticationProvider authProvider() {
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    authProvider.setUserDetailsService(userDetailsService);
+    authProvider.setPasswordEncoder(passwordEncoder());
+    return authProvider;
+  }
+
+  @Autowired
+  public void configureGlobalSecurity(AuthenticationManagerBuilder auth) {
+    if (securityEnable) {
       configureGlobalSecurityIfSecurityON(auth);
     }
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    if (!securityIgnore) {
+    if (securityEnable) {
       configureIfSecurityIsON(http);
     }
   }
 
-  private void configureGlobalSecurityIfSecurityON(AuthenticationManagerBuilder auth)
-      throws Exception {
-    auth.authenticationProvider(authProvider);
+  private void configureGlobalSecurityIfSecurityON(AuthenticationManagerBuilder auth) {
+    auth.authenticationProvider(authProvider());
   }
 
   private void configureIfSecurityIsON(HttpSecurity http) throws Exception {
     http.authorizeRequests().antMatchers("/login**", "/public/**", "/Access_Denied").permitAll();
     http.authorizeRequests()
-        .antMatchers("/**")
+        .antMatchers(Optional.ofNullable(antPattern).orElse("/**"))
         .access("hasRole('ADMIN') or hasRole('USER')")
         .and()
         .csrf()
