@@ -32,6 +32,7 @@ public class SwaggerConfig {
         .tags(
             new Tag("LoginController", "Login based with Spring security"),
             new Tag("StartUpController", "Index page"),
+            new Tag("UserInfoController", "User info"),
             new Tag("UserController", "REST API for CRUD operations for users"));
   }
 

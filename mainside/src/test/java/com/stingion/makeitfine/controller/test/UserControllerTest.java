@@ -70,7 +70,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 @ActiveProfiles("test")
-@Tag("userController")
+@Tag("controllerTest")
 class UserControllerTest {
 
   @Autowired
