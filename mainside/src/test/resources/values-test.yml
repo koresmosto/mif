@@ -3,3 +3,4 @@ test:
     protocol: http
     host: localhost
     protocolHost: ${protocol}://${host}
+  unit:

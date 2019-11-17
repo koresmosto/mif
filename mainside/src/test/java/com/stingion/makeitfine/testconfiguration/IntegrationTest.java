@@ -19,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
 /**
- * User to run unit tests
+ * To run integration tests
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
