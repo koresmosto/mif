@@ -25,7 +25,7 @@ import com.google.common.collect.Lists;
 import com.stingion.makeitfine.controller.UserController;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.model.UserService;
-import com.stingion.makeitfine.util.UserPasswordEncoder;
+import com.stingion.makeitfine.testconfiguration.UnitTest;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +60,6 @@ import org.mockito.ArgumentMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -69,7 +68,7 @@ import org.springframework.test.web.servlet.MockMvc;
  */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
-@ActiveProfiles("test")
+@UnitTest
 @Tag("controllerTest")
 class UserControllerTest {
 
