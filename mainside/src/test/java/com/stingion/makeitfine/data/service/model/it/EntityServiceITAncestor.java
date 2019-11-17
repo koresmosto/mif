@@ -10,6 +10,7 @@ package com.stingion.makeitfine.data.service.model.it;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.stingion.makeitfine.data.service.model.EntityService;
+import com.stingion.makeitfine.testconfiguration.IntegrationTest;
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ActiveProfiles("integration_test")
+@IntegrationTest
 @Import(ServiceTestConfiguration.class)
 @Transactional
 @Disabled
