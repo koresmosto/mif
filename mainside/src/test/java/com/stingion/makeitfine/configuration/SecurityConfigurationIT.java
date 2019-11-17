@@ -11,9 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+import com.google.common.collect.Sets;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.State;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 import javax.annotation.PostConstruct;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +26,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.transaction.annotation.Transactional;
 
 @SuppressWarnings("ConfigurationProperties")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("security_on_integration_test")
 @TestPropertySource("classpath:values-test.yml")
 @ConfigurationProperties(prefix = "test.integration", ignoreInvalidFields = true)
+@Transactional
 class SecurityConfigurationIT {
 
   @LocalServerPort
@@ -82,6 +89,25 @@ class SecurityConfigurationIT {
     assertEquals(expectedUser.getSsoId(), actualUser.getSsoId());
     assertEquals(expectedUser.getEmail(), actualUser.getEmail());
     assertEquals(expectedUser.getState(), actualUser.getState());
+  }
+
+//  @Test
+//  @Rollback
+  //Todo: work on ..
+  void insertUserWithRandomSsoId() {
+    int numberOfUsersBeforeInsert = getResponseBody("/user", List.class).size();
+
+    User insertedUser = new User();
+    insertedUser.setSsoId(UUID.randomUUID().toString().substring(0, 25));
+    insertedUser.setPassword(UUID.randomUUID().toString());
+    insertedUser.setEmail(String.format("any%s%s", new Random().nextInt() + 10101, "@xxx.xxx"));
+    insertedUser.setState(State.ACTIVE);
+    insertedUser.setUserProfiles(Sets.newHashSet());
+    restTemplate.postForEntity("/user", insertedUser, Void.class);
+
+    int numberOfUsersAfterInsert = getResponseBody("/user", List.class).size();
+
+    assertEquals(numberOfUsersBeforeInsert, numberOfUsersAfterInsert - 1);
   }
 
   private <T> T getResponseBody(String relativePath, Class<T>... clasz) {
