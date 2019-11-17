@@ -8,6 +8,7 @@
 package com.stingion.makeitfine.util;
 
 import com.stingion.makeitfine.data.model.user.User;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -25,8 +26,6 @@ public class UserPasswordEncoder {
    * @return
    */
   public void encodePassword(User user) {
-    if (encoder != null) {
-      user.setPassword(encoder.encode(user.getPassword()));
-    }
+    Optional.ofNullable(encoder).ifPresent(e -> user.setPassword(e.encode(user.getPassword())));
   }
 }

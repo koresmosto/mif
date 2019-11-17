@@ -31,12 +31,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Disabled
 public class EntityServiceITAncestor<T> {
 
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Autowired
   protected EntityHelper<T> eH;
 
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Autowired
   protected EntityService<T> entityService;
 
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Autowired
   protected ServiceTestConfiguration.EntityTestData<T> entityTestData;
 
