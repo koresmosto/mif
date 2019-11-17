@@ -1,0 +1,13 @@
+spring:
+  #=============================
+  # Data Source Config
+  #=============================
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  # Web url: /h2-console (the default jdbc url is `jdbc:h2:mem:testdb`)
+  h2:
+    console:
+      enabled: true
+  flyway:
+    locations: classpath:db/migration/h2

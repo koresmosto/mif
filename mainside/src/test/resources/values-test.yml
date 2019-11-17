@@ -3,4 +3,6 @@ test:
     protocol: http
     host: localhost
     protocolHost: ${protocol}://${host}
+    basicAuthUser.username: bill
+    basicAuthUser.password: abc123
   unit:

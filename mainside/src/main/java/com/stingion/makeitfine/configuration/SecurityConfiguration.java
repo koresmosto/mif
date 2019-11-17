@@ -69,9 +69,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private void configureIfSecurityIsON(HttpSecurity http) throws Exception {
     http.authorizeRequests().antMatchers("/login**", "/public/**", "/Access_Denied").permitAll();
     http.authorizeRequests()
-//        .antMatchers(Optional.ofNullable(antPattern).orElse("/**"))
-        .antMatchers("/**")
+        .antMatchers(Optional.ofNullable(antPattern).orElse("/**"))
         .access("hasRole('ADMIN') or hasRole('USER')")
+        .and()
+        .httpBasic()
         .and()
         .csrf()
         .disable()
