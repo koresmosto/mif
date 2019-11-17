@@ -27,7 +27,7 @@ import org.springframework.test.context.TestPropertySource;
 @Inherited
 @ActiveProfiles("integration_test")
 @TestPropertySource("classpath:values-test.yml")
-@ConfigurationProperties(prefix = "test.integration")
+@ConfigurationProperties(prefix = "test.integration", ignoreInvalidFields = true)
 @WithMockUser
 public @interface IntegrationTest {
 
