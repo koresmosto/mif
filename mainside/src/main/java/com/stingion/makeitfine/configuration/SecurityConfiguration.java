@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Value("${security.enable:true}")
   private boolean securityEnable;
 
-  @Value("${security.antPattern:'/**'}")
+  @Value("${security.antPattern:/**}")
   private String antPattern;
 
   @Autowired
