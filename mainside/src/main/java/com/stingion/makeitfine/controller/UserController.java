@@ -74,6 +74,7 @@ public class UserController {
     LOG.info("User created {}", user);
 
     HttpHeaders headers = new HttpHeaders();
+    headers.set("createdUserId", String.valueOf(user.getId()));
     headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
     return new ResponseEntity<>(headers, HttpStatus.CREATED);
   }

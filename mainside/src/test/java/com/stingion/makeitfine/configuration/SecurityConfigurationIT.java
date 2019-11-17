@@ -26,17 +26,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.transaction.annotation.Transactional;
 
 @SuppressWarnings("ConfigurationProperties")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("security_on_integration_test")
 @TestPropertySource("classpath:values-test.yml")
 @ConfigurationProperties(prefix = "test.integration", ignoreInvalidFields = true)
-@Transactional
 class SecurityConfigurationIT {
 
   @LocalServerPort
@@ -91,9 +88,7 @@ class SecurityConfigurationIT {
     assertEquals(expectedUser.getState(), actualUser.getState());
   }
 
-//  @Test
-//  @Rollback
-  //Todo: work on ..
+  @Test
   void insertUserWithRandomSsoId() {
     int numberOfUsersBeforeInsert = getResponseBody("/user", List.class).size();
 
@@ -103,11 +98,16 @@ class SecurityConfigurationIT {
     insertedUser.setEmail(String.format("any%s%s", new Random().nextInt() + 10101, "@xxx.xxx"));
     insertedUser.setState(State.ACTIVE);
     insertedUser.setUserProfiles(Sets.newHashSet());
-    restTemplate.postForEntity("/user", insertedUser, Void.class);
 
+    var insertUserResponse = restTemplate.postForEntity("/user", insertedUser, Void.class);
     int numberOfUsersAfterInsert = getResponseBody("/user", List.class).size();
-
     assertEquals(numberOfUsersBeforeInsert, numberOfUsersAfterInsert - 1);
+
+    String createdUserId = Optional.ofNullable(insertUserResponse.getHeaders().get("createdUserId"))
+        .map(h -> h.get(0)).orElse(null);
+    restTemplate.delete(String.format("/user/%s", createdUserId));
+    int numberOfUsersAfterDelete = getResponseBody("/user", List.class).size();
+    assertEquals(numberOfUsersAfterInsert, numberOfUsersAfterDelete + 1);
   }
 
   private <T> T getResponseBody(String relativePath, Class<T>... clasz) {
