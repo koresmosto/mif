@@ -68,7 +68,7 @@ public class UserController {
       return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    passwordEncoder.encodePassword(user);
+    Optional.ofNullable(passwordEncoder).ifPresent(encoder -> encoder.encodePassword(user));
 
     userService.save(user);
     LOG.info("User created {}", user);
@@ -86,8 +86,7 @@ public class UserController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    Optional.ofNullable(passwordEncoder)
-        .ifPresent(passwordEncoder -> passwordEncoder.encodePassword(user));
+    Optional.ofNullable(passwordEncoder).ifPresent(encoder -> encoder.encodePassword(user));
 
     currentUser.setSsoId(user.getSsoId());
     currentUser.setPassword(user.getPassword());
