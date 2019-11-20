@@ -12,14 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.stingion.makeitfine.data.service.model.EntityService;
 import com.stingion.makeitfine.testconfiguration.IntegrationTest;
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @Import(ServiceTestConfiguration.class)
 @Transactional
-@Disabled
 public class EntityServiceITAncestor<T> {
 
   @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

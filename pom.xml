@@ -107,6 +107,9 @@
           <includes>
             <include>**/*IT.java</include>
           </includes>
+          <excludes>
+            <exclude>**/EntityServiceITAncestor.java</exclude>
+          </excludes>
           <excludedGroups>excluded</excludedGroups>
         </configuration>
       </plugin>
