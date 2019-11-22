@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
-#
-# Main docker start script
-#
-# Run from local machine: pwd && m clean install && c mainside/ && m spring-boot:run
-#
-echo "=========================================================="
-echo " Remove docker containers, create new ones and start them"
-echo "=========================================================="
+echo "=================================================================="
+echo " Remove docker containers, create new ones and start them locally "
+echo "=================================================================="
 . $(dirname $0)/docker_clean.sh
 docker-compose up -d
 wait_time=2s
