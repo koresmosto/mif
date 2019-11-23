@@ -10,7 +10,7 @@ cd ~/dev/projects/makeitfine/ && cd mainside/ && docker build --file=Dockerfile 
 cd ~/dev/projects/makeitfine/ && kubectl create -f running/kubernetes/app-deployment.yaml
 
 sleep 15s
-kubectl describe pod demo-frontend- | grep "Container ID"
+kubectl describe pod appside- | grep "Container ID"
 # see pod on kuber:
 # k describe pods app- <tab>
 # d logs <inser>

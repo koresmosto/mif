@@ -1,3 +1,5 @@
+#Execute command:
+#$ k create -f running/kubernetes/app-deployment.yaml
 kind: Service
 apiVersion: v1
 metadata:
