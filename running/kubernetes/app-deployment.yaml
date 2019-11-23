@@ -1,0 +1,36 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: appside
+spec:
+  selector:
+    app: appside
+  ports:
+    - protocol: TCP
+      port: 8080
+      nodePort: 30080
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appside
+spec:
+  selector:
+    matchLabels:
+      app: appside
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: appside
+    spec:
+      containers:
+        - name: appside
+          image: appside:latest
+          imagePullPolicy: Never
+          env:
+            - name: kuber_env
+              value: "true"
+          ports:
+            - containerPort: 8080
