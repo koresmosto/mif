@@ -1,0 +1,55 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: all
+spec:
+  selector:
+    app: all
+  ports:
+    - port: 8080
+      protocol: TCP
+      nodePort: 30080
+      name: tcp-8080
+    - port: 3306
+      protocol: TCP
+      nodePort: 30306
+      name: tcp-3306
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: all
+spec:
+  selector:
+    matchLabels:
+      app: all
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: all
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.7.22
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: rootpasskuber
+            - name: MYSQL_DATABASE
+              value: makeitfinemysqlkuber
+            - name: MYSQL_USER
+              value: makeitfineuser
+            - name: MYSQL_PASSWORD
+              value: makeitfinepass
+          ports:
+            - containerPort: 3306
+        - name: appside
+          image: appside:latest
+          imagePullPolicy: Never
+          env:
+            - name: kuber_env
+              value: "true"
+          ports:
+            - containerPort: 8080
