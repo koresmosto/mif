@@ -1,9 +1,13 @@
-#Run in folder "mainside" under minikube VM
-#$ docker build --file=Dockerfile --tag=mainside:latest --rm=true .
-#Mount project to minikube:
-#$ minikube mount practice:/home/docker/projects
-FROM adoptopenjdk/openjdk11:jdk-11.0.4_11-alpine
+FROM adoptopenjdk/maven-openjdk11
 VOLUME /tmp
-COPY target/mainside-1.0-SNAPSHOT.war app.war
-ENV JAVA_OPTS=""
-CMD ["sh", "-c", "exec java -jar -Dspring.profiles.active=kuber,config_mysql /app.war"]
+COPY . /data/
+WORKDIR /data
+RUN mvn clean verify -DskipTests=true
+WORKDIR /data/mainside
+ENTRYPOINT exec mvn spring-boot:run
+
+##
+# Build app (run from project root "makeitfine"):
+# $> docker build --file=mainside/Dockerfile --tag=appimage:latest --rm=true .
+# Run app:
+# $> docker run -it --net="host" --name app appimage

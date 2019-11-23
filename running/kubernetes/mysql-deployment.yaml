@@ -1,5 +1,3 @@
-#Execute command:
-#$ k create -f running/kubernetes/mysql-deployment.yaml
 kind: Service
 apiVersion: v1
 metadata:
