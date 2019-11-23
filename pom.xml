@@ -195,8 +195,7 @@
       </activation>
       <properties>
         <mysql_server_in_docker>mysql_server</mysql_server_in_docker>
-        <db.url>jdbc:mysql://${mysql_server_in_docker}/makeitfinemysqldocker
-        </db.url><!-- default port is 3306 -->
+        <db.url>jdbc:mysql://${mysql_server_in_docker}/makeitfinemysqldocker</db.url>
         <db.username>makeitfineuser</db.username>
         <db.password>makeitfinepass</db.password>
       </properties>
@@ -211,8 +210,9 @@
       </activation>
       <properties>
         <mysql_server_in_kuber>mysql</mysql_server_in_kuber>
-        <db.url>jdbc:mysql://${mysql_server_in_kuber}/makeitfinemysqlkuber
-        </db.url>
+        <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <db.url>jdbc:mysql://${mysql_server_in_kuber}/makeitfinemysqlkuber</db.url>
         <db.username>makeitfineuser</db.username>
         <db.password>makeitfinepass</db.password>
       </properties>

@@ -4,7 +4,7 @@ COPY . /data/
 WORKDIR /data
 RUN mvn clean verify -DskipTests=true
 WORKDIR /data/mainside
-ENTRYPOINT exec mvn spring-boot:run
+ENTRYPOINT exec mvn flyway:clean flyway:migrate spring-boot:run -Pkuber
 
 ##
 # Build app (run from project root "makeitfine"):
