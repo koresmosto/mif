@@ -217,5 +217,22 @@
         <db.password>makeitfinepass</db.password>
       </properties>
     </profile>
+    <profile>
+      <id>kuberSinglePod</id>
+      <activation>
+        <property>
+          <name>env.kuber_env</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <properties>
+        <mysql_server_in_kuber>127.0.0.1</mysql_server_in_kuber>
+        <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <db.url>jdbc:mysql://${mysql_server_in_kuber}/makeitfinemysqlkuber</db.url>
+        <db.username>makeitfineuser</db.username>
+        <db.password>makeitfinepass</db.password>
+      </properties>
+    </profile>
   </profiles>
 </project>

@@ -45,6 +45,7 @@ spec:
               value: makeitfinepass
           ports:
             - containerPort: 3306
+
         - name: appside
           image: appside:latest
           imagePullPolicy: Never

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#It's good to make `mvn clean install` or `mvn clean install -DskipTests=true` on project before
 echo "=================================================================="
 echo "=================================================================="
 echo " Remove kubernetes services, deployments and recreate them again  "
@@ -47,4 +48,3 @@ echo " Mysql Container IDs:                                             "
 kubectl describe pod mysql- | grep "Container ID"
 echo " Appside Container IDs:                                           "
 kubectl describe pod appside- | grep "Container ID"
-#watch -n 1 kubectl get pods
