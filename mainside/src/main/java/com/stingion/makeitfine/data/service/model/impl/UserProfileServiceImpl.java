@@ -16,7 +16,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,9 +27,7 @@ public class UserProfileServiceImpl extends EntityServiceImpl<UserProfile>
 
   @Override
   public UserProfile findByUserProfileType(UserProfileType profileType) {
-    Session session = entityManager.unwrap(Session.class);
-
-    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
     CriteriaQuery<UserProfile> criteria = builder.createQuery(UserProfile.class);
     Root<UserProfile> userProfileRoot = criteria.from(UserProfile.class);
     criteria.select(userProfileRoot);

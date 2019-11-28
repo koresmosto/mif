@@ -16,7 +16,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.hibernate.Session;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,8 +57,7 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 
   @NotNull
   private CriteriaQuery<User> getUserCriteriaQuery(String userAttribute, String email) {
-    Session session = entityManager.unwrap(Session.class);
-    CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
     Root<User> userRoot = criteriaQuery.from(User.class);
     criteriaQuery.select(userRoot);
