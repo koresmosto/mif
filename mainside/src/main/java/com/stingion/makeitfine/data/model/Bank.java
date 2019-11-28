@@ -18,12 +18,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Length;
 
 /**
  * Created on 12.06.17.
@@ -50,7 +50,7 @@ public class Bank {
   private Integer id;
 
   @Column(name = "NAME", unique = true)
-  @Length(min = ModelConstants.MIN_BANK_NAME_LENGTH, max = ModelConstants.MAX_BANK_NAME_LENGTH)
+  @Size(min = ModelConstants.MIN_BANK_NAME_LENGTH, max = ModelConstants.MAX_BANK_NAME_LENGTH)
   private String name;
 
   @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, orphanRemoval = true)
