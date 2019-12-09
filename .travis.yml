@@ -1,0 +1,25 @@
+language: java
+
+jdk:
+  - openjdk11
+
+#before_install:
+#  - sudo apt-get install jq
+#  - wget https://github.com/codacy/codacy-coverage-reporter/releases/download/6.0.0/codacy-coverage-reporter-6.0.0-assembly.jar
+
+script:
+  mvn clean verify
+
+cache:
+  directories:
+    - $HOME/.m2
+
+#after_success:
+#  - java -jar codacy-coverage-reporter-6.0.0-assembly.jar report -l Java -r target/site/jacoco/jacoco.xml
+
+#notifications:
+#  slack:
+#    rooms:
+#      - secure: "BMY0pOME0DluO3c9MijG62+EusxxrU55HPHWhbMcU5D9GUbbNNg4K7Ju6YGc8VtLwZUbHaTVIR4mtg2h2OP4tZVXEf7I6aEUotDORHwm51qivj/kmsVjUBhpruzXyF0f1VRS+tHUisaFCAiyKcZk82jAjoafPqMazqmkGm7jqVLzshbRBakYyt1qVnSpyoLA2EBzp6cHD6Xf6NzIWoRA41KbW25uAyGjxKMYpGiVcYMT+oPYF4cSVwGxMDlzQwoHrp/f629XpTXhHGqoxtC85JkLh6l45+E+dJ6caoFvunxzbTmTqoJQc0bOeQFsMk/eAlkHa8ATOksT4B7KgT9PmIx8m7RkHFhHKLx/SDBxu228FrinbLHm8YhlDU6L4/ZTMPCDDgozbQLVVisicWMKcgfvw9u0gM6b5o3PZ22QJzqAb1BqS/twpcUJm7/VpFa79R+XkWjVIKIaMe9GT51/d+GR01d5HRZ5i+/TNUyDBIoT1jN1ovltGCmeoIQsdQ0bki8vN98g6Yd4iJs3gd7CRf2O3bTbsWTWIpBc2P9I7PMplb4YYW7YVdeLfdYzix2X/D8JE7qPo80rrNpQBqOaXmJPN023XPRZh5lA/tIkx21BiSFXLwCQZ6iwdk7+6bRzd4oCighCNeW8Sk2XYBRqHhdQrh2DDiedeFFJDFPod3Y="
+#    on_success: change
+#    on_failure: always
