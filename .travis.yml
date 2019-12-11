@@ -14,7 +14,7 @@ cache:
     - $HOME/.m2
 
 after_success:
-  - java -jar codacy-coverage-reporter-6.0.0-assembly.jar report -l Java -r target/site/jacoco/jacoco.xml
+  - java -jar codacy-coverage-reporter-6.0.0-assembly.jar report -l Java -r mainside/target/site/jacoco/jacoco.xml
 
 notifications:
   slack:
