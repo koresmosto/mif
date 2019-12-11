@@ -23,7 +23,7 @@ public interface UserSpecifiedService {
   List<User> specifiedMailServiceUsers(String emailHost);
 
   /**
-   * Get list of users of specified type
+   * Get list of users of specified type.
    *
    * @param userProfileType profile type
    * @return users
@@ -31,7 +31,7 @@ public interface UserSpecifiedService {
   List<User> roleUsers(UserProfileType userProfileType);
 
   /**
-   * Get list of users of specified state
+   * Get list of users of specified state.
    *
    * @param userState state
    * @return users

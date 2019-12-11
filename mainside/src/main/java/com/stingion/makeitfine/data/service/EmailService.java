@@ -13,7 +13,7 @@ import java.util.Map;
 public interface EmailService {
 
   /**
-   * Check whether email belongs to any active admin
+   * Check whether email belongs to any active admin.
    *
    * @param email given email address
    * @return check result
@@ -23,7 +23,7 @@ public interface EmailService {
   List<String> sortedUsersEmails();
 
   /**
-   * Get map of ssoId -> email of users
+   * Get map of ssoId -> email of users.
    *
    * @return ssoId:email map
    */

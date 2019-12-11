@@ -21,6 +21,7 @@ public class GlobalExceptionHandler {
   private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
   @ExceptionHandler(value = {Error.class, Exception.class, RuntimeException.class})
+  @SuppressWarnings("checkstyle:javadocmethod")
   public ModelAndView handleIOException(HttpServletRequest request, Exception e) {
     logger.error(e.getMessage(), e);
 

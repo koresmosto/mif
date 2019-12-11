@@ -35,6 +35,7 @@ public class LoginController {
   }
 
   @RequestMapping(value = "/logout", method = RequestMethod.GET)
+  @SuppressWarnings("missingjavadocmethod")
   public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     if (auth != null) {

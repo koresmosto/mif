@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ Created under not commercial project "Make it fine"
+  ~
+  ~  Copyright 2017-2019
+  ~  @author stingion
+  -->
+
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+<!--  <suppress checks="JavadocStyleCheck"-->
+<!--    files="AbstractComplexityCheck.java"-->
+<!--    lines="82,108-122"/>-->
+<!--  <suppress checks="MagicNumberCheck"-->
+<!--    files="JavadocStyleCheck.java"-->
+<!--    lines="221"/>-->
+  <suppress message="Missing a Javadoc comment"/>
+</suppressions>
