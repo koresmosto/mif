@@ -2,9 +2,9 @@ language: java
 jdk:
   - openjdk11
 
-#before_install:
-#  - sudo apt-get install jq
-#  - wget https://github.com/codacy/codacy-coverage-reporter/releases/download/6.0.0/codacy-coverage-reporter-6.0.0-assembly.jar
+before_install:
+  - sudo apt-get install jq
+  - wget https://github.com/codacy/codacy-coverage-reporter/releases/download/6.0.0/codacy-coverage-reporter-6.0.0-assembly.jar
 
 script:
   mvn clean verify
@@ -13,8 +13,8 @@ cache:
   directories:
     - $HOME/.m2
 
-#after_success:
-#  - java -jar codacy-coverage-reporter-6.0.0-assembly.jar report -l Java -r target/site/jacoco/jacoco.xml
+after_success:
+  - java -jar codacy-coverage-reporter-6.0.0-assembly.jar report -l Java -r target/site/jacoco/jacoco.xml
 
 notifications:
   slack:

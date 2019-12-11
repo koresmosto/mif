@@ -155,6 +155,17 @@
           </locations>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>
+              com.stingion.makeitfine.controller.UserInfoController
+            </include>
+          </includes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
