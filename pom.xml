@@ -96,7 +96,9 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.3</version>
           <executions>
             <execution>
               <goals>
@@ -133,8 +135,6 @@
               <id>jacoco-check</id>
             </execution>
           </executions>
-          <groupId>org.jacoco</groupId>
-          <version>0.8.3</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -167,6 +167,29 @@
           </excludes>
           <excludedGroups>excluded</excludedGroups>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <configLocation>google_checks.xml</configLocation>
+          <consoleOutput>true</consoleOutput>
+          <encoding>UTF-8</encoding>
+          <failOnViolation>true</failOnViolation>
+          <failsOnError>true</failsOnError>
+          <linkXRef>false</linkXRef>
+          <violationSeverity>warning</violationSeverity>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <id>validate</id>
+            <phase>validate</phase>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
