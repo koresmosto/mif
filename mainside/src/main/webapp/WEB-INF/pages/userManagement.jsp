@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
 <spring:message code="userManagement" var="userManagementVar"/>
 
-<t:concretpage title="${userManagementVar}">
+<t:concretpage title="${fn:escapeXml(userManagementVar)}">
     <title>AngularJS $http Example</title>
     <style>
         .username.ng-valid {

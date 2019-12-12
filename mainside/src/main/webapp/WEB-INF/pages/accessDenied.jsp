@@ -2,7 +2,7 @@
 
 <spring:message code="accessDeniedPage" var="accessDeniedPageVar"/>
 
-<t:genericpage title="${accessDeniedPageVar}">
+<t:genericpage title="${fn:escapeXml(accessDeniedPageVar)}">
     <jsp:attribute name="htmlHead">
         <jsp:include page="/WEB-INF/pages/aux/common/htmlHeader.jsp"/>
     </jsp:attribute>
@@ -14,8 +14,8 @@
     </jsp:attribute>
     <jsp:body>
         <h2>
-            <spring:message code="dear"/> <strong>${fn:escapeXml(user)}</strong>, <spring:message
-                code="youAreNotAuthorized"/>.
+            <spring:message code="dear"/> <strong>${fn:escapeXml(user)}</strong>,
+            <spring:message code="youAreNotAuthorized"/>.
         </h2>
     </jsp:body>
 </t:genericpage>
