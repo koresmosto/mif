@@ -30,7 +30,7 @@ class InfoServiceIT {
   private InfoService infoService;
 
   @Test
-  void usersAndItsRoles() {
+  public void usersAndItsRoles() {
     List<String> expected = Lists.newArrayList(
         "admin:{ADMIN}",
         "bill:{USER}",

@@ -13,9 +13,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.AccessLevel;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
+@Slf4j
 public class EntityHelper<T> {
 
   @PersistenceContext
@@ -38,7 +40,8 @@ public class EntityHelper<T> {
           getEntityById((Integer) entity.getClass().getMethod("getId", null).invoke(entity));
       return entity.toString().equals(dbEntity != null ? dbEntity.toString() : StringUtils.EMPTY);
     } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-      throw new RuntimeException(e);
+      log.debug(e.getMessage(), e);
+      return false;
     }
   }
 

@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 class StartUpControllerIT extends ControllerITProvision {
 
   @Test
-  void index() {
+  public void index() {
     String[] responseBody = new String[]{getResponseBody("/index"), getResponseBody("/")};
 
     for (String r : responseBody) {
@@ -28,7 +28,7 @@ class StartUpControllerIT extends ControllerITProvision {
   }
 
   @Test
-  void greeting() {
+  public void greeting() {
     assertEquals("Make it fine \"makeitfine\"", getResponseBody("/info"));
     assertEquals("Make it fine \"makeitfine\"", getResponseBody("/info?details=any"));
     assertEquals("Stingion : stingion@gmail.com", getResponseBody("/info?details=author"));

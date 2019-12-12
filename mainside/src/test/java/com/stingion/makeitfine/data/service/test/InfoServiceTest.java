@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class InfoServiceTest extends ServiceTestProvision {
 
   @Test
-  void usersAndItsRoles() {
+  public void usersAndItsRoles() {
     List<String> expected = Lists
         .newArrayList("user1:{USER,ADMIN,DBA}", "user2:{}", "user3:{USER,ADMIN,DBA}");
     List<String> actual = infoService.usersAndItsRoles();

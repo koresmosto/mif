@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class EmailServiceTest extends ServiceTestProvision {
 
   @Test
-  void ssoIdEmails() {
+  public void ssoIdEmails() {
     Map<String, String> expected = new HashMap<>() {{
       put("user1", "user1@any.xxxmail");
       put("user2", "user2@any.xyz");

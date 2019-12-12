@@ -54,13 +54,13 @@ class SecurityConfigurationIT {
   protected TestRestTemplate restTemplate;
 
   @PostConstruct
-  private void init() {
+  public void init() {
     hostPort = protocolHost + ":" + port;
     restTemplate = restTemplate.withBasicAuth(username, password);
   }
 
   @Test
-  void indexPageTest() {
+  public void indexPageTest() {
     String[] responseBody = new String[]{getResponseBody("/index"), getResponseBody("/")};
 
     for (String r : responseBody) {
@@ -73,7 +73,7 @@ class SecurityConfigurationIT {
   }
 
   @Test
-  void getUserWithFirstId() {
+  public void getUserWithFirstId() {
     User expectedUser = new User();
     expectedUser.setId(1);
     expectedUser.setSsoId("bill");
@@ -89,7 +89,7 @@ class SecurityConfigurationIT {
   }
 
   @Test
-  void insertUserWithRandomSsoId() {
+  public void insertUserWithRandomSsoId() {
     int numberOfUsersBeforeInsert = getResponseBody("/user", List.class).size();
 
     User insertedUser = new User();

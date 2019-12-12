@@ -15,6 +15,8 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -81,7 +83,7 @@ class UserControllerTest {
   private static List<User> userList;
 
   @BeforeAll
-  private static void beforeClass() {
+  public static void beforeClass() {
     User user1 = new User();
     user1.setId(1);
 
@@ -92,7 +94,7 @@ class UserControllerTest {
   }
 
   @BeforeEach
-  private void beforeEach() {
+  public void beforeEach() {
     when(userService.findAll()).thenReturn(userList);
     when(userService.findById(1)).thenReturn(userList.get(0));
     when(userService.findById(2)).thenReturn(userList.get(1));
@@ -107,41 +109,47 @@ class UserControllerTest {
 
   @Test
   @Tag("simple")
-  void listAllUsers() throws Exception {
+  public void listAllUsers() throws Exception {
     mockMvc
         .perform(get("/user"))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().string(Matchers.allOf(containsString("2"), containsString("1"))));
+
+    verify(userService, times(1)).findAll();
   }
 
   @Test
   @Tag("simple")
-  void getUserOne() throws Exception {
+  public void getUserOne() throws Exception {
     int id = 1;
     mockMvc
         .perform(get("/user/" + id))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+
+    verify(userService, times(1)).findById(id);
   }
 
   @Timeout(value = 250, unit = TimeUnit.MILLISECONDS)
   @Test
   @RepeatedTest(3)
-  void getUser() throws Exception {
+  public void getUser() throws Exception {
     int id = 2;
     mockMvc
         .perform(get("/user/" + id))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+
+    verify(userService, times(1)).findById(id);
   }
 
   @ParameterizedTest
   @ValueSource(ints = {3, 4, 5})
   @MethodSource("intNumbs")
-  void getUserParam(int id) throws Exception {
+  public void getUserParam(int id) throws Exception {
     User userById = new User();
     userById.setId(id);
     userList.add(userById);
@@ -170,7 +178,7 @@ class UserControllerTest {
                     }));
   }
 
-  private static final Stream<Integer> intNumbs() {
+  public static final Stream<Integer> intNumbs() {
     return Stream.iterate(6, i -> i + 1).limit(3);
   }
 
@@ -207,7 +215,7 @@ class UserControllerTest {
     }
 
     @TestTemplate
-    void testUserWithHighNumberId(Integer id) {
+    public void testUserWithHighNumberId(Integer id) {
       assertNotNull(userService.findById(id));
     }
   }

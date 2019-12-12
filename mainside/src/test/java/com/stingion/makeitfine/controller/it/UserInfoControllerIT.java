@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class UserInfoControllerIT extends ControllerITProvision {
 
   @Test
-  void usersAndItsRoles() {
+  public void usersAndItsRoles() {
     String expected = "admin:{ADMIN}bill:{USER}danny:{USER}kenny:{ADMIN,DBA}nicole:{DBA}sam:{ADMIN}"
         + "sudo:{USER,ADMIN,DBA}tsuser:{USER}";
 

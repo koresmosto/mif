@@ -27,15 +27,15 @@ abstract class ControllerITProvision {
   @Value("${protocolHost}")
   private String protocolHost;
 
+  @Autowired
+  protected TestRestTemplate restTemplate;
+
   private String hostPort;
 
   @PostConstruct
-  private void init() {
+  public void init() {
     hostPort = protocolHost + ":" + port;
   }
-
-  @Autowired
-  protected TestRestTemplate restTemplate;
 
   protected String getResponseBody(String relativePath) {
     return restTemplate.getForEntity(hostPort + relativePath, String.class).getBody();

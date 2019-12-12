@@ -7,6 +7,8 @@
 
 package com.stingion.makeitfine.controller.test;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.google.common.collect.Lists;
@@ -37,16 +39,16 @@ class UserInfoControllerTest {
   @MockBean
   private InfoService infoService;
 
-  ArrayList<String> usersAndItsRoles = Lists
+  private ArrayList<String> usersAndItsRoles = Lists
       .newArrayList("user1:{USER,ADMIN,DBA}", "user2:{}", "user3:{USER,ADMIN,DBA}");
 
   @BeforeEach
-  void init() {
+  public void init() {
     when(infoService.usersAndItsRoles()).thenReturn(usersAndItsRoles);
   }
 
   @Test
-  void usersAndItsRoles() {
+  public void usersAndItsRoles() {
     webTestClient.get()
         .uri("/userInfo/usersAndItsRoles")
         .exchange()
@@ -54,5 +56,7 @@ class UserInfoControllerTest {
         .expectBody(String.class)
         .value(
             CoreMatchers.equalTo(usersAndItsRoles.stream().reduce((e1, e2) -> e1 + "" + e2).get()));
+
+    verify(infoService, times(1)).usersAndItsRoles();
   }
 }

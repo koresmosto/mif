@@ -89,7 +89,7 @@ public class DBSteps {
   }
 
   @When("Get first row of table $table where $keyValue")
-  public void GetRowsBySuchParams(
+  public void getRowsBySuchParams(
       @Named("table") String table, @Named("keyValue") ExamplesTable keyValue) {
     row = getTableRowsByWhereCondition(table, keyValue).get(0);
   }

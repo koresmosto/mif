@@ -14,7 +14,6 @@ import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.data.model.utils.UserProfileType;
 import com.stingion.makeitfine.data.service.UserSpecifiedService;
-import com.stingion.makeitfine.data.service.model.UserProfileService;
 import com.stingion.makeitfine.data.service.model.UserService;
 import com.stingion.makeitfine.testconfiguration.IntegrationTest;
 import java.util.List;
@@ -37,11 +36,8 @@ class UserSpecifiedServiceIT {
   @Autowired
   private UserService userService;
 
-  @Autowired
-  private UserProfileService userProfileService;
-
   @Test
-  void specifiedMailServiceUsers() {
+  public void specifiedMailServiceUsers() {
     String emailServerName = "xyz.com";
 
     List<User> usersExpected = Lists.newArrayList(
@@ -57,7 +53,7 @@ class UserSpecifiedServiceIT {
   }
 
   @Test
-  void roleUsers() {
+  public void roleUsers() {
     UserProfileType userProfileType = UserProfileType.DBA;
 
     List<User> usersExpected = Lists.newArrayList(
@@ -71,7 +67,7 @@ class UserSpecifiedServiceIT {
   }
 
   @Test
-  void stateUsers() {
+  public void stateUsers() {
     State userState = State.ACTIVE;
 
     List<User> usersExpected = Lists.newArrayList(

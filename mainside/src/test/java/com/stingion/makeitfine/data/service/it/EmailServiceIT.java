@@ -32,7 +32,7 @@ class EmailServiceIT {
   private EmailService emailService;
 
   @Test
-  void isActiveAdminEmail() {
+  public void isActiveAdminEmail() {
     assertFalse(emailService.isActiveAdminEmail("some word"));
     assertFalse(emailService.isActiveAdminEmail("any_email@xyz.com"));
     assertFalse(emailService.isActiveAdminEmail("bill@xyz.com"));
@@ -47,7 +47,7 @@ class EmailServiceIT {
   }
 
   @Test
-  void sortedUsersEmails() {
+  public void sortedUsersEmails() {
     List<String> expected = Lists.newArrayList(
         "admin@xxx.xxx",
         "bill@xyz.com",

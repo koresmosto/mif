@@ -14,9 +14,9 @@ import com.google.common.collect.Sets;
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.UserProfileType;
-import com.stingion.makeitfine.data.service.model.UserService;
 import com.stingion.makeitfine.data.service.impl.EmailServiceImpl;
 import com.stingion.makeitfine.data.service.impl.InfoServiceImpl;
+import com.stingion.makeitfine.data.service.model.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,12 +26,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public abstract class ServiceTestProvision {
-
-  @FunctionalInterface
-  private interface U<U extends User> {
-
-    U create();
-  }
 
   @Mock
   private UserService userService;
@@ -44,8 +38,14 @@ public abstract class ServiceTestProvision {
   @Spy
   protected EmailServiceImpl emailService;
 
+  @FunctionalInterface
+  private interface U<U extends User> {
+
+    U create();
+  }
+
   @BeforeEach
-  void beforeEach() {
+  public void beforeEach() {
     U u = User::new;
 
     User user1 = u.create();
