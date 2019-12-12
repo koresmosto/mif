@@ -1,4 +1,3 @@
-# hadolint ignore=DL3006
 FROM adoptopenjdk/maven-openjdk11
 
 RUN apt update
