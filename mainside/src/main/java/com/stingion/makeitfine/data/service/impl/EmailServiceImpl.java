@@ -33,14 +33,14 @@ public class EmailServiceImpl implements EmailService {
     return !emailValidator.isValid(email) ? false :
         Optional.ofNullable(userService.findByEmail(email.toLowerCase()))
             .flatMap(user ->
-                Optional.ofNullable(user.getState() == State.ACTIVE &&
-                    user.getUserProfiles().stream()
-                        .anyMatch(userProfile ->
-                            Sets.newHashSet(
-                                UserProfileType.ADMIN.getUserProfileType(),
-                                UserProfileType.DBA.getUserProfileType())
-                                .contains(userProfile.getType())
-                        )
+                Optional.ofNullable(user.getState() == State.ACTIVE
+                    && user.getUserProfiles().stream()
+                    .anyMatch(userProfile ->
+                        Sets.newHashSet(
+                            UserProfileType.ADMIN.getUserProfileType(),
+                            UserProfileType.DBA.getUserProfileType())
+                            .contains(userProfile.getType())
+                    )
                 )
             )
             .orElse(false);

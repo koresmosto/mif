@@ -20,10 +20,7 @@ public class UserPasswordEncoder {
   private PasswordEncoder encoder;
 
   /**
-   * Encode password of the user if encoder present
-   *
-   * @param user
-   * @return
+   * Encode password of the user if encoder present.
    */
   public void encodePassword(User user) {
     Optional.ofNullable(encoder).ifPresent(e -> user.setPassword(e.encode(user.getPassword())));

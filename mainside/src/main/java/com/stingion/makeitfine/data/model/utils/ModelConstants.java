@@ -11,7 +11,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * Created under not commercial project
+ * Created under not commercial project.
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModelConstants {
