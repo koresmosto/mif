@@ -1,6 +1,3 @@
-<%--
-  ~ Created in scope of "Make it fine" project
-  --%>
 <%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
 
 <c:set var="genericErrorOccurredVar" scope="session" value="${exception.getClass().name}"/>

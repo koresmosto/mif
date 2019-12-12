@@ -1,6 +1,3 @@
-<%--
-  ~ Created in scope of "Make it fine" project
-  --%>
 <%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
 
 <spring:message code="404ClientError" var="Var404ClientError"/>
