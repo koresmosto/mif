@@ -34,7 +34,7 @@ ENDSSH
 
 ssh-keygen -R $(minikube ip)
 
-scp -o StrictHostKeyChecking=no -i $(minikube ssh-key) $(dirname $0)/.bashrc docker@$(minikube ip):/home/docker/
+scp -o StrictHostKeyChecking=no -i $(minikube ssh-key) $(dirname "$0")/.bashrc docker@$(minikube ip):/home/docker/
 
 #Configuration forwarding in VirtualBox
 VBoxManage controlvm minikube natpf1 mysql-3406,tcp,127.0.0.1,3406,,30306
