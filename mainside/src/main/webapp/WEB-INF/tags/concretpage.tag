@@ -1,8 +1,8 @@
-<%@tag description="User Page template" pageEncoding="UTF-8" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@attribute name="title" required="true" %>
+<%@ tag description="User Page template" pageEncoding="UTF-8" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ attribute name="title" required="true" %>
 
 <t:genericpage title="${title}">
     <jsp:attribute name="htmlHead">

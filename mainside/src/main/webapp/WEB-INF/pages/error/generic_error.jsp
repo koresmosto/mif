@@ -1,4 +1,6 @@
-<%@include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%@ include file="/WEB-INF/pages/aux/common/taglibs.jsp" %>
 
 <c:set var="genericErrorOccurredVar" scope="session"
        value="${fn:escapeXml(exception.getClass().name)}"/>
