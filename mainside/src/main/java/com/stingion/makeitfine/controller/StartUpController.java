@@ -25,6 +25,36 @@ import org.springframework.web.servlet.ModelAndView;
 @Api(tags = "StartUpController")
 public class StartUpController {
 
+  @GetMapping(value = {"", "index"})
+  public ModelAndView index() {
+    return new ModelAndView("index");
+  }
+
+  @GetMapping("info")
+  @ApiOperation(
+      value = "Information about project details",
+      notes = "This page is allowed without authorization")
+  public @ResponseBody
+  String greeting(
+      @RequestParam(value = "details", required = false)
+      @ApiParam(
+          value = "Specify details for output",
+          defaultValue = "any value",
+          allowableValues = "author, purpose, stage")
+          String details) {
+    var otherValue = "any value";
+    switch (Optional.ofNullable(details).orElse(otherValue).toLowerCase()) {
+      case "author":
+        return AboutProjectInfo.Author.details() + " : " + Desc.Author.description();
+      case "purpose":
+        return AboutProjectInfo.Purpose.details();
+      case "stage":
+        return AboutProjectInfo.Stage.details() + " : " + Desc.Stage.description();
+      default:
+        return "Make it fine \"makeitfine\"";
+    }
+  }
+
   enum AboutProjectInfo {
     Author {
       @Override
@@ -59,36 +89,6 @@ public class StartUpController {
 
     public String description() {
       return desc;
-    }
-  }
-
-  @GetMapping(value = {"", "index"})
-  public ModelAndView index() {
-    return new ModelAndView("index");
-  }
-
-  @GetMapping("info")
-  @ApiOperation(
-      value = "Information about project details",
-      notes = "This page is allowed without authorization")
-  public @ResponseBody
-  String greeting(
-      @RequestParam(value = "details", required = false)
-      @ApiParam(
-          value = "Specify details for output",
-          defaultValue = "any value",
-          allowableValues = "author, purpose, stage")
-          String details) {
-    var otherValue = "any value";
-    switch (Optional.ofNullable(details).orElse(otherValue).toLowerCase()) {
-      case "author":
-        return AboutProjectInfo.Author.details() + " : " + Desc.Author.description();
-      case "purpose":
-        return AboutProjectInfo.Purpose.details();
-      case "stage":
-        return AboutProjectInfo.Stage.details() + " : " + Desc.Stage.description();
-      default:
-        return "Make it fine \"makeitfine\"";
     }
   }
 }

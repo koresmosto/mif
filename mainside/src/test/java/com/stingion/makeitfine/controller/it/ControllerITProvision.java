@@ -21,15 +21,12 @@ import org.springframework.boot.web.server.LocalServerPort;
 @IntegrationTest
 abstract class ControllerITProvision {
 
-  @LocalServerPort
-  private int port;
-
-  @Value("${protocolHost}")
-  private String protocolHost;
-
   @Autowired
   protected TestRestTemplate restTemplate;
-
+  @LocalServerPort
+  private int port;
+  @Value("${protocolHost}")
+  private String protocolHost;
   private String hostPort;
 
   @PostConstruct

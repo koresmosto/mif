@@ -74,13 +74,11 @@ import org.springframework.test.web.servlet.MockMvc;
 @Tag("controllerTest")
 class UserControllerTest {
 
+  private static List<User> userList;
   @Autowired
   private MockMvc mockMvc;
-
   @MockBean
   private UserService userService;
-
-  private static List<User> userList;
 
   @BeforeAll
   public static void beforeClass() {
@@ -91,6 +89,10 @@ class UserControllerTest {
     user2.setId(2);
 
     userList = Lists.newArrayList(user1, user2);
+  }
+
+  public static final Stream<Integer> intNumbs() {
+    return Stream.iterate(6, i -> i + 1).limit(3);
   }
 
   @BeforeEach
@@ -178,45 +180,11 @@ class UserControllerTest {
                     }));
   }
 
-  public static final Stream<Integer> intNumbs() {
-    return Stream.iterate(6, i -> i + 1).limit(3);
-  }
-
-  private class NumberIsNotPositive implements ArgumentMatcher<Integer> {
-
-    @Override
-    public boolean matches(Integer argument) {
-      return argument < 1;
-    }
-  }
-
   static class DisplayNameGen extends DisplayNameGenerator.ReplaceUnderscores {
 
     @Override
     public String generateDisplayNameForMethod(Class<?> testClass, Method testMethod) {
       return UUID.randomUUID().toString();
-    }
-  }
-
-  @Nested
-  @ExtendWith(TemplateProvider.class)
-  @DisplayName("Testing template on userService")
-  @DisplayNameGeneration(DisplayNameGen.class)
-  public class UserControllerWithTemplateTest {
-
-    @BeforeEach
-    private void beforeEach() {
-      IllegalArgumentException idShouldBePositiveException =
-          new IllegalArgumentException("id should be positive");
-      doReturn(new User()).when(userService).findById(anyInt());
-      doThrow(idShouldBePositiveException)
-          .when(userService)
-          .findById(argThat(new NumberIsNotPositive()));
-    }
-
-    @TestTemplate
-    public void testUserWithHighNumberId(Integer id) {
-      assertNotNull(userService.findById(id));
     }
   }
 
@@ -259,6 +227,36 @@ class UserControllerTest {
               });
         }
       };
+    }
+  }
+
+  private class NumberIsNotPositive implements ArgumentMatcher<Integer> {
+
+    @Override
+    public boolean matches(Integer argument) {
+      return argument < 1;
+    }
+  }
+
+  @Nested
+  @ExtendWith(TemplateProvider.class)
+  @DisplayName("Testing template on userService")
+  @DisplayNameGeneration(DisplayNameGen.class)
+  public class UserControllerWithTemplateTest {
+
+    @BeforeEach
+    private void beforeEach() {
+      IllegalArgumentException idShouldBePositiveException =
+          new IllegalArgumentException("id should be positive");
+      doReturn(new User()).when(userService).findById(anyInt());
+      doThrow(idShouldBePositiveException)
+          .when(userService)
+          .findById(argThat(new NumberIsNotPositive()));
+    }
+
+    @TestTemplate
+    public void testUserWithHighNumberId(Integer id) {
+      assertNotNull(userService.findById(id));
     }
   }
 }

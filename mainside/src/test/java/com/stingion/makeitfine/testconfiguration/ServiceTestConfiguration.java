@@ -64,22 +64,6 @@ public class ServiceTestConfiguration {
   @Autowired
   private UserProfileService userProfileService;
 
-  @AllArgsConstructor
-  @NoArgsConstructor
-  @Data
-  public class EntityTestData<T> {
-
-    /**
-     * Id for findById, delete, update checking
-     */
-    private int id;
-
-    private String findAll;
-    private String findById;
-    private T savedEntity;
-    private T updateEntity;
-  }
-
   @Bean
   public EntityTestData<User> userTestData() {
     int id = 3;
@@ -237,5 +221,21 @@ public class ServiceTestConfiguration {
         "Payment(id=2, amount=62343.31)",
         paymentSaved,
         paymentUpdated);
+  }
+
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Data
+  public class EntityTestData<T> {
+
+    /**
+     * Id for findById, delete, update checking
+     */
+    private int id;
+
+    private String findAll;
+    private String findById;
+    private T savedEntity;
+    private T updateEntity;
   }
 }

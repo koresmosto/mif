@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+  <appender class="ch.qos.logback.core.ConsoleAppender" name="console">
     <encoder>
       <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{106} - %msg%n</pattern>
     </encoder>
   </appender>
 
-  <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>/tmp/logs/makeitfine.log</file>
+  <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="rollingFile">
     <encoder>
       <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{106} - %msg%n</pattern>
     </encoder>
+    <file>/tmp/logs/makeitfine.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <fileNamePattern>/tmp/logs/makeitfine.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
       <timeBasedFileNamingAndTriggeringPolicy
@@ -21,16 +21,16 @@
   </appender>
 
   <!-- project default level -->
-  <logger name="com.stingion.makeitfine" level="INFO">
+  <logger level="INFO" name="com.stingion.makeitfine">
     <appender-ref ref="rollingFile"/>
   </logger>
 
-  <logger name="com.stingion.makeitfine" level="DEBUG">
+  <logger level="DEBUG" name="com.stingion.makeitfine">
     <appender-ref ref="console"/>
   </logger>
 
   <!--log4jdbc -->
-  <logger name="jdbc.sqltiming" level="INFO"/>
+  <logger level="INFO" name="jdbc.sqltiming"/>
 
   <root level="INFO">
     <appender-ref ref="console"/>

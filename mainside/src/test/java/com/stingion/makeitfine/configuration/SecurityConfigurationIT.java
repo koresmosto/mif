@@ -36,22 +36,17 @@ import org.springframework.test.context.TestPropertySource;
 @ConfigurationProperties(prefix = "test.integration", ignoreInvalidFields = true)
 class SecurityConfigurationIT {
 
-  @LocalServerPort
-  private int port;
-
-  @Value("${protocolHost}")
-  private String protocolHost;
-
-  @Value("${basicAuthUser.username}")
-  private String username;
-
-  @Value("${basicAuthUser.password}")
-  private String password;
-
-  private String hostPort;
-
   @Autowired
   protected TestRestTemplate restTemplate;
+  @LocalServerPort
+  private int port;
+  @Value("${protocolHost}")
+  private String protocolHost;
+  @Value("${basicAuthUser.username}")
+  private String username;
+  @Value("${basicAuthUser.password}")
+  private String password;
+  private String hostPort;
 
   @PostConstruct
   public void init() {

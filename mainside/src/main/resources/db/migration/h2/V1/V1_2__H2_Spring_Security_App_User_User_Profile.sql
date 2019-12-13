@@ -1,86 +1,98 @@
 -- JOIN TABLE for MANY-TO-MANY relationship
-CREATE TABLE APP_USER_USER_PROFILE (
-  USER_ID         INT NOT NULL,
-  USER_PROFILE_ID INT NOT NULL,
-  PRIMARY KEY (USER_ID, USER_PROFILE_ID),
-  FOREIGN KEY (USER_ID) REFERENCES APP_USER (ID),
-  FOREIGN KEY (USER_PROFILE_ID) REFERENCES USER_PROFILE (ID)
+CREATE TABLE APP_USER_USER_PROFILE
+(
+    USER_ID         INT NOT NULL,
+    USER_PROFILE_ID INT NOT NULL,
+    PRIMARY KEY (USER_ID, USER_PROFILE_ID),
+    FOREIGN KEY (USER_ID) REFERENCES APP_USER (ID),
+    FOREIGN KEY (USER_PROFILE_ID) REFERENCES USER_PROFILE (ID)
 );
 
 -- Populate JOIN Table
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'bill' AND p.type = 'USER';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'bill'
+  AND p.type = 'USER';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'danny' AND p.type = 'USER';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'danny'
+  AND p.type = 'USER';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'sam' AND p.type = 'ADMIN';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'sam'
+  AND p.type = 'ADMIN';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'nicole' AND p.type = 'DBA';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'nicole'
+  AND p.type = 'DBA';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'kenny' AND p.type = 'ADMIN';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'kenny'
+  AND p.type = 'ADMIN';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'kenny' AND p.type = 'DBA';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'kenny'
+  AND p.type = 'DBA';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'sudo' AND p.type = 'USER';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'sudo'
+  AND p.type = 'USER';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'sudo' AND p.type = 'ADMIN';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'sudo'
+  AND p.type = 'ADMIN';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'sudo' AND p.type = 'DBA';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'sudo'
+  AND p.type = 'DBA';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'tsuser' AND p.type = 'USER';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'tsuser'
+  AND p.type = 'USER';
 
 INSERT INTO APP_USER_USER_PROFILE (USER_ID, USER_PROFILE_ID)
-  SELECT
-    u.id,
-    p.id
-  FROM APP_USER u, USER_PROFILE p
-  WHERE u.sso_id = 'admin' AND p.type = 'ADMIN';
+SELECT u.id,
+       p.id
+FROM APP_USER u,
+     USER_PROFILE p
+WHERE u.sso_id = 'admin'
+  AND p.type = 'ADMIN';

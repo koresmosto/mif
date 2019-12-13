@@ -27,22 +27,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public abstract class ServiceTestProvision {
 
-  @Mock
-  private UserService userService;
-
   @InjectMocks
   @Spy
   protected InfoServiceImpl infoService;
-
   @InjectMocks
   @Spy
   protected EmailServiceImpl emailService;
-
-  @FunctionalInterface
-  private interface U<U extends User> {
-
-    U create();
-  }
+  @Mock
+  private UserService userService;
 
   @BeforeEach
   public void beforeEach() {
@@ -76,5 +68,11 @@ public abstract class ServiceTestProvision {
     user3.setUserProfiles(Sets.newHashSet(adminUp, dbaUp, userUp));
 
     when(userService.findAll()).thenReturn(Lists.newArrayList(user1, user2, user3));
+  }
+
+  @FunctionalInterface
+  private interface U<U extends User> {
+
+    U create();
   }
 }

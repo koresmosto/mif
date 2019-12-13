@@ -1,104 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.stingion</groupId>
   <artifactId>makeitfine</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
-
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.2.0.RELEASE</version>
-  </parent>
-
-  <modules>
-    <module>mainside</module>
-    <module>system-testing</module>
-  </modules>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>11</java.version>
-    <encoding>UTF-8</encoding>
-    <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
-    <spring.version>4.3.9.RELEASE</spring.version>
-    <slf4j.version>1.7.25</slf4j.version>
-
-    <db.driver>oracle.jdbc.OracleDriver</db.driver>
-    <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
-    <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
-    <db.username>makeitfineoralce</db.username>
-    <db.password>makeitfine123</db.password>
-    <db.migration>db/migration/oracle</db.migration>
-    <!-- todo: think of deleting <springDBConf> definition here; add it to mysql profile -->
-    <springDBConf>config_mysql</springDBConf>
-  </properties>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.jetbrains</groupId>
-        <artifactId>annotations</artifactId>
-        <version>15.0</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-  <repositories><!-- Exists as default in effective-pom.xml (can be deleted) -->
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>central</id>
-      <name>Central Repository</name>
-      <url>http://repo.maven.apache.org/maven2</url>
-    </repository>
-    <repository>
-      <id>myMavenRepo</id>
-      <url>https://mymavenrepo.com/repo/gT6TK5b9Lxal2rU9xVKE/</url>
-    </repository>
-  </repositories>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-    </dependency>
-  </dependencies>
-
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.3</version>
           <executions>
             <execution>
               <goals>
@@ -135,43 +45,43 @@
               <id>jacoco-check</id>
             </execution>
           </executions>
+          <groupId>org.jacoco</groupId>
+          <version>0.8.3</version>
         </plugin>
       </plugins>
     </pluginManagement>
 
     <plugins>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <addResources>true</addResources>
         </configuration>
+        <groupId>org.springframework.boot</groupId>
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
-          <includes>
-            <include>**/*IT.java</include>
-          </includes>
+          <excludedGroups>excluded</excludedGroups>
           <excludes>
             <exclude>**/EntityServiceITAncestor.java</exclude>
           </excludes>
-          <excludedGroups>excluded</excludedGroups>
+          <includes>
+            <include>**/*IT.java</include>
+          </includes>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+          <excludedGroups>excluded</excludedGroups>
           <excludes>
             <exclude>**/*IT</exclude>
           </excludes>
-          <excludedGroups>excluded</excludedGroups>
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.0</version>
         <configuration>
           <configLocation>google_checks.xml</configLocation>
           <consoleOutput>true</consoleOutput>
@@ -179,8 +89,8 @@
           <failOnViolation>true</failOnViolation>
           <failsOnError>true</failsOnError>
           <linkXRef>false</linkXRef>
-          <violationSeverity>warning</violationSeverity>
           <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+          <violationSeverity>warning</violationSeverity>
         </configuration>
         <executions>
           <execution>
@@ -191,53 +101,107 @@
             <phase>validate</phase>
           </execution>
         </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.1.0</version>
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>junit</artifactId>
+          <groupId>junit</groupId>
+        </exclusion>
+      </exclusions>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>junit-vintage-engine</artifactId>
+      <groupId>org.junit.vintage</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <artifactId>annotations</artifactId>
+        <groupId>org.jetbrains</groupId>
+        <version>15.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <groupId>com.stingion</groupId>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <modules>
+    <module>mainside</module>
+    <module>system-testing</module>
+  </modules>
+
+  <packaging>pom</packaging>
+
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>2.2.0.RELEASE</version>
+  </parent>
 
   <profiles>
     <profile>
-      <id>mysql</id>
       <activation>
         <activeByDefault>true</activeByDefault>
         <property>
           <name>!oracle</name>
         </property>
       </activation>
+      <id>mysql</id>
       <properties>
         <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
-        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-        <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url><!-- default port is 3306 -->
-        <db.username>makeitfinemysql</db.username>
-        <db.password>makeitfine121</db.password>
         <db.migration>db/migration/mysql</db.migration>
+        <db.password>makeitfine121</db.password><!-- default port is 3306 -->
+        <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url>
+        <db.username>makeitfinemysql</db.username>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
       </properties>
     </profile>
     <profile>
-      <id>oracle</id>
       <activation>
         <activeByDefault>false</activeByDefault>
         <property>
           <name>oracle</name>
         </property>
       </activation>
+      <id>oracle</id>
       <properties>
         <db.driver>oracle.jdbc.OracleDriver</db.driver>
-        <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
-        <db.url>jdbc:oracle:thin:@//localhost/xe</db.url> <!-- default port is 1521 -->
-        <db.username>makeitfineoralce</db.username>
-        <db.password>makeitfine123</db.password>
         <db.migration>db/migration/oracle</db.migration>
+        <db.password>makeitfine123</db.password> <!-- default port is 1521 -->
+        <db.url>jdbc:oracle:thin:@//localhost/xe</db.url>
+        <db.username>makeitfineoralce</db.username>
+        <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
       </properties>
     </profile>
     <profile>
-      <id>debug</id>
       <activation>
         <property>
           <name>env.indebug</name>
           <value>true</value>
         </property>
       </activation>
+      <id>debug</id>
       <properties>
         <jvmargs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
           -Dserver.port=8080
@@ -245,64 +209,100 @@
       </properties>
     </profile>
     <profile>
-      <id>circleCI</id>
       <activation>
         <property>
           <name>ci</name>
         </property>
       </activation>
+      <id>circleCI</id>
       <properties>
         <springDBConf>config_h2</springDBConf>
       </properties>
     </profile>
     <profile>
-      <id>docker</id>
       <activation>
         <property>
           <name>env.docker_env</name>
           <value>true</value>
         </property>
       </activation>
+      <id>docker</id>
       <properties>
-        <mysql_server_in_docker>mysql_server</mysql_server_in_docker>
+        <db.password>makeitfinepass</db.password>
         <db.url>jdbc:mysql://${mysql_server_in_docker}/makeitfinemysqldocker</db.url>
         <db.username>makeitfineuser</db.username>
-        <db.password>makeitfinepass</db.password>
+        <mysql_server_in_docker>mysql_server</mysql_server_in_docker>
       </properties>
     </profile>
     <profile>
+      <activation>
+        <property>
+          <name>env.kuber_env</name>
+          <value>true</value>
+        </property>
+      </activation>
       <id>kuber</id>
-      <activation>
-        <property>
-          <name>env.kuber_env</name>
-          <value>true</value>
-        </property>
-      </activation>
       <properties>
-        <mysql_server_in_kuber>mysql</mysql_server_in_kuber>
         <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
-        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <db.password>makeitfinepass</db.password>
         <db.url>jdbc:mysql://${mysql_server_in_kuber}/makeitfinemysqlkuber</db.url>
         <db.username>makeitfineuser</db.username>
-        <db.password>makeitfinepass</db.password>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <mysql_server_in_kuber>mysql</mysql_server_in_kuber>
       </properties>
     </profile>
     <profile>
-      <id>kuberSinglePod</id>
       <activation>
         <property>
           <name>env.kuber_env</name>
           <value>true</value>
         </property>
       </activation>
+      <id>kuberSinglePod</id>
       <properties>
-        <mysql_server_in_kuber>127.0.0.1</mysql_server_in_kuber>
         <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
-        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <db.password>makeitfinepass</db.password>
         <db.url>jdbc:mysql://${mysql_server_in_kuber}/makeitfinemysqlkuber</db.url>
         <db.username>makeitfineuser</db.username>
-        <db.password>makeitfinepass</db.password>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <mysql_server_in_kuber>127.0.0.1</mysql_server_in_kuber>
       </properties>
     </profile>
   </profiles>
+
+  <properties>
+    <db.driver>oracle.jdbc.OracleDriver</db.driver>
+    <db.migration>db/migration/oracle</db.migration>
+    <db.password>makeitfine123</db.password>
+    <db.url>jdbc:oracle:thin:@//localhost/xe</db.url>
+    <db.username>makeitfineoralce</db.username>
+    <encoding>UTF-8</encoding>
+    <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
+
+    <java.version>11</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> <!-- default port is 1521 -->
+    <slf4j.version>1.7.25</slf4j.version>
+    <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
+    <spring.version>4.3.9.RELEASE</spring.version>
+    <!-- todo: think of deleting <springDBConf> definition here; add it to mysql profile -->
+    <springDBConf>config_mysql</springDBConf>
+  </properties>
+
+  <repositories><!-- Exists as default in effective-pom.xml (can be deleted) -->
+    <repository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <url>http://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <id>myMavenRepo</id>
+      <url>https://mymavenrepo.com/repo/gT6TK5b9Lxal2rU9xVKE/</url>
+    </repository>
+  </repositories>
+
+  <version>1.0-SNAPSHOT</version>
 </project>
