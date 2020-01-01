@@ -148,7 +148,6 @@
 
   <modules>
     <module>mainside</module>
-    <module>system-testing</module>
   </modules>
 
   <packaging>pom</packaging>
@@ -171,9 +170,9 @@
       <properties>
         <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
         <db.migration>db/migration/mysql</db.migration>
-        <db.password>makeitfine121</db.password><!-- default port is 3306 -->
+        <db.password>makeitfine121</db.password>
         <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url>
-        <db.username>makeitfinemysql</db.username>
+        <db.username>makeitfinemysql</db.username><!-- default port is 3306 -->
         <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
       </properties>
     </profile>
@@ -281,7 +280,8 @@
 
     <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> <!-- default port is 1521 -->
+    <project.reporting.outputEncoding>UTF-8
+    </project.reporting.outputEncoding> <!-- default port is 1521 -->
     <slf4j.version>1.7.25</slf4j.version>
     <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
     <spring.version>4.3.9.RELEASE</spring.version>
