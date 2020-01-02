@@ -11,10 +11,6 @@ services:
       MYSQL_DATABASE: makeitfinemysqldocker
       MYSQL_USER: makeitfineuser
       MYSQL_PASSWORD: makeitfinepass
-    networks:
-      mifnet_back:
-        aliases:
-          - mysql_server
     ports:
       - 3311:3306
 
@@ -24,8 +20,6 @@ services:
     image: flyway/flyway
     container_name: mif_flyway
     command: -url=jdbc:mysql://mysql/makeitfinemysqldocker -user=makeitfineuser -password=makeitfinepass -connectRetries=60 migrate
-    networks:
-      mifnet_back:
     volumes:
       - ./mainside/src/main/resources/db/migration/mysql:/flyway/sql
 
@@ -38,8 +32,6 @@ services:
       docker_env: "true"
       #Debug mode isn't working for Java 11 (issue planed to be fixed)
       indebug: "false"
-    networks:
-      mifnet_back:
     ports:
       - 8085:8080
       - 5010:5005
@@ -66,8 +58,5 @@ services:
     stdin_open: true
     tty: true
 
-networks:
-  mifnet_back:
-    driver: "bridge"
 volumes:
   mifrepo_m2:
