@@ -104,6 +104,28 @@
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.1.0</version>
       </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+              <version>${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven-compiler-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <configuration>
+          <repository>${docker.image.prefix}/${project.artifactId}</repository>
+        </configuration>
+        <groupId>com.spotify</groupId>
+        <version>${dockerfile-maven-plugin.version}</version>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -302,6 +324,8 @@
     <spring.version>4.3.9.RELEASE</spring.version>
     <!-- todo: think of deleting <springDBConf> definition here; add it to mysql profile -->
     <springDBConf>config_mysql</springDBConf>
+    <docker.image.prefix>koresmosto</docker.image.prefix>
+    <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
   </properties>
 
   <repositories><!-- Exists as default in effective-pom.xml (can be deleted) -->
