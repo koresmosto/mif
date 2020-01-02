@@ -1,3 +1,5 @@
+## Info for docker-compose console commands:
+# start: dcu; status: dcp; stop: dc down;
 version: '3.7'
 
 services:
@@ -23,7 +25,7 @@ services:
     volumes:
       - ./mainside/src/main/resources/db/migration/mysql:/flyway/sql
 
-  java11_maven:
+  mainside:
     depends_on:
       - flyway
     image: adoptopenjdk/maven-openjdk11
@@ -40,21 +42,21 @@ services:
       - type: volume
         source: mifrepo_m2
         target: /root/.m2/repository
-        #Todo: Remove sleep 5s from command changed by something else
-    command: # 3 lines before 'cd mainside' can be 'changed to mvn clean verify' for fast dev
+    working_dir: /data
+    command:
       - /bin/sh
       - -c
       - |
-        cd /data
-        echo 'tail -f /data/log.txt' >> output.sh
-        cp -R /data/original /data/makeitfine
+        apt update
+        apt install -y dnsutils
+        apt install -y net-tools
+        apt update
+        while true; do if nslookup flyway; then echo "FLYWAY ..."; sleep 2; else echo "FLYWAY migration finished!"; break; fi; done;
+        cp -R original makeitfine
         cd makeitfine
-        mvn clean  > /data/log.txt
-        echo "Necessary empirical/experimental sleep 5s (for mvn repos init && mysql connection)" >> /data/log.txt
-        sleep 5s
-        mvn clean verify >> /data/log.txt
+        mvn clean verify
         cd mainside
-        mvn spring-boot:run >> /data/log.txt
+        mvn spring-boot:run
     stdin_open: true
     tty: true
 
