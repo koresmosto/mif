@@ -7,4 +7,4 @@ docker-compose up -d
 wait_time=2s
 echo "sleep for $wait_time for 'echo 'tail -f /data/log.txt' >> output.sh' executes in container"
 sleep $wait_time
-docker exec -it j11m bash '/data/output.sh'
+docker exec -it mif_mainside bash '/data/output.sh'

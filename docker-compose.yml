@@ -1,12 +1,11 @@
-#Todo: think to move this file in running
 version: '3.7'
 
 services:
 
   mysql:
     image: mysql:5.7.22
-    container_name: mys
-    restart: always
+    container_name: mif_mysql
+    restart: on-failure
     environment:
       MYSQL_ROOT_PASSWORD: rootpassdocker
       MYSQL_DATABASE: makeitfinemysqldocker
@@ -19,19 +18,28 @@ services:
     ports:
       - 3311:3306
 
-  java11_maven:
+  flyway:
     depends_on:
       - mysql
+    image: flyway/flyway
+    container_name: mif_flyway
+    command: -url=jdbc:mysql://mysql/makeitfinemysqldocker -user=makeitfineuser -password=makeitfinepass -connectRetries=60 migrate
+    networks:
+      mifnet_back:
+    volumes:
+      - ./mainside/src/main/resources/db/migration/mysql:/flyway/sql
+
+  java11_maven:
+    depends_on:
+      - flyway
     image: adoptopenjdk/maven-openjdk11
-    container_name: j11m
+    container_name: mif_mainside
     environment:
       docker_env: "true"
       #Debug mode isn't working for Java 11 (issue planed to be fixed)
       indebug: "false"
     networks:
       mifnet_back:
-        aliases:
-          - app_server
     ports:
       - 8085:8080
       - 5010:5005
@@ -52,7 +60,6 @@ services:
         mvn clean  > /data/log.txt
         echo "Necessary empirical/experimental sleep 5s (for mvn repos init && mysql connection)" >> /data/log.txt
         sleep 5s
-        mvn process-resources flyway:clean flyway:migrate -pl mainside >> /data/log.txt
         mvn clean verify >> /data/log.txt
         cd mainside
         mvn spring-boot:run >> /data/log.txt
