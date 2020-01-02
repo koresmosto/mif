@@ -28,37 +28,7 @@ services:
   mainside:
     depends_on:
       - flyway
-    image: adoptopenjdk/maven-openjdk11
+    image: koresmosto/mainside
     container_name: mif_mainside
-    environment:
-      docker_env: "true"
-      #Debug mode isn't working for Java 11 (issue planed to be fixed)
-      indebug: "false"
     ports:
       - 8085:8080
-      - 5010:5005
-    volumes:
-      - .:/data/original
-      - type: volume
-        source: mifrepo_m2
-        target: /root/.m2/repository
-    working_dir: /data
-    command:
-      - /bin/sh
-      - -c
-      - |
-        apt update
-        apt install -y dnsutils
-        apt install -y net-tools
-        apt update
-        while true; do if nslookup flyway; then echo "FLYWAY ..."; sleep 2; else echo "FLYWAY migration finished!"; break; fi; done;
-        cp -R original makeitfine
-        cd makeitfine
-        mvn clean verify
-        cd mainside
-        mvn spring-boot:run
-    stdin_open: true
-    tty: true
-
-volumes:
-  mifrepo_m2:

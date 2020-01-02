@@ -161,7 +161,7 @@
   <profiles>
     <profile>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <activeByDefault>false</activeByDefault>
         <property>
           <name>!oracle</name>
         </property>
@@ -265,6 +265,21 @@
         <db.username>makeitfineuser</db.username>
         <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
         <mysql_server_in_kuber>127.0.0.1</mysql_server_in_kuber>
+      </properties>
+    </profile>
+    <profile>
+      <activation>
+        <property>
+          <name>env.dockernew_env</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <id>dockernew</id>
+      <properties>
+        <db.password>makeitfinepass</db.password>
+        <db.url>jdbc:mysql://${mysql_server_in_dockernew}/makeitfinemysqldocker</db.url>
+        <db.username>makeitfineuser</db.username>
+        <mysql_server_in_dockernew>mysql</mysql_server_in_dockernew>
       </properties>
     </profile>
   </profiles>

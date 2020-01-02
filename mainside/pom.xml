@@ -3,6 +3,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
   <artifactId>mainside</artifactId>
+  <packaging>war</packaging>
 
   <build>
     <plugins>
@@ -17,6 +18,13 @@
             <profile>${springDBConf}</profile>
           </profiles>
         </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
         <groupId>org.springframework.boot</groupId>
       </plugin>
       <plugin>
@@ -48,6 +56,38 @@
           </execution>
         </executions>
         <groupId>org.jacoco</groupId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+              <version>${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
+          <release>11</release>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven-compiler-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <configuration>
+          <repository>${docker.image.prefix}/${project.artifactId}</repository>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build</goal>
+            </goals>
+            <id>default</id>
+            <phase>install</phase>
+          </execution>
+        </executions>
+        <groupId>com.spotify</groupId>
+        <version>${dockerfile-maven-plugin.version}</version>
       </plugin>
     </plugins>
 
@@ -161,7 +201,6 @@
   </dependencies>
   <modelVersion>4.0.0</modelVersion>
   <name>mainside Maven Webapp</name>
-  <packaging>war</packaging>
 
   <parent>
     <artifactId>makeitfine</artifactId>
@@ -170,6 +209,8 @@
   </parent>
 
   <properties>
+    <docker.image.prefix>koresmosto</docker.image.prefix>
+    <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
     <swagger.version>2.9.2</swagger.version>
   </properties>
   <url>http://maven.apache.org</url>

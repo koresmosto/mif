@@ -1,13 +1,15 @@
-FROM adoptopenjdk/maven-openjdk11
+FROM openjdk:11-jre
+MAINTAINER Kores Mosto <koresmosto@gmail.com>
 
+VOLUME /tmp
+
+# Preparing for waiting of flyway migration completes
 RUN apt update
 RUN apt install -y dnsutils
 RUN apt install -y net-tools
+COPY target/classes/dockerize/wait-for-flyway-migration-completes.sh /waiting.sh
+RUN chmod +x /waiting.sh
 
-VOLUME /tmp
-COPY . /data/
-WORKDIR /data
-RUN mvn clean verify -DskipTests=true
-WORKDIR /data/mainside
+COPY target/mainside-1.0-SNAPSHOT.war /app.war
 
-CMD ["sh", "-c", "until nslookup 127.0.0.1; do echo waiting for 127.0.0.1; sleep 2; done; until netstat -tulpn | grep 3306; do echo waiting for port 127.0.0.1:3306; sleep 2; done; echo All right!!!; mvn flyway:clean flyway:migrate spring-boot:run -PkuberSinglePod"]
+CMD ["sh", "-c", "./waiting.sh; java -jar -Dspring.profiles.active=dockernew /app.war"]
