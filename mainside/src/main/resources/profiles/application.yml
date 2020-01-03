@@ -3,6 +3,7 @@ server:
   servlet:
     session:
       timeout: 1h
+  port: ${PORT:8080}
 
 spring:
   session:

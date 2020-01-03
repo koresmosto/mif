@@ -152,6 +152,19 @@
       <groupId>org.springframework.boot</groupId>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.logstash.logback</groupId>
+      <artifactId>logstash-logback-encoder</artifactId>
+      <version>6.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-sleuth</artifactId>
+    </dependency>
   </dependencies>
   <dependencyManagement>
     <dependencies>
@@ -159,6 +172,13 @@
         <artifactId>annotations</artifactId>
         <groupId>org.jetbrains</groupId>
         <version>15.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Greenwich.SR3</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -259,7 +279,6 @@
 
     <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
     <slf4j.version>1.7.25</slf4j.version>
-    <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
     <spring.version>4.3.9.RELEASE</spring.version>
   </properties>
 

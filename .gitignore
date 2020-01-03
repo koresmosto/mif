@@ -22,3 +22,6 @@ wiki/
 .sonar/
 
 *.tmpf
+
+#Elastic Stack
+/elasticstack
