@@ -1,5 +1,5 @@
 ## Info for docker-compose console commands:
-# start: dcu; status: dcp; stop: dc down;
+# start: dcu; status: dcp; stop: dcdw;
 version: '3.7'
 
 services:

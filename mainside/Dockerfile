@@ -12,4 +12,4 @@ RUN chmod +x /waiting.sh
 
 COPY target/mainside-1.0-SNAPSHOT.war /app.war
 
-CMD ["sh", "-c", "./waiting.sh; java -jar -Dspring.profiles.active=dockernew /app.war"]
+CMD ["sh", "-c", "./waiting.sh; java -jar -Dspring.profiles.active=docker_new /app.war"]

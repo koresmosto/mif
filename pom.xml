@@ -292,16 +292,19 @@
     <profile>
       <activation>
         <property>
-          <name>env.dockernew_env</name>
+          <name>env.docker_new_env</name>
           <value>true</value>
         </property>
       </activation>
-      <id>dockernew</id>
+      <id>docker_new</id>
       <properties>
         <db.password>makeitfinepass</db.password>
-        <db.url>jdbc:mysql://${mysql_server_in_dockernew}/makeitfinemysqldocker</db.url>
+        <db.url>jdbc:mysql://${mysql_server_in_docker_new}/makeitfinemysqldocker</db.url>
         <db.username>makeitfineuser</db.username>
-        <mysql_server_in_dockernew>mysql</mysql_server_in_dockernew>
+        <mysql_server_in_docker_new>mysql</mysql_server_in_docker_new>
+        <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
+        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+        <db.migration>db/migration/mysql</db.migration>
       </properties>
     </profile>
   </profiles>
