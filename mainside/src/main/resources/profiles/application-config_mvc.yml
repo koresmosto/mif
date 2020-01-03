@@ -1,0 +1,11 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/pages/
+      suffix: .jsp
+
+  messages:
+    basename: i18n/messages
+    #spring.mvc.locale=en #To make it work massages.properties file should be left, and messages_en.properties created
+    ##spring.messages.cache-seconds=-1
+    encoding: UTF-8

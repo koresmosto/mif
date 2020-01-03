@@ -15,7 +15,6 @@
                 <goal>prepare-agent</goal>
               </goals>
             </execution>
-            <!-- attached to Maven test phase -->
             <execution>
               <goals>
                 <goal>report</goal>
@@ -23,7 +22,6 @@
               <id>report</id>
               <phase>test</phase>
             </execution>
-            <!-- Add this checking -->
             <execution>
               <configuration>
                 <rules>
@@ -183,25 +181,8 @@
   <profiles>
     <profile>
       <activation>
-        <activeByDefault>false</activeByDefault>
         <property>
-          <name>!oracle</name>
-        </property>
-      </activation>
-      <id>mysql</id>
-      <properties>
-        <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
-        <db.migration>db/migration/mysql</db.migration>
-        <db.password>makeitfine121</db.password>
-        <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url>
-        <db.username>makeitfinemysql</db.username><!-- default port is 3306 -->
-        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-      </properties>
-    </profile>
-    <profile>
-      <activation>
-        <property>
-          <name>env.indebug</name>
+          <name>env.debug_env</name>
           <value>true</value>
         </property>
       </activation>
@@ -230,17 +211,16 @@
     <profile>
       <activation>
         <property>
+          <!-- todo: fix kuber and kuberSinglePod profile same prop: env.kuber_env -->
           <name>env.kuber_env</name>
           <value>true</value>
         </property>
       </activation>
       <id>kuber</id>
       <properties>
-        <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
         <db.password>makeitfinepass</db.password>
         <db.url>jdbc:mysql://${mysql_server_in_kuber}/makeitfinemysqlkuber</db.url>
         <db.username>makeitfineuser</db.username>
-        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
         <mysql_server_in_kuber>mysql</mysql_server_in_kuber>
       </properties>
     </profile>
@@ -253,42 +233,23 @@
       </activation>
       <id>kuberSinglePod</id>
       <properties>
-        <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
         <db.password>makeitfinepass</db.password>
         <db.url>jdbc:mysql://${mysql_server_in_kuber}/makeitfinemysqlkuber</db.url>
         <db.username>makeitfineuser</db.username>
-        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
         <mysql_server_in_kuber>127.0.0.1</mysql_server_in_kuber>
-      </properties>
-    </profile>
-    <profile>
-      <activation>
-        <property>
-          <name>env.docker_new_env</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <id>docker_new</id>
-      <properties>
-        <db.password>makeitfinepass</db.password>
-        <db.url>jdbc:mysql://${mysql_server_in_docker_new}/makeitfinemysqldocker</db.url>
-        <db.username>makeitfineuser</db.username>
-        <mysql_server_in_docker_new>mysql</mysql_server_in_docker_new>
-        <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
-        <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-        <db.migration>db/migration/mysql</db.migration>
       </properties>
     </profile>
   </profiles>
 
   <properties>
-    <db.driver></db.driver>
-    <db.migration></db.migration>
-    <db.password></db.password>
-    <db.url></db.url>
-    <db.username></db.username>
-    <hibernate.dialect></hibernate.dialect>
+    <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
+    <db.migration>db/migration/mysql</db.migration>
+    <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+    <db.password>makeitfine121</db.password>
+    <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url>
+    <db.username>makeitfinemysql</db.username>
     <jvmargs></jvmargs>
+
     <docker.image.prefix>koresmosto</docker.image.prefix>
 
     <encoding>UTF-8</encoding>
@@ -302,15 +263,7 @@
     <spring.version>4.3.9.RELEASE</spring.version>
   </properties>
 
-  <repositories><!-- Exists as default in effective-pom.xml (can be deleted) -->
-    <repository>
-      <id>central</id>
-      <name>Central Repository</name>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <url>http://repo.maven.apache.org/maven2</url>
-    </repository>
+  <repositories>
     <repository>
       <id>myMavenRepo</id>
       <url>https://mymavenrepo.com/repo/gT6TK5b9Lxal2rU9xVKE/</url>

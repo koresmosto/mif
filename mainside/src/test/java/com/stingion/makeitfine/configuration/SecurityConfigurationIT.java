@@ -31,7 +31,7 @@ import org.springframework.test.context.TestPropertySource;
 
 @SuppressWarnings("ConfigurationProperties")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@ActiveProfiles("security_on_integration_test")
+@ActiveProfiles({"security_on_integration_test"})
 @TestPropertySource("classpath:values-test.yml")
 @ConfigurationProperties(prefix = "test.integration", ignoreInvalidFields = true)
 class SecurityConfigurationIT {

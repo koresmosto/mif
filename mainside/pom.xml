@@ -13,7 +13,7 @@
             ${jvmargs}
           </jvmArguments>
           <profiles>
-            <profile>config_mysql</profile>
+            <profile>dev</profile>
           </profiles>
         </configuration>
         <executions>

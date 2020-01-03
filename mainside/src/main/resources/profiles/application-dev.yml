@@ -2,4 +2,4 @@ server:
   port: ${PORT:8080}
 spring:
   profiles:
-    include: config_mysql_new
+    include: config_mysql, config_mvc

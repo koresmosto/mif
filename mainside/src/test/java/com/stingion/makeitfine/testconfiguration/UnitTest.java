@@ -25,7 +25,7 @@ import org.springframework.test.context.TestPropertySource;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@ActiveProfiles("test")
+@ActiveProfiles("unit_test")
 @TestPropertySource("classpath:values-test.yml")
 @ConfigurationProperties(prefix = "test.unit", ignoreInvalidFields = true)
 @WithMockUser
