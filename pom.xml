@@ -200,23 +200,6 @@
     </profile>
     <profile>
       <activation>
-        <activeByDefault>false</activeByDefault>
-        <property>
-          <name>oracle</name>
-        </property>
-      </activation>
-      <id>oracle</id>
-      <properties>
-        <db.driver>oracle.jdbc.OracleDriver</db.driver>
-        <db.migration>db/migration/oracle</db.migration>
-        <db.password>makeitfine123</db.password> <!-- default port is 1521 -->
-        <db.url>jdbc:oracle:thin:@//localhost/xe</db.url>
-        <db.username>makeitfineoralce</db.username>
-        <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
-      </properties>
-    </profile>
-    <profile>
-      <activation>
         <property>
           <name>env.indebug</name>
           <value>true</value>
@@ -227,17 +210,6 @@
         <jvmargs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
           -Dserver.port=8080
         </jvmargs>
-      </properties>
-    </profile>
-    <profile>
-      <activation>
-        <property>
-          <name>ci</name>
-        </property>
-      </activation>
-      <id>circleCI</id>
-      <properties>
-        <springDBConf>config_h2</springDBConf>
       </properties>
     </profile>
     <profile>
@@ -310,26 +282,24 @@
   </profiles>
 
   <properties>
-    <db.driver>oracle.jdbc.OracleDriver</db.driver>
-    <db.migration>db/migration/oracle</db.migration>
-    <db.password>makeitfine123</db.password>
-    <db.url>jdbc:oracle:thin:@//localhost/xe</db.url>
-    <db.username>makeitfineoralce</db.username>
+    <db.driver></db.driver>
+    <db.migration></db.migration>
+    <db.password></db.password>
+    <db.url></db.url>
+    <db.username></db.username>
+    <hibernate.dialect></hibernate.dialect>
+    <jvmargs></jvmargs>
     <docker.image.prefix>koresmosto</docker.image.prefix>
-    <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
 
     <encoding>UTF-8</encoding>
-    <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
     <java.version>11</java.version> <!-- default port is 1521 -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8
-    </project.reporting.outputEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
     <slf4j.version>1.7.25</slf4j.version>
-    <!-- todo: think of deleting <springDBConf> definition here; add it to mysql profile -->
     <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
     <spring.version>4.3.9.RELEASE</spring.version>
-    <springDBConf>config_mysql</springDBConf>
-    <jvmargs></jvmargs>
   </properties>
 
   <repositories><!-- Exists as default in effective-pom.xml (can be deleted) -->
