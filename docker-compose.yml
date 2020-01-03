@@ -1,5 +1,8 @@
-## Info for docker-compose console commands:
+## Todo: Info for docker-compose console commands:
 # start: dcu; status: dcp; stop: dcdw;
+# Build for docker: mci -Pdocker_new
+# todo: run locally: m spring-boot:run -Pmysql
+# todo: run locally in debug: m spring-boot:run -Pmysql,debug
 version: '3.7'
 
 services:

@@ -329,6 +329,7 @@
     <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
     <spring.version>4.3.9.RELEASE</spring.version>
     <springDBConf>config_mysql</springDBConf>
+    <jvmargs></jvmargs>
   </properties>
 
   <repositories><!-- Exists as default in effective-pom.xml (can be deleted) -->
