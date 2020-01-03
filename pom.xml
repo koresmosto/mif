@@ -312,20 +312,20 @@
     <db.password>makeitfine123</db.password>
     <db.url>jdbc:oracle:thin:@//localhost/xe</db.url>
     <db.username>makeitfineoralce</db.username>
-    <encoding>UTF-8</encoding>
-    <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
-
-    <java.version>11</java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8
-    </project.reporting.outputEncoding> <!-- default port is 1521 -->
-    <slf4j.version>1.7.25</slf4j.version>
-    <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
-    <spring.version>4.3.9.RELEASE</spring.version>
-    <!-- todo: think of deleting <springDBConf> definition here; add it to mysql profile -->
-    <springDBConf>config_mysql</springDBConf>
     <docker.image.prefix>koresmosto</docker.image.prefix>
     <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
+
+    <encoding>UTF-8</encoding>
+    <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
+    <java.version>11</java.version> <!-- default port is 1521 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8
+    </project.reporting.outputEncoding>
+    <slf4j.version>1.7.25</slf4j.version>
+    <!-- todo: think of deleting <springDBConf> definition here; add it to mysql profile -->
+    <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
+    <spring.version>4.3.9.RELEASE</spring.version>
+    <springDBConf>config_mysql</springDBConf>
   </properties>
 
   <repositories><!-- Exists as default in effective-pom.xml (can be deleted) -->

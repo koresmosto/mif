@@ -3,8 +3,6 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
   <artifactId>mainside</artifactId>
-  <packaging>war</packaging>
-
   <build>
     <plugins>
       <plugin>
@@ -89,6 +87,7 @@
       </resource>
     </resources>
   </build>
+
   <dependencies>
     <dependency>
       <artifactId>ojdbc6</artifactId>
@@ -182,6 +181,7 @@
   </dependencies>
   <modelVersion>4.0.0</modelVersion>
   <name>mainside Maven Webapp</name>
+  <packaging>war</packaging>
 
   <parent>
     <artifactId>makeitfine</artifactId>
