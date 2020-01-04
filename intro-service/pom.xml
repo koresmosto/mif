@@ -23,15 +23,15 @@
     <plugins>
       <plugin>
         <artifactId>spring-boot-maven-plugin</artifactId>
-<!--        <configuration>-->
-<!--          <addResources>false</addResources>-->
-<!--          <jvmArguments>-->
-<!--            ${jvmargs}-->
-<!--          </jvmArguments>-->
-<!--          <profiles>-->
-<!--            <profile>dev</profile>-->
-<!--          </profiles>-->
-<!--        </configuration>-->
+        <configuration>
+          <addResources>false</addResources>
+          <jvmArguments>
+            ${jvmargsIntroService}
+          </jvmArguments>
+          <profiles>
+            <profile>dev</profile>
+          </profiles>
+        </configuration>
         <executions>
           <execution>
             <goals>

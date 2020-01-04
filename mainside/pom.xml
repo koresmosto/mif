@@ -10,7 +10,7 @@
         <configuration>
           <addResources>false</addResources>
           <jvmArguments>
-            ${jvmargs}
+            ${jvmargsMainside}
           </jvmArguments>
           <profiles>
             <profile>dev</profile>
