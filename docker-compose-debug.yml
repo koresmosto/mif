@@ -1,0 +1,108 @@
+## Todo: Info for docker-compose console commands:
+# todo: start: dcu; status: dcp; stop: dcdw;
+# todo: Build for docker: mci -Pdocker
+
+#todo: Build locally: $> wd && mcv && c mainside/ && m spring-boot:run
+#todo: Build locally debug: $> wd && mcv && c mainside/ && m spring-boot:run -Pdebug
+#todo: Build docker: $> wd && mci -Pdocker && dcu
+
+#todo: Info for Elastic Stack:
+#todo:Info: elastic, filebeat, logstash folders should be writeable (chmod 777 -R ..)
+#todo:Info: filebeat.docker.yml >>> https://github.com/primait/docker-filebeat/issues/13 >>>
+# (sudo chown root filebeat/filebeat.docker.yml)
+# (sudo chmod 600 filebeat/filebeat.docker.yml)
+
+#todo: run $>./running/scripts/elastic.sh to up Elastic Stack
+version: '3.7'
+
+services:
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ESV}
+    ports:
+      - "9200:9200"
+    environment:
+      - "discovery.type=single-node"
+    volumes:
+      - ./elasticstack/elasticsearch/data:/usr/share/elasticsearch/data:rw # Persistence data
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:${ESV}
+    ports:
+      - "25826:25826"
+      - "5044:5044"
+    volumes:
+      - ./elasticstack/logstash/pipeline:/usr/share/logstash/pipeline:ro # Pipeline configuration
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:${ESV}
+    ports:
+      - "5601:5601"
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.2.0
+    volumes:
+      - ./elasticstack/filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro # Configuration file
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro           # Docker logs
+      - /var/run/docker.sock:/var/run/docker.sock:ro                       # Additional information about containers
+      - ./elasticstack/filebeat/data:/usr/share/filebeat/data:rw                        # Persistence data
+    user: root                                                             # Allow access to log files and docker.sock
+    restart: on-failure
+    depends_on:
+      - logstash
+
+  mysql:
+    image: mysql:5.7.22
+    container_name: mif_mysql
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassdocker
+      MYSQL_DATABASE: makeitfinemysqldocker
+      MYSQL_USER: makeitfineuser
+      MYSQL_PASSWORD: makeitfinepass
+    ports:
+      - 3311:3306
+
+  flyway:
+    depends_on:
+      - mysql
+    image: flyway/flyway
+    container_name: mif_flyway
+    command: -url=jdbc:mysql://mysql/makeitfinemysqldocker -user=makeitfineuser -password=makeitfinepass -connectRetries=60 migrate
+    volumes:
+      - ./mainside/src/main/resources/db/migration/mysql:/flyway/sql
+
+  mainside:
+    depends_on:
+      - flyway
+    image: koresmosto/mainside
+    container_name: mif_mainside
+    ports:
+      - 8085:8080
+      - 5005:5005
+    command: # 3 lines before 'cd mainside' can be 'changed to mvn clean verify' for fast dev
+      - /bin/sh
+      - -c
+      - |
+        ./waiting.sh
+        java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar -Dspring.profiles.active=docker /app.war
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
+
+  intro-service:
+    image: koresmosto/intro-service
+    container_name: mif_intro-service
+    ports:
+      - 8086:8081
+      - 5006:5006
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -jar -Dspring.profiles.active=docker /app.war
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
