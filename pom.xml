@@ -188,6 +188,7 @@
 
   <modules>
     <module>mainside</module>
+    <module>intro-service</module>
   </modules>
 
   <packaging>pom</packaging>

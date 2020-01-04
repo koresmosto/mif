@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Created under not commercial project "Make it fine"
+  ~
+  ~  Copyright 2017-2020
+  ~  @author stingion
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>makeitfine</artifactId>
+    <groupId>com.stingion</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>intro-service</artifactId>
+  <packaging>war</packaging>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+<!--        <configuration>-->
+<!--          <addResources>false</addResources>-->
+<!--          <jvmArguments>-->
+<!--            ${jvmargs}-->
+<!--          </jvmArguments>-->
+<!--          <profiles>-->
+<!--            <profile>dev</profile>-->
+<!--          </profiles>-->
+<!--        </configuration>-->
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>jstl</artifactId>
+      <groupId>javax.servlet</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>tomcat-embed-jasper</artifactId>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <artifactId>bootstrap</artifactId>
+      <groupId>org.webjars</groupId>
+      <version>3.3.6</version>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-devtools</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+</project>
