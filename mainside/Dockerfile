@@ -7,6 +7,7 @@ VOLUME /tmp
 RUN apt update
 RUN apt install -y dnsutils
 RUN apt install -y net-tools
+RUN apt install -y netcat
 COPY target/classes/dockerize/wait-for-flyway-migration-completes.sh /waiting.sh
 RUN chmod +x /waiting.sh
 
