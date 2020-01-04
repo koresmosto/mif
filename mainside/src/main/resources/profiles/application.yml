@@ -8,6 +8,3 @@ server:
 spring:
   session:
     timeout: 1h
-
-intro-service:
-  base-url: http://localhost:8081

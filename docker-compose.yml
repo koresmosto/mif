@@ -88,3 +88,12 @@ services:
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"
+
+  intro-service:
+    image: koresmosto/intro-service
+    container_name: mif_intro-service
+    ports:
+      - 8086:8081
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"

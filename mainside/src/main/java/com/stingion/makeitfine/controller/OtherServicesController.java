@@ -22,7 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class OtherServicesController {
 
-  @Value("${intro-service.base-url}")
+  @Value("${intro-service.base-url:#{null}}")
   private String introServiceBaseUrl;
 
   private final RestTemplate restTemplate;

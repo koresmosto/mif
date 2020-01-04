@@ -1,3 +1,6 @@
 spring:
   profiles:
     include: config_mysql, config_mvc
+
+intro-service:
+  base-url: http://intro-service:8081
