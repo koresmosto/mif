@@ -23,4 +23,24 @@ public abstract class EntityServiceImpl<T> implements EntityService<T> {
   public List<T> findAll() {
     return entityRepository.findAll();
   }
+
+  @Override
+  public T findById(String id) {
+    return entityRepository.findById(id).get();
+  }
+
+  @Override
+  public T insert(T entity) {
+    return entityRepository.save(entity);
+  }
+
+  @Override
+  public T save(T entity) {
+    return entityRepository.save(entity);
+  }
+
+  @Override
+  public void delete(T entity) {
+    entityRepository.delete(entity);
+  }
 }

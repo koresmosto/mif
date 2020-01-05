@@ -12,4 +12,12 @@ import java.util.List;
 public interface EntityService<T> {
 
   List<T> findAll();
+
+  T findById(String id);
+
+  T insert(T entity);
+
+  T save(T entity);
+
+  void delete(T entity);
 }
