@@ -1,3 +1,10 @@
+/*
+ * Created under not commercial project "Make it fine"
+ *
+ *  Copyright 2017-2020
+ *  @author stingion
+ */
+
 package com.stingion.intro.web.controller;
 
 import com.stingion.intro.domain.Info;
@@ -16,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/intro")
 public class IntroController {
 
-  private InfoService infoService;
+  private final InfoService infoService;
 
   @GetMapping
   public ResponseEntity<String> hello() {

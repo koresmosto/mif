@@ -7,8 +7,9 @@
 
 package com.stingion.intro.service;
 
-import com.stingion.intro.domain.Info;
+import java.util.List;
 
-public interface InfoService extends EntityService<Info> {
+public interface EntityService<T> {
 
+  List<T> findAll();
 }
