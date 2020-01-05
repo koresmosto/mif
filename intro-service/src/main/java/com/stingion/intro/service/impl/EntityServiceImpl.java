@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class EntityServiceImpl<T> implements EntityService<T> {
 
   @Autowired
-  private EntityRepository<T> entityRepository;
+  protected EntityRepository<T> entityRepository;
 
   @Override
   public List<T> findAll() {
