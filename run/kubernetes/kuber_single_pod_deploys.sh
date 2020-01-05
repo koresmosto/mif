@@ -25,7 +25,7 @@ cd ~/dev/projects/makeitfine
 docker build --file=mainside/Dockerfile --tag=appside:latest --rm=true .
 
 cd ~/dev/projects/makeitfine
-kubectl create -f running/kubernetes/all-deployment.yaml
+kubectl create -f run/kubernetes/all-deployment.yaml
 
 echo "Sleep for 30s for all containers successfully creation"
 sleep 30s # downloading maven dependencies

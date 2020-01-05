@@ -17,7 +17,7 @@ kubectl delete service mysql
 kubectl delete deployments.apps mysql
 
 cd ~/dev/projects/makeitfine/
-kubectl create -f running/kubernetes/mysql-deployment.yaml
+kubectl create -f run/kubernetes/mysql-deployment.yaml
 
 sleep 15s
 
@@ -36,7 +36,7 @@ cd ~/dev/projects/makeitfine
 docker build --file=mainside/Dockerfile --tag=appside:latest --rm=true .
 
 cd ~/dev/projects/makeitfine/
-kubectl create -f running/kubernetes/app-deployment.yaml
+kubectl create -f run/kubernetes/app-deployment.yaml
 
 sleep 15s # downloading maven dependencies
 

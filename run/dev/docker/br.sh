@@ -10,10 +10,12 @@ docker_compose_file="docker-compose.yml"
 for arg in "$@"
 do
     case "$arg" in
-      "s")    DskipTests="-DskipTests=true"
-              ;;
-      "d")    docker_compose_file="docker-compose-debug.yml"
-              ;;
+      "s" | "skip" | "skipTests" | "skiptest" | "skipTest")
+            DskipTests="-DskipTests=true"
+            ;;
+      "d" | "debug")
+            docker_compose_file="docker-compose-debug.yml"
+            ;;
       *)
     esac
 done

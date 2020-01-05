@@ -12,7 +12,7 @@
 # (sudo chown root filebeat/filebeat.docker.yml)
 # (sudo chmod 600 filebeat/filebeat.docker.yml)
 
-#todo: run $>./running/scripts/elastic.sh to up Elastic Stack
+#todo: run $>./run/elastic/elastic.sh to up Elastic Stack
 version: '3.7'
 
 services:
