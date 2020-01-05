@@ -157,6 +157,19 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>tomcat-embed-jasper</artifactId>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <artifactId>jstl</artifactId>
+      <groupId>javax.servlet</groupId>
+    </dependency>
+    <dependency>
       <groupId>net.logstash.logback</groupId>
       <artifactId>logstash-logback-encoder</artifactId>
       <version>6.2</version>
@@ -164,6 +177,11 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-sleuth</artifactId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-devtools</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
   <dependencyManagement>
