@@ -1,0 +1,18 @@
+# todo: should be removed in future/ info to wiki
+# start mongo db:
+# $> sudo /usr/bin/mongod --auth --port 27017 --dbpath /var/lib/mongodb
+# login mongo db (admin):
+# $> mongo --port 27017  --authenticationDatabase "admin" -u "admin" -p
+# login mongo db (introuser):
+# $> mongo --port 27017  --authenticationDatabase "admin" -u "introuser" -p
+
+#Local MongoDB config
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: introuser
+      password: intropass
+      database: introdb
+      port: 27017
+      host: localhost
