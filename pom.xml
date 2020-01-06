@@ -125,6 +125,23 @@
         <version>${dockerfile-maven-plugin.version}</version>
       </plugin>
     </plugins>
+
+    <resources>
+      <resource>
+        <directory>src/main/resources/profiles</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*.yml</include>
+        </includes>
+        <targetPath>${project.build.outputDirectory}</targetPath>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <excludes>
+          <exclude>**/profiles/*.yml</exclude>
+        </excludes>
+      </resource>
+    </resources>
   </build>
   <dependencies>
     <dependency>

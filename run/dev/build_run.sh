@@ -37,6 +37,5 @@ if ${docker} ; then
   docker-compose -f ${PROJECT_PATH}/${docker_compose_file} up
 else
   mvn clean verify ${DskipTests} -f ${PROJECT_PATH}
-  mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/intro-service |
-  mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mainside
+  mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/intro-service | mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mainside
 fi;
