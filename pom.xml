@@ -244,11 +244,11 @@
       </activation>
       <id>debug</id>
       <properties>
-        <jvmargsMainside>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
-          -Dserver.port=8080
+        <jvmargsMainside>
+          -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080
         </jvmargsMainside>
-        <jvmargsIntroService>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5006
-          -Dserver.port=8081
+        <jvmargsIntroService>
+          -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5006 -Dserver.port=8081
         </jvmargsIntroService>
       </properties>
     </profile>
@@ -311,6 +311,17 @@
     <jvmargsMainside></jvmargsMainside>
     <jvmargsIntroService></jvmargsIntroService>
 
+    <!-- Mongo DB -->
+    <mongodb.authentication-database>admin</mongodb.authentication-database>
+    <mongodb.database>introdb</mongodb.database>
+    <mongodb.username>introuser</mongodb.username>
+    <mongodb.password>intropass</mongodb.password>
+    <mongodb.host>localhost</mongodb.host>
+    <mongodb.port>27017</mongodb.port>
+
+    <mongodb.allPrivilegesUser>env.mongoMigration_allPrivilegesUser</mongodb.allPrivilegesUser>
+    <mongodb.allPrivilegesPass>env.mongoMigration_allPrivilegesPass</mongodb.allPrivilegesPass>
+
     <docker.image.prefix>koresmosto</docker.image.prefix>
 
     <encoding>UTF-8</encoding>
@@ -326,7 +337,7 @@
   <repositories>
     <repository>
       <id>myMavenRepo</id>
-      <url>https://mymavenrepo.com/repo/gT6TK5b9Lxal2rU9xVKE/</url>
+      <url>${myMavenRepo.read.url}</url>
     </repository>
   </repositories>
 

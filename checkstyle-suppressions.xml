@@ -25,5 +25,4 @@
   <suppress checks="JavadocMethod" files="SwaggerConfig.java" lines="25"/>
   <suppress checks="JavadocMethod" files="CustomUserDetailsService.java" lines="35"/>
   <!-- intro module -->
-  <suppress checks="JavadocMethod" files="ContextConfig.java" lines="27"/>
 </suppressions>
