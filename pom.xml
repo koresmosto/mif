@@ -298,9 +298,31 @@
         <mysql_server_in_kuber>127.0.0.1</mysql_server_in_kuber>
       </properties>
     </profile>
+    <profile>
+      <activation>
+        <property>
+          <name>env.dev_env</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <id>Dev variables</id>
+      <properties>
+        <mongodb.migration.allPrivilegesUser>
+          ${mvn.mongodb.allPrivilegesUser}
+        </mongodb.migration.allPrivilegesUser>
+        <mongodb.migration.allPrivilegesPass>
+          ${mvn.mongodb.allPrivilegesPass}
+        </mongodb.migration.allPrivilegesPass>
+      </properties>
+    </profile>
   </profiles>
 
   <properties>
+    <!-- todo: Info -->
+    <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->
+    <!-- Set env. variable: dev_env=true (~/.bashrc) and config maven ~/.m2/settings.xml -->
+    <!-- Some settings is in settings.xml file for security reasons.-->
+
     <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
     <db.migration>db/migration/mysql</db.migration>
     <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
@@ -319,8 +341,13 @@
     <mongodb.host>localhost</mongodb.host>
     <mongodb.port>27017</mongodb.port>
 
-    <mongodb.allPrivilegesUser>env.mongoMigration_allPrivilegesUser</mongodb.allPrivilegesUser>
-    <mongodb.allPrivilegesPass>env.mongoMigration_allPrivilegesPass</mongodb.allPrivilegesPass>
+    <mongodb.migration.active>false</mongodb.migration.active>
+    <mongodb.migration.allPrivilegesUser>
+      env.mongoMigration_allPrivilegesUser
+    </mongodb.migration.allPrivilegesUser>
+    <mongodb.migration.allPrivilegesPass>
+      env.mongoMigration_allPrivilegesPass
+    </mongodb.migration.allPrivilegesPass>
 
     <docker.image.prefix>koresmosto</docker.image.prefix>
 
@@ -337,7 +364,8 @@
   <repositories>
     <repository>
       <id>myMavenRepo</id>
-      <url>${myMavenRepo.read.url}</url>
+      <!-- todo: `mvn` prefix refers to maven ~/.m2/setting.xml -->
+      <url>${mvn.myMavenRepo.read.url}</url>
     </repository>
   </repositories>
 

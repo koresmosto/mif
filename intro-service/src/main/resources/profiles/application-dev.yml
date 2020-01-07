@@ -18,6 +18,6 @@ spring:
       host: @mongodb.host@
 
 mongoMigration:
-  isEnabled: false
-  allPrivilegesUser: @mongodb.allPrivilegesUser@
-  allPrivilegesPass: @mongodb.allPrivilegesPass@
+  isEnabled: @mongodb.migration.active@
+  allPrivilegesUser: @mongodb.migration.allPrivilegesUser@
+  allPrivilegesPass: @mongodb.migration.allPrivilegesPass@

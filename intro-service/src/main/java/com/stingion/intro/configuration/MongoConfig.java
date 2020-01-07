@@ -57,7 +57,7 @@ public class MongoConfig {
     mongeezRunner.setDbName(dbName);
     mongeezRunner.setUserName(username);
     mongeezRunner.setPassWord(password);
-    mongeezRunner.setFile(new ClassPathResource("mongo/migration-changesets.xml"));
+    mongeezRunner.setFile(new ClassPathResource("db/migration/mongo/migration-changesets.xml"));
 
     return mongeezRunner;
   }
