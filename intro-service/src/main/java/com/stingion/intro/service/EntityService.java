@@ -17,7 +17,7 @@ public interface EntityService<T> {
 
   T insert(T entity);
 
-  T save(T entity);
+  T update(T entity);
 
   void delete(T entity);
 }

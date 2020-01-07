@@ -33,7 +33,7 @@ public abstract class EntityServiceImpl<T> implements EntityService<T> {
   }
 
   @Override
-  public T save(T entity) {
+  public T update(T entity) {
     return entityRepository.save(entity);
   }
 

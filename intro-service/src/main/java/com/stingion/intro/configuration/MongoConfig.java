@@ -13,6 +13,7 @@ import org.mongeez.MongeezRunner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -21,6 +22,7 @@ import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
 @Configuration
+@Profile({"dev", "docker"})
 @RequiredArgsConstructor
 public class MongoConfig {
 
@@ -44,7 +46,7 @@ public class MongoConfig {
   private String password;
 
   /**
-   *  Migration mongo db with 'mongeez' framework.
+   * Migration mongo db with 'mongeez' framework.
    *
    * @return spring bean
    */

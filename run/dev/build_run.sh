@@ -14,6 +14,7 @@ DskipTests=""
 Pdebug=""
 docker_compose_file="docker-compose.yml"
 DmongodbMigrationActive=""
+installOrVerify="verify"
 
 for arg in "$@"
 do
@@ -29,6 +30,7 @@ do
             ;;
       "do" | "docker")
             docker=true
+            installOrVerify="install"
             Pdocker="-Pdocker"
             ;;
       "mm" | "mongoMigrate")
@@ -43,7 +45,7 @@ echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${de
 
 PROJECT_PATH="`dirname \"$0\"`"/../..
 
-mvn clean install ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
+mvn clean ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
 if ${docker} ; then
   docker-compose -f ${PROJECT_PATH}/${docker_compose_file} up
 else
