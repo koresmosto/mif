@@ -27,7 +27,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ActiveProfiles("integration_test")
-class InfoServiceIT { // todo: exclude junit
+class InfoServiceIT {
 
   private static final Info info1 = new Info("key1", "details1");
   private static final Info info2 = new Info("key2", "details2");

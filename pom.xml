@@ -163,6 +163,12 @@
     <dependency>
       <artifactId>junit-vintage-engine</artifactId>
       <groupId>org.junit.vintage</groupId>
+      <exclusions>
+        <exclusion>
+          <artifactId>junit</artifactId>
+          <groupId>junit</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <artifactId>spring-boot-configuration-processor</artifactId>
