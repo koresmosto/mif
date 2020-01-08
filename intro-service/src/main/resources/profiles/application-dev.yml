@@ -7,6 +7,8 @@ spring:
       database: @mongodb.database@
       port: @mongodb.port@
       host: @mongodb.host@
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
 
 mongoMigration:
   isEnabled: @mongodb.migration.active@
