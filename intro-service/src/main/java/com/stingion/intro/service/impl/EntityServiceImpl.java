@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class EntityServiceImpl<T> implements EntityService<T> {
 
-  @Autowired
+  @Autowired(required = false)
   protected EntityRepository<T> entityRepository;
 
   @Override
