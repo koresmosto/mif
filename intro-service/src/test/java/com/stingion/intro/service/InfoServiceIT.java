@@ -14,8 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.stingion.intro.domain.Info;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,12 @@ class InfoServiceIT {
     infoService.insert(info3);
   }
 
+  @AfterEach
+  public void dispose() {
+    infoService.findAll().forEach(i -> infoService.delete(i));
+  }
+
   @Test
-  @Disabled//todo: should be fixed
   public void findAll() {
     List<Info> findAll = infoService.findAll();
 
@@ -110,23 +115,24 @@ class InfoServiceIT {
   }
 
   @Test
-  @Disabled//todo: should be fixed
-  public void update() {
-    Info updateDetailsInfo = infoService.findByKey("key1");
-    updateDetailsInfo.setDetails("details1New");
-    infoService.update(updateDetailsInfo);
-    assertThat(infoService.findByKey("key1").getDetails()).isEqualTo("details1New");
-
-    Info updateKeyInfo = infoService.findByKey("key3");
-    updateKeyInfo.setKey("key3New");
-    infoService.update(updateKeyInfo);
-    assertThat(infoService.findByKey("key3New").getDetails()).isEqualTo("details3");
-
-    assertThat(infoService.findAll().size()).isEqualTo(3);
+  public void findByNotExistingId() {
+    Throwable exception =
+        assertThrows(NoSuchElementException.class,
+            () -> infoService.findById(UUID.randomUUID().toString() + "_unique"));
+    assertTrue(exception.getMessage().equalsIgnoreCase("No value present"));
   }
 
   @Test
-  public void updateToExistingKey() {
-    assertThrows(DuplicateKeyException.class, () -> infoService.update(new Info("key2", "any")));
+  public void save() {
+    Info updateDetailsInfo = infoService.findByKey("key1");
+    updateDetailsInfo.setDetails("details1New");
+    infoService.save(updateDetailsInfo);
+    assertThat(infoService.findByKey("key1").getDetails()).isEqualTo("details1New");
+
+    Info savedInfo = new Info("anyKey", "anyDetails");
+    infoService.insert(savedInfo);
+    assertThat(infoService.findByKey("anyKey")).isEqualTo(savedInfo);
+
+    assertThat(infoService.findAll().size()).isEqualTo(4);
   }
 }
