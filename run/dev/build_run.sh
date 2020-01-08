@@ -46,6 +46,11 @@ echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${de
 PROJECT_PATH="`dirname \"$0\"`"/../..
 
 mvn clean ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
+#If maven commands failed exit the script
+if [[ "$?" -ne 0 ]] ; then
+  exit $rc
+fi
+
 if ${docker} ; then
   docker-compose -f ${PROJECT_PATH}/${docker_compose_file} up
 else
