@@ -9,6 +9,8 @@ skipTests=false
 debug=false
 docker=false
 mongoMigration=false
+buildOnly=false
+runOnly=false
 
 DskipTests=""
 Pdebug=""
@@ -37,6 +39,12 @@ do
             mongoMigration=true
             DmongodbMigrationActive="-Dmongodb.migration.active=true"
             ;;
+      "b" | "buildOnly" | "build")
+            buildOnly=true
+            ;;
+      "r" | "runOnly" | "run")
+            runOnly=true
+            ;;
       "h" | "help" | "--h" | "--help")
             echo "Script for build and run project locally and in docker"
             echo "params:"
@@ -44,24 +52,31 @@ do
             echo "  d  - debug enable"
             echo "  do - docker enable"
             echo "  mm - mongodb migration scripts"
+            echo "  b  - build only"
+            echo "  r  - run only"
             exit
             ;;
       *)
     esac
 done
 
-echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${debug} | mongoMigration: ${mongoMigration}"
+echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${debug} \
+| mongoMigration: ${mongoMigration} | runOnly: ${runOnly} | buildOnly: ${buildOnly}"
 
 PROJECT_PATH="`dirname \"$0\"`"/../..
 
-mvn clean ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
+if ! ${runOnly} ; then
+  mvn clean ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
+fi;
 #If maven commands failed exit the script
 if [[ "$?" -ne 0 ]] ; then
   exit $rc
 fi
 
-if ${docker} ; then
-  docker-compose -f ${PROJECT_PATH}/${docker_compose_file} up
-else
-  mvn spring-boot:run ${Pdebug} ${DmongodbMigrationActive} -f ${PROJECT_PATH}/intro-service | mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mainside
+if ! ${buildOnly} ; then
+  if ${docker} ; then
+    docker-compose -f ${PROJECT_PATH}/${docker_compose_file} up
+  else
+    mvn spring-boot:run ${Pdebug} ${DmongodbMigrationActive} -f ${PROJECT_PATH}/intro-service | mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mainside
+  fi;
 fi;
