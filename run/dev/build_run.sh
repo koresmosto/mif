@@ -37,6 +37,15 @@ do
             mongoMigration=true
             DmongodbMigrationActive="-Dmongodb.migration.active=true"
             ;;
+      "h" | "help" | "--h" | "--help")
+            echo "Script for build and run project locally and in docker"
+            echo "params:"
+            echo "  s  - skipTests"
+            echo "  d  - debug enable"
+            echo "  do - docker enable"
+            echo "  mm - mongodb migration scripts"
+            exit
+            ;;
       *)
     esac
 done
