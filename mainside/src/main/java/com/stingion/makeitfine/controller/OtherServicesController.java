@@ -30,14 +30,24 @@ public class OtherServicesController {
   /**
    * Get response from {@code intro-service} module.
    */
-  @GetMapping(path = "intro", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(path = "intro/hello", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> introMS() {
     String url = UriComponentsBuilder.fromHttpUrl(introServiceBaseUrl)
         .path("intro")
         .toUriString();
-
     ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+    return ResponseEntity.ok(response.getBody());
+  }
 
+  /**
+   * Get author of project.
+   */
+  @GetMapping(path = "intro/author", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<String> author() {
+    String url = UriComponentsBuilder.fromHttpUrl(introServiceBaseUrl)
+        .path("info/details/author")
+        .toUriString();
+    ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
     return ResponseEntity.ok(response.getBody());
   }
 }

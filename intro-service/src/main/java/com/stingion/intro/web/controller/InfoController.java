@@ -34,4 +34,16 @@ public class InfoController {
   public Info getInfo(@PathVariable("key") String key) {
     return infoService.findByKey(key);
   }
+
+  /**
+   * Get details of info.
+   * @param key searched key
+   * @return info details
+   */
+  @GetMapping(value = "details/{key}")
+  public String getInfoDetails(@PathVariable("key") String key) {
+    var info = infoService.findByKey(key);
+    log.info("Get details of info: {}", info);
+    return info.getDetails();
+  }
 }
