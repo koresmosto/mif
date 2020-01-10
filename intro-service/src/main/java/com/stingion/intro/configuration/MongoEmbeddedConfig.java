@@ -26,8 +26,8 @@ public class MongoEmbeddedConfig {
    */
   @PostConstruct
   public void init() {
-    infoService.insert(new Info("author", "koresmosto@gmail.com (docker)"));
-    infoService.insert(new Info("purpose", "Social Network for workers (docker)"));
-    infoService.insert(new Info("stage", "Development stage (docker)"));
+    infoService.insert(new Info("author", "koresmosto@gmail.com (embedded docker)"));
+    infoService.insert(new Info("purpose", "Social Network for workers (embedded docker)"));
+    infoService.insert(new Info("stage", "Development stage (embedded docker)"));
   }
 }
