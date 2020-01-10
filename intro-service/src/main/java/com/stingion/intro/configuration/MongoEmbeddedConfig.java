@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile({"docker"})
+@Profile({"docker_mongo_embedded"})
 @RequiredArgsConstructor
 public class MongoEmbeddedConfig {
 

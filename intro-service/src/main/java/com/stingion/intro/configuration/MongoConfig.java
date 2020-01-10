@@ -22,7 +22,7 @@ import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
 @Configuration
-@Profile({"dev"})
+@Profile({"dev", "docker"})
 @RequiredArgsConstructor
 public class MongoConfig {
 

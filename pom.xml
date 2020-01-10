@@ -270,6 +270,7 @@
         <db.url>jdbc:mysql://${mysql_server_in_docker}/makeitfinemysqldocker</db.url>
         <db.username>makeitfineuser</db.username>
         <mysql_server_in_docker>mysql</mysql_server_in_docker>
+        <mongodb.host>mongo</mongodb.host>
       </properties>
     </profile>
     <profile>

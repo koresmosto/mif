@@ -27,7 +27,7 @@ public class Info {
   @Id
   private String id;
 
-  @Indexed(unique = true)
+  @Indexed(name = "key_1", unique = true)
   private String key;
   private String details;
 

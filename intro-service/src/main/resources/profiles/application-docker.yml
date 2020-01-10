@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: @mongodb.authentication-database@
+      username: @mongodb.username@
+      password: @mongodb.password@
+      database: @mongodb.database@
+      port: @mongodb.port@
+      host: @mongodb.host@
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration

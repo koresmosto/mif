@@ -111,6 +111,8 @@ services:
       decode_log_event_to_json_object: "true"
 
   intro-service:
+    depends_on:
+      - mongo
     image: koresmosto/intro-service
     container_name: mif_intro-service
     ports:
