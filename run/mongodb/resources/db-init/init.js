@@ -1,3 +1,5 @@
+// if root user isn't exist:
+// db.createUser({user: "root", pwd: "rootpass", roles: [{role: "root", db: "admin"}]});
 db.auth('root', 'rootpass');
 
 db.createUser(
