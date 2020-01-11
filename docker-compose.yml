@@ -117,6 +117,9 @@ services:
     container_name: mif_intro-service
     ports:
       - 8086:8081
+    environment:
+      mongoMigration_allPrivilegesUser: root
+      mongoMigration_allPrivilegesPass: rootpass
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"

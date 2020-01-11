@@ -9,15 +9,10 @@ db.createUser(
     }
 );
 
-db = db.getSiblingDB('introdb');
-
-db.createCollection("info");
-db.info.createIndex({"key": 1}, {"unique": true})
-db.info.insert(
-    {"key": "author", "details": "koresmosto@gmail.com (container docker)"});
-db.info.insert({
-  "key": "purpose",
-  "details": "Social Network for workers (container docker)"
-});
-db.info.insert(
-    {"key": "stage", "details": "Development stage (container docker)"});
+// Create role for any actions (to execute eval script):
+db.createRole({
+  role: "executeEval",
+  privileges: [{resource: {anyResource: true}, actions: ["anyAction"]}],
+  roles: []
+})
+db.grantRolesToUser("introuser", [{role: "executeEval", db: "admin"}])

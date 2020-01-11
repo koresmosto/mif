@@ -34,6 +34,7 @@ do
             docker=true
             installOrVerify="install"
             Pdocker="-Pdocker"
+            DmongodbMigrationActive="-Dmongodb.migration.active=true"
             ;;
       "mm" | "mongoMigrate")
             mongoMigration=true
@@ -66,7 +67,7 @@ echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${de
 PROJECT_PATH="`dirname \"$0\"`"/../..
 
 if ! ${runOnly} ; then
-  mvn clean ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
+  mvn clean ${installOrVerify} ${DskipTests} ${DmongodbMigrationActive} ${Pdocker} -f ${PROJECT_PATH}
 fi;
 #If maven commands failed exit the script
 if [[ "$?" -ne 0 ]] ; then
