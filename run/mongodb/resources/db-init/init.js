@@ -15,4 +15,4 @@ db.createRole({
   privileges: [{resource: {anyResource: true}, actions: ["anyAction"]}],
   roles: []
 })
-db.grantRolesToUser("introuser", [{role: "executeEval", db: "admin"}])
+db.grantRolesToUser("root", [{role: "executeEval", db: "admin"}])
