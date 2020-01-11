@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo "======================================================================"
 echo " Build project and run localhost/docker PARAMETRIZED                  "
-echo " Run in docker(do) debug(d) skipTest(s), e.g.: br.sh s d do | br.sh s "
+echo " For help enter --help                                                "
 echo "======================================================================"
 
 #Default script values:
@@ -77,6 +77,8 @@ if ! ${buildOnly} ; then
   if ${docker} ; then
     docker-compose -f ${PROJECT_PATH}/${docker_compose_file} up
   else
-    mvn spring-boot:run ${Pdebug} ${DmongodbMigrationActive} -f ${PROJECT_PATH}/intro-service | mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mainside
+    (trap 'kill 0' SIGINT;
+    mvn spring-boot:run ${Pdebug} ${DmongodbMigrationActive} -f ${PROJECT_PATH}/intro-service &
+    mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mainside)
   fi;
 fi;

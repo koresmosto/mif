@@ -8,6 +8,7 @@
 package com.stingion.makeitfine.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Controller
 @RequestMapping("/microservice")
 @RequiredArgsConstructor
+@Slf4j
 public class OtherServicesController {
 
   @Value("${intro-service.base-url:#{null}}")
@@ -47,7 +49,8 @@ public class OtherServicesController {
     String url = UriComponentsBuilder.fromHttpUrl(introServiceBaseUrl)
         .path("info/details/author")
         .toUriString();
-    ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-    return ResponseEntity.ok(response.getBody());
+    String responseBody = restTemplate.getForEntity(url, String.class).getBody();
+    log.info("Get info about author ({}) from intro-service", responseBody); //todo: can be removed
+    return ResponseEntity.ok(responseBody);
   }
 }
