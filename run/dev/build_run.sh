@@ -15,7 +15,6 @@ runOnly=false
 DskipTests=""
 Pdebug=""
 docker_compose_file="docker-compose.yml"
-DmongodbMigrationActive=""
 installOrVerify="verify"
 
 for arg in "$@"
@@ -34,11 +33,9 @@ do
             docker=true
             installOrVerify="install"
             Pdocker="-Pdocker"
-#            DmongodbMigrationActive="-Dmongodb.migration.active=true"
             ;;
       "mm" | "mongoMigrate")
             mongoMigration=true
-            DmongodbMigrationActive="-Dmongodb.migration.active=true"
             ;;
       "b" | "buildOnly" | "build")
             buildOnly=true
@@ -52,7 +49,7 @@ do
             echo "  s  - skipTests"
             echo "  d  - debug enable"
             echo "  do - docker enable"
-            echo "  mm - mongodb migration scripts"
+            echo "  mm - mongodb migration scripts (disabled; run 'mongo_migrate.sh' script)"
             echo "  b  - build only"
             echo "  r  - run only"
             exit
@@ -67,7 +64,7 @@ echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${de
 PROJECT_PATH="`dirname \"$0\"`"/../..
 
 if ! ${runOnly} ; then
-  mvn clean ${installOrVerify} ${DskipTests} ${DmongodbMigrationActive} ${Pdocker} -f ${PROJECT_PATH}
+  mvn clean ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
 fi;
 #If maven commands failed exit the script
 if [[ "$?" -ne 0 ]] ; then
@@ -79,7 +76,7 @@ if ! ${buildOnly} ; then
     docker-compose -f ${PROJECT_PATH}/${docker_compose_file} up
   else
     (trap 'kill 0' SIGINT;
-    mvn spring-boot:run ${Pdebug} ${DmongodbMigrationActive} -f ${PROJECT_PATH}/intro-service &
+    mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/intro-service &
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mainside)
   fi;
 fi;

@@ -313,12 +313,6 @@
       </activation>
       <id>Dev variables</id>
       <properties>
-        <mongodb.migration.allPrivilegesUser>
-          ${mvn.mongodb.allPrivilegesUser}
-        </mongodb.migration.allPrivilegesUser>
-        <mongodb.migration.allPrivilegesPass>
-          ${mvn.mongodb.allPrivilegesPass}
-        </mongodb.migration.allPrivilegesPass>
       </properties>
     </profile>
   </profiles>
@@ -346,14 +340,6 @@
     <mongodb.password>intropass</mongodb.password>
     <mongodb.host>localhost</mongodb.host>
     <mongodb.port>27017</mongodb.port>
-
-    <mongodb.migration.active>false</mongodb.migration.active>
-    <mongodb.migration.allPrivilegesUser>
-      env.mongoMigration_allPrivilegesUser
-    </mongodb.migration.allPrivilegesUser>
-    <mongodb.migration.allPrivilegesPass>
-      env.mongoMigration_allPrivilegesPass
-    </mongodb.migration.allPrivilegesPass>
 
     <docker.image.prefix>koresmosto</docker.image.prefix>
 

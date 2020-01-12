@@ -9,8 +9,3 @@ spring:
       host: @mongodb.host@
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
-
-mongoMigration:
-  isEnabled: @mongodb.migration.active@
-  allPrivilegesUser: @mongodb.migration.allPrivilegesUser@
-  allPrivilegesPass: @mongodb.migration.allPrivilegesPass@

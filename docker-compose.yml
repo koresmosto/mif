@@ -84,14 +84,14 @@ services:
     ports:
       - 27117:27017
     volumes:
-      - ./run/mongodb/resources/db-migrate/:/docker-entrypoint-initdb.d:ro
+      - ./intro-service/src/main/resources/db/migration/mongo/:/docker-entrypoint-initdb.d:ro
     environment:
       MONGO_INITDB_DATABASE: admin
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootpass
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express:0.49.0
     restart: always
     ports:
       - 8101:8081
@@ -117,9 +117,6 @@ services:
     container_name: mif_intro-service
     ports:
       - 8086:8081
-    environment:
-      mongoMigration_allPrivilegesUser: root
-      mongoMigration_allPrivilegesPass: rootpass
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"
