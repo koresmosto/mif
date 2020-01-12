@@ -46,7 +46,7 @@ services:
       - elasticsearch
 
   filebeat:
-    image: docker.elastic.co/beats/filebeat:7.2.0
+    image: docker.elastic.co/beats/filebeat:${ESV}
     volumes:
       - ./elasticstack/filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro # Configuration file
       - /var/lib/docker/containers:/var/lib/docker/containers:ro           # Docker logs
@@ -72,7 +72,7 @@ services:
   flyway:
     depends_on:
       - mysql
-    image: flyway/flyway
+    image: flyway/flyway:6.1.3
     container_name: mif_flyway
     command: -url=jdbc:mysql://mysql/makeitfinemysqldocker -user=makeitfineuser -password=makeitfinepass -connectRetries=60 migrate
     volumes:

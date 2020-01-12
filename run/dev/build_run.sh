@@ -12,9 +12,11 @@ mongoMigration=false
 buildOnly=false
 runOnly=false
 
+PROJECT_PATH="`dirname \"$0\"`"/../..
+
 DskipTests=""
 Pdebug=""
-docker_compose_file="docker-compose.yml"
+docker_compose_file="${PROJECT_PATH}/docker-compose.yml"
 installOrVerify="verify"
 
 for arg in "$@"
@@ -27,7 +29,7 @@ do
       "d" | "debug")
             debug=true
             Pdebug="-Pdebug"
-            docker_compose_file="docker-compose-debug.yml"
+            docker_compose_file="${docker_compose_file} -f ${PROJECT_PATH}/docker-compose-debug.yml"
             ;;
       "do" | "docker")
             docker=true
@@ -49,7 +51,7 @@ do
             echo "  s  - skipTests"
             echo "  d  - debug enable"
             echo "  do - docker enable"
-            echo "  mm - mongodb migration scripts (applied only locally 'dev')"
+            echo "  mm - mongodb migration scripts (parametrize only locally 'dev')"
             echo "  b  - build only"
             echo "  r  - run only"
             exit
@@ -60,8 +62,6 @@ done
 
 echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${debug} \
 | mongoMigration: ${mongoMigration} | runOnly: ${runOnly} | buildOnly: ${buildOnly}"
-
-PROJECT_PATH="`dirname \"$0\"`"/../..
 
 if ${mongoMigration} && ! ${docker} ; then
   sh $(dirname "$0")/mongo_migrate.sh
@@ -77,7 +77,7 @@ fi
 
 if ! ${buildOnly} ; then
   if ${docker} ; then
-    docker-compose -f ${PROJECT_PATH}/${docker_compose_file} up
+    docker-compose -f ${docker_compose_file} up
   else
     (trap 'kill 0' SIGINT;
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/intro-service &
