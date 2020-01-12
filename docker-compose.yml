@@ -84,7 +84,7 @@ services:
     ports:
       - 27117:27017
     volumes:
-      - ./run/mongodb/resources/db-init/:/docker-entrypoint-initdb.d:ro
+      - ./run/mongodb/resources/db-migrate/:/docker-entrypoint-initdb.d:ro
     environment:
       MONGO_INITDB_DATABASE: admin
       MONGO_INITDB_ROOT_USERNAME: root
