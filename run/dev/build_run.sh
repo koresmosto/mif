@@ -34,7 +34,7 @@ do
             docker=true
             installOrVerify="install"
             Pdocker="-Pdocker"
-            DmongodbMigrationActive="-Dmongodb.migration.active=true"
+#            DmongodbMigrationActive="-Dmongodb.migration.active=true"
             ;;
       "mm" | "mongoMigrate")
             mongoMigration=true
