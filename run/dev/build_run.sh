@@ -49,7 +49,7 @@ do
             echo "  s  - skipTests"
             echo "  d  - debug enable"
             echo "  do - docker enable"
-            echo "  mm - mongodb migration scripts (disabled; run 'mongo_migrate.sh' script)"
+            echo "  mm - mongodb migration scripts (applied only locally 'dev')"
             echo "  b  - build only"
             echo "  r  - run only"
             exit
@@ -62,6 +62,10 @@ echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${de
 | mongoMigration: ${mongoMigration} | runOnly: ${runOnly} | buildOnly: ${buildOnly}"
 
 PROJECT_PATH="`dirname \"$0\"`"/../..
+
+if ${mongoMigration} && ! ${docker} ; then
+  sh $(dirname "$0")/mongo_migrate.sh
+fi;
 
 if ! ${runOnly} ; then
   mvn clean ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
