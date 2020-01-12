@@ -3,32 +3,16 @@ version: '3.7'
 services:
 
   mainside:
-    depends_on:
-      - flyway
-    image: koresmosto/mainside
-    container_name: mif_mainside
     ports:
-      - 8085:8080
       - 5005:5005
-    command: # 3 lines before 'cd mainside' can be 'changed to mvn clean verify' for fast dev
+    command:
       - /bin/sh
       - -c
       - |
         ./waiting.sh
         java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar -Dspring.profiles.active=docker /app.war
-    labels:
-      collect_logs_with_filebeat: "true"
-      decode_log_event_to_json_object: "true"
 
   intro-service:
-    depends_on:
-      - mongo
-    image: koresmosto/intro-service
-    container_name: mif_intro-service
     ports:
-      - 8086:8081
       - 5006:5006
     command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -jar -Dspring.profiles.active=docker /app.war
-    labels:
-      collect_logs_with_filebeat: "true"
-      decode_log_event_to_json_object: "true"
