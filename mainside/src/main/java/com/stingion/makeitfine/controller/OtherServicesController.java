@@ -30,6 +30,9 @@ public class OtherServicesController {
   @Value("${mq-publish.base-url:#{null}}")
   private String mqPublishBaseUrl;
 
+  @Value("${mq-consume.base-url:#{null}}")
+  private String mqConsumeBaseUrl;
+
   private final RestTemplate restTemplate;
 
   /**
@@ -57,6 +60,18 @@ public class OtherServicesController {
   }
 
   /**
+   * Get response from {@code mq-consume} module.
+   */
+  @GetMapping(path = "mqconsume/hello", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<String> mqConsumeMS() {
+    String url = UriComponentsBuilder.fromHttpUrl(mqConsumeBaseUrl)
+        .path("mqconsume")
+        .toUriString();
+    ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+    return ResponseEntity.ok(response.getBody());
+  }
+
+  /**
    * Get author of project.
    */
   @GetMapping(path = "intro/author", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,7 +80,6 @@ public class OtherServicesController {
         .path("info/details/author")
         .toUriString();
     String responseBody = restTemplate.getForEntity(url, String.class).getBody();
-    log.info("Get info about author ({}) from intro-service", responseBody); //todo: can be removed
     return ResponseEntity.ok(responseBody);
   }
 }

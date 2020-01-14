@@ -82,6 +82,7 @@ if ! ${buildOnly} ; then
     (trap 'kill 0' SIGINT;
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/intro-service &
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mq-publish &
+    mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mq-consume &
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mainside)
   fi;
 fi;

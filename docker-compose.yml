@@ -129,3 +129,12 @@ services:
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"
+
+  mq-consume:
+    image: koresmosto/mq-consume
+    container_name: mif_mq-consume
+    ports:
+      - 8088:8083
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"

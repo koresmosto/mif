@@ -230,6 +230,7 @@
     <module>mainside</module>
     <module>intro-service</module>
     <module>mq-publish</module>
+    <module>mq-consume</module>
   </modules>
 
   <packaging>pom</packaging>
@@ -259,6 +260,9 @@
         <jvmargsMqPublish>
           -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5007 -Dserver.port=8082
         </jvmargsMqPublish>
+        <jvmargsMqConsume>
+          -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5008 -Dserver.port=8083
+        </jvmargsMqConsume>
       </properties>
     </profile>
     <profile>
@@ -337,6 +341,7 @@
     <jvmargsMainside></jvmargsMainside>
     <jvmargsIntroService></jvmargsIntroService>
     <jvmargsMqPublish></jvmargsMqPublish>
+    <jvmargsMqConsume></jvmargsMqConsume>
 
     <!-- Mongo DB -->
     <mongodb.authentication-database>admin</mongodb.authentication-database>

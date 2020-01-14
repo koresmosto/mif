@@ -7,3 +7,6 @@ intro-service:
 
 mq-publish:
   base-url: http://mq-publish:8082
+
+mq-consume:
+  base-url: http://mq-consume:8083
