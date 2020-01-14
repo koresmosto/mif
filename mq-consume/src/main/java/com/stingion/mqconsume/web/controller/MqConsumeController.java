@@ -7,6 +7,8 @@
 
 package com.stingion.mqconsume.web.controller;
 
+import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/mqconsume")
+@AllArgsConstructor
 public class MqConsumeController {
+
+  private final List<String> queueMessages;
 
   @GetMapping
   public ResponseEntity<String> hello() {
     log.info("Consumer microservice (mq-consume module");//todo: can be removed: checking conn
     return ResponseEntity.ok("Hello from \"mq-consume\" module!");
+  }
+
+  @GetMapping("/queue")
+  public List<String> queueMessages() {
+    return queueMessages;
   }
 }

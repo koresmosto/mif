@@ -1,0 +1,9 @@
+spring:
+  rabbitmq:
+    host: @rabbitmq.host@
+    port: @rabbitmq.port@
+    username: @rabbitmq.username@
+    password: @rabbitmq.password@
+rabbitmq:
+  queue: @rabbitmq.queue@
+  exchange: @rabbitmq.exchange@
