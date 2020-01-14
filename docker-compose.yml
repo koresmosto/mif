@@ -124,6 +124,8 @@ services:
   mq-publish:
     image: koresmosto/mq-publish
     container_name: mif_mq-publish
+    ports:
+      - 8087:8082
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"

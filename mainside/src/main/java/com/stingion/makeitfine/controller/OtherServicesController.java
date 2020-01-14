@@ -27,6 +27,9 @@ public class OtherServicesController {
   @Value("${intro-service.base-url:#{null}}")
   private String introServiceBaseUrl;
 
+  @Value("${mq-publish.base-url:#{null}}")
+  private String mqPublishBaseUrl;
+
   private final RestTemplate restTemplate;
 
   /**
@@ -36,6 +39,18 @@ public class OtherServicesController {
   public ResponseEntity<String> introMS() {
     String url = UriComponentsBuilder.fromHttpUrl(introServiceBaseUrl)
         .path("intro")
+        .toUriString();
+    ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+    return ResponseEntity.ok(response.getBody());
+  }
+
+  /**
+   * Get response from {@code mq-publish} module.
+   */
+  @GetMapping(path = "mqpublish/hello", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<String> mqPublishMS() {
+    String url = UriComponentsBuilder.fromHttpUrl(mqPublishBaseUrl)
+        .path("mqpublish")
         .toUriString();
     ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
     return ResponseEntity.ok(response.getBody());

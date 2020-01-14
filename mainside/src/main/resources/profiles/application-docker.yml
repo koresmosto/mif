@@ -4,3 +4,6 @@ spring:
 
 intro-service:
   base-url: http://intro-service:8081
+
+mq-publish:
+  base-url: http://mq-publish:8082
