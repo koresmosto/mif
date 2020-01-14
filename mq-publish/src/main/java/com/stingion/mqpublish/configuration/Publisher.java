@@ -10,6 +10,8 @@ package com.stingion.mqpublish.configuration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +22,17 @@ public class Publisher {
 
   private final AmqpTemplate template;
 
+  @Lookup
+  @Qualifier("time")
+  public String time() {
+    return null;
+  }
+
   @Value("${rabbitmq.exchange}")
   private String exchange;
 
   public void produceMsg(String msg) {
     log.info("Sent message \"{}\" to secretUrl", msg);
-    template.convertAndSend(exchange, "", msg);
+    template.convertAndSend(exchange, "", "[" + time() + "] " + msg);
   }
 }

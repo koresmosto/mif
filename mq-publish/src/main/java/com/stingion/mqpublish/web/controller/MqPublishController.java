@@ -33,6 +33,6 @@ public class MqPublishController {
   @GetMapping("/secretUrl")
   public String secretUrl(@RequestParam("msg") String msg) {
     publisher.produceMsg(msg);
-    return "Done";
+    return "Access to secret Url and send message: \"" + msg + "\"";
   }
 }
