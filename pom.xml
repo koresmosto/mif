@@ -279,6 +279,7 @@
         <db.username>makeitfineuser</db.username>
         <mysql_server_in_docker>mysql</mysql_server_in_docker>
         <mongodb.host>mongo</mongodb.host>
+        <rabbitmq.host>rabbitmq</rabbitmq.host>
       </properties>
     </profile>
     <profile>
