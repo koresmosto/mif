@@ -21,12 +21,12 @@ import org.springframework.context.annotation.Scope;
 @RequiredArgsConstructor
 public class ContextConfig {
 
-  private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter
+  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter
       .ofPattern("yyyy/MM/dd HH:mm:ss.SSS");
 
   @Bean
   @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
   public String time() {
-    return dateTimeFormatter.format(LocalDateTime.now());
+    return DATE_TIME_FORMATTER.format(LocalDateTime.now());
   }
 }

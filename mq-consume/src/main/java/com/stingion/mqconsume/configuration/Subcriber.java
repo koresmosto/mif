@@ -7,6 +7,7 @@
 
 package com.stingion.mqconsume.configuration;
 
+import com.stingion.util.mq.Message;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +19,10 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class Subcriber {
 
-  private final List<String> queueMessages;
+  private final List<Message> queueMessages;
 
   @RabbitListener(queues = "${rabbitmq.queue}")
-  public void receivedMessage(String msg) {
+  public void receivedMessage(Message msg) {
     log.info("Got message: \"{}\" from secretUrl", msg);
     queueMessages.add(msg);
   }

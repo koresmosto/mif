@@ -7,6 +7,7 @@
 
 package com.stingion.mqconsume.web.controller;
 
+import com.stingion.util.mq.Message;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class MqConsumeController {
 
-  private final List<String> queueMessages;
+  private final List<Message> queueMessages;
 
   @GetMapping
   public ResponseEntity<String> hello() {
@@ -30,7 +31,7 @@ public class MqConsumeController {
   }
 
   @GetMapping("/queue")
-  public List<String> queueMessages() {
+  public List<Message> queueMessages() {
     return queueMessages;
   }
 }

@@ -7,6 +7,7 @@
 
 package com.stingion.mqpublish.configuration;
 
+import com.stingion.util.mq.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -34,5 +35,10 @@ public class Publisher {
   public void produceMsg(String msg) {
     log.info("Sent message \"{}\" to secretUrl", msg);
     template.convertAndSend(exchange, "", "[" + time() + "] " + msg);
+  }
+
+  public void produceMsg(Message message) {
+    log.info("Sent message \"{}\" to secretUrl", message);
+    template.convertAndSend(exchange, "", message);
   }
 }

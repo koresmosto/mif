@@ -8,6 +8,8 @@
 package com.stingion.mqpublish.web.controller;
 
 import com.stingion.mqpublish.configuration.Publisher;
+import com.stingion.util.mq.Message;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +32,22 @@ public class MqPublishController {
     return ResponseEntity.ok("Hello from \"mq-publish\" module!");
   }
 
+  /**
+   * SecretUrl access.
+   *
+   * @param msg       message to send
+   * @param serialize true is default if skip in request
+   * @return response
+   */
   @GetMapping("/secretUrl")
-  public String secretUrl(@RequestParam("msg") String msg) {
-    publisher.produceMsg(msg);
-    return "Access to secret Url and send message: \"" + msg + "\"";
+  public String secretUrl(@RequestParam("msg") String msg,
+      @RequestParam(value = "serialize", required = false) Boolean serialize) {
+    serialize = Optional.ofNullable(serialize).orElse(true);
+    if (serialize) {
+      publisher.produceMsg(new Message(msg));
+    } else {
+      publisher.produceMsg(msg);
+    }
+    return "Access to secret Url and send message (serialize = " + serialize + "): " + msg;
   }
 }

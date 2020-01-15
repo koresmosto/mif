@@ -7,6 +7,7 @@
 
 package com.stingion.mqconsume.configuration;
 
+import com.stingion.util.mq.Message;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import org.springframework.context.annotation.ImportResource;
 public class ContextConfig {
 
   @Bean
-  public List<String> queueMessages() {
+  public List<Message> queueMessages() {
     return new LinkedList<>();
   }
 }

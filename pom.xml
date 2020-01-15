@@ -231,6 +231,7 @@
     <module>intro-service</module>
     <module>mq-publish</module>
     <module>mq-consume</module>
+    <module>util</module>
   </modules>
 
   <packaging>pom</packaging>
