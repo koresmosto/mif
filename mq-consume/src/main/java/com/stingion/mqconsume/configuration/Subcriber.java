@@ -22,7 +22,7 @@ public class Subcriber {
 
   @RabbitListener(queues = "${rabbitmq.queue}")
   public void receivedMessage(String msg) {
-    log.info("Got Message \"{}\" bound with secretUrl", msg);
+    log.info("Got message: \"{}\" from secretUrl", msg);
     queueMessages.add(msg);
   }
 }

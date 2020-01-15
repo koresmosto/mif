@@ -28,17 +28,17 @@ public class RabbitConfig {
   private String queue;
 
   @Bean
-  public Queue ordersQueue() {
+  public Queue secretUrlQueue() {
     return QueueBuilder.durable(queue).build();
   }
 
   @Bean
-  public Exchange ordersExchange() {
+  public Exchange secretUrlExchange() {
     return ExchangeBuilder.directExchange(exchange).build();
   }
 
   @Bean
-  public Binding binding(Queue ordersQueue, DirectExchange ordersExchange) {
-    return BindingBuilder.bind(ordersQueue).to(ordersExchange).with(queue);
+  public Binding binding(Queue secretUrlQueue, Exchange secretUrlExchange) {
+    return BindingBuilder.bind(secretUrlQueue).to((DirectExchange) secretUrlExchange).with("");
   }
 }

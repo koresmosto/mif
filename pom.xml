@@ -356,8 +356,8 @@
     <rabbitmq.port>5672</rabbitmq.port>
     <rabbitmq.username>guest</rabbitmq.username>
     <rabbitmq.password>guest</rabbitmq.password>
-    <rabbitmq.exchange>secretUrlExchange</rabbitmq.exchange>
-    <rabbitmq.queue>secretUrlQueue</rabbitmq.queue>
+    <rabbitmq.exchange>secret-url-exchange</rabbitmq.exchange>
+    <rabbitmq.queue>secret-url-queue</rabbitmq.queue>
 
     <docker.image.prefix>koresmosto</docker.image.prefix>
 
