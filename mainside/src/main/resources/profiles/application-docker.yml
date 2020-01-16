@@ -10,3 +10,6 @@ mq-publish:
 
 mq-consume:
   base-url: http://mq-consume:8083
+
+cache-service:
+  base-url: http://cache-service:8084

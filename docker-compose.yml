@@ -159,3 +159,12 @@ services:
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"
+
+  cache-service:
+    image: koresmosto/cache-service
+    container_name: mif_cache-service
+    ports:
+      - 8089:8084
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"

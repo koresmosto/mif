@@ -26,3 +26,8 @@ services:
     ports:
       - 5008:5008
     command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008 -jar -Dspring.profiles.active=docker /app.war
+
+  cache-service:
+    ports:
+      - 5009:5009
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5009 -jar -Dspring.profiles.active=docker /app.war

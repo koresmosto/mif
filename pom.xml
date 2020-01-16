@@ -232,6 +232,7 @@
     <module>mq-publish</module>
     <module>mq-consume</module>
     <module>util</module>
+    <module>cache-service</module>
   </modules>
 
   <packaging>pom</packaging>
@@ -264,6 +265,9 @@
         <jvmargsMqConsume>
           -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5008 -Dserver.port=8083
         </jvmargsMqConsume>
+        <jvmargsCacheService>
+          -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5009 -Dserver.port=8084
+        </jvmargsCacheService>
       </properties>
     </profile>
     <profile>
@@ -344,6 +348,7 @@
     <jvmargsIntroService></jvmargsIntroService>
     <jvmargsMqPublish></jvmargsMqPublish>
     <jvmargsMqConsume></jvmargsMqConsume>
+    <jvmargsCacheService></jvmargsCacheService>
 
     <!-- Mongo DB -->
     <mongodb.authentication-database>admin</mongodb.authentication-database>

@@ -33,6 +33,9 @@ public class OtherServicesController {
   @Value("${mq-consume.base-url:#{null}}")
   private String mqConsumeBaseUrl;
 
+  @Value("${cache-service.base-url:#{null}}")
+  private String cacheServiceBaseUrl;
+
   private final RestTemplate restTemplate;
 
   /**
@@ -66,6 +69,18 @@ public class OtherServicesController {
   public ResponseEntity<String> mqConsumeMS() {
     String url = UriComponentsBuilder.fromHttpUrl(mqConsumeBaseUrl)
         .path("mqconsume")
+        .toUriString();
+    ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+    return ResponseEntity.ok(response.getBody());
+  }
+
+  /**
+   * Get response from {@code cache-service} module.
+   */
+  @GetMapping(path = "cache/hello", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<String> cacheServiceMS() {
+    String url = UriComponentsBuilder.fromHttpUrl(cacheServiceBaseUrl)
+        .path("cache")
         .toUriString();
     ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
     return ResponseEntity.ok(response.getBody());

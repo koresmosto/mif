@@ -10,3 +10,6 @@ mq-publish:
 
 mq-consume:
   base-url: http://localhost:8083
+
+cache-service:
+  base-url: http://localhost:8084
