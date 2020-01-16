@@ -116,6 +116,16 @@ services:
       RABBITMQ_DEFAULT_USER: ${rabbitmq_user}
       RABBITMQ_DEFAULT_PASS: ${rabbitmq_pass}
 
+  redis:
+    image: bitnami/redis:5.0.7
+    container_name: mif_redis
+    restart: always
+    ports:
+      - 6479:6379
+    environment:
+      REDIS_PASSWORD: ${redis_pass}
+    command: /run.sh --maxmemory 256mb
+
   mainside:
     depends_on:
       - flyway
@@ -161,6 +171,8 @@ services:
       decode_log_event_to_json_object: "true"
 
   cache-service:
+    depends_on:
+      - redis
     image: koresmosto/cache-service
     container_name: mif_cache-service
     ports:

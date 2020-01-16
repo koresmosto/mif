@@ -1,6 +1,6 @@
 spring:
   profiles:
-    include: dev
+    include: redis
 
 mq-consume:
   base-url: http://mq-consume:8083
