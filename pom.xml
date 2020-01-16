@@ -285,6 +285,7 @@
         <mysql_server_in_docker>mysql</mysql_server_in_docker>
         <mongodb.host>mongo</mongodb.host>
         <rabbitmq.host>rabbitmq</rabbitmq.host>
+        <redis.host>redis</redis.host>
       </properties>
     </profile>
     <profile>
@@ -337,18 +338,23 @@
     <!-- Set env. variable: dev_env=true (~/.bashrc) and config maven ~/.m2/settings.xml -->
     <!-- Some settings is in settings.xml file for security reasons.-->
 
-    <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
-    <db.migration>db/migration/mysql</db.migration>
-    <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-    <db.password>makeitfine121</db.password>
-    <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url>
-    <db.username>makeitfinemysql</db.username>
+    <!-- ===== Default params ===== -->
+
+    <!-- Debug configs -->
     <jvmargs></jvmargs>
     <jvmargsMainside></jvmargsMainside>
     <jvmargsIntroService></jvmargsIntroService>
     <jvmargsMqPublish></jvmargsMqPublish>
     <jvmargsMqConsume></jvmargsMqConsume>
     <jvmargsCacheService></jvmargsCacheService>
+
+    <!-- MySQL DB -->
+    <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
+    <db.migration>db/migration/mysql</db.migration>
+    <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+    <db.password>makeitfine121</db.password>
+    <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url>
+    <db.username>makeitfinemysql</db.username>
 
     <!-- Mongo DB -->
     <mongodb.authentication-database>admin</mongodb.authentication-database>
@@ -365,6 +371,11 @@
     <rabbitmq.password>guest</rabbitmq.password>
     <rabbitmq.exchange>secret-url-exchange</rabbitmq.exchange>
     <rabbitmq.queue>secret-url-queue</rabbitmq.queue>
+
+    <!-- Redis -->
+    <redis.host>localhost</redis.host>
+    <redis.port>6379</redis.port>
+    <redis.password>redispass</redis.password>
 
     <docker.image.prefix>koresmosto</docker.image.prefix>
 

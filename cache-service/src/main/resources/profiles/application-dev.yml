@@ -1,0 +1,10 @@
+spring:
+  cache:
+    type: redis
+  redis:
+    host: @redis.host@
+    port: @redis.port@
+    password: @redis.password@
+
+mq-consume:
+  base-url: http://localhost:8083

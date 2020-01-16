@@ -1,3 +1,6 @@
 spring:
   profiles:
     include: dev
+
+mq-consume:
+  base-url: http://mq-consume:8083
