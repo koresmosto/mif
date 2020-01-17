@@ -330,6 +330,18 @@
       <properties>
       </properties>
     </profile>
+    <profile>
+      <activation>
+        <property>
+          <name>env.travis</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <id>travis</id>
+      <properties>
+        <mvn.myMavenRepo.read.url>${env.myMavenRepo}</mvn.myMavenRepo.read.url>
+      </properties>
+    </profile>
   </profiles>
 
   <properties>
