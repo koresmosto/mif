@@ -339,6 +339,7 @@
       </activation>
       <id>travis</id>
       <properties>
+        <!--suppress UnresolvedMavenProperty -->
         <mvn.myMavenRepo.read.url>${env.myMavenRepo}</mvn.myMavenRepo.read.url>
       </properties>
     </profile>
