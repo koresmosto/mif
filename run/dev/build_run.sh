@@ -22,6 +22,17 @@ installOrVerify="verify"
 for arg in "$@"
 do
     case "$arg" in
+     "h" | "help" | "--h" | "--help")
+            echo "Script for build and run project locally and in docker"
+            echo "params:"
+            echo "  s  - skipTests"
+            echo "  d  - debug enable"
+            echo "  do - docker enable"
+            echo "  mm - mongodb migration scripts (parametrize only locally 'dev')"
+            echo "  b  - build only"
+            echo "  r  - run only"
+            exit
+            ;;
       "s" | "skip" | "skipTests" | "skiptest" | "skipTest")
             skipTests=true
             DskipTests="-DskipTests=true"
@@ -44,17 +55,6 @@ do
             ;;
       "r" | "runOnly" | "run")
             runOnly=true
-            ;;
-      "h" | "help" | "--h" | "--help")
-            echo "Script for build and run project locally and in docker"
-            echo "params:"
-            echo "  s  - skipTests"
-            echo "  d  - debug enable"
-            echo "  do - docker enable"
-            echo "  mm - mongodb migration scripts (parametrize only locally 'dev')"
-            echo "  b  - build only"
-            echo "  r  - run only"
-            exit
             ;;
       *)
     esac
