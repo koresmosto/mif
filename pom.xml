@@ -3,12 +3,27 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>2.2.0.RELEASE</version>
+  </parent>
+
+  <groupId>com.stingion</groupId>
   <artifactId>makeitfine</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <modelVersion>4.0.0</modelVersion>
+
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.3</version>
           <executions>
             <execution>
               <goals>
@@ -43,19 +58,17 @@
               <id>jacoco-check</id>
             </execution>
           </executions>
-          <groupId>org.jacoco</groupId>
-          <version>0.8.3</version>
         </plugin>
       </plugins>
     </pluginManagement>
 
     <plugins>
       <plugin>
+        <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <addResources>true</addResources>
         </configuration>
-        <groupId>org.springframework.boot</groupId>
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
@@ -103,7 +116,9 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <annotationProcessorPaths>
             <path>
@@ -113,16 +128,14 @@
             </path>
           </annotationProcessorPaths>
         </configuration>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>${maven-compiler-plugin.version}</version>
       </plugin>
       <plugin>
+        <groupId>com.spotify</groupId>
         <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>${dockerfile-maven-plugin.version}</version>
         <configuration>
           <repository>${docker.image.prefix}/${project.artifactId}</repository>
         </configuration>
-        <groupId>com.spotify</groupId>
-        <version>${dockerfile-maven-plugin.version}</version>
       </plugin>
     </plugins>
 
@@ -143,6 +156,7 @@
       </resource>
     </resources>
   </build>
+
   <dependencies>
     <dependency>
       <artifactId>lombok</artifactId>
@@ -150,7 +164,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
       <exclusions>
         <exclusion>
           <artifactId>junit</artifactId>
@@ -161,8 +177,6 @@
           <groupId>org.junit.vintage</groupId>
         </exclusion>
       </exclusions>
-      <groupId>org.springframework.boot</groupId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -170,8 +184,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <artifactId>spring-boot-configuration-processor</artifactId>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -179,17 +193,17 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
-      <artifactId>spring-boot-starter-tomcat</artifactId>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
     </dependency>
     <dependency>
-      <artifactId>tomcat-embed-jasper</artifactId>
       <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-jasper</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <artifactId>jstl</artifactId>
       <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
     </dependency>
     <dependency>
       <groupId>net.logstash.logback</groupId>
@@ -201,16 +215,17 @@
       <artifactId>spring-cloud-starter-sleuth</artifactId>
     </dependency>
     <dependency>
-      <artifactId>spring-boot-devtools</artifactId>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
     </dependency>
   </dependencies>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <artifactId>annotations</artifactId>
         <groupId>org.jetbrains</groupId>
+        <artifactId>annotations</artifactId>
         <version>15.0</version>
       </dependency>
       <dependency>
@@ -222,9 +237,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <groupId>com.stingion</groupId>
-
-  <modelVersion>4.0.0</modelVersion>
 
   <modules>
     <module>mainside</module>
@@ -234,14 +246,6 @@
     <module>util</module>
     <module>cache-service</module>
   </modules>
-
-  <packaging>pom</packaging>
-
-  <parent>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <groupId>org.springframework.boot</groupId>
-    <version>2.2.0.RELEASE</version>
-  </parent>
 
   <profiles>
     <profile>
@@ -410,5 +414,4 @@
     </repository>
   </repositories>
 
-  <version>1.0-SNAPSHOT</version>
 </project>
