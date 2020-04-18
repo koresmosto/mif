@@ -17,145 +17,70 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.3</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>prepare-agent</goal>
-              </goals>
-            </execution>
-            <execution>
-              <goals>
-                <goal>report</goal>
-              </goals>
-              <id>report</id>
-              <phase>test</phase>
-            </execution>
-            <execution>
-              <configuration>
-                <rules>
-                  <rule>
-                    <element>PACKAGE</element>
-                    <limits>
-                      <limit>
-                        <counter>LINE</counter>
-                        <minimum>0.8</minimum>
-                        <value>COVEREDRATIO</value>
-                      </limit>
-                    </limits>
-                  </rule>
-                </rules>
-              </configuration>
-              <goals>
-                <goal>check</goal>
-              </goals>
-              <id>jacoco-check</id>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+  <properties>
+    <!-- todo: Info -->
+    <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->
+    <!-- Set env. variable: dev_env=true (~/.bashrc) and config maven ~/.m2/settings.xml -->
+    <!-- Some settings is in settings.xml file for security reasons.-->
 
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <addResources>true</addResources>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <configuration>
-          <excludedGroups>excluded</excludedGroups>
-          <excludes>
-            <exclude>**/EntityServiceITAncestor.java</exclude>
-          </excludes>
-          <includes>
-            <include>**/*IT.java</include>
-          </includes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <excludedGroups>excluded</excludedGroups>
-          <excludes>
-            <exclude>**/*IT</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.1</version>
-        <configuration>
-          <configLocation>google_checkers.xml</configLocation>
-          <consoleOutput>true</consoleOutput>
-          <encoding>UTF-8</encoding>
-          <failOnViolation>true</failOnViolation>
-          <failsOnError>true</failsOnError>
-          <linkXRef>false</linkXRef>
-          <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
-          <violationSeverity>warning</violationSeverity>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-            <id>validate</id>
-            <phase>validate</phase>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
-        <configuration>
-          <annotationProcessorPaths>
-            <path>
-              <artifactId>lombok</artifactId>
-              <groupId>org.projectlombok</groupId>
-              <version>${lombok.version}</version>
-            </path>
-          </annotationProcessorPaths>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.spotify</groupId>
-        <artifactId>dockerfile-maven-plugin</artifactId>
-        <version>${dockerfile-maven-plugin.version}</version>
-        <configuration>
-          <repository>${docker.image.prefix}/${project.artifactId}</repository>
-        </configuration>
-      </plugin>
-    </plugins>
+    <!-- ===== Default params ===== -->
 
-    <resources>
-      <resource>
-        <directory>src/main/resources/profiles</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>**/*.yml</include>
-        </includes>
-        <targetPath>${project.build.outputDirectory}</targetPath>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-        <excludes>
-          <exclude>**/profiles/*.yml</exclude>
-        </excludes>
-      </resource>
-    </resources>
-  </build>
+    <!-- Debug configs -->
+    <jvmargs></jvmargs>
+    <jvmargsMainside></jvmargsMainside>
+    <jvmargsIntroService></jvmargsIntroService>
+    <jvmargsMqPublish></jvmargsMqPublish>
+    <jvmargsMqConsume></jvmargsMqConsume>
+    <jvmargsCacheService></jvmargsCacheService>
+
+    <!-- MySQL DB -->
+    <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
+    <db.migration>db/migration/mysql</db.migration>
+    <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+    <db.password>makeitfine121</db.password>
+    <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url>
+    <db.username>makeitfinemysql</db.username>
+
+    <!-- Mongo DB -->
+    <mongodb.authentication-database>admin</mongodb.authentication-database>
+    <mongodb.database>introdb</mongodb.database>
+    <mongodb.username>introuser</mongodb.username>
+    <mongodb.password>intropass</mongodb.password>
+    <mongodb.host>localhost</mongodb.host>
+    <mongodb.port>27017</mongodb.port>
+
+    <!-- RabbitMQ -->
+    <rabbitmq.host>localhost</rabbitmq.host>
+    <rabbitmq.port>5672</rabbitmq.port>
+    <rabbitmq.username>guest</rabbitmq.username>
+    <rabbitmq.password>guest</rabbitmq.password>
+    <rabbitmq.exchange>secret-url-exchange</rabbitmq.exchange>
+    <rabbitmq.queue>secret-url-queue</rabbitmq.queue>
+
+    <!-- Redis -->
+    <redis.host>localhost</redis.host>
+    <redis.port>6379</redis.port>
+    <redis.password>redispass</redis.password>
+
+    <docker.image.prefix>koresmosto</docker.image.prefix>
+
+    <encoding>UTF-8</encoding>
+    <java.version>11</java.version> <!-- default port is 1521 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <spring.version>4.3.9.RELEASE</spring.version>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>myMavenRepo</id>
+      <!-- todo: `mvn` prefix refers to maven ~/.m2/setting.xml -->
+      <url>${mvn.myMavenRepo.read.url}</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -349,69 +274,153 @@
     </profile>
   </profiles>
 
-  <properties>
-    <!-- todo: Info -->
-    <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->
-    <!-- Set env. variable: dev_env=true (~/.bashrc) and config maven ~/.m2/settings.xml -->
-    <!-- Some settings is in settings.xml file for security reasons.-->
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.3</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <goals>
+                <goal>report</goal>
+              </goals>
+              <id>report</id>
+              <phase>test</phase>
+            </execution>
+            <execution>
+              <configuration>
+                <rules>
+                  <rule>
+                    <element>PACKAGE</element>
+                    <limits>
+                      <limit>
+                        <counter>LINE</counter>
+                        <minimum>0.8</minimum>
+                        <value>COVEREDRATIO</value>
+                      </limit>
+                    </limits>
+                  </rule>
+                </rules>
+              </configuration>
+              <goals>
+                <goal>check</goal>
+              </goals>
+              <id>jacoco-check</id>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
 
-    <!-- ===== Default params ===== -->
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <addResources>true</addResources>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <configuration>
+          <excludedGroups>excluded</excludedGroups>
+          <excludes>
+            <exclude>**/EntityServiceITAncestor.java</exclude>
+          </excludes>
+          <includes>
+            <include>**/*IT.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludedGroups>excluded</excludedGroups>
+          <excludes>
+            <exclude>**/*IT</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.1.1</version>
+        <configuration>
+          <configLocation>google_checkers.xml</configLocation>
+          <consoleOutput>true</consoleOutput>
+          <encoding>UTF-8</encoding>
+          <failOnViolation>true</failOnViolation>
+          <failsOnError>true</failsOnError>
+          <linkXRef>false</linkXRef>
+          <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+          <violationSeverity>warning</violationSeverity>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <id>validate</id>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <compilerVersion>${java.version}</compilerVersion>
+          <target>${java.version}</target>
+          <source>${java.version}</source>
+          <compilerArgs>
+            <arg>-Xlint:all,-processing</arg>
+          </compilerArgs>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
+          <failOnWarning>false</failOnWarning>
+          <annotationProcessorPaths>
+            <path>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+              <version>${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>${dockerfile-maven-plugin.version}</version>
+        <configuration>
+          <repository>${docker.image.prefix}/${project.artifactId}</repository>
+        </configuration>
+      </plugin>
+    </plugins>
 
-    <!-- Debug configs -->
-    <jvmargs></jvmargs>
-    <jvmargsMainside></jvmargsMainside>
-    <jvmargsIntroService></jvmargsIntroService>
-    <jvmargsMqPublish></jvmargsMqPublish>
-    <jvmargsMqConsume></jvmargsMqConsume>
-    <jvmargsCacheService></jvmargsCacheService>
-
-    <!-- MySQL DB -->
-    <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
-    <db.migration>db/migration/mysql</db.migration>
-    <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-    <db.password>makeitfine121</db.password>
-    <db.url>jdbc:mysql://localhost/makeitfinemysql</db.url>
-    <db.username>makeitfinemysql</db.username>
-
-    <!-- Mongo DB -->
-    <mongodb.authentication-database>admin</mongodb.authentication-database>
-    <mongodb.database>introdb</mongodb.database>
-    <mongodb.username>introuser</mongodb.username>
-    <mongodb.password>intropass</mongodb.password>
-    <mongodb.host>localhost</mongodb.host>
-    <mongodb.port>27017</mongodb.port>
-
-    <!-- RabbitMQ -->
-    <rabbitmq.host>localhost</rabbitmq.host>
-    <rabbitmq.port>5672</rabbitmq.port>
-    <rabbitmq.username>guest</rabbitmq.username>
-    <rabbitmq.password>guest</rabbitmq.password>
-    <rabbitmq.exchange>secret-url-exchange</rabbitmq.exchange>
-    <rabbitmq.queue>secret-url-queue</rabbitmq.queue>
-
-    <!-- Redis -->
-    <redis.host>localhost</redis.host>
-    <redis.port>6379</redis.port>
-    <redis.password>redispass</redis.password>
-
-    <docker.image.prefix>koresmosto</docker.image.prefix>
-
-    <encoding>UTF-8</encoding>
-    <java.version>11</java.version> <!-- default port is 1521 -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-    <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
-    <slf4j.version>1.7.25</slf4j.version>
-    <spring.version>4.3.9.RELEASE</spring.version>
-  </properties>
-
-  <repositories>
-    <repository>
-      <id>myMavenRepo</id>
-      <!-- todo: `mvn` prefix refers to maven ~/.m2/setting.xml -->
-      <url>${mvn.myMavenRepo.read.url}</url>
-    </repository>
-  </repositories>
+    <resources>
+      <resource>
+        <directory>src/main/resources/profiles</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*.yml</include>
+        </includes>
+        <targetPath>${project.build.outputDirectory}</targetPath>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <excludes>
+          <exclude>**/profiles/*.yml</exclude>
+        </excludes>
+      </resource>
+    </resources>
+  </build>
 
 </project>
