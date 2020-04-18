@@ -24,6 +24,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Slf4j
 public class OtherServicesController {
 
+  private final RestTemplate restTemplate;
+
   @Value("${intro-service.base-url:#{null}}")
   private String introServiceBaseUrl;
 
@@ -35,8 +37,6 @@ public class OtherServicesController {
 
   @Value("${cache-service.base-url:#{null}}")
   private String cacheServiceBaseUrl;
-
-  private final RestTemplate restTemplate;
 
   /**
    * Get response from {@code intro-service} module.

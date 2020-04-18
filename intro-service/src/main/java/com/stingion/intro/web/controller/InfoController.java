@@ -37,6 +37,7 @@ public class InfoController {
 
   /**
    * Get details of info.
+   *
    * @param key searched key
    * @return info details
    */

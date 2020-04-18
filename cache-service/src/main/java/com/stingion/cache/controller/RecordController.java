@@ -65,6 +65,7 @@ public class RecordController {
    * $>curl -H 'Content-Type: application/json' -X PUT -d '{"id":12,"msg":"Hi, there!!!"}'
    * http://localhost:8084/records/update
    * </pre>
+   *
    * @param recordId id
    */
   @CacheEvict(value = "records", key = "#recordId")

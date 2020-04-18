@@ -23,14 +23,14 @@ public class Publisher {
 
   private final AmqpTemplate template;
 
+  @Value("${rabbitmq.exchange}")
+  private String exchange;
+
   @Lookup
   @Qualifier("time")
   public String time() {
     return null;
   }
-
-  @Value("${rabbitmq.exchange}")
-  private String exchange;
 
   public void produceMsg(String msg) {
     log.info("Sent message \"{}\" to secretUrl", msg);
