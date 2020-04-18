@@ -385,7 +385,7 @@
           </compilerArgs>
           <showWarnings>true</showWarnings>
           <showDeprecation>true</showDeprecation>
-          <failOnWarning>false</failOnWarning>
+          <failOnWarning>true</failOnWarning>
           <annotationProcessorPaths>
             <path>
               <artifactId>lombok</artifactId>

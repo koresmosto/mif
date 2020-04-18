@@ -32,7 +32,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Table(name = "PAYMENT")
-@EqualsAndHashCode(of = {"id"})
+//@EqualsAndHashCode(of = {"id"})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "PAYMENT_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Undefined")
@@ -57,5 +57,19 @@ public class Payment {
   @Override
   public int hashCode() {
     return 37;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Payment payment = (Payment) o;
+
+    return id == payment.id;
   }
 }

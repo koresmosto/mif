@@ -30,7 +30,7 @@ import lombok.ToString;
  */
 @Entity
 @Table(name = "ORDERING")
-@EqualsAndHashCode(of = "id")
+//@EqualsAndHashCode(of = "id")
 @ToString(exclude = {"item", "creditCard"})
 @Getter
 @Setter
@@ -70,5 +70,19 @@ public class Ordering {
   @Override
   public int hashCode() {
     return 31;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Ordering ordering = (Ordering) o;
+
+    return id.equals(ordering.id);
   }
 }
