@@ -360,7 +360,7 @@
           <failsOnError>true</failsOnError>
           <linkXRef>false</linkXRef>
           <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
-          <violationSeverity>warning</violationSeverity>
+          <violationSeverity>info</violationSeverity>
         </configuration>
         <executions>
           <execution>
