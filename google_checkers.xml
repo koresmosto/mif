@@ -326,6 +326,13 @@
     <module name="MagicNumber">
       <property name="id" value="MagicNumberRegular"/>
     </module>
+    <!-- Todo: think of (commented bottom) -->
+    <!--    <module name="RegexpSingleline">-->
+    <!--      <property name="format" value="\s+$"/>-->
+    <!--      <property name="minimum" value="0"/>-->
+    <!--      <property name="maximum" value="0"/>-->
+    <!--      <property name="message" value="Line has trailing spaces."/>-->
+    <!--    </module>-->
   </module>
 
   <!-- Checks for whitespace                               -->

@@ -364,7 +364,7 @@
           <encoding>UTF-8</encoding>
           <failOnViolation>true</failOnViolation>
           <failsOnError>true</failsOnError>
-<!--          <linkXRef>false</linkXRef>-->
+          <linkXRef>false</linkXRef>
           <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
           <violationSeverity>info</violationSeverity>
         </configuration>
