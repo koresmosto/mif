@@ -323,6 +323,9 @@
         value="${org.checkstyle.google.suppressionxpathfilter.config}"/>
       <property name="optional" value="true"/>
     </module>
+    <module name="MagicNumber">
+      <property name="id" value="MagicNumberRegular"/>
+    </module>
   </module>
 
   <!-- Checks for whitespace                               -->

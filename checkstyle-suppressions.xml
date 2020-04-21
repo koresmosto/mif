@@ -29,4 +29,6 @@
   <!-- Configs for Regular/Test methods -->
   <suppress files="[\\/]src[\\/]test[\\/].*" id="MethodNameRegular" />
   <suppress files="[\\/]src[\\/]main[\\/].*" id="MethodNameTest" />
+
+  <suppress files="[\\/]src[\\/]test[\\/].*" id="MagicNumberRegular"/>
 </suppressions>
