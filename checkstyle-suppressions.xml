@@ -25,4 +25,8 @@
   <suppress checks="JavadocMethod" files="SwaggerConfig.java" lines="25"/>
   <suppress checks="JavadocMethod" files="CustomUserDetailsService.java" lines="35"/>
   <!-- intro module -->
+
+  <!-- Configs for Regular/Test methods -->
+  <suppress files="[\\/]src[\\/]test[\\/].*" id="MethodNameRegular" />
+  <suppress files="[\\/]src[\\/]main[\\/].*" id="MethodNameTest" />
 </suppressions>
