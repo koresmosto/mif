@@ -19,7 +19,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,38 +37,40 @@ import lombok.ToString;
 @DiscriminatorValue("Undefined")
 public class Payment {
 
-  @TableGenerator(
-      name = "Payment_gen",
-      table = "SEQUENCES",
-      pkColumnName = "SEQ_NAME",
-      valueColumnName = "SEQ_NUMBER",
-      pkColumnValue = "PAYMENT_SEQUENCE",
-      allocationSize = 1)
-  @Id
-  @Column(name = "ID")
-  @GeneratedValue(strategy = GenerationType.TABLE, generator = "Payment_gen")
-  private int id;
+    private static final int PRIME_NUMBER = 37;
 
-  @Column(name = "AMOUNT")
-  private Double amount;
+    @TableGenerator(
+            name = "Payment_gen",
+            table = "SEQUENCES",
+            pkColumnName = "SEQ_NAME",
+            valueColumnName = "SEQ_NUMBER",
+            pkColumnValue = "PAYMENT_SEQUENCE",
+            allocationSize = 1)
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Payment_gen")
+    private int id;
 
-  // See: Ordering hashcode method comment
-  @Override
-  public int hashCode() {
-    return 37;
-  }
+    @Column(name = "AMOUNT")
+    private Double amount;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    // See: Ordering hashcode method comment
+    @Override
+    public int hashCode() {
+        return PRIME_NUMBER;
     }
 
-    Payment payment = (Payment) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-    return id == payment.id;
-  }
+        Payment payment = (Payment) o;
+
+        return id == payment.id;
+    }
 }

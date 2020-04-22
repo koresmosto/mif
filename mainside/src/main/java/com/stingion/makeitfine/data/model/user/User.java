@@ -39,38 +39,38 @@ import lombok.ToString;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
-  @TableGenerator(
-      name = "User_gen",
-      table = "SEQUENCES",
-      pkColumnName = "SEQ_NAME",
-      valueColumnName = "SEQ_NUMBER",
-      pkColumnValue = "APP_USER_SEQUENCE",
-      allocationSize = 1)
-  @Id
-  @Column(name = "ID")
-  @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_gen")
-  private int id;
+    @TableGenerator(
+            name = "User_gen",
+            table = "SEQUENCES",
+            pkColumnName = "SEQ_NAME",
+            valueColumnName = "SEQ_NUMBER",
+            pkColumnValue = "APP_USER_SEQUENCE",
+            allocationSize = 1)
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_gen")
+    private int id;
 
-  @Column(name = "SSO_ID", nullable = false, unique = true)
-  private String ssoId;
+    @Column(name = "SSO_ID", nullable = false, unique = true)
+    private String ssoId;
 
-  @Column(name = "PASSWORD", nullable = false)
-  private String password;
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
 
-  @Column(name = "EMAIL", nullable = false, unique = true)
-  private String email;
+    @Column(name = "EMAIL", nullable = false, unique = true)
+    private String email;
 
-  @Column(
-      name = "STATE",
-      nullable = false,
-      columnDefinition = "ENUM('Active', 'Inactive', 'Deleted', 'Locked')")
-  @Convert(converter = AttrConverter.StateConvertor.class)
-  private State state;
+    @Column(
+            name = "STATE",
+            nullable = false,
+            columnDefinition = "ENUM('Active', 'Inactive', 'Deleted', 'Locked')")
+    @Convert(converter = AttrConverter.StateConvertor.class)
+    private State state;
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(
-      name = "APP_USER_USER_PROFILE",
-      joinColumns = {@JoinColumn(name = "USER_ID")},
-      inverseJoinColumns = {@JoinColumn(name = "USER_PROFILE_ID")})
-  private Set<UserProfile> userProfiles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "APP_USER_USER_PROFILE",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "USER_PROFILE_ID")})
+    private Set<UserProfile> userProfiles;
 }

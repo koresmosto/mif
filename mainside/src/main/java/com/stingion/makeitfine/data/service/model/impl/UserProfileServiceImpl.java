@@ -20,19 +20,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserProfileServiceImpl extends EntityServiceImpl<UserProfile>
-    implements UserProfileService {
+        implements UserProfileService {
 
-  @PersistenceContext
-  private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-  @Override
-  public UserProfile findByUserProfileType(UserProfileType profileType) {
-    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-    CriteriaQuery<UserProfile> criteria = builder.createQuery(UserProfile.class);
-    Root<UserProfile> userProfileRoot = criteria.from(UserProfile.class);
-    criteria.select(userProfileRoot);
-    criteria.where(builder.equal(userProfileRoot.get("type"), profileType.getUserProfileType()));
-    List<UserProfile> userProfiles = entityManager.createQuery(criteria).getResultList();
-    return userProfiles.isEmpty() ? null : userProfiles.get(0);
-  }
+    @Override
+    public UserProfile findByUserProfileType(UserProfileType profileType) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<UserProfile> criteria = builder.createQuery(UserProfile.class);
+        Root<UserProfile> userProfileRoot = criteria.from(UserProfile.class);
+        criteria.select(userProfileRoot);
+        criteria.where(builder.equal(userProfileRoot.get("type"), profileType.getUserProfileType()));
+        List<UserProfile> userProfiles = entityManager.createQuery(criteria).getResultList();
+        return userProfiles.isEmpty() ? null : userProfiles.get(0);
+    }
 }

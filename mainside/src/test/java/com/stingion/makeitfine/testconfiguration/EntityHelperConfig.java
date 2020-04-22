@@ -22,43 +22,43 @@ import org.springframework.stereotype.Component;
 @Configuration
 public class EntityHelperConfig {
 
-  @Component
-  public static class UserHelper extends EntityHelper<User> {
+    @Component
+    public static class UserHelper extends EntityHelper<User> {
 
-  }
+    }
 
-  @Component
-  public static class UserProfileHelper extends EntityHelper<UserProfile> {
+    @Component
+    public static class UserProfileHelper extends EntityHelper<UserProfile> {
 
-  }
+    }
 
-  @Component
-  public static class BankHelper extends EntityHelper<Bank> {
+    @Component
+    public static class BankHelper extends EntityHelper<Bank> {
 
-  }
+    }
 
-  @Component
-  public static class CreditCardHelper extends EntityHelper<CreditCard> {
+    @Component
+    public static class CreditCardHelper extends EntityHelper<CreditCard> {
 
-  }
+    }
 
-  @Component
-  public static class ContactHelper extends EntityHelper<Contact> {
+    @Component
+    public static class ContactHelper extends EntityHelper<Contact> {
 
-  }
+    }
 
-  @Component
-  public static class ItemHelper extends EntityHelper<Item> {
+    @Component
+    public static class ItemHelper extends EntityHelper<Item> {
 
-  }
+    }
 
-  @Component
-  public static class OrderingHelper extends EntityHelper<Ordering> {
+    @Component
+    public static class OrderingHelper extends EntityHelper<Ordering> {
 
-  }
+    }
 
-  @Component
-  public static class PaymentHelper extends EntityHelper<Payment> {
+    @Component
+    public static class PaymentHelper extends EntityHelper<Payment> {
 
-  }
+    }
 }

@@ -20,19 +20,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class InfoServiceImpl implements InfoService {
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  @Override
-  public List<String> usersAndItsRoles() {
-    return userService.findAll().stream()
-        .sorted(Comparator.comparing(User::getSsoId))
-        .map(user -> user.getSsoId().toLowerCase()
-            + ":{"
-            + Optional.ofNullable(user.getUserProfiles())
-            .flatMap(userProfiles -> userProfiles.stream().map(u -> u.getType())
-                .reduce((t1, t2) -> t1 + "," + t2)).orElse("")
-            + "}")
-        .collect(Collectors.toList());
-  }
+    @Override
+    public List<String> usersAndItsRoles() {
+        return userService.findAll().stream()
+                .sorted(Comparator.comparing(User::getSsoId))
+                .map(user -> user.getSsoId().toLowerCase()
+                        + ":{"
+                        + Optional.ofNullable(user.getUserProfiles())
+                        .flatMap(userProfiles -> userProfiles.stream().map(u -> u.getType())
+                                .reduce((t1, t2) -> t1 + "," + t2)).orElse("")
+                        + "}")
+                .collect(Collectors.toList());
+    }
 }

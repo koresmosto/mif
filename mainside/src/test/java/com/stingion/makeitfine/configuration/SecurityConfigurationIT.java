@@ -36,79 +36,84 @@ import org.springframework.test.context.TestPropertySource;
 @ConfigurationProperties(prefix = "test.integration", ignoreInvalidFields = true)
 class SecurityConfigurationIT {
 
-  @Autowired
-  protected TestRestTemplate restTemplate;
-  @LocalServerPort
-  private int port;
-  @Value("${protocolHost}")
-  private String protocolHost;
-  @Value("${basicAuthUser.username}")
-  private String username;
-  @Value("${basicAuthUser.password}")
-  private String password;
-  private String hostPort;
+    @Autowired
+    protected TestRestTemplate restTemplate;
 
-  @PostConstruct
-  public void init() {
-    hostPort = protocolHost + ":" + port;
-    restTemplate = restTemplate.withBasicAuth(username, password);
-  }
+    @LocalServerPort
+    private int port;
 
-  @Test
-  public void indexPageTest() {
-    String[] responseBody = new String[]{getResponseBody("/index"), getResponseBody("/")};
+    @Value("${protocolHost}")
+    private String protocolHost;
 
-    for (String r : responseBody) {
-      assertTrue(r.contains("English"));
-      assertTrue(r.contains(" | "));
-      assertTrue(r.contains("Русский"));
-      assertTrue(r.contains("Make it fine"));
-      assertTrue(r.contains("Домашняя страница") || r.contains("Home page"));
+    @Value("${basicAuthUser.username}")
+    private String username;
+
+    @Value("${basicAuthUser.password}")
+    private String password;
+
+    private String hostPort;
+
+    @PostConstruct
+    public void init() {
+        hostPort = protocolHost + ":" + port;
+        restTemplate = restTemplate.withBasicAuth(username, password);
     }
-  }
 
-  @Test
-  public void getUserWithFirstId() {
-    User expectedUser = new User();
-    expectedUser.setId(1);
-    expectedUser.setSsoId("bill");
-    expectedUser.setEmail("bill@xyz.com");
-    expectedUser.setState(State.ACTIVE);
+    @Test
+    public void indexPageTest() {
+        String[] responseBody = new String[]{getResponseBody("/index"), getResponseBody("/")};
 
-    User actualUser = getResponseBody("/user/1", User.class);
+        for (String r : responseBody) {
+            assertTrue(r.contains("English"));
+            assertTrue(r.contains(" | "));
+            assertTrue(r.contains("Русский"));
+            assertTrue(r.contains("Make it fine"));
+            assertTrue(r.contains("Домашняя страница") || r.contains("Home page"));
+        }
+    }
 
-    assertEquals(expectedUser.getId(), actualUser.getId());
-    assertEquals(expectedUser.getSsoId(), actualUser.getSsoId());
-    assertEquals(expectedUser.getEmail(), actualUser.getEmail());
-    assertEquals(expectedUser.getState(), actualUser.getState());
-  }
+    @Test
+    public void getUserWithFirstId() {
+        User expectedUser = new User();
+        expectedUser.setId(1);
+        expectedUser.setSsoId("bill");
+        expectedUser.setEmail("bill@xyz.com");
+        expectedUser.setState(State.ACTIVE);
 
-  @Test
-  public void insertUserWithRandomSsoId() {
-    int numberOfUsersBeforeInsert = getResponseBody("/user", List.class).size();
+        User actualUser = getResponseBody("/user/1", User.class);
 
-    User insertedUser = new User();
-    insertedUser.setSsoId(UUID.randomUUID().toString().substring(0, 25));
-    insertedUser.setPassword(UUID.randomUUID().toString());
-    insertedUser.setEmail(String.format("any%s%s", new Random().nextInt() + 10101, "@xxx.xxx"));
-    insertedUser.setState(State.ACTIVE);
-    insertedUser.setUserProfiles(Sets.newHashSet());
+        assertEquals(expectedUser.getId(), actualUser.getId());
+        assertEquals(expectedUser.getSsoId(), actualUser.getSsoId());
+        assertEquals(expectedUser.getEmail(), actualUser.getEmail());
+        assertEquals(expectedUser.getState(), actualUser.getState());
+    }
 
-    var insertUserResponse = restTemplate.postForEntity("/user", insertedUser, Void.class);
-    int numberOfUsersAfterInsert = getResponseBody("/user", List.class).size();
-    assertEquals(numberOfUsersBeforeInsert, numberOfUsersAfterInsert - 1);
+    @Test
+    public void insertUserWithRandomSsoId() {
 
-    String createdUserId = Optional.ofNullable(insertUserResponse.getHeaders().get("createdUserId"))
-        .map(h -> h.get(0)).orElse(null);
-    restTemplate.delete(String.format("/user/%s", createdUserId));
-    int numberOfUsersAfterDelete = getResponseBody("/user", List.class).size();
-    assertEquals(numberOfUsersAfterInsert, numberOfUsersAfterDelete + 1);
-  }
+        User insertedUser = new User();
+        insertedUser.setSsoId(UUID.randomUUID().toString().substring(0, 25));
+        insertedUser.setPassword(UUID.randomUUID().toString());
+        insertedUser.setEmail(String.format("any%s%s", new Random().nextInt() + 10101, "@xxx.xxx"));
+        insertedUser.setState(State.ACTIVE);
+        insertedUser.setUserProfiles(Sets.newHashSet());
 
-  private <T> T getResponseBody(String relativePath, Class<T>... clasz) {
-    Class<T> type =
-        Optional.ofNullable(clasz).map(classes -> classes.length).orElse(0) > 0 ? clasz[0]
-            : (Class<T>) String.class;
-    return restTemplate.getForEntity(hostPort + relativePath, type).getBody();
-  }
+        int numberOfUsersBeforeInsert = getResponseBody("/user", List.class).size();
+        var insertUserResponse = restTemplate.postForEntity("/user", insertedUser, Void.class);
+        int numberOfUsersAfterInsert = getResponseBody("/user", List.class).size();
+        assertEquals(numberOfUsersBeforeInsert, numberOfUsersAfterInsert - 1);
+
+        String createdUserId = Optional.ofNullable(insertUserResponse.getHeaders().get("createdUserId"))
+                .map(h -> h.get(0)).orElse(null);
+        restTemplate.delete(String.format("/user/%s", createdUserId));
+        int numberOfUsersAfterDelete = getResponseBody("/user", List.class).size();
+        assertEquals(numberOfUsersAfterInsert, numberOfUsersAfterDelete + 1);
+    }
+
+    private <T> T getResponseBody(String relativePath, Class<T>... clasz) {
+        Class<T> type =
+                Optional.ofNullable(clasz).map(classes -> classes.length).orElse(0) > 0 ? clasz[0]
+                        : (Class<T>) String.class;
+        return restTemplate.getForEntity(hostPort + relativePath, type).getBody();
+    }
 }

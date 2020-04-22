@@ -19,7 +19,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,52 +36,54 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Ordering {
 
-  @TableGenerator(
-      name = "Ordering_gen",
-      table = "SEQUENCES",
-      pkColumnName = "SEQ_NAME",
-      valueColumnName = "SEQ_NUMBER",
-      pkColumnValue = "ORDERING_SEQUENCE",
-      allocationSize = 1)
-  @Id
-  @Column(name = "ID")
-  @GeneratedValue(strategy = GenerationType.TABLE, generator = "Ordering_gen")
-  private Integer id;
+    private static final int PRIME_NUMBER = 31;
 
-  @Column(name = "DESCRIPTION")
-  private String description;
+    @TableGenerator(
+            name = "Ordering_gen",
+            table = "SEQUENCES",
+            pkColumnName = "SEQ_NAME",
+            valueColumnName = "SEQ_NUMBER",
+            pkColumnValue = "ORDERING_SEQUENCE",
+            allocationSize = 1)
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Ordering_gen")
+    private Integer id;
 
-  @Column(columnDefinition = "enum('Pending','Performed','Cancelled')")
-  @Enumerated(EnumType.STRING)
-  private OrderingStatus status;
+    @Column(name = "DESCRIPTION")
+    private String description;
 
-  @ManyToOne
-  @JoinColumn(name = "ITEM_ID")
-  private Item item;
+    @Column(columnDefinition = "enum('Pending','Performed','Cancelled')")
+    @Enumerated(EnumType.STRING)
+    private OrderingStatus status;
 
-  @ManyToOne
-  @JoinColumn(name = "CREDIT_CARD_ID")
-  private CreditCard creditCard;
+    @ManyToOne
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
 
-  // If you tell Hibernate to generate your primary key values, you need to use a fixed hash code,
-  // https://developer.jboss.org/wiki/EqualsAndHashCode?_sscc=t
-  // https://thoughts-on-java.org/ultimate-guide-to-implementing-equals-and-hashcode-with-hibernate/
-  @Override
-  public int hashCode() {
-    return 31;
-  }
+    @ManyToOne
+    @JoinColumn(name = "CREDIT_CARD_ID")
+    private CreditCard creditCard;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    // If you tell Hibernate to generate your primary key values, you need to use a fixed hash code,
+    // https://developer.jboss.org/wiki/EqualsAndHashCode?_sscc=t
+    // https://thoughts-on-java.org/ultimate-guide-to-implementing-equals-and-hashcode-with-hibernate/
+    @Override
+    public int hashCode() {
+        return PRIME_NUMBER;
     }
 
-    Ordering ordering = (Ordering) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-    return id.equals(ordering.id);
-  }
+        Ordering ordering = (Ordering) o;
+
+        return id.equals(ordering.id);
+    }
 }

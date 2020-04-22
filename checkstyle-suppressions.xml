@@ -24,6 +24,9 @@
   <suppress checks="JavadocMethod" files="SecurityConfiguration.java" lines="43,51"/>
   <suppress checks="JavadocMethod" files="SwaggerConfig.java" lines="25"/>
   <suppress checks="JavadocMethod" files="CustomUserDetailsService.java" lines="35"/>
+  <suppress checks="HideUtilityClassConstructor" files="com/stingion/makeitfine/ApplicationBoot.java" lines="13"/>
+  <suppress checks="InterfaceIsType" files="com/stingion/makeitfine/data/model/utils/ModelConstants.java" lines="13"/>
+
   <!-- intro module -->
 
   <!-- Configs for Regular/Test methods -->
@@ -31,4 +34,5 @@
   <suppress files="[\\/]src[\\/]main[\\/].*" id="MethodNameTest" />
 
   <suppress files="[\\/]src[\\/]test[\\/].*" id="MagicNumberRegular"/>
+  <suppress files="[\\/]src[\\/]test[\\/].*" id="MissingJavadocMethodRegular"/>
 </suppressions>

@@ -23,36 +23,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Api(tags = "LoginController")
 public class LoginController {
 
-  @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
-  public String accessDeniedPage(ModelMap model) {
-    model.addAttribute("user", getPrincipal());
-    return "accessDenied";
-  }
-
-  @RequestMapping(value = "/login", method = RequestMethod.GET)
-  public String loginPage() {
-    return "login";
-  }
-
-  @RequestMapping(value = "/logout", method = RequestMethod.GET)
-  @SuppressWarnings("missingjavadocmethod")
-  public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    if (auth != null) {
-      new SecurityContextLogoutHandler().logout(request, response, auth);
+    @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
+    public String accessDeniedPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "accessDenied";
     }
-    return "redirect:/login?logout";
-  }
 
-  private String getPrincipal() {
-    String userName;
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-    if (principal instanceof UserDetails) {
-      userName = ((UserDetails) principal).getUsername();
-    } else {
-      userName = principal.toString();
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
     }
-    return userName;
-  }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @SuppressWarnings("missingjavadocmethod")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
+    }
+
+    private String getPrincipal() {
+        String userName;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
+    }
 }

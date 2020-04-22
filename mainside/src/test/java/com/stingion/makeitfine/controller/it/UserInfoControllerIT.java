@@ -13,13 +13,13 @@ import org.junit.jupiter.api.Test;
 
 class UserInfoControllerIT extends ControllerITProvision {
 
-  @Test
-  public void usersAndItsRoles() {
-    String expected = "admin:{ADMIN}bill:{USER}danny:{USER}kenny:{ADMIN,DBA}nicole:{DBA}sam:{ADMIN}"
-        + "sudo:{USER,ADMIN,DBA}tsuser:{USER}";
+    @Test
+    public void usersAndItsRoles() {
+        String expected = "admin:{ADMIN}bill:{USER}danny:{USER}kenny:{ADMIN,DBA}nicole:{DBA}sam:{ADMIN}"
+                + "sudo:{USER,ADMIN,DBA}tsuser:{USER}";
 
-    String actual = getResponseBody("/userInfo/usersAndItsRoles");
+        String actual = getResponseBody("/userInfo/usersAndItsRoles");
 
-    assertEquals(expected, actual);
-  }
+        assertEquals(expected, actual);
+    }
 }

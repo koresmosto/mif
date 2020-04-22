@@ -24,44 +24,44 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserServiceImpl extends EntityServiceImpl<User> implements UserService {
 
-  @PersistenceContext
-  private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  @Transactional
-  @Override
-  public User findBySSO(String sso) {
-    CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(sso.toLowerCase(), "ssoId");
-    List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
-    return users.isEmpty() ? null : users.get(0);
-  }
+    @Transactional
+    @Override
+    public User findBySSO(String sso) {
+        CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(sso.toLowerCase(), "ssoId");
+        List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
+        return users.isEmpty() ? null : users.get(0);
+    }
 
-  @Transactional
-  @Override
-  public User findByEmail(String email) {
-    CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(email.toLowerCase(), "email");
-    List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
-    return users.isEmpty() ? null : users.get(0);
-  }
+    @Transactional
+    @Override
+    public User findByEmail(String email) {
+        CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(email.toLowerCase(), "email");
+        List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
+        return users.isEmpty() ? null : users.get(0);
+    }
 
-  @Transactional
-  @Override
-  public boolean isSsoIdOrEmailUserExists(String ssoIdOrEmail) {
-    return Optional.ofNullable(userService.findBySSO(ssoIdOrEmail))
-        .or(() -> Optional.ofNullable(userService.findByEmail(ssoIdOrEmail)))
-        .map(user -> true)
-        .orElse(false);
-  }
+    @Transactional
+    @Override
+    public boolean isSsoIdOrEmailUserExists(String ssoIdOrEmail) {
+        return Optional.ofNullable(userService.findBySSO(ssoIdOrEmail))
+                .or(() -> Optional.ofNullable(userService.findByEmail(ssoIdOrEmail)))
+                .map(user -> true)
+                .orElse(false);
+    }
 
-  @NotNull
-  private CriteriaQuery<User> getUserCriteriaQuery(String userAttribute, String email) {
-    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-    CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-    Root<User> userRoot = criteriaQuery.from(User.class);
-    criteriaQuery.select(userRoot);
-    criteriaQuery.where(criteriaBuilder.equal(userRoot.get(email), userAttribute));
-    return criteriaQuery;
-  }
+    @NotNull
+    private CriteriaQuery<User> getUserCriteriaQuery(String userAttribute, String email) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+        Root<User> userRoot = criteriaQuery.from(User.class);
+        criteriaQuery.select(userRoot);
+        criteriaQuery.where(criteriaBuilder.equal(userRoot.get(email), userAttribute));
+        return criteriaQuery;
+    }
 }

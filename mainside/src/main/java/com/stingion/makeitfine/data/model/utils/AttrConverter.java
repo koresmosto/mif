@@ -16,20 +16,20 @@ import javax.persistence.Convert;
  */
 public class AttrConverter {
 
-  @Convert
-  public static class StateConvertor implements AttributeConverter<State, String> {
+    @Convert
+    public static class StateConvertor implements AttributeConverter<State, String> {
 
-    @Override
-    public String convertToDatabaseColumn(State attribute) {
-      return attribute.getState();
-    }
+        @Override
+        public String convertToDatabaseColumn(State attribute) {
+            return attribute.getState();
+        }
 
-    @Override
-    public State convertToEntityAttribute(String dbData) {
-      return Arrays.stream(State.values())
-          .filter(s -> s.getState().equalsIgnoreCase(dbData))
-          .findAny()
-          .orElse(null);
+        @Override
+        public State convertToEntityAttribute(String dbData) {
+            return Arrays.stream(State.values())
+                    .filter(s -> s.getState().equalsIgnoreCase(dbData))
+                    .findAny()
+                    .orElse(null);
+        }
     }
-  }
 }

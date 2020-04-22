@@ -362,11 +362,12 @@
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <consoleOutput>true</consoleOutput>
           <encoding>UTF-8</encoding>
-          <failOnViolation>true</failOnViolation>
-          <failsOnError>true</failsOnError>
           <linkXRef>false</linkXRef>
           <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
           <violationSeverity>info</violationSeverity>
+
+          <failOnViolation>true</failOnViolation>
+          <failsOnError>true</failsOnError>
         </configuration>
         <executions>
           <execution>

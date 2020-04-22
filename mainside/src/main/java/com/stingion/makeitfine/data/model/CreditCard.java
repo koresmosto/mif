@@ -39,33 +39,33 @@ import lombok.ToString;
 @Setter
 public class CreditCard {
 
-  @TableGenerator(
-      name = "CreditCard_gen",
-      table = "SEQUENCES",
-      pkColumnName = "SEQ_NAME",
-      valueColumnName = "SEQ_NUMBER",
-      pkColumnValue = "CREDIT_CARD_SEQUENCE",
-      allocationSize = 1)
-  @Id
-  @Column(name = "ID")
-  @GeneratedValue(strategy = GenerationType.TABLE, generator = "CreditCard_gen")
-  private Integer id;
+    @TableGenerator(
+            name = "CreditCard_gen",
+            table = "SEQUENCES",
+            pkColumnName = "SEQ_NAME",
+            valueColumnName = "SEQ_NUMBER",
+            pkColumnValue = "CREDIT_CARD_SEQUENCE",
+            allocationSize = 1)
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "CreditCard_gen")
+    private Integer id;
 
-  @Column(name = "NUMBER", unique = true) // todo:think of 16 digits number (Special type for it)
-  private Long number;
+    @Column(name = "NUMBER", unique = true) // todo:think of 16 digits number (Special type for it)
+    private Long number;
 
-  @Column(name = "TYPE", nullable = false, columnDefinition = "enum('MasterCard','Visa')")
-  @Enumerated(EnumType.STRING)
-  private CardType type;
+    @Column(name = "TYPE", nullable = false, columnDefinition = "enum('MasterCard','Visa')")
+    @Enumerated(EnumType.STRING)
+    private CardType type;
 
-  @ManyToOne
-  @JoinColumn(name = "BANK_ID")
-  private Bank bank;
+    @ManyToOne
+    @JoinColumn(name = "BANK_ID")
+    private Bank bank;
 
-  @ManyToOne
-  @JoinColumn(name = "CONTACT_ID")
-  private Contact contact;
+    @ManyToOne
+    @JoinColumn(name = "CONTACT_ID")
+    private Contact contact;
 
-  @OneToMany(mappedBy = "creditCard", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<Ordering> orders;
+    @OneToMany(mappedBy = "creditCard", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Ordering> orders;
 }

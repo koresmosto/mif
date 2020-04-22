@@ -28,67 +28,67 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EntityServiceITAncestor<T> {
 
-  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-  @Autowired
-  protected EntityHelper<T> eH;
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    protected EntityHelper<T> eH;
 
-  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-  @Autowired
-  protected EntityService<T> entityService;
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    protected EntityService<T> entityService;
 
-  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-  @Autowired
-  protected ServiceTestConfiguration.EntityTestData<T> entityTestData;
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    protected ServiceTestConfiguration.EntityTestData<T> entityTestData;
 
-  @Test
-  public void findAllTest() {
-    assertThat(entityTestData.getFindAll()).isEqualTo(entityService.findAll().toString());
-  }
+    @Test
+    public void findAllTest() {
+        assertThat(entityTestData.getFindAll()).isEqualTo(entityService.findAll().toString());
+    }
 
-  // todo: move test to test from junit 5
-  @Test
-  public void findByIdTest() {
-    assertThat(entityTestData.getFindById())
-        .isEqualTo(entityService.findById(entityTestData.getId()).toString());
-  }
+    // todo: move test to test from junit 5
+    @Test
+    public void findByIdTest() {
+        assertThat(entityTestData.getFindById())
+                .isEqualTo(entityService.findById(entityTestData.getId()).toString());
+    }
 
-  @DisplayName("Delete entity from storage")
-  @Test
-  public void deleteTest() {
-    int beforeDelete = eH.getCount();
-    T entity = entityService.findById(entityTestData.getId());
-    entityService.delete(entity);
-    int afterDelete = eH.getCount();
+    @DisplayName("Delete entity from storage")
+    @Test
+    public void deleteTest() {
+        int beforeDelete = eH.getCount();
+        T entity = entityService.findById(entityTestData.getId());
+        entityService.delete(entity);
+        int afterDelete = eH.getCount();
 
-    assertThat(beforeDelete == afterDelete + 1);
-    assertThat(!eH.isExist(entity));
-  }
+        assertThat(beforeDelete == afterDelete + 1);
+        assertThat(!eH.isExist(entity));
+    }
 
-  @DisplayName("Insert entity into storage")
-  @Test
-  public void saveTest() {
-    int beforeSave = eH.getCount();
-    entityService.save(entityTestData.getSavedEntity());
-    int afterSave = eH.getCount();
+    @DisplayName("Insert entity into storage")
+    @Test
+    public void saveTest() {
+        int beforeSave = eH.getCount();
+        entityService.save(entityTestData.getSavedEntity());
+        int afterSave = eH.getCount();
 
-    assertThat(beforeSave + 1 == afterSave);
-    assertThat(eH.isExist(entityTestData.getSavedEntity()));
-  }
+        assertThat(beforeSave + 1 == afterSave);
+        assertThat(eH.isExist(entityTestData.getSavedEntity()));
+    }
 
-  @Test
-  public void updateTest() {
-    int beforeUpdate = eH.getCount();
+    @Test
+    public void updateTest() {
+        int beforeUpdate = eH.getCount();
 
-    T entityBeforeUpdate = entityService.findById(entityTestData.getId());
-    assertThat(entityBeforeUpdate.toString())
-        .isNotEqualTo(entityTestData.getUpdateEntity().toString());
-    entityService.update(entityTestData.getUpdateEntity());
+        T entityBeforeUpdate = entityService.findById(entityTestData.getId());
+        assertThat(entityBeforeUpdate.toString())
+                .isNotEqualTo(entityTestData.getUpdateEntity().toString());
+        entityService.update(entityTestData.getUpdateEntity());
 
-    int afterUpdate = eH.getCount();
+        int afterUpdate = eH.getCount();
 
-    T entityAfterUpdate = entityService.findById(entityTestData.getId());
+        T entityAfterUpdate = entityService.findById(entityTestData.getId());
 
-    assertThat(entityTestData.getUpdateEntity().toString()).isEqualTo(entityAfterUpdate.toString());
-    assertThat(beforeUpdate == afterUpdate);
-  }
+        assertThat(entityTestData.getUpdateEntity().toString()).isEqualTo(entityAfterUpdate.toString());
+        assertThat(beforeUpdate == afterUpdate);
+    }
 }

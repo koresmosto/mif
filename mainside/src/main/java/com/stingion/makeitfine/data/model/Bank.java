@@ -37,26 +37,26 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Bank {
 
-  @TableGenerator(
-      name = "Bank_gen",
-      table = "SEQUENCES",
-      pkColumnName = "SEQ_NAME",
-      valueColumnName = "SEQ_NUMBER",
-      pkColumnValue = "BANK_SEQUENCE",
-      allocationSize = 1)
-  @Id
-  @Column(name = "ID")
-  @GeneratedValue(strategy = GenerationType.TABLE, generator = "Bank_gen")
-  private Integer id;
+    @TableGenerator(
+            name = "Bank_gen",
+            table = "SEQUENCES",
+            pkColumnName = "SEQ_NAME",
+            valueColumnName = "SEQ_NUMBER",
+            pkColumnValue = "BANK_SEQUENCE",
+            allocationSize = 1)
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Bank_gen")
+    private Integer id;
 
-  @Column(name = "NAME", unique = true)
-  @Size(min = ModelConstants.MIN_BANK_NAME_LENGTH, max = ModelConstants.MAX_BANK_NAME_LENGTH)
-  private String name;
+    @Column(name = "NAME", unique = true)
+    @Size(min = ModelConstants.MIN_BANK_NAME_LENGTH, max = ModelConstants.MAX_BANK_NAME_LENGTH)
+    private String name;
 
-  @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<CreditCard> creditCards;
+    @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CreditCard> creditCards;
 
-  public Bank(String name) {
-    this.name = name;
-  }
+    public Bank(String name) {
+        this.name = name;
+    }
 }

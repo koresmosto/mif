@@ -20,27 +20,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserSpecifiedServiceImpl implements UserSpecifiedService {
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  @Override
-  public List<User> specifiedMailServiceUsers(String emailHost) {
-    return userService.findAll().stream()
-        .filter(user -> user.getEmail().toLowerCase().endsWith(emailHost.toLowerCase()))
-        .collect(Collectors.toList());
-  }
+    @Override
+    public List<User> specifiedMailServiceUsers(String emailHost) {
+        return userService.findAll().stream()
+                .filter(user -> user.getEmail().toLowerCase().endsWith(emailHost.toLowerCase()))
+                .collect(Collectors.toList());
+    }
 
-  @Override
-  public List<User> roleUsers(UserProfileType userProfileType) {
-    return userService.findAll().stream()
-        .filter(user -> user.getUserProfiles().stream()
-            .anyMatch(up -> up.getType().equals(userProfileType.getUserProfileType())))
-        .collect(Collectors.toList());
-  }
+    @Override
+    public List<User> roleUsers(UserProfileType userProfileType) {
+        return userService.findAll().stream()
+                .filter(user -> user.getUserProfiles().stream()
+                        .anyMatch(up -> up.getType().equals(userProfileType.getUserProfileType())))
+                .collect(Collectors.toList());
+    }
 
-  @Override
-  public List<User> stateUsers(State userState) {
-    return userService.findAll().stream().filter(user -> user.getState() == userState)
-        .collect(Collectors.toList());
-  }
+    @Override
+    public List<User> stateUsers(State userState) {
+        return userService.findAll().stream().filter(user -> user.getState() == userState)
+                .collect(Collectors.toList());
+    }
 }

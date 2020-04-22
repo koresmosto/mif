@@ -30,55 +30,55 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class UserSpecifiedServiceIT {
 
-  @Autowired
-  private UserSpecifiedService userSpecifiedService;
+    @Autowired
+    private UserSpecifiedService userSpecifiedService;
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  @Test
-  public void specifiedMailServiceUsers() {
-    String emailServerName = "xyz.com";
+    @Test
+    public void specifiedMailServiceUsers() {
+        String emailServerName = "xyz.com";
 
-    List<User> usersExpected = Lists.newArrayList(
-        userService.findById(1),
-        userService.findById(2),
-        userService.findById(3),
-        userService.findById(4),
-        userService.findById(5)
-    );
+        List<User> usersExpected = Lists.newArrayList(
+                userService.findById(1),
+                userService.findById(2),
+                userService.findById(3),
+                userService.findById(4),
+                userService.findById(5)
+        );
 
-    List<User> usersActual = userSpecifiedService.specifiedMailServiceUsers(emailServerName);
-    assertEquals(usersExpected, usersActual);
-  }
+        List<User> usersActual = userSpecifiedService.specifiedMailServiceUsers(emailServerName);
+        assertEquals(usersExpected, usersActual);
+    }
 
-  @Test
-  public void roleUsers() {
-    UserProfileType userProfileType = UserProfileType.DBA;
+    @Test
+    public void roleUsers() {
+        UserProfileType userProfileType = UserProfileType.DBA;
 
-    List<User> usersExpected = Lists.newArrayList(
-        userService.findById(4),
-        userService.findById(5),
-        userService.findById(6)
-    );
+        List<User> usersExpected = Lists.newArrayList(
+                userService.findById(4),
+                userService.findById(5),
+                userService.findById(6)
+        );
 
-    List<User> usersActual = userSpecifiedService.roleUsers(userProfileType);
-    assertEquals(usersExpected, usersActual);
-  }
+        List<User> usersActual = userSpecifiedService.roleUsers(userProfileType);
+        assertEquals(usersExpected, usersActual);
+    }
 
-  @Test
-  public void stateUsers() {
-    State userState = State.ACTIVE;
+    @Test
+    public void stateUsers() {
+        State userState = State.ACTIVE;
 
-    List<User> usersExpected = Lists.newArrayList(
-        userService.findById(1),
-        userService.findById(2),
-        userService.findById(6),
-        userService.findById(7),
-        userService.findById(8)
-    );
+        List<User> usersExpected = Lists.newArrayList(
+                userService.findById(1),
+                userService.findById(2),
+                userService.findById(6),
+                userService.findById(7),
+                userService.findById(8)
+        );
 
-    List<User> usersActual = userSpecifiedService.stateUsers(userState);
-    assertEquals(usersExpected, usersActual);
-  }
+        List<User> usersActual = userSpecifiedService.stateUsers(userState);
+        assertEquals(usersExpected, usersActual);
+    }
 }

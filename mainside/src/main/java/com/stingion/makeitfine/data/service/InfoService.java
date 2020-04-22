@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface InfoService {
 
-  List<String> usersAndItsRoles();
+    List<String> usersAndItsRoles();
 }

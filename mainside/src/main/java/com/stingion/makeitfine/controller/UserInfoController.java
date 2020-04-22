@@ -21,12 +21,12 @@ import reactor.core.publisher.Flux;
 @Api(tags = {"UserInfoController"})
 public class UserInfoController {
 
-  @Autowired
-  private InfoService infoService;
+    @Autowired
+    private InfoService infoService;
 
-  @GetMapping("usersAndItsRoles")
-  @ApiOperation("Get all users with their roles")
-  public Flux<String> usersAndItsRoles() {
-    return Flux.fromIterable(infoService.usersAndItsRoles());
-  }
+    @GetMapping("usersAndItsRoles")
+    @ApiOperation("Get all users with their roles")
+    public Flux<String> usersAndItsRoles() {
+        return Flux.fromIterable(infoService.usersAndItsRoles());
+    }
 }

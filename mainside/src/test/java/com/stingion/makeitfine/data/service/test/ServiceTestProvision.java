@@ -27,52 +27,52 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public abstract class ServiceTestProvision {
 
-  @InjectMocks
-  @Spy
-  protected InfoServiceImpl infoService;
-  @InjectMocks
-  @Spy
-  protected EmailServiceImpl emailService;
-  @Mock
-  private UserService userService;
+    @InjectMocks
+    @Spy
+    protected InfoServiceImpl infoService;
+    @InjectMocks
+    @Spy
+    protected EmailServiceImpl emailService;
+    @Mock
+    private UserService userService;
 
-  @BeforeEach
-  public void beforeEach() {
-    U u = User::new;
+    @BeforeEach
+    public void beforeEach() {
+        U u = User::new;
 
-    User user1 = u.create();
-    user1.setSsoId("user1");
-    user1.setEmail("user1@any.xxxmail");
+        User user1 = u.create();
+        user1.setSsoId("user1");
+        user1.setEmail("user1@any.xxxmail");
 
-    User user2 = u.create();
-    user2.setSsoId("user2");
-    user2.setEmail("user2@any.xyz");
+        User user2 = u.create();
+        user2.setSsoId("user2");
+        user2.setEmail("user2@any.xyz");
 
-    User user3 = u.create();
-    user3.setSsoId("user3");
-    user3.setEmail("user3@any.xxxmail");
+        User user3 = u.create();
+        user3.setSsoId("user3");
+        user3.setEmail("user3@any.xxxmail");
 
-    UserProfile adminUp = new UserProfile();
-    adminUp.setId(1);
-    adminUp.setType(UserProfileType.ADMIN.getUserProfileType());
+        UserProfile adminUp = new UserProfile();
+        adminUp.setId(1);
+        adminUp.setType(UserProfileType.ADMIN.getUserProfileType());
 
-    UserProfile userUp = new UserProfile();
-    userUp.setId(2);
-    userUp.setType(UserProfileType.USER.getUserProfileType());
+        UserProfile userUp = new UserProfile();
+        userUp.setId(2);
+        userUp.setType(UserProfileType.USER.getUserProfileType());
 
-    UserProfile dbaUp = new UserProfile();
-    dbaUp.setId(3);
-    dbaUp.setType(UserProfileType.DBA.getUserProfileType());
+        UserProfile dbaUp = new UserProfile();
+        dbaUp.setId(3);
+        dbaUp.setType(UserProfileType.DBA.getUserProfileType());
 
-    user1.setUserProfiles(Sets.newHashSet(adminUp, dbaUp, userUp));
-    user3.setUserProfiles(Sets.newHashSet(adminUp, dbaUp, userUp));
+        user1.setUserProfiles(Sets.newHashSet(adminUp, dbaUp, userUp));
+        user3.setUserProfiles(Sets.newHashSet(adminUp, dbaUp, userUp));
 
-    when(userService.findAll()).thenReturn(Lists.newArrayList(user1, user2, user3));
-  }
+        when(userService.findAll()).thenReturn(Lists.newArrayList(user1, user2, user3));
+    }
 
-  @FunctionalInterface
-  private interface U<U extends User> {
+    @FunctionalInterface
+    private interface U<U extends User> {
 
-    U create();
-  }
+        U create();
+    }
 }

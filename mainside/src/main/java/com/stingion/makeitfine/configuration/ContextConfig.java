@@ -16,8 +16,8 @@ import org.springframework.web.client.RestTemplate;
 @ImportResource("classpath:spring/context.xml")
 public class ContextConfig {
 
-  @Bean
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
-  }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 }

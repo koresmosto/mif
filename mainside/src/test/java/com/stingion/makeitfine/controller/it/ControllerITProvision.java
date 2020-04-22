@@ -21,20 +21,20 @@ import org.springframework.boot.web.server.LocalServerPort;
 @IntegrationTest
 abstract class ControllerITProvision {
 
-  @Autowired
-  protected TestRestTemplate restTemplate;
-  @LocalServerPort
-  private int port;
-  @Value("${protocolHost}")
-  private String protocolHost;
-  private String hostPort;
+    @Autowired
+    protected TestRestTemplate restTemplate;
+    @LocalServerPort
+    private int port;
+    @Value("${protocolHost}")
+    private String protocolHost;
+    private String hostPort;
 
-  @PostConstruct
-  public void init() {
-    hostPort = protocolHost + ":" + port;
-  }
+    @PostConstruct
+    public void init() {
+        hostPort = protocolHost + ":" + port;
+    }
 
-  protected String getResponseBody(String relativePath) {
-    return restTemplate.getForEntity(hostPort + relativePath, String.class).getBody();
-  }
+    protected String getResponseBody(String relativePath) {
+        return restTemplate.getForEntity(hostPort + relativePath, String.class).getBody();
+    }
 }

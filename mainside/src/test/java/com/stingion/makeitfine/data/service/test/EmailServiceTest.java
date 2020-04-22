@@ -15,15 +15,17 @@ import org.junit.jupiter.api.Test;
 
 public class EmailServiceTest extends ServiceTestProvision {
 
-  @Test
-  public void ssoIdEmails() {
-    Map<String, String> expected = new HashMap<>() {{
-      put("user1", "user1@any.xxxmail");
-      put("user2", "user2@any.xyz");
-      put("user3", "user3@any.xxxmail");
-    }};
+    @Test
+    public void ssoIdEmails() {
+        Map<String, String> expected = new HashMap<>() {
+            {
+                put("user1", "user1@any.xxxmail");
+                put("user2", "user2@any.xyz");
+                put("user3", "user3@any.xxxmail");
+            }
+        };
 
-    Map<String, String> actual = emailService.ssoIdEmails();
-    assertEquals(expected, actual);
-  }
+        Map<String, String> actual = emailService.ssoIdEmails();
+        assertEquals(expected, actual);
+    }
 }

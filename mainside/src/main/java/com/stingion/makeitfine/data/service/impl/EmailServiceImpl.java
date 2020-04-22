@@ -23,38 +23,38 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  private EmailValidator emailValidator = EmailValidator.getInstance(true, true);
+    private EmailValidator emailValidator = EmailValidator.getInstance(true, true);
 
-  @Override
-  public boolean isActiveAdminEmail(String email) {
-    return !emailValidator.isValid(email) ? false :
-        Optional.ofNullable(userService.findByEmail(email.toLowerCase()))
-            .flatMap(user ->
-                Optional.ofNullable(user.getState() == State.ACTIVE
-                    && user.getUserProfiles().stream()
-                    .anyMatch(userProfile ->
-                        Sets.newHashSet(
-                            UserProfileType.ADMIN.getUserProfileType(),
-                            UserProfileType.DBA.getUserProfileType())
-                            .contains(userProfile.getType())
-                    )
-                )
-            )
-            .orElse(false);
-  }
+    @Override
+    public boolean isActiveAdminEmail(String email) {
+        return !emailValidator.isValid(email) ? false :
+                Optional.ofNullable(userService.findByEmail(email.toLowerCase()))
+                        .flatMap(user ->
+                                Optional.ofNullable(user.getState() == State.ACTIVE
+                                        && user.getUserProfiles().stream()
+                                        .anyMatch(userProfile ->
+                                                Sets.newHashSet(
+                                                        UserProfileType.ADMIN.getUserProfileType(),
+                                                        UserProfileType.DBA.getUserProfileType())
+                                                        .contains(userProfile.getType())
+                                        )
+                                )
+                        )
+                        .orElse(false);
+    }
 
-  @Override
-  public List<String> sortedUsersEmails() {
-    return userService.findAll().stream().map(user -> user.getEmail()).sorted()
-        .collect(Collectors.toList());
-  }
+    @Override
+    public List<String> sortedUsersEmails() {
+        return userService.findAll().stream().map(user -> user.getEmail()).sorted()
+                .collect(Collectors.toList());
+    }
 
-  @Override
-  public Map<String, String> ssoIdEmails() {
-    return userService.findAll().stream()
-        .collect(Collectors.toMap(user -> user.getSsoId(), user -> user.getEmail()));
-  }
+    @Override
+    public Map<String, String> ssoIdEmails() {
+        return userService.findAll().stream()
+                .collect(Collectors.toMap(user -> user.getSsoId(), user -> user.getEmail()));
+    }
 }

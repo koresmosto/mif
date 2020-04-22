@@ -28,38 +28,38 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class EmailServiceIT {
 
-  @Autowired
-  private EmailService emailService;
+    @Autowired
+    private EmailService emailService;
 
-  @Test
-  public void isActiveAdminEmail() {
-    assertFalse(emailService.isActiveAdminEmail("some word"));
-    assertFalse(emailService.isActiveAdminEmail("any_email@xyz.com"));
-    assertFalse(emailService.isActiveAdminEmail("bill@xyz.com"));
-    assertFalse(emailService.isActiveAdminEmail("BILL@XYZ.COM"));
-    assertFalse(emailService.isActiveAdminEmail("samy@xyz.com"));
-    assertFalse(emailService.isActiveAdminEmail("SAMY@XYZ.COM"));
-    assertFalse(emailService.isActiveAdminEmail("kenny@xyz.com"));
-    assertFalse(emailService.isActiveAdminEmail("nicloe@xyz.com"));
+    @Test
+    public void isActiveAdminEmail() {
+        assertFalse(emailService.isActiveAdminEmail("some word"));
+        assertFalse(emailService.isActiveAdminEmail("any_email@xyz.com"));
+        assertFalse(emailService.isActiveAdminEmail("bill@xyz.com"));
+        assertFalse(emailService.isActiveAdminEmail("BILL@XYZ.COM"));
+        assertFalse(emailService.isActiveAdminEmail("samy@xyz.com"));
+        assertFalse(emailService.isActiveAdminEmail("SAMY@XYZ.COM"));
+        assertFalse(emailService.isActiveAdminEmail("kenny@xyz.com"));
+        assertFalse(emailService.isActiveAdminEmail("nicloe@xyz.com"));
 
-    assertTrue(emailService.isActiveAdminEmail("admin@xxx.xxx"));
-    assertTrue(emailService.isActiveAdminEmail("ADMIN@xxx.xxx"));
-  }
+        assertTrue(emailService.isActiveAdminEmail("admin@xxx.xxx"));
+        assertTrue(emailService.isActiveAdminEmail("ADMIN@xxx.xxx"));
+    }
 
-  @Test
-  public void sortedUsersEmails() {
-    List<String> expected = Lists.newArrayList(
-        "admin@xxx.xxx",
-        "bill@xyz.com",
-        "danny@xyz.com",
-        "kenny@xyz.com",
-        "nicloe@xyz.com",
-        "samy@xyz.com",
-        "sudo@xxx.xxx",
-        "tsuser@xxx.xxx"
-    );
-    List<String> actual = emailService.sortedUsersEmails();
+    @Test
+    public void sortedUsersEmails() {
+        List<String> expected = Lists.newArrayList(
+                "admin@xxx.xxx",
+                "bill@xyz.com",
+                "danny@xyz.com",
+                "kenny@xyz.com",
+                "nicloe@xyz.com",
+                "samy@xyz.com",
+                "sudo@xxx.xxx",
+                "tsuser@xxx.xxx"
+        );
+        List<String> actual = emailService.sortedUsersEmails();
 
-    assertEquals(expected, actual);
-  }
+        assertEquals(expected, actual);
+    }
 }

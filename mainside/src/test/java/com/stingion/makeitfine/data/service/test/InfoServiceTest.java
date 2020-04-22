@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
 
 public class InfoServiceTest extends ServiceTestProvision {
 
-  @Test
-  public void usersAndItsRoles() {
-    List<String> expected = Lists
-        .newArrayList("user1:{USER,ADMIN,DBA}", "user2:{}", "user3:{USER,ADMIN,DBA}");
-    List<String> actual = infoService.usersAndItsRoles();
-    assertEquals(expected, actual);
-  }
+    @Test
+    public void usersAndItsRoles() {
+        List<String> expected = Lists
+                .newArrayList("user1:{USER,ADMIN,DBA}", "user2:{}", "user3:{USER,ADMIN,DBA}");
+        List<String> actual = infoService.usersAndItsRoles();
+        assertEquals(expected, actual);
+    }
 }

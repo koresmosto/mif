@@ -16,13 +16,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserPasswordEncoder {
 
-  @Autowired(required = false)
-  private PasswordEncoder encoder;
+    @Autowired(required = false)
+    private PasswordEncoder encoder;
 
-  /**
-   * Encode password of the user if encoder present.
-   */
-  public void encodePassword(User user) {
-    Optional.ofNullable(encoder).ifPresent(e -> user.setPassword(e.encode(user.getPassword())));
-  }
+    /**
+     * Encode password of the user if encoder present.
+     */
+    public void encodePassword(User user) {
+        Optional.ofNullable(encoder).ifPresent(e -> user.setPassword(e.encode(user.getPassword())));
+    }
 }

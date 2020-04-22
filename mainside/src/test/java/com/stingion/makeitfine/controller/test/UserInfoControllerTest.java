@@ -33,30 +33,30 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @Tag("controllerTest")
 class UserInfoControllerTest {
 
-  @Autowired
-  private WebTestClient webTestClient;
+    @Autowired
+    private WebTestClient webTestClient;
 
-  @MockBean
-  private InfoService infoService;
+    @MockBean
+    private InfoService infoService;
 
-  private ArrayList<String> usersAndItsRoles = Lists
-      .newArrayList("user1:{USER,ADMIN,DBA}", "user2:{}", "user3:{USER,ADMIN,DBA}");
+    private ArrayList<String> usersAndItsRoles = Lists
+            .newArrayList("user1:{USER,ADMIN,DBA}", "user2:{}", "user3:{USER,ADMIN,DBA}");
 
-  @BeforeEach
-  public void init() {
-    when(infoService.usersAndItsRoles()).thenReturn(usersAndItsRoles);
-  }
+    @BeforeEach
+    public void init() {
+        when(infoService.usersAndItsRoles()).thenReturn(usersAndItsRoles);
+    }
 
-  @Test
-  public void usersAndItsRoles() {
-    webTestClient.get()
-        .uri("/userInfo/usersAndItsRoles")
-        .exchange()
-        .expectStatus().isOk()
-        .expectBody(String.class)
-        .value(
-            CoreMatchers.equalTo(usersAndItsRoles.stream().reduce((e1, e2) -> e1 + "" + e2).get()));
+    @Test
+    public void usersAndItsRoles() {
+        webTestClient.get()
+                .uri("/userInfo/usersAndItsRoles")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class)
+                .value(
+                        CoreMatchers.equalTo(usersAndItsRoles.stream().reduce((e1, e2) -> e1 + "" + e2).get()));
 
-    verify(infoService, times(1)).usersAndItsRoles();
-  }
+        verify(infoService, times(1)).usersAndItsRoles();
+    }
 }

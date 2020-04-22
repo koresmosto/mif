@@ -37,76 +37,76 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Api(tags = {"UserController"})
 public class UserController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  @Autowired(required = false)
-  private UserPasswordEncoder passwordEncoder;
+    @Autowired(required = false)
+    private UserPasswordEncoder passwordEncoder;
 
-  @GetMapping("userManagement")
-  public ModelAndView getIndexPage() {
-    return new ModelAndView("userManagement");
-  }
-
-  @GetMapping
-  @ApiOperation("Get all users")
-  public List<User> listAllUsers() {
-    return userService.findAll();
-  }
-
-  @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public User getUser(@PathVariable("id") int id) {
-    return userService.findById(id);
-  }
-
-  @PostMapping
-  public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
-    if (userService.findBySSO(user.getSsoId()) != null) {
-      LOG.debug("User with ssoID {} exists", user.getSsoId());
-      return new ResponseEntity<>(HttpStatus.CONFLICT);
+    @GetMapping("userManagement")
+    public ModelAndView getIndexPage() {
+        return new ModelAndView("userManagement");
     }
 
-    Optional.ofNullable(passwordEncoder).ifPresent(encoder -> encoder.encodePassword(user));
-
-    userService.save(user);
-    LOG.info("User created {}", user);
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("createdUserId", String.valueOf(user.getId()));
-    headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-    return new ResponseEntity<>(headers, HttpStatus.CREATED);
-  }
-
-  @PutMapping(value = "{id}")
-  public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
-    User currentUser = userService.findById(id);
-    if (currentUser == null) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping
+    @ApiOperation("Get all users")
+    public List<User> listAllUsers() {
+        return userService.findAll();
     }
 
-    Optional.ofNullable(passwordEncoder).ifPresent(encoder -> encoder.encodePassword(user));
-
-    currentUser.setSsoId(user.getSsoId());
-    currentUser.setPassword(user.getPassword());
-    currentUser.setEmail(user.getEmail());
-    currentUser.setState(user.getState());
-
-    userService.update(currentUser);
-    LOG.info("Updating User {}", currentUser);
-    return new ResponseEntity<>(currentUser, HttpStatus.OK);
-  }
-
-  @DeleteMapping(value = "{id}")
-  public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
-    User user = userService.findById((int) id);
-    if (user == null) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getUser(@PathVariable("id") int id) {
+        return userService.findById(id);
     }
 
-    userService.delete(user);
-    LOG.info("Deleted User {}", user);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-  }
+    @PostMapping
+    public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
+        if (userService.findBySSO(user.getSsoId()) != null) {
+            LOG.debug("User with ssoID {} exists", user.getSsoId());
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        Optional.ofNullable(passwordEncoder).ifPresent(encoder -> encoder.encodePassword(user));
+
+        userService.save(user);
+        LOG.info("User created {}", user);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("createdUserId", String.valueOf(user.getId()));
+        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
+        User currentUser = userService.findById(id);
+        if (currentUser == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Optional.ofNullable(passwordEncoder).ifPresent(encoder -> encoder.encodePassword(user));
+
+        currentUser.setSsoId(user.getSsoId());
+        currentUser.setPassword(user.getPassword());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setState(user.getState());
+
+        userService.update(currentUser);
+        LOG.info("Updating User {}", currentUser);
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
+        User user = userService.findById((int) id);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        userService.delete(user);
+        LOG.info("Deleted User {}", user);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

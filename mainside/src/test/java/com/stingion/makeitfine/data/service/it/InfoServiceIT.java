@@ -26,23 +26,23 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class InfoServiceIT {
 
-  @Autowired
-  private InfoService infoService;
+    @Autowired
+    private InfoService infoService;
 
-  @Test
-  public void usersAndItsRoles() {
-    List<String> expected = Lists.newArrayList(
-        "admin:{ADMIN}",
-        "bill:{USER}",
-        "danny:{USER}",
-        "kenny:{ADMIN,DBA}",
-        "nicole:{DBA}",
-        "sam:{ADMIN}",
-        "sudo:{USER,ADMIN,DBA}",
-        "tsuser:{USER}"
-    );
+    @Test
+    public void usersAndItsRoles() {
+        List<String> expected = Lists.newArrayList(
+                "admin:{ADMIN}",
+                "bill:{USER}",
+                "danny:{USER}",
+                "kenny:{ADMIN,DBA}",
+                "nicole:{DBA}",
+                "sam:{ADMIN}",
+                "sudo:{USER,ADMIN,DBA}",
+                "tsuser:{USER}"
+        );
 
-    assertEquals(expected, infoService.usersAndItsRoles());
-    infoService.usersAndItsRoles();
-  }
+        assertEquals(expected, infoService.usersAndItsRoles());
+        infoService.usersAndItsRoles();
+    }
 }

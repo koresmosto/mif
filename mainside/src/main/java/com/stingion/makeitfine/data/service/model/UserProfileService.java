@@ -12,5 +12,5 @@ import com.stingion.makeitfine.data.model.utils.UserProfileType;
 
 public interface UserProfileService extends EntityService<UserProfile> {
 
-  UserProfile findByUserProfileType(UserProfileType profileType);
+    UserProfile findByUserProfileType(UserProfileType profileType);
 }

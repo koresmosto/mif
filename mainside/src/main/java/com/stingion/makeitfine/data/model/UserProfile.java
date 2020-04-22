@@ -28,18 +28,18 @@ import lombok.ToString;
 @Table(name = "USER_PROFILE")
 public class UserProfile {
 
-  @TableGenerator(
-      name = "UserProfile_gen",
-      table = "SEQUENCES",
-      pkColumnName = "SEQ_NAME",
-      valueColumnName = "SEQ_NUMBER",
-      pkColumnValue = "USER_PROFILE_SEQUENCE",
-      allocationSize = 1)
-  @Id
-  @Column(name = "ID")
-  @GeneratedValue(strategy = GenerationType.TABLE, generator = "UserProfile_gen")
-  private int id;
+    @TableGenerator(
+            name = "UserProfile_gen",
+            table = "SEQUENCES",
+            pkColumnName = "SEQ_NAME",
+            valueColumnName = "SEQ_NUMBER",
+            pkColumnValue = "USER_PROFILE_SEQUENCE",
+            allocationSize = 1)
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "UserProfile_gen")
+    private int id;
 
-  @Column
-  private String type = UserProfileType.USER.getUserProfileType();
+    @Column
+    private String type = UserProfileType.USER.getUserProfileType();
 }
