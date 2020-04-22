@@ -398,7 +398,7 @@
     <module name="WhitespaceAfter"/>
     <module name="RedundantModifier"/>
     <module name="TodoComment"/>
-    <module name="FinalParameters"/>
+<!--    <module name="FinalParameters"/>-->
     <module name="VisibilityModifier"/>
     <module name="InterfaceIsType"/>
     <module name="FinalClass"/>
