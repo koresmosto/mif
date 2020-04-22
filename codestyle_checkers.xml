@@ -40,6 +40,10 @@
   <!-- See https://checkstyle.org/config_misc.html#NewlineAtEndOfFile -->
   <module name="NewlineAtEndOfFile"/>
 
+  <!-- Checks that property files contain the same keys.         -->
+  <!-- See https://checkstyle.org/config_misc.html#Translation -->
+  <module name="Translation"/>
+
   <module name="FileLength">
     <property name="max" value="500"/>
   </module>
@@ -55,10 +59,6 @@
     <property name="ignorePattern"
       value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
   </module>
-
-  <!-- Checks that property files contain the same keys.         -->
-  <!-- See https://checkstyle.org/config_misc.html#Translation -->
-  <module name="Translation"/>
 
   <!-- Todo: think of (commented bottom) -->
   <module name="RegexpSingleline">
@@ -101,34 +101,34 @@
       <property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT"/>
     </module>
     <module name="EmptyBlock">
-      <property name="option" value="TEXT"/>
-      <property name="tokens"
-        value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
+<!--      <property name="option" value="TEXT"/>-->
+<!--      <property name="tokens"-->
+<!--        value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>-->
     </module>
     <module name="NeedBraces">
-      <property name="tokens"
-        value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE"/>
+<!--      <property name="tokens"-->
+<!--        value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE"/>-->
     </module>
     <module name="LeftCurly">
-      <property name="tokens"
-        value="ANNOTATION_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF,
-                    INTERFACE_DEF, LAMBDA, LITERAL_CASE, LITERAL_CATCH, LITERAL_DEFAULT,
-                    LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF,
-                    LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF,
-                    OBJBLOCK, STATIC_INIT"/>
+<!--      <property name="tokens"-->
+<!--        value="ANNOTATION_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF,-->
+<!--                    INTERFACE_DEF, LAMBDA, LITERAL_CASE, LITERAL_CATCH, LITERAL_DEFAULT,-->
+<!--                    LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF,-->
+<!--                    LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF,-->
+<!--                    OBJBLOCK, STATIC_INIT"/>-->
     </module>
     <module name="RightCurly">
       <property name="id" value="RightCurlySame"/>
-      <property name="tokens"
-        value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE,
-                    LITERAL_DO"/>
+<!--      <property name="tokens"-->
+<!--        value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE,-->
+<!--                    LITERAL_DO"/>-->
     </module>
     <module name="RightCurly">
       <property name="id" value="RightCurlyAlone"/>
       <property name="option" value="alone"/>
-      <property name="tokens"
-        value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT,
-                    INSTANCE_INIT, ANNOTATION_DEF, ENUM_DEF"/>
+<!--      <property name="tokens"-->
+<!--        value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT,-->
+<!--                    INSTANCE_INIT, ANNOTATION_DEF, ENUM_DEF"/>-->
     </module>
     <module name="SuppressionXpathSingleFilter">
       <!-- suppresion is required till https://github.com/checkstyle/checkstyle/issues/7541 -->
@@ -163,9 +163,9 @@
     <module name="UpperEll"/>
     <module name="ModifierOrder"/>
     <module name="EmptyLineSeparator">
-      <property name="tokens"
-        value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
-                    STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+<!--      <property name="tokens"-->
+<!--        value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,-->
+<!--                    STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>-->
       <property name="allowNoEmptyLineBetweenFields" value="true"/>
       <property name="allowMultipleEmptyLines" value="false"/>
       <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
@@ -259,12 +259,12 @@
         value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
     </module>
     <module name="Indentation">
-      <property name="basicOffset" value="2"/>
+      <property name="basicOffset" value="4"/>
       <property name="braceAdjustment" value="0"/>
-      <property name="caseIndent" value="2"/>
+      <property name="caseIndent" value="4"/>
       <property name="throwsIndent" value="4"/>
       <property name="lineWrappingIndentation" value="4"/>
-      <property name="arrayInitIndent" value="2"/>
+      <property name="arrayInitIndent" value="4"/>
     </module>
     <module name="AbbreviationAsWordInName">
       <property name="ignoreFinal" value="false"/>
@@ -287,9 +287,9 @@
                     SUPER_CTOR_CALL, ENUM_CONSTANT_DEF"/>
     </module>
     <module name="NoWhitespaceBefore">
-      <property name="tokens"
-        value="COMMA, SEMI, POST_INC, POST_DEC, DOT, ELLIPSIS, METHOD_REF"/>
-      <property name="allowLineBreaks" value="true"/>
+<!--      <property name="tokens"-->
+<!--        value="COMMA, SEMI, POST_INC, POST_DEC, DOT, ELLIPSIS, METHOD_REF"/>-->
+<!--      <property name="allowLineBreaks" value="true"/>-->
     </module>
     <module name="ParenPad">
       <property name="tokens"
@@ -304,15 +304,18 @@
         value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR,
                     LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF "/>
     </module>
+<!--    <module name="AnnotationLocation">-->
+<!--      <property name="id" value="AnnotationLocationMostCases"/>-->
+<!--      <property name="tokens"-->
+<!--        value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF"/>-->
+<!--    </module>-->
+<!--    <module name="AnnotationLocation">-->
+<!--      <property name="id" value="AnnotationLocationVariables"/>-->
+<!--      <property name="tokens" value="VARIABLE_DEF"/>-->
+<!--      <property name="allowSamelineMultipleAnnotations" value="true"/>-->
+<!--    </module>-->
     <module name="AnnotationLocation">
-      <property name="id" value="AnnotationLocationMostCases"/>
-      <property name="tokens"
-        value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF"/>
-    </module>
-    <module name="AnnotationLocation">
-      <property name="id" value="AnnotationLocationVariables"/>
-      <property name="tokens" value="VARIABLE_DEF"/>
-      <property name="allowSamelineMultipleAnnotations" value="true"/>
+      <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
     </module>
     <module name="NonEmptyAtclauseDescription"/>
     <module name="JavadocTagContinuationIndentation"/>
@@ -394,5 +397,20 @@
     <module name="TypecastParenPad"/>
     <module name="WhitespaceAfter"/>
     <module name="RedundantModifier"/>
+    <module name="TodoComment"/>
+    <module name="FinalParameters"/>
+    <module name="VisibilityModifier"/>
+    <module name="InterfaceIsType"/>
+    <module name="FinalClass"/>
+    <module name="HideUtilityClassConstructor"/>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+    <module name="IllegalInstantiation"/>
+    <module name="InnerAssignment"/>
+    <module name="EmptyStatement"/>
+    <module name="EqualsHashCode"/>
+    <!-- Checks for blocks. You know, those {}'s         -->
+    <!-- See https://checkstyle.org/config_blocks.html -->
+    <module name="AvoidNestedBlocks"/>
   </module>
 </module>
