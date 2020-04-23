@@ -25,13 +25,13 @@ public class UserProfileServiceIT extends EntityServiceITAncestor<UserProfile> {
     public void deleteTest() {
         removeUserToUserProfileRelation();
 
-        int beforeDelete = eH.getCount();
+        int beforeDelete = entityHelper.getCount();
         UserProfile entity = entityService.findById(entityTestData.getId());
         entityService.delete(entity);
-        int afterDelete = eH.getCount();
+        int afterDelete = entityHelper.getCount();
 
         assertThat(beforeDelete == afterDelete + 1);
-        assertThat(!eH.isExist(entity));
+        assertThat(!entityHelper.isExist(entity));
     }
 
     private void removeUserToUserProfileRelation() {

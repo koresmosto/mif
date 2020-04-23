@@ -30,7 +30,7 @@ public class EntityServiceITAncestor<T> {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    protected EntityHelper<T> eH;
+    protected EntityHelper<T> entityHelper;
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -55,36 +55,36 @@ public class EntityServiceITAncestor<T> {
     @DisplayName("Delete entity from storage")
     @Test
     public void deleteTest() {
-        int beforeDelete = eH.getCount();
+        int beforeDelete = entityHelper.getCount();
         T entity = entityService.findById(entityTestData.getId());
         entityService.delete(entity);
-        int afterDelete = eH.getCount();
+        int afterDelete = entityHelper.getCount();
 
         assertThat(beforeDelete == afterDelete + 1);
-        assertThat(!eH.isExist(entity));
+        assertThat(!entityHelper.isExist(entity));
     }
 
     @DisplayName("Insert entity into storage")
     @Test
     public void saveTest() {
-        int beforeSave = eH.getCount();
+        int beforeSave = entityHelper.getCount();
         entityService.save(entityTestData.getSavedEntity());
-        int afterSave = eH.getCount();
+        int afterSave = entityHelper.getCount();
 
         assertThat(beforeSave + 1 == afterSave);
-        assertThat(eH.isExist(entityTestData.getSavedEntity()));
+        assertThat(entityHelper.isExist(entityTestData.getSavedEntity()));
     }
 
     @Test
     public void updateTest() {
-        int beforeUpdate = eH.getCount();
+        int beforeUpdate = entityHelper.getCount();
 
         T entityBeforeUpdate = entityService.findById(entityTestData.getId());
         assertThat(entityBeforeUpdate.toString())
                 .isNotEqualTo(entityTestData.getUpdateEntity().toString());
         entityService.update(entityTestData.getUpdateEntity());
 
-        int afterUpdate = eH.getCount();
+        int afterUpdate = entityHelper.getCount();
 
         T entityAfterUpdate = entityService.findById(entityTestData.getId());
 

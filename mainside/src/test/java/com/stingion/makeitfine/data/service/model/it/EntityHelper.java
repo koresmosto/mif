@@ -55,8 +55,8 @@ public class EntityHelper<T> {
 
     protected Class<T> getEntityClass() {
         if (entityClass == null) {
-            ParameterizedType pType = (ParameterizedType) getClass().getGenericSuperclass();
-            this.entityClass = (Class<T>) pType.getActualTypeArguments()[0];
+            ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
+            this.entityClass = (Class<T>) parameterizedType.getActualTypeArguments()[0];
         }
         return entityClass;
     }

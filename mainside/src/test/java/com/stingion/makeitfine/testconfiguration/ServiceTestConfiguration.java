@@ -300,7 +300,7 @@ public class ServiceTestConfiguration {
     public class EntityTestData<T> {
 
         /**
-         * Id for findById, delete, update checking
+         * Id for findById, delete, update checking.
          */
         private int id;
 

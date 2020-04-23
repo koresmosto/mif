@@ -66,7 +66,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * To run tagged test: mvn -Dgroups="simple" test mvn -DexcludedGroups="other" test
+ * To run tagged test: mvn -Dgroups="simple" test mvn -DexcludedGroups="other" test.
  */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
@@ -166,12 +166,10 @@ class UserControllerTest {
     @TestFactory
     public Stream<DynamicTest> translateDynamicTestsFromStream() {
         return Stream.of(-717, -2, -1, 0)
-                .map(id -> DynamicTest.dynamicTest("Test negative scenario with no id = " + id,
-                        () -> {
-                            Throwable excep =
-                                    assertThrows(IllegalArgumentException.class, () -> userService.findById(id));
-                            assertTrue(excep.getMessage().equalsIgnoreCase("id should be positive"));
-                        }));
+                .map(id -> DynamicTest.dynamicTest("Test negative scenario with no id = " + id, () -> {
+                    Throwable ex = assertThrows(IllegalArgumentException.class, () -> userService.findById(id));
+                    assertTrue(ex.getMessage().equalsIgnoreCase("id should be positive"));
+                }));
     }
 
     static class DisplayNameGen extends DisplayNameGenerator.ReplaceUnderscores {

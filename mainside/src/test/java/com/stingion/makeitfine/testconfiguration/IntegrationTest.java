@@ -19,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
 /**
- * To run integration tests
+ * To run integration tests.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -30,5 +30,7 @@ import org.springframework.test.context.TestPropertySource;
 @ConfigurationProperties(prefix = "test.integration", ignoreInvalidFields = true)
 @WithMockUser
 public @interface IntegrationTest {
+
+
 
 }

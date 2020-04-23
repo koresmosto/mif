@@ -3,7 +3,7 @@
 <!--
   ~ Created under not commercial project "Make it fine"
   ~
-  ~  Copyright 2017-2019
+  ~  Copyright 2017-2020
   ~  @author stingion
   -->
 
@@ -35,4 +35,8 @@
 
   <suppress files="[\\/]src[\\/]test[\\/].*" id="MagicNumberRegular"/>
   <suppress files="[\\/]src[\\/]test[\\/].*" id="MissingJavadocMethodRegular"/>
+  <suppress files="[\\/]src[\\/]test[\\/].*" id="VariableDeclarationUsageDistanceRegular"/>
+
+  <suppress files="[\\/]src[\\/]main[\\/].*" id="MethodNameTest" />
+  <suppress files="[\\/]src[\\/]main[\\/].*" id="VariableDeclarationUsageDistanceTest" />
 </suppressions>

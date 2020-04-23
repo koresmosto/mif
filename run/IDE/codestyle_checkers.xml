@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
+<!--
+  ~ Created under not commercial project "Make it fine"
+  ~
+  ~  Copyright 2017-2020
+  ~  @author stingion
+  -->
+
 <!DOCTYPE module PUBLIC
         "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
         "https://checkstyle.org/dtds/configuration_1_3.dtd">
@@ -55,6 +62,20 @@
         <property name="message" value="Line has trailing spaces."/>
     </module>
 
+    <module name="RegexpMultiline">
+<!--        <property name="id" value="Copyright"/>-->
+        <property name="message" value="Copyright not defined"/>
+        <property name="matchAcrossLines" value="true"/>
+        <property name="format" value="Created under not commercial project &quot;Make it fine&quot;.*Copyright 2017-"/>
+        <property name="minimum" value="1"/>
+        <property name="maximum" value="1"/>
+    </module>
+
+    <!-- Find all expression occurrences-->
+    <module name="RegexpMultiline">
+        <property name="message" value="System.out|err.print(ln) not allowed"/>
+        <property name="format" value="System[\s]*\.(out)|(err)[\s]*\.print(ln)?[\s]*\("/>
+    </module>
     <!--  <module name="RegexpMultiline">-->
     <!--    <property name="id" value="BlankLineAtStartOfBlockNotAllowed"/>-->
     <!--    <property name="message" value="Blank line at start of block should be removed"/>-->
@@ -146,9 +167,9 @@
         <module name="UpperEll"/>
         <module name="ModifierOrder"/>
         <module name="EmptyLineSeparator">
-            <!--      <property name="tokens"-->
-            <!--        value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,-->
-            <!--                    STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>-->
+                  <property name="tokens"
+                    value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
+                                STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
             <property name="allowNoEmptyLineBetweenFields" value="true"/>
             <property name="allowMultipleEmptyLines" value="false"/>
             <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
@@ -258,7 +279,13 @@
                     PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF"/>
         </module>
         <module name="OverloadMethodsDeclarationOrder"/>
-        <module name="VariableDeclarationUsageDistance"/>
+        <module name="VariableDeclarationUsageDistance">
+            <property name="id" value="VariableDeclarationUsageDistanceRegular"/>
+        </module>
+        <module name="VariableDeclarationUsageDistance">
+            <property name="id" value="VariableDeclarationUsageDistanceTest"/>
+            <property name="allowedDistance" value="7"/>
+        </module>
         <module name="CustomImportOrder">
             <property name="sortImportsInGroupAlphabetically" value="true"/>
             <property name="separateLineBetweenGroups" value="true"/>
@@ -363,8 +390,8 @@
         </module>
         <module name="InvalidJavadocPosition"/>
         <module name="JavadocType"/>
-        <!--    <module name="JavadocVariable"/>-->
-        <module name="JavadocStyle"/>
+        <!--        <module name="JavadocVariable"/>-->
+        <!--        <module name="JavadocStyle"/>-->
         <module name="ConstantName"/>
         <module name="LocalFinalVariableName"/>
         <module name="StaticVariableName"/>
