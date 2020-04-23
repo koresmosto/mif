@@ -17,5 +17,4 @@ import lombok.ToString;
 @PrimaryKeyJoinColumn(name = "ID")
 @ToString(callSuper = true)
 public class Worker extends Contact {
-
 }

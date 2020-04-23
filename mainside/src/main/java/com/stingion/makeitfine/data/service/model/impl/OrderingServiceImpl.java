@@ -13,5 +13,4 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderingServiceImpl extends EntityServiceImpl<Ordering> implements OrderingService {
-
 }

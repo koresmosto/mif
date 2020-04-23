@@ -12,5 +12,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @ConditionalOnProperty("creation.disabled")
 public interface EntityRepository<T> extends JpaRepository<T, Integer> {
-
 }

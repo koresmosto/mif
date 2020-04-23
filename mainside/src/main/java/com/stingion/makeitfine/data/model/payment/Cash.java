@@ -18,5 +18,4 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @DiscriminatorValue("Cash")
 public class Cash extends Payment {
-
 }

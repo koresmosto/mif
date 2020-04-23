@@ -30,7 +30,4 @@ import org.springframework.test.context.TestPropertySource;
 @ConfigurationProperties(prefix = "test.integration", ignoreInvalidFields = true)
 @WithMockUser
 public @interface IntegrationTest {
-
-
-
 }

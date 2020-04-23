@@ -30,5 +30,4 @@ import org.springframework.test.context.TestPropertySource;
 @ConfigurationProperties(prefix = "test.unit", ignoreInvalidFields = true)
 @WithMockUser
 public @interface UnitTest {
-
 }

@@ -10,5 +10,4 @@ package com.stingion.makeitfine.data.service.model;
 import com.stingion.makeitfine.data.model.Item;
 
 public interface ItemService extends EntityService<Item> {
-
 }

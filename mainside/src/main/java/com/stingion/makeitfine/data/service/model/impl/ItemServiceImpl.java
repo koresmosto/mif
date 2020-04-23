@@ -13,5 +13,4 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ItemServiceImpl extends EntityServiceImpl<Item> implements ItemService {
-
 }

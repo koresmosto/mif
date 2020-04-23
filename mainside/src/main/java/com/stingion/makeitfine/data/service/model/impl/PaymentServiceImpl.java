@@ -13,5 +13,4 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentServiceImpl extends EntityServiceImpl<Payment> implements PaymentService {
-
 }

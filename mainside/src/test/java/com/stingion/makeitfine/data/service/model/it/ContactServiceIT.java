@@ -10,5 +10,4 @@ package com.stingion.makeitfine.data.service.model.it;
 import com.stingion.makeitfine.data.model.user.Contact;
 
 public class ContactServiceIT extends EntityServiceITAncestor<Contact> {
-
 }
