@@ -15,6 +15,6 @@
       <jsp:include page="/WEB-INF/pages/aux/common/footer.jsp"/>
     </jsp:attribute>
     <jsp:body>
-        <h2><spring:message code="resourceNotFoundErrorOccured"/></h2>
+        <h2><spring:message code="resourceNotFoundErrorOccurred"/></h2>
     </jsp:body>
 </t:genericpage>

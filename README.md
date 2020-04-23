@@ -11,4 +11,8 @@ Also there'll be a possibility to order, estimate workers and find job
 Usage 
 -----
 See project ```WIKI```
+
+Technical configs
+-----
+Read `run/IDE/README.txt` and apply its recommendations to IDE 
             
