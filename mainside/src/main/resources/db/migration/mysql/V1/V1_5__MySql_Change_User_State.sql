@@ -1,9 +1,14 @@
+/*
+ *  Created under not commercial project "Make it fine"
+ *
+ *  Copyright 2017-2020
+ */
+
 ALTER TABLE APP_USER
     DROP COLUMN STATE;
 
 ALTER TABLE APP_USER
     ADD STATE ENUM ('ACTIVE', 'INACTIVE', 'DELETED', 'LOCKED');
-
 
 UPDATE APP_USER
 SET STATE = 'ACTIVE'

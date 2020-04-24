@@ -1,3 +1,9 @@
+/*
+ *  Created under not commercial project "Make it fine"
+ *
+ *  Copyright 2017-2020
+ */
+
 /* USER_PROFILE table contains all possible roles */
 CREATE TABLE USER_PROFILE
 (

@@ -1,4 +1,10 @@
 #!/bin/sh
+##
+# Created under not commercial project "Make it fine"
+#
+# Copyright 2017-2020
+##
+
 while true;
 do
   if nslookup flyway || ! nc -vzw 2 intro-service 8081;

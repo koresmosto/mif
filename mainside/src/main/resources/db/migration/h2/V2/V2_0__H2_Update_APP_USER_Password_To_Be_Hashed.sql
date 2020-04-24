@@ -1,3 +1,9 @@
+----
+--  Created under not commercial project "Make it fine"
+--
+--  Copyright 2017-2020
+----
+
 UPDATE APP_USER
 SET PASSWORD = '$2a$10$2bjguGIOF59iJjp2.TFvL.Qe2VXeLzVCxcD5yOv.DNrrlgTZPEUai'
 where SSO_ID = 'bill';

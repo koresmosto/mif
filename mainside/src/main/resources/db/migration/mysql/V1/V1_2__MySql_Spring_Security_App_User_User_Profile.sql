@@ -1,3 +1,9 @@
+/*
+ *  Created under not commercial project "Make it fine"
+ *
+ *  Copyright 2017-2020
+ */
+
 /* JOIN TABLE for MANY-TO-MANY relationship*/
 CREATE TABLE APP_USER_USER_PROFILE
 (

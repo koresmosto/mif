@@ -1,3 +1,9 @@
+----
+--  Created under not commercial project "Make it fine"
+--
+--  Copyright 2017-2020
+----
+
 ALTER TABLE APP_USER
     ADD DISCRIMINATOR VARCHAR(20) NOT NULL DEFAULT 'TEMP';
 ALTER TABLE APP_USER
