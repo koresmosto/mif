@@ -2,6 +2,12 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
+  <!--
+  ~  Created under not commercial project "Make it fine"
+  ~
+  ~  Copyright 2017-2020
+  ~  @author stingion
+  -->
   <parent>
     <artifactId>makeitfine</artifactId>
     <groupId>com.stingion</groupId>

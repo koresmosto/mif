@@ -1,3 +1,9 @@
+###
+#  Created under not commercial project "Make it fine"
+#
+#  Copyright 2017-2020
+###
+
 FROM openjdk:11-jre
 MAINTAINER Kores Mosto <koresmosto@gmail.com>
 
