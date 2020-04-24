@@ -1,68 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  Created under not commercial project "Make it fine"
+  ~
+  ~  Copyright 2017-2020
+  ~  @author stingion
+  -->
 <configuration>
 
-  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
-  <springProfile name="docker">
+    <springProfile name="docker">
 
-    <appender class="ch.qos.logback.core.ConsoleAppender" name="jsonConsoleAppender">
-      <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-        <providers>
-          <context/>
-          <logLevel/>
-          <loggerName/>
-          <mdc>
-            <excludeMdcKeyName>traceId</excludeMdcKeyName>
-            <excludeMdcKeyName>spanId</excludeMdcKeyName>
-            <excludeMdcKeyName>parentId</excludeMdcKeyName>
-            <excludeMdcKeyName>spanExportable</excludeMdcKeyName>
-            <excludeMdcKeyName>X-B3-TraceId</excludeMdcKeyName>
-            <excludeMdcKeyName>X-B3-SpanId</excludeMdcKeyName>
-            <excludeMdcKeyName>X-B3-ParentSpanId</excludeMdcKeyName>
-            <excludeMdcKeyName>X-Span-Export</excludeMdcKeyName>
-          </mdc>
-          <message/>
-          <pattern>
-            <omitEmptyFields>true</omitEmptyFields>
-            <pattern>
-              {
-              "trace": {
-              "trace_id": "%mdc{X-B3-TraceId}",
-              "span_id": "%mdc{X-B3-SpanId}",
-              "parent_span_id": "%mdc{X-B3-ParentSpanId}",
-              "exportable": "%mdc{X-Span-Export}"
-              }
-              }
-            </pattern>
-          </pattern>
-          <stackTrace/>
-          <threadName/>
-          <timestamp>
-            <timeZone>UTC</timeZone>
-          </timestamp>
-          <version/>
-        </providers>
-      </encoder>
-    </appender>
+        <appender class="ch.qos.logback.core.ConsoleAppender" name="jsonConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <context/>
+                    <logLevel/>
+                    <loggerName/>
+                    <mdc>
+                        <excludeMdcKeyName>traceId</excludeMdcKeyName>
+                        <excludeMdcKeyName>spanId</excludeMdcKeyName>
+                        <excludeMdcKeyName>parentId</excludeMdcKeyName>
+                        <excludeMdcKeyName>spanExportable</excludeMdcKeyName>
+                        <excludeMdcKeyName>X-B3-TraceId</excludeMdcKeyName>
+                        <excludeMdcKeyName>X-B3-SpanId</excludeMdcKeyName>
+                        <excludeMdcKeyName>X-B3-ParentSpanId</excludeMdcKeyName>
+                        <excludeMdcKeyName>X-Span-Export</excludeMdcKeyName>
+                    </mdc>
+                    <message/>
+                    <pattern>
+                        <omitEmptyFields>true</omitEmptyFields>
+                        <pattern>
+                            {
+                            "trace": {
+                            "trace_id": "%mdc{X-B3-TraceId}",
+                            "span_id": "%mdc{X-B3-SpanId}",
+                            "parent_span_id": "%mdc{X-B3-ParentSpanId}",
+                            "exportable": "%mdc{X-Span-Export}"
+                            }
+                            }
+                        </pattern>
+                    </pattern>
+                    <stackTrace/>
+                    <threadName/>
+                    <timestamp>
+                        <timeZone>UTC</timeZone>
+                    </timestamp>
+                    <version/>
+                </providers>
+            </encoder>
+        </appender>
 
-    <root level="INFO">
-      <appender-ref ref="jsonConsoleAppender"/>
-    </root>
+        <root level="INFO">
+            <appender-ref ref="jsonConsoleAppender"/>
+        </root>
 
-  </springProfile>
+    </springProfile>
 
-  <!-- Log configuration for Docker profile -->
-  <springProfile name="!docker">
+    <!-- Log configuration for Docker profile -->
+    <springProfile name="!docker">
 
-    <appender class="ch.qos.logback.core.ConsoleAppender" name="flatConsoleAppender">
-      <encoder>
-        <charset>utf8</charset>
-        <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-      </encoder>
-    </appender>
+        <appender class="ch.qos.logback.core.ConsoleAppender" name="flatConsoleAppender">
+            <encoder>
+                <charset>utf8</charset>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
 
-    <property name="CONSOLE_LOG_PATTERN"
-      value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint}
+        <property name="CONSOLE_LOG_PATTERN"
+                value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint}
       %clr(${LOG_LEVEL_PATTERN:-%5p})
       %clr(${PID:- }){magenta}
       %clr(---){faint}
@@ -70,13 +76,13 @@
       %clr(%-40.40logger{39}){cyan}
       %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
-    <root level="INFO">
-      <appender-ref ref="flatConsoleAppender"/>
-    </root>
+        <root level="INFO">
+            <appender-ref ref="flatConsoleAppender"/>
+        </root>
 
-  </springProfile>
+    </springProfile>
 
-  <!-- Log configuration for non-Docker profile -->
-  <springProperty name="application_name" scope="context" source="spring.application.name"/>
+    <!-- Log configuration for non-Docker profile -->
+    <springProperty name="application_name" scope="context" source="spring.application.name"/>
 
 </configuration>

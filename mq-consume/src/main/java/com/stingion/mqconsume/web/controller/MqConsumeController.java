@@ -22,16 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class MqConsumeController {
 
-  private final List<Message> queueMessages;
+    private final List<Message> queueMessages;
 
-  @GetMapping
-  public ResponseEntity<String> hello() {
-    log.info("Consumer microservice (mq-consume module");//todo: can be removed: checking conn
-    return ResponseEntity.ok("Hello from \"mq-consume\" module!");
-  }
+    @GetMapping
+    public ResponseEntity<String> hello() {
+        log.info("Consumer microservice (mq-consume module"); //todo: can be removed: checking conn
+        return ResponseEntity.ok("Hello from \"mq-consume\" module!");
+    }
 
-  @GetMapping("/queue")
-  public List<Message> queueMessages() {
-    return queueMessages;
-  }
+    @GetMapping("/queue")
+    public List<Message> queueMessages() {
+        return queueMessages;
+    }
 }

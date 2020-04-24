@@ -19,11 +19,11 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class Subcriber {
 
-  private final List<Message> queueMessages;
+    private final List<Message> queueMessages;
 
-  @RabbitListener(queues = "${rabbitmq.queue}")
-  public void receivedMessage(Message msg) {
-    log.info("Got message: \"{}\" from secretUrl", msg);
-    queueMessages.add(msg);
-  }
+    @RabbitListener(queues = "${rabbitmq.queue}")
+    public void receivedMessage(Message msg) {
+        log.info("Got message: \"{}\" from secretUrl", msg);
+        queueMessages.add(msg);
+    }
 }

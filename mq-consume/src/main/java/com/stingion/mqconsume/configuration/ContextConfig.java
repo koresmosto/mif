@@ -20,8 +20,8 @@ import org.springframework.context.annotation.ImportResource;
 @RequiredArgsConstructor
 public class ContextConfig {
 
-  @Bean
-  public List<Message> queueMessages() {
-    return new LinkedList<>();
-  }
+    @Bean
+    public List<Message> queueMessages() {
+        return new LinkedList<>();
+    }
 }
