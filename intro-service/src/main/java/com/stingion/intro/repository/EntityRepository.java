@@ -12,5 +12,4 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 @ConditionalOnProperty("creation.disabled")
 public interface EntityRepository<T> extends MongoRepository<T, String> {
-
 }

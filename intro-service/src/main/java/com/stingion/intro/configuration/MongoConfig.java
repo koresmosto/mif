@@ -23,19 +23,19 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 @RequiredArgsConstructor
 public class MongoConfig {
 
-  private final MongoDbFactory mongoDbFactory;
+    private final MongoDbFactory mongoDbFactory;
 
-  /**
-   * Disable including/considering '_class' filed in mongo db document while working through Java.
-   *
-   * @return spring bean
-   */
-  @Bean
-  public MongoTemplate mongoTemplate() {
-    MappingMongoConverter converter = new MappingMongoConverter(
-        new DefaultDbRefResolver(mongoDbFactory), new MongoMappingContext());
-    converter.setTypeMapper(new DefaultMongoTypeMapper(null));
-    MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory, converter);
-    return mongoTemplate;
-  }
+    /**
+     * Disable including/considering '_class' filed in mongo db document while working through Java.
+     *
+     * @return spring bean
+     */
+    @Bean
+    public MongoTemplate mongoTemplate() {
+        MappingMongoConverter converter = new MappingMongoConverter(
+                new DefaultDbRefResolver(mongoDbFactory), new MongoMappingContext());
+        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+        MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory, converter);
+        return mongoTemplate;
+    }
 }

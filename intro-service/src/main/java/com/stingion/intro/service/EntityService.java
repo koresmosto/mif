@@ -11,13 +11,13 @@ import java.util.List;
 
 public interface EntityService<T> {
 
-  List<T> findAll();
+    List<T> findAll();
 
-  T findById(String id);
+    T findById(String id);
 
-  T insert(T entity);
+    T insert(T entity);
 
-  T save(T entity);
+    T save(T entity);
 
-  void delete(T entity);
+    void delete(T entity);
 }

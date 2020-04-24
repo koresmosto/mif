@@ -11,5 +11,5 @@ import com.stingion.intro.domain.Info;
 
 public interface InfoService extends EntityService<Info> {
 
-  Info findByKey(String key);
+    Info findByKey(String key);
 }

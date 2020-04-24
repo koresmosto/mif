@@ -7,9 +7,11 @@
 
 db.createUser(
     {
-      user: "introuser",
-      pwd: "intropass",
-      roles: [{role: "readWrite", db: "introdb"},
-        {role: "read", db: "reporting"}]
+        user: "introuser",
+        pwd: "intropass",
+        roles: [
+            {role: "readWrite", db: "introdb"},
+            {role: "read", db: "reporting"}
+        ]
     }
 );

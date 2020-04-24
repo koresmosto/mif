@@ -24,15 +24,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 public class Info {
 
-  @Id
-  private String id;
+    @Id
+    private String id;
 
-  @Indexed(name = "key_1", unique = true)
-  private String key;
-  private String details;
+    @Indexed(name = "key_1", unique = true)
+    private String key;
+    private String details;
 
-  public Info(String key, String details) {
-    this.key = key;
-    this.details = details;
-  }
+    public Info(String key, String details) {
+        this.key = key;
+        this.details = details;
+    }
 }

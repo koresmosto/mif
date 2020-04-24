@@ -23,28 +23,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/info")
 public class InfoController {
 
-  private final InfoService infoService;
+    private final InfoService infoService;
 
-  @GetMapping
-  public List<Info> getInfo() {
-    return infoService.findAll();
-  }
+    @GetMapping
+    public List<Info> getInfo() {
+        return infoService.findAll();
+    }
 
-  @GetMapping(value = "{key}")
-  public Info getInfo(@PathVariable("key") String key) {
-    return infoService.findByKey(key);
-  }
+    @GetMapping(value = "{key}")
+    public Info getInfo(@PathVariable("key") String key) {
+        return infoService.findByKey(key);
+    }
 
-  /**
-   * Get details of info.
-   *
-   * @param key searched key
-   * @return info details
-   */
-  @GetMapping(value = "details/{key}")
-  public String getInfoDetails(@PathVariable("key") String key) {
-    var info = infoService.findByKey(key);
-    log.info("Get details of info: {}", info);
-    return info.getDetails();
-  }
+    /**
+     * Get details of info.
+     *
+     * @param key searched key
+     * @return info details
+     */
+    @GetMapping(value = "details/{key}")
+    public String getInfoDetails(@PathVariable("key") String key) {
+        var info = infoService.findByKey(key);
+        log.info("Get details of info: {}", info);
+        return info.getDetails();
+    }
 }

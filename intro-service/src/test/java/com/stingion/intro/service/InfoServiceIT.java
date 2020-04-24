@@ -30,109 +30,105 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ActiveProfiles("integration_test")
 class InfoServiceIT {
 
-  private static final Info info1 = new Info("key1", "details1");
-  private static final Info info2 = new Info("key2", "details2");
-  private static final Info info3 = new Info("key3", "details3");
+    private static final Info INFO_1 = new Info("key1", "details1");
+    private static final Info INFO_2 = new Info("key2", "details2");
+    private static final Info INFO_3 = new Info("key3", "details3");
 
-  @Autowired
-  private InfoService infoService;
+    @Autowired
+    private InfoService infoService;
 
-  @BeforeEach
-  public void setup() {
-    infoService.insert(info1);
-    infoService.insert(info2);
-    infoService.insert(info3);
-  }
+    @BeforeEach
+    public void setup() {
+        infoService.insert(INFO_1);
+        infoService.insert(INFO_2);
+        infoService.insert(INFO_3);
+    }
 
-  @AfterEach
-  public void dispose() {
-    infoService.findAll().forEach(i -> infoService.delete(i));
-  }
+    @AfterEach
+    public void dispose() {
+        infoService.findAll().forEach(i -> infoService.delete(i));
+    }
 
-  @Test
-  public void findAll() {
-    List<Info> findAll = infoService.findAll();
+    @Test
+    public void findAll() {
+        List<Info> findAll = infoService.findAll();
 
-    assertThat(findAll.size()).isEqualTo(3);
-    assertThat(findAll).contains(info1);
-    assertThat(findAll).contains(info2);
-    assertThat(findAll).contains(info3);
-  }
+        assertThat(findAll.size()).isEqualTo(3);
+        assertThat(findAll).contains(INFO_1);
+        assertThat(findAll).contains(INFO_2);
+        assertThat(findAll).contains(INFO_3);
+    }
 
-  @Test
-  public void findByKey() {
-    assertThat(infoService.findByKey("key2").getDetails()).isEqualTo("details2");
-  }
+    @Test
+    public void findByKey() {
+        assertThat(infoService.findByKey("key2").getDetails()).isEqualTo("details2");
+    }
 
-  @Test
-  public void findByNotExistingKey() {
-    Throwable exception =
-        assertThrows(NoSuchElementException.class, () -> infoService.findByKey("key4"));
-    assertTrue(exception.getMessage().equalsIgnoreCase("No value present"));
-  }
+    @Test
+    public void findByNotExistingKey() {
+        Throwable exception =
+                assertThrows(NoSuchElementException.class, () -> infoService.findByKey("key4"));
+        assertTrue(exception.getMessage().equalsIgnoreCase("No value present"));
+    }
 
-  @Test
-  public void insert() {
-    Info insertedInfo = new Info("insertedKey", "insertedDetails");
-    infoService.insert(insertedInfo);
-    List<Info> findAll = infoService.findAll();
+    @Test
+    public void insert() {
+        Info insertedInfo = new Info("insertedKey", "insertedDetails");
+        infoService.insert(insertedInfo);
+        List<Info> findAll = infoService.findAll();
 
-    assertThat(findAll.size()).isEqualTo(4);
-    assertThat(findAll).contains(insertedInfo);
-  }
+        assertThat(findAll.size()).isEqualTo(4);
+        assertThat(findAll).contains(insertedInfo);
+    }
 
-  @Test
-  public void insertWithExistingKey() {
-    assertThrows(DuplicateKeyException.class, () -> infoService.insert(new Info("key2", "any")));
-  }
+    @Test
+    public void insertWithExistingKey() {
+        assertThrows(DuplicateKeyException.class, () -> infoService.insert(new Info("key2", "any")));
+    }
 
-  @Test
-  public void delete() {
-    infoService.delete(info3);
-    List<Info> findAll = infoService.findAll();
+    @Test
+    public void delete() {
+        infoService.delete(INFO_3);
+        List<Info> findAll = infoService.findAll();
 
-    assertThat(findAll.size()).isEqualTo(2);
-    assertThat(findAll).doesNotContain(info3);
-  }
+        assertThat(findAll.size()).isEqualTo(2);
+        assertThat(findAll).doesNotContain(INFO_3);
+    }
 
-  @Test
-  public void deleteByNotExistingKey() {
-    Throwable exception =
-        assertThrows(IllegalStateException.class,
-            () ->
-                infoService.delete(new Info("any", "any"))
-        );
-    assertTrue(exception.getMessage().startsWith("Could not obtain identifier"));
-  }
+    @Test
+    public void deleteByNotExistingKey() {
+        Throwable exception = assertThrows(IllegalStateException.class, () ->
+                infoService.delete(new Info("any", "any")));
+        assertTrue(exception.getMessage().startsWith("Could not obtain identifier"));
+    }
 
-  @Test
-  public void findById() {
-    Info foundByKey = infoService.findByKey("key2");
-    Info foundByIdInfo = infoService.findById(foundByKey.getId());
+    @Test
+    public void findById() {
+        Info foundByKey = infoService.findByKey("key2");
+        Info foundByIdInfo = infoService.findById(foundByKey.getId());
 
-    assertThat(foundByIdInfo).isEqualTo(foundByKey);
-    assertThat(foundByIdInfo.getId()).isEqualTo(foundByKey.getId());
-  }
+        assertThat(foundByIdInfo).isEqualTo(foundByKey);
+        assertThat(foundByIdInfo.getId()).isEqualTo(foundByKey.getId());
+    }
 
-  @Test
-  public void findByNotExistingId() {
-    Throwable exception =
-        assertThrows(NoSuchElementException.class,
-            () -> infoService.findById(UUID.randomUUID().toString() + "_unique"));
-    assertTrue(exception.getMessage().equalsIgnoreCase("No value present"));
-  }
+    @Test
+    public void findByNotExistingId() {
+        Throwable exception = assertThrows(NoSuchElementException.class, () ->
+                infoService.findById(UUID.randomUUID().toString() + "_unique"));
+        assertTrue(exception.getMessage().equalsIgnoreCase("No value present"));
+    }
 
-  @Test
-  public void save() {
-    Info updateDetailsInfo = infoService.findByKey("key1");
-    updateDetailsInfo.setDetails("details1New");
-    infoService.save(updateDetailsInfo);
-    assertThat(infoService.findByKey("key1").getDetails()).isEqualTo("details1New");
+    @Test
+    public void save() {
+        Info updateDetailsInfo = infoService.findByKey("key1");
+        updateDetailsInfo.setDetails("details1New");
+        infoService.save(updateDetailsInfo);
+        assertThat(infoService.findByKey("key1").getDetails()).isEqualTo("details1New");
 
-    Info savedInfo = new Info("anyKey", "anyDetails");
-    infoService.insert(savedInfo);
-    assertThat(infoService.findByKey("anyKey")).isEqualTo(savedInfo);
+        Info savedInfo = new Info("anyKey", "anyDetails");
+        infoService.insert(savedInfo);
+        assertThat(infoService.findByKey("anyKey")).isEqualTo(savedInfo);
 
-    assertThat(infoService.findAll().size()).isEqualTo(4);
-  }
+        assertThat(infoService.findAll().size()).isEqualTo(4);
+    }
 }

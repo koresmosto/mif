@@ -19,15 +19,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MongoEmbeddedConfig {
 
-  private final InfoService infoService;
+    private final InfoService infoService;
 
-  /**
-   * Fulfill db after creation.
-   */
-  @PostConstruct
-  public void init() {
-    infoService.insert(new Info("author", "koresmosto@gmail.com (embedded docker)"));
-    infoService.insert(new Info("purpose", "Social Network for workers (embedded docker)"));
-    infoService.insert(new Info("stage", "Development stage (embedded docker)"));
-  }
+    /**
+     * Fulfill db after creation.
+     */
+    @PostConstruct
+    public void init() {
+        infoService.insert(new Info("author", "koresmosto@gmail.com (embedded docker)"));
+        infoService.insert(new Info("purpose", "Social Network for workers (embedded docker)"));
+        infoService.insert(new Info("stage", "Development stage (embedded docker)"));
+    }
 }

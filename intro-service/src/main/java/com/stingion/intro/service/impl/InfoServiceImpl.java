@@ -18,22 +18,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class InfoServiceImpl extends EntityServiceImpl<Info> implements InfoService {
 
-  /**
-   * Find Info by key.
-   *
-   * @param key key for search by
-   * @return Info
-   */
-  public Info findByKey(String key) {
-    var info = new Info();
-    info.setKey(key);
+    /**
+     * Find Info by key.
+     *
+     * @param key key for search by
+     * @return Info
+     */
+    public Info findByKey(String key) {
+        var info = new Info();
+        info.setKey(key);
 
-    var matcher = ExampleMatcher.matching()
-        .withMatcher("key", exact())
-        .withIgnorePaths("details");
+        var matcher = ExampleMatcher.matching()
+                .withMatcher("key", exact())
+                .withIgnorePaths("details");
 
-    var example = Example.of(info, matcher);
+        var example = Example.of(info, matcher);
 
-    return entityRepository.findOne(example).get();
-  }
+        return entityRepository.findOne(example).get();
+    }
 }

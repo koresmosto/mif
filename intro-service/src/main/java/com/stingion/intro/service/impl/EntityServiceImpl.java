@@ -14,31 +14,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class EntityServiceImpl<T> implements EntityService<T> {
 
-  @Autowired(required = false)
-  protected EntityRepository<T> entityRepository;
+    @Autowired(required = false)
+    protected EntityRepository<T> entityRepository;
 
-  @Override
-  public List<T> findAll() {
-    return entityRepository.findAll();
-  }
+    @Override
+    public List<T> findAll() {
+        return entityRepository.findAll();
+    }
 
-  @Override
-  public T findById(String id) {
-    return entityRepository.findById(id).get();
-  }
+    @Override
+    public T findById(String id) {
+        return entityRepository.findById(id).get();
+    }
 
-  @Override
-  public T insert(T entity) {
-    return entityRepository.insert(entity);
-  }
+    @Override
+    public T insert(T entity) {
+        return entityRepository.insert(entity);
+    }
 
-  @Override
-  public T save(T entity) {
-    return entityRepository.save(entity);
-  }
+    @Override
+    public T save(T entity) {
+        return entityRepository.save(entity);
+    }
 
-  @Override
-  public void delete(T entity) {
-    entityRepository.delete(entity);
-  }
+    @Override
+    public void delete(T entity) {
+        entityRepository.delete(entity);
+    }
 }

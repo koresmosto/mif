@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/intro")
 public class IntroController {
 
-  @GetMapping
-  public ResponseEntity<String> hello() {
-    log.info("Intro microservice (intro-service module");//todo: can be removed: checking connection
-    return ResponseEntity.ok("Hi!");
-  }
+    @GetMapping
+    public ResponseEntity<String> hello() {
+        log.info("Intro microservice (intro-service module"); //todo: can be removed: checking connection
+        return ResponseEntity.ok("Hi!");
+    }
 }
