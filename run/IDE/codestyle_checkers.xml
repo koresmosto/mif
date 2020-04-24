@@ -14,7 +14,7 @@
 
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.org/config_whitespace.html -->
-    <property name="fileExtensions" value="java, properties, xml"/>
+    <property name="fileExtensions" value="java, properties, xml, yml, yaml, sql, bash, sh, json, js"/>
 
     <property name="charset" value="UTF-8"/>
 
@@ -73,7 +73,7 @@
     <module name="RegexpMultiline">
         <property name="message" value="More than one blank line in sequence is not allowed"/>
         <property name="format" value="^\s+$^\s*$"/>
-        <property name="fileExtensions" value="xml,properties,json,js,yml,yaml"/>
+        <property name="fileExtensions" value="xml, properties, json, js, yml, yaml, sql, bash, sh"/>
     </module>
 
     <module name="TreeWalker">
