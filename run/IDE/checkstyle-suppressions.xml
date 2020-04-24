@@ -29,6 +29,7 @@
   <!-- Spring Boot starters -->
   <suppress checks="HideUtilityClassConstructor" files="com/stingion/makeitfine/ApplicationBoot.java" lines="13"/>
   <suppress checks="HideUtilityClassConstructor" files="com/stingion/intro/IntroServiceApplication.java" lines="13"/>
+  <suppress checks="HideUtilityClassConstructor" files="com/stingion/cache/CacheServiceApplication.java" lines="14"/>
 
 
   <!-- intro module -->

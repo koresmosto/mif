@@ -21,13 +21,13 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class ContextConfig {
 
-  @Bean
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
-  }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-  @Bean
-  public List<Message> queueMessages() {
-    return new LinkedList<>();
-  }
+    @Bean
+    public List<Message> queueMessages() {
+        return new LinkedList<>();
+    }
 }

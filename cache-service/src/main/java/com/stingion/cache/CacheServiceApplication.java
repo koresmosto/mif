@@ -1,5 +1,5 @@
 /*
- * Created under not commercial project "Make it fine"
+ *  Created under not commercial project "Make it fine"
  *
  *  Copyright 2017-2020
  *  @author stingion
@@ -15,7 +15,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class CacheServiceApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(CacheServiceApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(CacheServiceApplication.class, args);
+    }
 }

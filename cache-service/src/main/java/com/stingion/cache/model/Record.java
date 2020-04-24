@@ -1,3 +1,10 @@
+/*
+ * Created under not commercial project "Make it fine"
+ *
+ *  Copyright 2017-2020
+ *  @author stingion
+ */
+
 package com.stingion.cache.model;
 
 import java.io.Serializable;
@@ -20,16 +27,16 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Record implements Serializable {
 
-  private static final long serialVersionUID = -5147594615580603982L;
+    private static final long serialVersionUID = -5147594615580603982L;
 
-  @Id
-  @SequenceGenerator(name = "SEQ_GEN", sequenceName = "SEQ_RECORD", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_GEN")
-  private Long id;
+    @Id
+    @SequenceGenerator(name = "SEQ_GEN", sequenceName = "SEQ_RECORD", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_GEN")
+    private Long id;
 
-  private String msg;
+    private String msg;
 
-  public Record(String msg) {
-    this.msg = msg;
-  }
+    public Record(String msg) {
+        this.msg = msg;
+    }
 }

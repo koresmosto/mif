@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class CacheServiceController {
 
-  @GetMapping
-  public ResponseEntity<String> hello() {
-    log.info("Cache microservice (cache-service module");//todo: can be removed: checking conn
-    return ResponseEntity.ok("Hello from \"cache-service\" module!");
-  }
+    @GetMapping
+    public ResponseEntity<String> hello() {
+        log.info("Cache microservice (cache-service module"); //todo: can be removed: checking conn
+        return ResponseEntity.ok("Hello from \"cache-service\" module!");
+    }
 }

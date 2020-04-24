@@ -36,63 +36,63 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class RecordController {
 
-  private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-  private final List<Message> queueMessages;
+    private final List<Message> queueMessages;
 
-  private final RecordRepository recordRepository;
+    private final RecordRepository recordRepository;
 
-  @Value("${mq-consume.base-url:#{null}}")
-  private String mqConsumeBaseUrl;
+    @Value("${mq-consume.base-url:#{null}}")
+    private String mqConsumeBaseUrl;
 
-  @Cacheable(value = "records", key = "#recordId")
-  @RequestMapping(value = "/get/{recordId}", method = RequestMethod.GET)
-  public Record getRecord(@PathVariable String recordId) {
-    log.info("Getting record with ID {}.", recordId);
-    return recordRepository.findById(Long.valueOf(recordId)).orElse(null);
-  }
+    @Cacheable(value = "records", key = "#recordId")
+    @RequestMapping(value = "/get/{recordId}", method = RequestMethod.GET)
+    public Record getRecord(@PathVariable String recordId) {
+        log.info("Getting record with ID {}.", recordId);
+        return recordRepository.findById(Long.valueOf(recordId)).orElse(null);
+    }
 
-  @CachePut(value = "records", key = "#record.id")
-  @PutMapping("/update")
-  public Record updateRecordByID(@RequestBody Record record) {
-    recordRepository.save(record);
-    return record;
-  }
+    @CachePut(value = "records", key = "#record.id")
+    @PutMapping("/update")
+    public Record updateRecordByID(@RequestBody Record record) {
+        recordRepository.save(record);
+        return record;
+    }
 
-  /**
-   * Delete record. E. g.
-   * <pre>
-   * $>curl -H 'Content-Type: application/json' -X PUT -d '{"id":12,"msg":"Hi, there!!!"}'
-   * http://localhost:8084/records/update
-   * </pre>
-   *
-   * @param recordId id
-   */
-  @CacheEvict(value = "records", key = "#recordId")
-  @DeleteMapping("/{recordId}")
-  public void deleteRecordByID(@PathVariable Long recordId) {
-    log.info("deleting record with id {}", recordId);
-    recordRepository.deleteById(recordId);
-  }
+    /**
+     * Delete record. E. g.
+     * <pre>
+     * $>curl -H 'Content-Type: application/json' -X PUT -d '{"id":12,"msg":"Hi, there!!!"}'
+     * http://localhost:8084/records/update
+     * </pre>
+     *
+     * @param recordId id
+     */
+    @CacheEvict(value = "records", key = "#recordId")
+    @DeleteMapping("/{recordId}")
+    public void deleteRecordByID(@PathVariable Long recordId) {
+        log.info("deleting record with id {}", recordId);
+        recordRepository.deleteById(recordId);
+    }
 
-  /**
-   * Refresh all messages by getting them from queue.
-   *
-   * @return messages contained response
-   */
-  @CacheEvict(value = "records", allEntries = true)
-  @GetMapping("refresh")
-  public ResponseEntity<List<Message>> hello() {
-    String url =
-        UriComponentsBuilder.fromHttpUrl(mqConsumeBaseUrl).path("mqconsume/queue").toUriString();
+    /**
+     * Refresh all messages by getting them from queue.
+     *
+     * @return messages contained response
+     */
+    @CacheEvict(value = "records", allEntries = true)
+    @GetMapping("refresh")
+    public ResponseEntity<List<Message>> hello() {
+        String url =
+                UriComponentsBuilder.fromHttpUrl(mqConsumeBaseUrl).path("mqconsume/queue").toUriString();
 
-    queueMessages.clear();
-    queueMessages.addAll(Arrays.asList(restTemplate.getForEntity(url, Message[].class).getBody()));
-    log.info("Get {} messages from queue", queueMessages.size());
+        queueMessages.clear();
+        queueMessages.addAll(Arrays.asList(restTemplate.getForEntity(url, Message[].class).getBody()));
+        log.info("Get {} messages from queue", queueMessages.size());
 
-    recordRepository.deleteAll();
-    queueMessages.stream().forEach(m -> recordRepository.save(new Record(m.getMsg())));
+        recordRepository.deleteAll();
+        queueMessages.stream().forEach(m -> recordRepository.save(new Record(m.getMsg())));
 
-    return ResponseEntity.ok(queueMessages);
-  }
+        return ResponseEntity.ok(queueMessages);
+    }
 }
