@@ -27,41 +27,41 @@ import org.springframework.stereotype.Component;
 @Configuration
 public class RabbitConfig {
 
-  @Value("${rabbitmq.exchange:#{null}}")
-  private String exchange;
+    @Value("${rabbitmq.exchange:#{null}}")
+    private String exchange;
 
-  @Value("${rabbitmq.queue:#{null}}")
-  private String queue;
+    @Value("${rabbitmq.queue:#{null}}")
+    private String queue;
 
-  @Bean
-  public Queue secretUrlQueue() {
-    return QueueBuilder.durable(queue).build();
-  }
-
-  @Bean
-  public Exchange secretUrlExchange() {
-    return ExchangeBuilder.directExchange(exchange).build();
-  }
-
-  @Bean
-  public Binding binding(Queue secretUrlQueue, Exchange secretUrlExchange) {
-    return BindingBuilder.bind(secretUrlQueue).to((DirectExchange) secretUrlExchange).with("");
-  }
-
-  @Bean
-  public RabbitAdmin admin(ConnectionFactory cf) {
-    return new RabbitAdmin(cf);
-  }
-
-  @Component
-  @RequiredArgsConstructor
-  public class RabbitMqStartup implements ApplicationListener<ApplicationReadyEvent> {
-
-    private final RabbitAdmin rabbitAdmin;
-
-    @Override
-    public void onApplicationEvent(final ApplicationReadyEvent event) {
-      rabbitAdmin.initialize();
+    @Bean
+    public Queue secretUrlQueue() {
+        return QueueBuilder.durable(queue).build();
     }
-  }
+
+    @Bean
+    public Exchange secretUrlExchange() {
+        return ExchangeBuilder.directExchange(exchange).build();
+    }
+
+    @Bean
+    public Binding binding(Queue secretUrlQueue, Exchange secretUrlExchange) {
+        return BindingBuilder.bind(secretUrlQueue).to((DirectExchange) secretUrlExchange).with("");
+    }
+
+    @Bean
+    public RabbitAdmin admin(ConnectionFactory cf) {
+        return new RabbitAdmin(cf);
+    }
+
+    @Component
+    @RequiredArgsConstructor
+    public class RabbitMqStartup implements ApplicationListener<ApplicationReadyEvent> {
+
+        private final RabbitAdmin rabbitAdmin;
+
+        @Override
+        public void onApplicationEvent(final ApplicationReadyEvent event) {
+            rabbitAdmin.initialize();
+        }
+    }
 }

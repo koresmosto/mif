@@ -24,30 +24,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MqPublishController {
 
-  private final Publisher publisher;
+    private final Publisher publisher;
 
-  @GetMapping
-  public ResponseEntity<String> hello() {
-    log.info("Publisher microservice (mq-publish module");//todo: can be removed: checking conn
-    return ResponseEntity.ok("Hello from \"mq-publish\" module!");
-  }
-
-  /**
-   * SecretUrl access.
-   *
-   * @param msg       message to send
-   * @param serialize true is default if skip in request
-   * @return response
-   */
-  @GetMapping("/secretUrl")
-  public String secretUrl(@RequestParam("msg") String msg,
-      @RequestParam(value = "serialize", required = false) Boolean serialize) {
-    serialize = Optional.ofNullable(serialize).orElse(true);
-    if (serialize) {
-      publisher.produceMsg(new Message(msg));
-    } else {
-      publisher.produceMsg(msg);
+    @GetMapping
+    public ResponseEntity<String> hello() {
+        log.info("Publisher microservice (mq-publish module"); //todo: can be removed: checking conn
+        return ResponseEntity.ok("Hello from \"mq-publish\" module!");
     }
-    return "Access to secret Url and send message (serialize = " + serialize + "): " + msg;
-  }
+
+    /**
+     * SecretUrl access.
+     *
+     * @param msg       message to send
+     * @param serialize true is default if skip in request
+     * @return response
+     */
+    @GetMapping("/secretUrl")
+    public String secretUrl(@RequestParam("msg") String msg,
+            @RequestParam(value = "serialize", required = false) Boolean serialize) {
+        serialize = Optional.ofNullable(serialize).orElse(true);
+        if (serialize) {
+            publisher.produceMsg(new Message(msg));
+        } else {
+            publisher.produceMsg(msg);
+        }
+        return "Access to secret Url and send message (serialize = " + serialize + "): " + msg;
+    }
 }

@@ -21,24 +21,24 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class Publisher {
 
-  private final AmqpTemplate template;
+    private final AmqpTemplate template;
 
-  @Value("${rabbitmq.exchange}")
-  private String exchange;
+    @Value("${rabbitmq.exchange}")
+    private String exchange;
 
-  @Lookup
-  @Qualifier("time")
-  public String time() {
-    return null;
-  }
+    @Lookup
+    @Qualifier("time")
+    public String time() {
+        return null;
+    }
 
-  public void produceMsg(String msg) {
-    log.info("Sent message \"{}\" to secretUrl", msg);
-    template.convertAndSend(exchange, "", "[" + time() + "] " + msg);
-  }
+    public void produceMsg(String msg) {
+        log.info("Sent message \"{}\" to secretUrl", msg);
+        template.convertAndSend(exchange, "", "[" + time() + "] " + msg);
+    }
 
-  public void produceMsg(Message message) {
-    log.info("Sent message \"{}\" to secretUrl", message);
-    template.convertAndSend(exchange, "", message);
-  }
+    public void produceMsg(Message message) {
+        log.info("Sent message \"{}\" to secretUrl", message);
+        template.convertAndSend(exchange, "", message);
+    }
 }
