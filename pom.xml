@@ -292,6 +292,23 @@
     </profiles>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/profiles</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.yml</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}</targetPath>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/profiles/*.yml</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -463,29 +480,27 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
         </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/resources/profiles</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.yml</include>
-                </includes>
-                <targetPath>${project.build.outputDirectory}</targetPath>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>**/profiles/*.yml</exclude>
-                </excludes>
-            </resource>
-        </resources>
     </build>
 
     <reporting>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <plugin> <!-- Todo: think of not using, cause jxr plugin expose sources in Javadoc -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>3.0.0</version>
