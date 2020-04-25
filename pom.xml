@@ -29,6 +29,7 @@
         <failOnErrorByCheckstyle>true</failOnErrorByCheckstyle>
 
         <failOnWarningByCompiler>true</failOnWarningByCompiler>
+        <failOnWarningBySpotbugs>false</failOnWarningBySpotbugs>
 
         <!-- todo: Info -->
         <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->
@@ -502,6 +503,31 @@
                         <version>4.0.2</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <!--
+                   Enables analysis which takes more memory but finds more bugs.
+                   If you run out of memory, changes the value of the effort element
+                   to 'Low'.
+                    -->
+                    <effort>Max</effort>
+                    <!-- Build doesn't fail if problems are found -->
+                    <failOnError>${failOnWarningBySpotbugs}</failOnError>
+                    <!-- Reports all bugs (other values are medium and max) -->
+                    <threshold>Low</threshold>
+                    <includeTests>true</includeTests>
+                </configuration>
+                <executions>
+                    <!--
+                        Ensures that SpotBugs inspects source code when project is compiled.
+                    -->
+                    <execution>
+                        <id>analyze-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
