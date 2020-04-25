@@ -25,10 +25,10 @@
 
     <properties>
         <!-- fail on validation warnings -->
-        <failOnViolationByCheckstyle>false</failOnViolationByCheckstyle>
-        <failOnErrorByCheckstyle>false</failOnErrorByCheckstyle>
+        <failOnViolationByCheckstyle>true</failOnViolationByCheckstyle>
+        <failOnErrorByCheckstyle>true</failOnErrorByCheckstyle>
 
-        <failOnWarningByCompiler>false</failOnWarningByCompiler>
+        <failOnWarningByCompiler>true</failOnWarningByCompiler>
 
         <!-- todo: Info -->
         <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->

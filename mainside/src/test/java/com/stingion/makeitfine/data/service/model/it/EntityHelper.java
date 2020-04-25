@@ -37,7 +37,7 @@ public class EntityHelper<T> {
     public boolean isExist(@NotNull T entity) {
         try {
             T dbEntity =
-                    getEntityById((Integer) entity.getClass().getMethod("getId", null).invoke(entity));
+                    getEntityById((Integer) entity.getClass().getMethod("getId", (Class<T>[]) null).invoke(entity));
             return entity.toString().equals(dbEntity != null ? dbEntity.toString() : StringUtils.EMPTY);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             log.debug(e.getMessage(), e);
@@ -46,17 +46,23 @@ public class EntityHelper<T> {
     }
 
     private T getEntityById(int id) {
-        return (T)
-                entityManager
-                        .createQuery("from " + getEntityClass().getSimpleName() + " e where e.id = :inputId")
-                        .setParameter("inputId", id).getResultList().stream()
-                        .findAny();
+        // Can't avoid the expression without suppression in normal coding way (un-normal way is play with optionals)
+        @SuppressWarnings("unchecked")
+        T dbEntity = (T) entityManager
+                .createQuery("from " + getEntityClass().getSimpleName() + " e where e.id = :inputId")
+                .setParameter("inputId", id).getResultList().stream()
+                .findAny()
+                .orElse(null);
+        return dbEntity;
     }
 
     protected Class<T> getEntityClass() {
         if (entityClass == null) {
             ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
-            this.entityClass = (Class<T>) parameterizedType.getActualTypeArguments()[0];
+            // Can't avoid the expression without suppression in normal coding way
+            @SuppressWarnings("unchecked")
+            Class<T> actualTypeArgument = (Class<T>) parameterizedType.getActualTypeArguments()[0];
+            this.entityClass = actualTypeArgument;
         }
         return entityClass;
     }

@@ -38,7 +38,7 @@ public abstract class ServiceTestProvision {
 
     @BeforeEach
     public void beforeEach() {
-        U u = User::new;
+        U<User> u = User::new;
 
         User user1 = u.create();
         user1.setSsoId("user1");

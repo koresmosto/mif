@@ -110,10 +110,16 @@ class SecurityConfigurationIT {
         assertEquals(numberOfUsersAfterInsert, numberOfUsersAfterDelete + 1);
     }
 
+    @SafeVarargs
     private <T> T getResponseBody(String relativePath, Class<T>... clasz) {
-        Class<T> type =
-                Optional.ofNullable(clasz).map(classes -> classes.length).orElse(0) > 0 ? clasz[0]
-                        : (Class<T>) String.class;
+
+        @SuppressWarnings("unchecked")
+        Class<T> typeAlternative = (Class<T>) String.class;
+
+        Class<T> type = Optional.ofNullable(clasz)
+                .map(classes -> classes.length)
+                .orElse(0) > 0 ? clasz[0] : typeAlternative;
+
         return restTemplate.getForEntity(hostPort + relativePath, type).getBody();
     }
 }
