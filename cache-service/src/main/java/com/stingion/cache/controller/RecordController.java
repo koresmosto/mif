@@ -62,7 +62,7 @@ public class RecordController {
     /**
      * Delete record. E. g.
      * <pre>
-     * $>curl -H 'Content-Type: application/json' -X PUT -d '{"id":12,"msg":"Hi, there!!!"}'
+     * {@code $>curl -H 'Content-Type: application/json' -X PUT -d '{"id":12,"msg":"Hi, there!!!"}}'
      * http://localhost:8084/records/update
      * </pre>
      *

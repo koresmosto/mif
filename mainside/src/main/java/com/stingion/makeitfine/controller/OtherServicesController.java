@@ -40,6 +40,7 @@ public class OtherServicesController {
 
     /**
      * Get response from {@code intro-service} module.
+     * @return response
      */
     @GetMapping(path = "intro/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> introMS() {
@@ -52,6 +53,7 @@ public class OtherServicesController {
 
     /**
      * Get response from {@code mq-publish} module.
+     * @return response
      */
     @GetMapping(path = "mqpublish/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> mqPublishMS() {
@@ -64,6 +66,7 @@ public class OtherServicesController {
 
     /**
      * Get response from {@code mq-consume} module.
+     * @return response
      */
     @GetMapping(path = "mqconsume/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> mqConsumeMS() {
@@ -76,6 +79,7 @@ public class OtherServicesController {
 
     /**
      * Get response from {@code cache-service} module.
+     * @return response
      */
     @GetMapping(path = "cache/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> cacheServiceMS() {
@@ -88,6 +92,7 @@ public class OtherServicesController {
 
     /**
      * Get author of project.
+     * @return response
      */
     @GetMapping(path = "intro/author", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> author() {

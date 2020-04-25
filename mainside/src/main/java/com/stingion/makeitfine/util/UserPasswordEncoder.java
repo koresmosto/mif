@@ -21,6 +21,7 @@ public class UserPasswordEncoder {
 
     /**
      * Encode password of the user if encoder present.
+     * @param user instance
      */
     public void encodePassword(User user) {
         Optional.ofNullable(encoder).ifPresent(e -> user.setPassword(e.encode(user.getPassword())));
