@@ -7,6 +7,7 @@
 
 package com.stingion.mqpublish.configuration;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -43,9 +44,15 @@ public class RabbitConfig {
         return ExchangeBuilder.directExchange(exchange).build();
     }
 
+    @SuppressWarnings("missingjavadocmethod")
     @Bean
     public Binding binding(Queue secretUrlQueue, Exchange secretUrlExchange) {
-        return BindingBuilder.bind(secretUrlQueue).to((DirectExchange) secretUrlExchange).with("");
+        if (secretUrlExchange instanceof DirectExchange) {
+            DirectExchange exchange = (DirectExchange) secretUrlExchange;
+            return BindingBuilder.bind(secretUrlQueue).to(exchange).with("");
+        } else {
+            throw new ClassCastException("secretUrlExchange isn't instanceof" + DirectExchange.class.getName());
+        }
     }
 
     @Bean
@@ -53,6 +60,7 @@ public class RabbitConfig {
         return new RabbitAdmin(cf);
     }
 
+    @SuppressFBWarnings(value = "SIC_INNER_SHOULD_BE_STATIC", justification = "Service listener for Rabbit Admin")
     @Component
     @RequiredArgsConstructor
     public class RabbitMqStartup implements ApplicationListener<ApplicationReadyEvent> {

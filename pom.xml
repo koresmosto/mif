@@ -29,7 +29,7 @@
         <failOnErrorByCheckstyle>true</failOnErrorByCheckstyle>
 
         <failOnWarningByCompiler>true</failOnWarningByCompiler>
-        <failOnWarningBySpotbugs>false</failOnWarningBySpotbugs>
+        <failOnWarningBySpotbugs>true</failOnWarningBySpotbugs>
 
         <!-- todo: Info -->
         <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->
@@ -97,8 +97,8 @@
 
     <dependencies>
         <dependency>
-            <artifactId>lombok</artifactId>
             <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -111,8 +111,8 @@
                     <groupId>junit</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>junit-vintage-engine</artifactId>
                     <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -156,6 +156,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>4.0.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -590,7 +596,6 @@
                 <version>4.0.0</version>
                 <configuration>
                     <effort>Max</effort>
-                    <failOnError>${failOnWarningBySpotbugs}</failOnError>
                     <threshold>Low</threshold>
                     <includeTests>true</includeTests>
                 </configuration>
