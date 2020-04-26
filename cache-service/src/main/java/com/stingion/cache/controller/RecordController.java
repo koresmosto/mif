@@ -12,6 +12,7 @@ import com.stingion.cache.model.RecordRepository;
 import com.stingion.util.mq.Message;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -87,7 +88,9 @@ public class RecordController {
                 UriComponentsBuilder.fromHttpUrl(mqConsumeBaseUrl).path("mqconsume/queue").toUriString();
 
         queueMessages.clear();
-        queueMessages.addAll(Arrays.asList(restTemplate.getForEntity(url, Message[].class).getBody()));
+        queueMessages.addAll(Arrays.asList(
+                Optional.ofNullable(restTemplate.getForEntity(url, Message[].class).getBody()).orElse(new Message[0])
+        ));
         log.info("Get {} messages from queue", queueMessages.size());
 
         recordRepository.deleteAll();
