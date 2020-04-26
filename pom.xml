@@ -538,6 +538,25 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
+                <!-- todo: now there is generated code only for source (think of test too) -->
+                <reportSets>
+                    <reportSet>
+                        <id>default</id>
+                        <configuration>
+                        </configuration>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>aggregate</id>
+                        <configuration>
+                        </configuration>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
             <plugin> <!-- Todo: think of not using, cause jxr plugin expose sources in Javadoc -->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -548,6 +567,31 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- todo: disable couse of exceptions while generation (think of include) -->
+                            <!--              <report>dependencies</report>-->
+                            <!--              <report>dependency-convergence</report>-->
+                            <!--              <report>dependency-info</report>-->
+                            <!--              <report>dependency-management</report>-->
+                            <report>ci-management</report>
+                            <report>issue-management</report>
+                            <report>index</report>
+                            <report>team</report>
+                            <report>mailing-lists</report>
+                            <report>ci-management</report>
+                            <report>issue-management</report>
+                            <report>licenses</report>
+                            <report>scm</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
         </plugins>
     </reporting>
