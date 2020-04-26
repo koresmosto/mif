@@ -7,6 +7,7 @@
 
 package com.stingion.makeitfine.configuration;
 
+import static com.stingion.makeitfine.testconfiguration.TestConstants.SECURE_RANDOM;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -16,7 +17,6 @@ import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.State;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import org.junit.jupiter.api.Test;
@@ -94,7 +94,7 @@ class SecurityConfigurationIT {
         User insertedUser = new User();
         insertedUser.setSsoId(UUID.randomUUID().toString().substring(0, 25));
         insertedUser.setPassword(UUID.randomUUID().toString());
-        insertedUser.setEmail(String.format("any%s%s", new Random().nextInt() + 10101, "@xxx.xxx"));
+        insertedUser.setEmail(String.format("any%s%s", SECURE_RANDOM.nextInt(), "@xxx.xxx"));
         insertedUser.setState(State.ACTIVE);
         insertedUser.setUserProfiles(Sets.newHashSet());
 

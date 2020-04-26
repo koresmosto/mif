@@ -7,9 +7,6 @@
 
 package com.stingion.makeitfine.data.model.utils;
 
-/**
- * Created under not commercial project.
- */
 public interface ModelConstants {
 
     int MIN_BANK_NAME_LENGTH = 5;

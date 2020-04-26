@@ -7,6 +7,8 @@
 
 package com.stingion.makeitfine.testconfiguration;
 
+import static com.stingion.makeitfine.testconfiguration.TestConstants.SECURE_RANDOM;
+
 import com.stingion.makeitfine.data.model.Bank;
 import com.stingion.makeitfine.data.model.CreditCard;
 import com.stingion.makeitfine.data.model.Item;
@@ -27,7 +29,6 @@ import com.stingion.makeitfine.data.service.model.PaymentService;
 import com.stingion.makeitfine.data.service.model.UserProfileService;
 import com.stingion.makeitfine.data.service.model.UserService;
 import java.util.Date;
-import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -75,7 +76,7 @@ public class ServiceTestConfiguration {
         userSaved.setState(State.INACTIVE);
 
         User userUpdated = userService.findById(id);
-        userUpdated.setEmail("any_email" + new Random().nextInt() + "@email.any");
+        userUpdated.setEmail("any_email" + SECURE_RANDOM.nextInt() + "@email.any");
 
         return new EntityTestData<>(
                 id,
@@ -138,7 +139,7 @@ public class ServiceTestConfiguration {
         Bank bankSaved = new Bank("any bank name");
 
         Bank bankUpdated = bankService.findById(id);
-        bankUpdated.setName("any bank name " + new Random().nextInt());
+        bankUpdated.setName("any bank name " + SECURE_RANDOM.nextInt());
 
         return new EntityTestData<>(
                 id,
@@ -238,7 +239,7 @@ public class ServiceTestConfiguration {
         Item itemSaved = new Item("some item", 1.33);
 
         Item itemUpdated = itemService.findById(id);
-        itemUpdated.setHeader("some new header" + new Random().nextInt());
+        itemUpdated.setHeader("some new header" + SECURE_RANDOM.nextInt());
 
         return new EntityTestData<>(
                 id,
