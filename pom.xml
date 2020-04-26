@@ -21,6 +21,18 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <developers>
+        <developer>
+            <name>Kores Mosto</name>
+            <id>koresmost</id>
+            <email>koresmosto@gmail.com</email>
+            <roles>
+                <role>Java Developer</role>
+                <role>Architect</role>
+            </roles>
+        </developer>
+    </developers>
+
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
@@ -532,6 +544,8 @@
                     <!-- Reports all bugs (other values are medium and max) -->
                     <threshold>Low</threshold>
                     <includeTests>true</includeTests>
+                    <xmlOutput>true</xmlOutput>
+                    <excludeFilterFile>${project.parent.basedir}/run/IDE/spotbugs-exclude-filter.xml</excludeFilterFile>
                 </configuration>
                 <executions>
                     <!--
@@ -609,6 +623,7 @@
                     <effort>Max</effort>
                     <threshold>Low</threshold>
                     <includeTests>true</includeTests>
+                    <excludeFilterFile>${project.parent.basedir}/run/IDE/spotbugs-exclude-filter.xml</excludeFilterFile>
                 </configuration>
             </plugin>
         </plugins>
