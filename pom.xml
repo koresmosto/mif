@@ -534,6 +534,11 @@
 
     <reporting>
         <plugins>
+            <plugin> <!-- Todo: think of not using, cause jxr plugin expose sources in Javadoc -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -542,26 +547,17 @@
                 <reportSets>
                     <reportSet>
                         <id>default</id>
-                        <configuration>
-                        </configuration>
                         <reports>
                             <report>javadoc</report>
                         </reports>
                     </reportSet>
                     <reportSet>
                         <id>aggregate</id>
-                        <configuration>
-                        </configuration>
                         <reports>
                             <report>aggregate</report>
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
-            <plugin> <!-- Todo: think of not using, cause jxr plugin expose sources in Javadoc -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>3.0.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -592,6 +588,12 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.0.0</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <failOnError>${failOnWarningBySpotbugs}</failOnError>
+                    <threshold>Low</threshold>
+                    <includeTests>true</includeTests>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
