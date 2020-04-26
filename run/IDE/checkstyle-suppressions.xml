@@ -17,8 +17,7 @@
     files="GlobalExceptionHandler.java" lines="23,25"/>
   <suppress checks="AbbreviationAsWordInName" files="UserService.java" lines="14"/>
 
-  <suppress checks="JavadocMethod" files="(StartUpController|LoginController)\.java"
-    lines="33,37"/>
+  <suppress checks="JavadocMethod" files="(StartUpController|LoginController)\.java" lines="34,37"/>
   <suppress checks="JavadocMethod" files="UserController.java" lines="64,82,101,70"/>
   <suppress checks="JavadocMethod" files="SecurityConfiguration.java" lines="43,51"/>
   <suppress checks="JavadocMethod" files="SwaggerConfig.java" lines="25"/>

@@ -10,6 +10,7 @@ package com.stingion.makeitfine.data.service.model.impl;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.model.UserService;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,7 +34,7 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
     @Transactional
     @Override
     public User findBySSO(String sso) {
-        CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(sso.toLowerCase(), "ssoId");
+        CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(sso.toLowerCase(Locale.getDefault()), "ssoId");
         List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
         return users.isEmpty() ? null : users.get(0);
     }
@@ -41,7 +42,7 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
     @Transactional
     @Override
     public User findByEmail(String email) {
-        CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(email.toLowerCase(), "email");
+        CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(email.toLowerCase(Locale.getDefault()), "email");
         List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
         return users.isEmpty() ? null : users.get(0);
     }

@@ -40,4 +40,12 @@ public class Contact extends User {
 
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
+
+    public Date getBirthDay() {
+        return (Date) birthDay.clone();
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = (Date) birthDay.clone();
+    }
 }

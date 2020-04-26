@@ -13,6 +13,7 @@ import com.stingion.makeitfine.data.model.utils.UserProfileType;
 import com.stingion.makeitfine.data.service.EmailService;
 import com.stingion.makeitfine.data.service.model.UserService;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public boolean isActiveAdminEmail(String email) {
         return !emailValidator.isValid(email) ? false :
-                Optional.ofNullable(userService.findByEmail(email.toLowerCase()))
+                Optional.ofNullable(userService.findByEmail(email.toLowerCase(Locale.getDefault())))
                         .flatMap(user ->
                                 Optional.ofNullable(user.getState() == State.ACTIVE
                                         && user.getUserProfiles().stream()

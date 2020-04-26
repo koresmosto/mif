@@ -298,7 +298,7 @@ public class ServiceTestConfiguration {
     @AllArgsConstructor
     @NoArgsConstructor
     @Data
-    public class EntityTestData<T> {
+    public static class EntityTestData<T> {
 
         /**
          * Id for findById, delete, update checking.

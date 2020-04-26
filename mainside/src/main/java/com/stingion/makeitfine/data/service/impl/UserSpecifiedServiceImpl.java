@@ -13,6 +13,7 @@ import com.stingion.makeitfine.data.model.utils.UserProfileType;
 import com.stingion.makeitfine.data.service.UserSpecifiedService;
 import com.stingion.makeitfine.data.service.model.UserService;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,10 @@ public class UserSpecifiedServiceImpl implements UserSpecifiedService {
     @Override
     public List<User> specifiedMailServiceUsers(String emailHost) {
         return userService.findAll().stream()
-                .filter(user -> user.getEmail().toLowerCase().endsWith(emailHost.toLowerCase()))
+                .filter(user -> user
+                        .getEmail().toLowerCase(Locale.getDefault())
+                        .endsWith(emailHost.toLowerCase(Locale.getDefault()))
+                )
                 .collect(Collectors.toList());
     }
 

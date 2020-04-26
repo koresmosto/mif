@@ -8,6 +8,7 @@
 package com.stingion.makeitfine.data.service.model.it;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.stingion.makeitfine.data.service.model.EntityService;
 import com.stingion.makeitfine.testconfiguration.IntegrationTest;
@@ -48,8 +49,11 @@ public class EntityServiceITAncestor<T> {
     // todo: move test to test from junit 5
     @Test
     public void findByIdTest() {
-        assertThat(entityTestData.getFindById())
-                .isEqualTo(entityService.findById(entityTestData.getId()).toString());
+        assertThat(
+                entityTestData.getFindById()
+        ).isEqualTo(
+                entityService.findById(entityTestData.getId()).toString()
+        );
     }
 
     @DisplayName("Delete entity from storage")
@@ -89,6 +93,6 @@ public class EntityServiceITAncestor<T> {
         T entityAfterUpdate = entityService.findById(entityTestData.getId());
 
         assertThat(entityTestData.getUpdateEntity().toString()).isEqualTo(entityAfterUpdate.toString());
-        assertThat(beforeUpdate == afterUpdate);
+        assertEquals(beforeUpdate, afterUpdate);
     }
 }

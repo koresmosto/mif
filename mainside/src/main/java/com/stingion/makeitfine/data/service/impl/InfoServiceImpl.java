@@ -12,6 +12,7 @@ import com.stingion.makeitfine.data.service.InfoService;
 import com.stingion.makeitfine.data.service.model.UserService;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class InfoServiceImpl implements InfoService {
     public List<String> usersAndItsRoles() {
         return userService.findAll().stream()
                 .sorted(Comparator.comparing(User::getSsoId))
-                .map(user -> user.getSsoId().toLowerCase()
+                .map(user -> user.getSsoId().toLowerCase(Locale.getDefault())
                         + ":{"
                         + Optional.ofNullable(user.getUserProfiles())
                         .flatMap(userProfiles -> userProfiles.stream().map(u -> u.getType())

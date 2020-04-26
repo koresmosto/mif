@@ -9,7 +9,17 @@
 
     <Match>
         <Class name="com.stingion.makeitfine.data.service.model.it.EntityServiceITAncestor"/>
-        <Method name="deleteTest" returns="void"/>
+        <Or>
+            <Method name="deleteTest" returns="void"/>
+            <Method name="saveTest" returns="void"/>
+        </Or>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED"/>
+    </Match>
+    <Match>
+        <Class name="com.stingion.makeitfine.data.service.model.it.UserProfileServiceIT"/>
+        <Or>
+            <Method name="deleteTest" returns="void"/>
+        </Or>
         <Bug pattern="RV_RETURN_VALUE_IGNORED"/>
     </Match>
 

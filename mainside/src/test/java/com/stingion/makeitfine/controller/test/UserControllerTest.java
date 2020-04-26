@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
+import lombok.AllArgsConstructor;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -195,34 +196,40 @@ class UserControllerTest {
         }
 
         private TestTemplateInvocationContext invocationContext(Integer parameter) {
-            return new TestTemplateInvocationContext() {
-                @Override
-                public String getDisplayName(int invocationIndex) {
-                    return "Number: " + parameter;
-                }
-
-                @Override
-                public List<Extension> getAdditionalExtensions() {
-                    return Collections.singletonList(
-                            new ParameterResolver() {
-                                @Override
-                                public boolean supportsParameter(
-                                        ParameterContext parameterContext, ExtensionContext extensionContext) {
-                                    return parameterContext.getParameter().getType().equals(Integer.class);
-                                }
-
-                                @Override
-                                public Object resolveParameter(
-                                        ParameterContext parameterContext, ExtensionContext extensionContext) {
-                                    return parameter;
-                                }
-                            });
-                }
-            };
+            return new InvocationContext(parameter);
         }
     }
 
-    private class NumberIsNotPositive implements ArgumentMatcher<Integer> {
+    @AllArgsConstructor
+    private static class InvocationContext implements TestTemplateInvocationContext {
+
+        private Integer parameter;
+
+        @Override
+        public String getDisplayName(int invocationIndex) {
+            return "Number: " + parameter;
+        }
+
+        @Override
+        public List<Extension> getAdditionalExtensions() {
+            return Collections.singletonList(
+                    new ParameterResolver() {
+                        @Override
+                        public boolean supportsParameter(
+                                ParameterContext parameterContext, ExtensionContext extensionContext) {
+                            return parameterContext.getParameter().getType().equals(Integer.class);
+                        }
+
+                        @Override
+                        public Object resolveParameter(
+                                ParameterContext parameterContext, ExtensionContext extensionContext) {
+                            return parameter;
+                        }
+                    });
+        }
+    }
+
+    private static class NumberIsNotPositive implements ArgumentMatcher<Integer> {
 
         @Override
         public boolean matches(Integer argument) {
@@ -237,7 +244,7 @@ class UserControllerTest {
     public class UserControllerWithTemplateTest {
 
         @BeforeEach
-        private void beforeEach() {
+        public void beforeEach() {
             IllegalArgumentException idShouldBePositiveException =
                     new IllegalArgumentException("id should be positive");
             doReturn(new User()).when(userService).findById(anyInt());
