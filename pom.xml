@@ -456,6 +456,17 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+                <executions>
+                    <execution>
+                        <!-- todo: compile source and test-source to analyze tests too (though of refactoring) -->
+                        <id>compile-test-on-pre-site</id>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
