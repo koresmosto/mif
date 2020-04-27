@@ -25,3 +25,6 @@ wiki/
 
 #Elastic Stack
 /elasticstack
+
+#PMD analyze cache
+pmd/pmd.cache

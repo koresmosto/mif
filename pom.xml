@@ -42,6 +42,7 @@
 
         <failOnWarningByCompiler>true</failOnWarningByCompiler>
         <failOnWarningBySpotbugs>true</failOnWarningBySpotbugs>
+        <failOnViolationByPMD>true</failOnViolationByPMD>
 
         <!-- todo: Info -->
         <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->
@@ -97,6 +98,9 @@
         <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>4.3.9.RELEASE</spring.version>
+
+        <!-- Dependencies versions -->
+        <pmd.version>6.23.0</pmd.version>
     </properties>
 
     <repositories>
@@ -552,10 +556,72 @@
                         Ensures that SpotBugs inspects source code when project is compiled.
                     -->
                     <execution>
-                        <id>analyze-compile</id>
+                        <id>spotbugs-analyze</id>
                         <phase>test-compile</phase>
                         <goals>
                             <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.13.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-core</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-java</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-javascript</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-jsp</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <targetJdk>${java.version}</targetJdk>
+
+                    <includeTests>true</includeTests>
+
+                    <!-- failOnViolation is actually true by default, but can be disabled -->
+                    <failOnViolation>${failOnViolationByPMD}</failOnViolation>
+                    <!-- printFailingErrors is pretty useful -->
+                    <printFailingErrors>${failOnViolationByPMD}</printFailingErrors>
+                    <minimumPriority>5</minimumPriority>
+                    <failurePriority>5</failurePriority>
+
+                    <analysisCache>true</analysisCache>
+                    <!-- analysisCacheLocation: optional - points to the following location by default-->
+                    <analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation>
+
+                    <!-- CPD -->
+                    <ignoreAnnotations>true</ignoreAnnotations>
+                    <ignoreIdentifiers>true</ignoreIdentifiers>
+                    <ignoreLiterals>true</ignoreLiterals>
+                    <minimumTokens>50</minimumTokens>
+                    <detail>true</detail>
+                    <benchmark>true</benchmark>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pmd-analyze</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>cpd-check</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -624,6 +690,38 @@
                     <threshold>Low</threshold>
                     <includeTests>true</includeTests>
                     <excludeFilterFile>${project.parent.basedir}/run/IDE/spotbugs-exclude-filter.xml</excludeFilterFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <targetJdk>${java.version}</targetJdk>
+
+                    <includeTests>true</includeTests>
+
+                    <!-- failOnViolation is actually true by default, but can be disabled -->
+                    <failOnViolation>${failOnViolationByPMD}</failOnViolation>
+                    <!-- printFailingErrors is pretty useful -->
+                    <printFailingErrors>${failOnViolationByPMD}</printFailingErrors>
+                    <minimumPriority>5</minimumPriority>
+                    <failurePriority>5</failurePriority>
+
+                    <analysisCache>true</analysisCache>
+                    <!-- analysisCacheLocation: optional - points to the following location by default-->
+                    <analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation>
+
+                    <!-- CPD -->
+                    <ignoreAnnotations>true</ignoreAnnotations>
+                    <ignoreIdentifiers>true</ignoreIdentifiers>
+                    <ignoreLiterals>true</ignoreLiterals>
+                    <minimumTokens>50</minimumTokens>
+                    <verbose>true</verbose>
+                    <detail>true</detail>
+                    <includeXmlInSite>true</includeXmlInSite>
+                    <benchmark>true</benchmark>
                 </configuration>
             </plugin>
         </plugins>
