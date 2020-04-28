@@ -42,7 +42,8 @@
 
         <failOnWarningByCompiler>true</failOnWarningByCompiler>
         <failOnWarningBySpotbugs>true</failOnWarningBySpotbugs>
-        <failOnViolationByPMD>true</failOnViolationByPMD>
+<!--        <failOnViolationByPMD>true</failOnViolationByPMD>-->
+        <failOnViolationByPMD>false</failOnViolationByPMD>
 
         <!-- todo: Info -->
         <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->

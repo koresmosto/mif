@@ -14,10 +14,16 @@
 
     <description>Excluded code from pmd checking</description>
 
-    <rule ref="rulesets/java/maven-pmd-plugin-default.xml"/>
-    <!--    <rule ref="rulesets/java/braces.xml"> -->
-    <!--        <exclude name="UnusedLocalVariable"/>-->
-    <!--    </rule>-->
+    <rule ref="rulesets/java/maven-pmd-plugin-default.xml">
+        <exclude name="TooManyStaticImports"/>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/TooManyStaticImports">
+        <properties>
+            <property name="maximumStaticImports" value="5" />
+        </properties>
+    </rule>
+
     <!--    <exclude-pattern>-->
     <!--        .*/com/stingion/makeitfine/configuration/SecurityConfiguration.*-->
     <!--    </exclude-pattern>-->

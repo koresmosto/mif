@@ -31,20 +31,19 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public boolean isActiveAdminEmail(String email) {
-        return !emailValidator.isValid(email) ? false :
-                Optional.ofNullable(userService.findByEmail(email.toLowerCase(Locale.getDefault())))
-                        .flatMap(user ->
-                                Optional.ofNullable(user.getState() == State.ACTIVE
-                                        && user.getUserProfiles().stream()
-                                        .anyMatch(userProfile ->
-                                                Sets.newHashSet(
-                                                        UserProfileType.ADMIN.getUserProfileType(),
-                                                        UserProfileType.DBA.getUserProfileType())
-                                                        .contains(userProfile.getType())
-                                        )
+        return emailValidator.isValid(email)
+                && Optional.ofNullable(userService.findByEmail(email.toLowerCase(Locale.getDefault())))
+                .flatMap(user ->
+                        Optional.ofNullable(user.getState() == State.ACTIVE
+                                && user.getUserProfiles().stream()
+                                .anyMatch(userProfile ->
+                                        Sets.newHashSet(
+                                                UserProfileType.ADMIN.getUserProfileType(),
+                                                UserProfileType.DBA.getUserProfileType())
+                                                .contains(userProfile.getType())
                                 )
                         )
-                        .orElse(false);
+                ).orElse(false);
     }
 
     @Override
