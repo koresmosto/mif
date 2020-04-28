@@ -101,6 +101,10 @@
 
         <!-- Dependencies versions -->
         <pmd.version>6.23.0</pmd.version>
+
+        <!--  -->
+        <!--suppress UnresolvedMavenProperty -->
+        <configs>${project.parent.basedir}/run/IDE</configs>
     </properties>
 
     <repositories>
@@ -373,6 +377,93 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>4.0.0</version>
+                    <dependencies>
+                        <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+                        <dependency>
+                            <groupId>com.github.spotbugs</groupId>
+                            <artifactId>spotbugs</artifactId>
+                            <version>4.0.2</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <!--
+                       Enables analysis which takes more memory but finds more bugs.
+                       If you run out of memory, changes the value of the effort element
+                       to 'Low'.
+                        -->
+                        <effort>Max</effort>
+                        <!-- Build doesn't fail if problems are found -->
+                        <failOnError>${failOnWarningBySpotbugs}</failOnError>
+                        <!-- Reports all bugs (other values are medium and max) -->
+                        <threshold>Low</threshold>
+                        <includeTests>true</includeTests>
+                        <xmlOutput>true</xmlOutput>
+                        <excludeFilterFile>${configs}/spotbugs-exclude-filter.xml</excludeFilterFile>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>3.13.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>net.sourceforge.pmd</groupId>
+                            <artifactId>pmd-core</artifactId>
+                            <version>${pmd.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>net.sourceforge.pmd</groupId>
+                            <artifactId>pmd-java</artifactId>
+                            <version>${pmd.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>net.sourceforge.pmd</groupId>
+                            <artifactId>pmd-javascript</artifactId>
+                            <version>${pmd.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>net.sourceforge.pmd</groupId>
+                            <artifactId>pmd-jsp</artifactId>
+                            <version>${pmd.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <sourceEncoding>utf-8</sourceEncoding>
+                        <targetJdk>${java.version}</targetJdk>
+
+                        <includeTests>true</includeTests>
+
+                        <includeXmlInSite>true</includeXmlInSite>
+
+                        <!-- failOnViolation is actually true by default, but can be disabled -->
+                        <failOnViolation>${failOnViolationByPMD}</failOnViolation>
+
+                        <!-- printFailingErrors is pretty useful -->
+                        <minimumPriority>5</minimumPriority>
+                        <failurePriority>5</failurePriority>
+
+                        <analysisCache>true</analysisCache>
+                        <!-- analysisCacheLocation: optional - points to the following location by default-->
+                        <analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation>
+
+                        <rulesets>
+                            <ruleset>${configs}/pmd-rulesets.xml</ruleset>
+                        </rulesets>
+
+                        <!-- CPD -->
+                        <ignoreAnnotations>true</ignoreAnnotations>
+                        <ignoreIdentifiers>true</ignoreIdentifiers>
+                        <ignoreLiterals>true</ignoreLiterals>
+                        <minimumTokens>50</minimumTokens>
+                        <detail>true</detail>
+                        <verbose>true</verbose>
+                        <benchmark>true</benchmark>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -527,30 +618,6 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.0.0</version>
-                <dependencies>
-                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
-                    <dependency>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs</artifactId>
-                        <version>4.0.2</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <!--
-                   Enables analysis which takes more memory but finds more bugs.
-                   If you run out of memory, changes the value of the effort element
-                   to 'Low'.
-                    -->
-                    <effort>Max</effort>
-                    <!-- Build doesn't fail if problems are found -->
-                    <failOnError>${failOnWarningBySpotbugs}</failOnError>
-                    <!-- Reports all bugs (other values are medium and max) -->
-                    <threshold>Low</threshold>
-                    <includeTests>true</includeTests>
-                    <xmlOutput>true</xmlOutput>
-                    <excludeFilterFile>${project.parent.basedir}/run/IDE/spotbugs-exclude-filter.xml</excludeFilterFile>
-                </configuration>
                 <executions>
                     <!--
                         Ensures that SpotBugs inspects source code when project is compiled.
@@ -567,62 +634,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.13.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-core</artifactId>
-                        <version>${pmd.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-java</artifactId>
-                        <version>${pmd.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-javascript</artifactId>
-                        <version>${pmd.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-jsp</artifactId>
-                        <version>${pmd.version}</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <sourceEncoding>utf-8</sourceEncoding>
-                    <targetJdk>${java.version}</targetJdk>
-
-                    <includeTests>true</includeTests>
-
-                    <!-- failOnViolation is actually true by default, but can be disabled -->
-                    <failOnViolation>${failOnViolationByPMD}</failOnViolation>
-                    <!-- printFailingErrors is pretty useful -->
-                    <printFailingErrors>${failOnViolationByPMD}</printFailingErrors>
-                    <minimumPriority>5</minimumPriority>
-                    <failurePriority>5</failurePriority>
-
-                    <analysisCache>true</analysisCache>
-                    <!-- analysisCacheLocation: optional - points to the following location by default-->
-                    <analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation>
-
-                    <!-- CPD -->
-                    <ignoreAnnotations>true</ignoreAnnotations>
-                    <ignoreIdentifiers>true</ignoreIdentifiers>
-                    <ignoreLiterals>true</ignoreLiterals>
-                    <minimumTokens>50</minimumTokens>
-                    <detail>true</detail>
-                    <benchmark>true</benchmark>
-                </configuration>
                 <executions>
                     <execution>
                         <id>pmd-analyze</id>
                         <phase>test-compile</phase>
                         <goals>
                             <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <excludeFromFailureFile>${configs}/excluded-pmd.properties</excludeFromFailureFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>cpd-analyze</id>
+                        <phase>test-compile</phase>
+                        <goals>
                             <goal>cpd-check</goal>
                         </goals>
+                        <configuration>
+                            <excludeFromFailureFile>${configs}/excluded-cpd.properties</excludeFromFailureFile>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -684,45 +715,30 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.0.0</version>
-                <configuration>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <includeTests>true</includeTests>
-                    <excludeFilterFile>${project.parent.basedir}/run/IDE/spotbugs-exclude-filter.xml</excludeFilterFile>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.13.0</version>
-                <configuration>
-                    <sourceEncoding>utf-8</sourceEncoding>
-                    <targetJdk>${java.version}</targetJdk>
-
-                    <includeTests>true</includeTests>
-
-                    <!-- failOnViolation is actually true by default, but can be disabled -->
-                    <failOnViolation>${failOnViolationByPMD}</failOnViolation>
-                    <!-- printFailingErrors is pretty useful -->
-                    <printFailingErrors>${failOnViolationByPMD}</printFailingErrors>
-                    <minimumPriority>5</minimumPriority>
-                    <failurePriority>5</failurePriority>
-
-                    <analysisCache>true</analysisCache>
-                    <!-- analysisCacheLocation: optional - points to the following location by default-->
-                    <analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation>
-
-                    <!-- CPD -->
-                    <ignoreAnnotations>true</ignoreAnnotations>
-                    <ignoreIdentifiers>true</ignoreIdentifiers>
-                    <ignoreLiterals>true</ignoreLiterals>
-                    <minimumTokens>50</minimumTokens>
-                    <verbose>true</verbose>
-                    <detail>true</detail>
-                    <includeXmlInSite>true</includeXmlInSite>
-                    <benchmark>true</benchmark>
-                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <id>pmd-check-report</id>
+                        <reports>
+                            <report>pmd</report>
+                        </reports>
+                        <configuration>
+                            <excludeFromFailureFile>${configs}/excluded-pmd.properties</excludeFromFailureFile>
+                        </configuration>
+                    </reportSet>
+                    <reportSet>
+                        <id>cpd-check-report</id>
+                        <reports>
+                            <report>cpd</report>
+                        </reports>
+                        <configuration>
+                            <excludeFromFailureFile>${configs}/excluded-cpd.properties</excludeFromFailureFile>
+                        </configuration>
+                    </reportSet>
+                </reportSets>
             </plugin>
         </plugins>
     </reporting>

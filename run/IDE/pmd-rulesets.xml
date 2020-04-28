@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+  ~ Created under not commercial project "Make it fine"
+  ~
+  ~  Copyright 2017-2020
+  ~  @author stingion
+  -->
+
+<ruleset name="Excluded by PMD checking"
+        xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0
+                            http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>Excluded code from pmd checking</description>
+
+    <rule ref="rulesets/java/maven-pmd-plugin-default.xml"/>
+    <!--    <rule ref="rulesets/java/braces.xml"> -->
+    <!--        <exclude name="UnusedLocalVariable"/>-->
+    <!--    </rule>-->
+    <!--    <exclude-pattern>-->
+    <!--        .*/com/stingion/makeitfine/configuration/SecurityConfiguration.*-->
+    <!--    </exclude-pattern>-->
+
+</ruleset>
