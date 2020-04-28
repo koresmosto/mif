@@ -13,15 +13,14 @@ import io.swagger.annotations.ApiParam;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Supplier;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Created by joe on 02.06.17.
- */
+@Slf4j
 @Controller
 @Api(tags = "StartUpController")
 public class StartUpController {
@@ -43,6 +42,7 @@ public class StartUpController {
                     defaultValue = "any value",
                     allowableValues = "author, purpose, stage")
                     String details) {
+        log.info("Mainside microservice (cache-service module");
         var otherValue = "any value";
         switch (Optional.ofNullable(details).orElse(otherValue).toLowerCase(Locale.getDefault())) {
             case "author":

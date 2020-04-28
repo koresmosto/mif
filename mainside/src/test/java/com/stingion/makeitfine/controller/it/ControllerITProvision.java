@@ -9,6 +9,7 @@ package com.stingion.makeitfine.controller.it;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+import com.stingion.makeitfine.testconfiguration.CommonUtil;
 import com.stingion.makeitfine.testconfiguration.IntegrationTest;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ abstract class ControllerITProvision {
     private int port;
     @Value("${protocolHost}")
     private String protocolHost;
+
     private String hostPort;
 
     @PostConstruct
@@ -35,6 +37,10 @@ abstract class ControllerITProvision {
     }
 
     protected String getResponseBody(String relativePath) {
-        return restTemplate.getForEntity(hostPort + relativePath, String.class).getBody();
+        return CommonUtil.getResponseBody(restTemplate, hostPort, relativePath, String.class);
+    }
+
+    protected String getHostPort() {
+        return hostPort;
     }
 }

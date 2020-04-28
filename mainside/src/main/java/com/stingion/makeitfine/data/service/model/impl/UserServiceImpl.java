@@ -9,15 +9,10 @@ package com.stingion.makeitfine.data.service.model.impl;
 
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.model.UserService;
-import java.util.List;
-import java.util.Locale;
+import com.stingion.makeitfine.data.service.util.ServiceHelper;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,18 +28,14 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 
     @Transactional
     @Override
-    public User findBySSO(String sso) {
-        CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(sso.toLowerCase(Locale.getDefault()), "ssoId");
-        List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
-        return users.isEmpty() ? null : users.get(0);
+    public User findBySSO(String ssoId) {
+        return ServiceHelper.findEntityByItsAttribute(entityManager, "ssoId", ssoId, User.class);
     }
 
     @Transactional
     @Override
     public User findByEmail(String email) {
-        CriteriaQuery<User> criteriaQuery = getUserCriteriaQuery(email.toLowerCase(Locale.getDefault()), "email");
-        List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
-        return users.isEmpty() ? null : users.get(0);
+        return ServiceHelper.findEntityByItsAttribute(entityManager, "email", email, User.class);
     }
 
     @Transactional
@@ -54,15 +45,5 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
                 .or(() -> Optional.ofNullable(userService.findByEmail(ssoIdOrEmail)))
                 .map(user -> true)
                 .orElse(false);
-    }
-
-    @NotNull
-    private CriteriaQuery<User> getUserCriteriaQuery(String userAttribute, String email) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-        Root<User> userRoot = criteriaQuery.from(User.class);
-        criteriaQuery.select(userRoot);
-        criteriaQuery.where(criteriaBuilder.equal(userRoot.get(email), userAttribute));
-        return criteriaQuery;
     }
 }

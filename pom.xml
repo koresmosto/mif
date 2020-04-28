@@ -42,8 +42,7 @@
 
         <failOnWarningByCompiler>true</failOnWarningByCompiler>
         <failOnWarningBySpotbugs>true</failOnWarningBySpotbugs>
-<!--        <failOnViolationByPMD>true</failOnViolationByPMD>-->
-        <failOnViolationByPMD>false</failOnViolationByPMD>
+        <failOnViolationByPMD>true</failOnViolationByPMD>
 
         <!-- todo: Info -->
         <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->
@@ -653,6 +652,13 @@
                             <goal>cpd-check</goal>
                         </goals>
                         <configuration>
+                            <!-- Todo: ignore is only working for duplicates in one file
+                                 (if duplicates belong ot diff. ones it will not work)
+                                 Violations is not failing build but output in console.
+                                 To suppress any kind of errors and to not show them in console use both:
+                                 @SuppressWarnings("CPD-START") and @SuppressWarnings("CPD-END")
+                                 Todo: it's better changing ignored in file to suppression in code
+                                 -->
                             <excludeFromFailureFile>${configs}/excluded-cpd.properties</excludeFromFailureFile>
                         </configuration>
                     </execution>

@@ -48,10 +48,7 @@ public class OtherServicesController {
      */
     @GetMapping(path = "intro/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> introMS() {
-        String url = UriComponentsBuilder.fromHttpUrl(introServiceBaseUrl)
-                .path("intro")
-                .toUriString();
-        return ResponseEntity.ok(getResponseBodyOrEmpty(url));
+        return getResponseEntity(introServiceBaseUrl, "intro");
     }
 
     /**
@@ -61,10 +58,7 @@ public class OtherServicesController {
      */
     @GetMapping(path = "mqpublish/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> mqPublishMS() {
-        String url = UriComponentsBuilder.fromHttpUrl(mqPublishBaseUrl)
-                .path("mqpublish")
-                .toUriString();
-        return ResponseEntity.ok(getResponseBodyOrEmpty(url));
+        return getResponseEntity(mqPublishBaseUrl, "mqpublish");
     }
 
     /**
@@ -74,10 +68,7 @@ public class OtherServicesController {
      */
     @GetMapping(path = "mqconsume/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> mqConsumeMS() {
-        String url = UriComponentsBuilder.fromHttpUrl(mqConsumeBaseUrl)
-                .path("mqconsume")
-                .toUriString();
-        return ResponseEntity.ok(getResponseBodyOrEmpty(url));
+        return getResponseEntity(mqConsumeBaseUrl, "mqconsume");
     }
 
     /**
@@ -87,10 +78,7 @@ public class OtherServicesController {
      */
     @GetMapping(path = "cache/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> cacheServiceMS() {
-        String url = UriComponentsBuilder.fromHttpUrl(cacheServiceBaseUrl)
-                .path("cache")
-                .toUriString();
-        return ResponseEntity.ok(getResponseBodyOrEmpty(url));
+        return getResponseEntity(cacheServiceBaseUrl, "cache");
     }
 
     /**
@@ -100,8 +88,13 @@ public class OtherServicesController {
      */
     @GetMapping(path = "intro/author", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> author() {
-        String url = UriComponentsBuilder.fromHttpUrl(introServiceBaseUrl)
-                .path("info/details/author")
+        return getResponseEntity(introServiceBaseUrl, "info/details/author");
+    }
+
+    @NotNull
+    private ResponseEntity<String> getResponseEntity(String serviceBaseUrl, String path) {
+        String url = UriComponentsBuilder.fromHttpUrl(serviceBaseUrl)
+                .path(path)
                 .toUriString();
         return ResponseEntity.ok(getResponseBodyOrEmpty(url));
     }

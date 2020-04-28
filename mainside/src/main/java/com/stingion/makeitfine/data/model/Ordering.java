@@ -65,15 +65,8 @@ public class Ordering {
     @JoinColumn(name = "CREDIT_CARD_ID")
     private CreditCard creditCard;
 
-    // If you tell Hibernate to generate your primary key values, you need to use a fixed hash code,
-    // https://developer.jboss.org/wiki/EqualsAndHashCode?_sscc=t
-    // https://thoughts-on-java.org/ultimate-guide-to-implementing-equals-and-hashcode-with-hibernate/
     @Override
-    public int hashCode() {
-        return PRIME_NUMBER;
-    }
-
-    @Override
+    @SuppressWarnings("CPD-START")
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -85,5 +78,14 @@ public class Ordering {
         Ordering ordering = (Ordering) o;
 
         return id.equals(ordering.id);
+    }
+
+    // If you tell Hibernate to generate your primary key values, you need to use a fixed hash code,
+    // https://developer.jboss.org/wiki/EqualsAndHashCode?_sscc=t
+    // https://thoughts-on-java.org/ultimate-guide-to-implementing-equals-and-hashcode-with-hibernate/
+    @Override
+    @SuppressWarnings("CPD-END")
+    public int hashCode() {
+        return PRIME_NUMBER;
     }
 }

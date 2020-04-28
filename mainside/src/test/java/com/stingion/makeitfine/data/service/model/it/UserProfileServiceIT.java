@@ -7,10 +7,9 @@
 
 package com.stingion.makeitfine.data.service.model.it;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.service.model.UserService;
+import com.stingion.makeitfine.testconfiguration.CommonUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +24,7 @@ public class UserProfileServiceIT extends EntityServiceITAncestor<UserProfile> {
     public void deleteTest() {
         removeUserToUserProfileRelation();
 
-        int beforeDelete = entityHelper.getCount();
-        UserProfile entity = entityService.findById(entityTestData.getId());
-        entityService.delete(entity);
-        int afterDelete = entityHelper.getCount();
-
-        assertThat(beforeDelete == afterDelete + 1);
-        assertThat(!entityHelper.isExist(entity));
+        CommonUtil.deleteTest(entityHelper, entityService, entityTestData);
     }
 
     private void removeUserToUserProfileRelation() {

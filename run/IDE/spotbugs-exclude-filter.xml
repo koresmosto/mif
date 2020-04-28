@@ -22,5 +22,12 @@
         </Or>
         <Bug pattern="RV_RETURN_VALUE_IGNORED"/>
     </Match>
+    <Match>
+        <Class name="com.stingion.makeitfine.testconfiguration.CommonUtil"/>
+        <Or>
+            <Method name="deleteTest" returns="void"/>
+        </Or>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED"/>
+    </Match>
 
 </FindBugsFilter>

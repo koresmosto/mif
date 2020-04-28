@@ -14,6 +14,7 @@ import com.stingion.makeitfine.data.service.UserSpecifiedService;
 import com.stingion.makeitfine.data.service.model.UserService;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,25 +27,25 @@ public class UserSpecifiedServiceImpl implements UserSpecifiedService {
 
     @Override
     public List<User> specifiedMailServiceUsers(String emailHost) {
-        return userService.findAll().stream()
-                .filter(user -> user
-                        .getEmail().toLowerCase(Locale.getDefault())
-                        .endsWith(emailHost.toLowerCase(Locale.getDefault()))
-                )
-                .collect(Collectors.toList());
+        return filteredUsers(user -> user
+                .getEmail().toLowerCase(Locale.getDefault())
+                .endsWith(emailHost.toLowerCase(Locale.getDefault())));
     }
 
     @Override
     public List<User> roleUsers(UserProfileType userProfileType) {
-        return userService.findAll().stream()
-                .filter(user -> user.getUserProfiles().stream()
-                        .anyMatch(up -> up.getType().equals(userProfileType.getUserProfileType())))
-                .collect(Collectors.toList());
+        return filteredUsers(user -> user
+                .getUserProfiles().stream()
+                .anyMatch(up -> up.getType().equals(userProfileType.getUserProfileType()))
+        );
     }
 
     @Override
     public List<User> stateUsers(State userState) {
-        return userService.findAll().stream().filter(user -> user.getState() == userState)
-                .collect(Collectors.toList());
+        return filteredUsers(user -> user.getState() == userState);
+    }
+
+    private List<User> filteredUsers(Predicate<? super User> userFilter) {
+        return userService.findAll().stream().filter(userFilter).collect(Collectors.toList());
     }
 }

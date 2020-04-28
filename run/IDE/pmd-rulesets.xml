@@ -24,6 +24,8 @@
         </properties>
     </rule>
 
+    <!-- Todo: more rules: https://github.com/pmd/pmd/tree/master/pmd-java/src/main/resources/category/java -->
+
     <!--    <exclude-pattern>-->
     <!--        .*/com/stingion/makeitfine/configuration/SecurityConfiguration.*-->
     <!--    </exclude-pattern>-->

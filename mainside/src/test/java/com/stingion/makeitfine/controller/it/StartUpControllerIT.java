@@ -8,23 +8,15 @@
 package com.stingion.makeitfine.controller.it;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.stingion.makeitfine.testconfiguration.CommonUtil;
 import org.junit.jupiter.api.Test;
 
 class StartUpControllerIT extends ControllerITProvision {
 
     @Test
     public void index() {
-        String[] responseBody = new String[]{getResponseBody("/index"), getResponseBody("/")};
-
-        for (String r : responseBody) {
-            assertTrue(r.contains("English"));
-            assertTrue(r.contains(" | "));
-            assertTrue(r.contains("Русский"));
-            assertTrue(r.contains("Make it fine"));
-            assertTrue(r.contains("Домашняя страница") || r.contains("Home page"));
-        }
+        CommonUtil.indexPageTest(restTemplate, getHostPort());
     }
 
     @Test

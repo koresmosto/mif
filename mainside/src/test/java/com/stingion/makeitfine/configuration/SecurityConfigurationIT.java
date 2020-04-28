@@ -9,12 +9,12 @@ package com.stingion.makeitfine.configuration;
 
 import static com.stingion.makeitfine.testconfiguration.TestConstants.SECURE_RANDOM;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import com.google.common.collect.Sets;
 import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.State;
+import com.stingion.makeitfine.testconfiguration.CommonUtil;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -61,15 +61,7 @@ class SecurityConfigurationIT {
 
     @Test
     public void indexPageTest() {
-        String[] responseBody = new String[]{getResponseBody("/index"), getResponseBody("/")};
-
-        for (String r : responseBody) {
-            assertTrue(r.contains("English"));
-            assertTrue(r.contains(" | "));
-            assertTrue(r.contains("Русский"));
-            assertTrue(r.contains("Make it fine"));
-            assertTrue(r.contains("Домашняя страница") || r.contains("Home page"));
-        }
+        CommonUtil.indexPageTest(restTemplate, hostPort);
     }
 
     @Test
@@ -112,14 +104,8 @@ class SecurityConfigurationIT {
 
     @SafeVarargs
     private <T> T getResponseBody(String relativePath, Class<T>... clasz) {
-
-        @SuppressWarnings("unchecked")
-        Class<T> typeAlternative = (Class<T>) String.class;
-
-        Class<T> type = Optional.ofNullable(clasz)
-                .map(classes -> classes.length)
-                .orElse(0) > 0 ? clasz[0] : typeAlternative;
-
-        return restTemplate.getForEntity(hostPort + relativePath, type).getBody();
+        @SuppressWarnings({"unchecked", "varargs"})
+        Class<T>[] getRidOfWarningsClass = clasz;
+        return CommonUtil.getResponseBody(restTemplate, hostPort, relativePath, getRidOfWarningsClass);
     }
 }

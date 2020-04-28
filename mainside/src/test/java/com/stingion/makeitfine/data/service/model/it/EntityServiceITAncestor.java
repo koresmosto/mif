@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.stingion.makeitfine.data.service.model.EntityService;
+import com.stingion.makeitfine.testconfiguration.CommonUtil;
 import com.stingion.makeitfine.testconfiguration.IntegrationTest;
 import com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration;
 import org.junit.jupiter.api.DisplayName;
@@ -59,13 +60,7 @@ public class EntityServiceITAncestor<T> {
     @DisplayName("Delete entity from storage")
     @Test
     public void deleteTest() {
-        int beforeDelete = entityHelper.getCount();
-        T entity = entityService.findById(entityTestData.getId());
-        entityService.delete(entity);
-        int afterDelete = entityHelper.getCount();
-
-        assertThat(beforeDelete == afterDelete + 1);
-        assertThat(!entityHelper.isExist(entity));
+        CommonUtil.deleteTest(entityHelper, entityService, entityTestData);
     }
 
     @DisplayName("Insert entity into storage")

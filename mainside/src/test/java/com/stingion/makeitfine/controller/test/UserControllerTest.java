@@ -29,12 +29,15 @@ import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.model.UserService;
 import com.stingion.makeitfine.testconfiguration.UnitTest;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
+import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -113,11 +116,7 @@ class UserControllerTest {
     @Test
     @Tag("simple")
     public void listAllUsers() throws Exception {
-        mockMvc
-                .perform(get("/user"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.allOf(containsString("2"), containsString("1"))));
+        mockMvcByUrlAndContents("/user", "2", "1");
 
         verify(userService, times(1)).findAll();
     }
@@ -126,11 +125,7 @@ class UserControllerTest {
     @Tag("simple")
     public void getUserOne() throws Exception {
         int id = 1;
-        mockMvc
-                .perform(get("/user/" + id))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+        mockMvcByUrlAndContents("/user/" + id, String.valueOf(id));
 
         verify(userService, times(1)).findById(id);
     }
@@ -140,10 +135,7 @@ class UserControllerTest {
     @RepeatedTest(3)
     public void getUser() throws Exception {
         int id = 2;
-        mockMvc.perform(get("/user/" + id))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+        mockMvcByUrlAndContents("/user/" + id, String.valueOf(id));
 
         verify(userService, times(1)).findById(id);
     }
@@ -158,10 +150,19 @@ class UserControllerTest {
 
         when(userService.findById(id)).thenReturn(userList.get(id - 1));
 
-        mockMvc.perform(get("/user/" + id))
+        mockMvcByUrlAndContents("/user/" + id, String.valueOf(id));
+    }
+
+    private void mockMvcByUrlAndContents(String urlTemplate, String... content) throws Exception {
+        List<Matcher<? super String>> matchers =
+                Arrays.stream(content).map(e -> containsString(e)).collect(Collectors.toList());
+        mockMvc
+                .perform(get(urlTemplate))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.allOf(containsString(String.valueOf(id)))));
+                .andExpect(content().string(Matchers.allOf(matchers)));
+        // below '.andExpect(..' can also be used as array or varargs type instead of above one
+        //      .andExpect(content().string(Matchers.allOf(matchers.toArray(new Matcher[0]))));
     }
 
     @TestFactory

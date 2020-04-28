@@ -54,13 +54,8 @@ public class Payment {
     @Column(name = "AMOUNT")
     private Double amount;
 
-    // See: Ordering hashcode method comment
     @Override
-    public int hashCode() {
-        return PRIME_NUMBER;
-    }
-
-    @Override
+    @SuppressWarnings("CPD-START")
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -72,5 +67,12 @@ public class Payment {
         Payment payment = (Payment) o;
 
         return id == payment.id;
+    }
+
+    // See: Ordering hashcode method comment
+    @Override
+    @SuppressWarnings("CPD-END")
+    public int hashCode() {
+        return PRIME_NUMBER;
     }
 }
