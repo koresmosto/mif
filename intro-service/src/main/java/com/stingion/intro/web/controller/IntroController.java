@@ -20,7 +20,7 @@ public class IntroController {
 
     @GetMapping
     public ResponseEntity<String> hello() {
-        log.info("Intro microservice (intro-service module"); //todo: can be removed: checking connection
+        log.info("Intro microservice (intro-service module)"); //todo: can be removed: checking connection
         return ResponseEntity.ok("Hi!");
     }
 }

@@ -42,7 +42,7 @@ public class StartUpController {
                     defaultValue = "any value",
                     allowableValues = "author, purpose, stage")
                     String details) {
-        log.info("Mainside microservice (cache-service module");
+        log.info("Mainside microservice (cache-service module)");
         var otherValue = "any value";
         switch (Optional.ofNullable(details).orElse(otherValue).toLowerCase(Locale.getDefault())) {
             case "author":

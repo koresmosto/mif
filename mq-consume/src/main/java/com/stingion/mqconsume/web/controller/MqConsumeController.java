@@ -26,7 +26,7 @@ public class MqConsumeController {
 
     @GetMapping
     public ResponseEntity<String> hello() {
-        log.info("Consumer microservice (mq-consume module"); //todo: can be removed: checking conn
+        log.info("Consumer microservice (mq-consume module)"); //todo: can be removed: checking conn
         return ResponseEntity.ok("Hello from \"mq-consume\" module!");
     }
 

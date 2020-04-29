@@ -80,6 +80,7 @@ if ! ${buildOnly} ; then
     docker-compose -f ${docker_compose_file} up
   else
     (trap 'kill 0' SIGINT;
+    echo "----- services starting -----" &
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/intro-service &
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mq-publish &
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mq-consume &

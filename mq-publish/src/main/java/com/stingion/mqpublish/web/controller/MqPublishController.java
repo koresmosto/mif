@@ -28,7 +28,7 @@ public class MqPublishController {
 
     @GetMapping
     public ResponseEntity<String> hello() {
-        log.info("Publisher microservice (mq-publish module"); //todo: can be removed: checking conn
+        log.info("Publisher microservice (mq-publish module)"); //todo: can be removed: checking conn
         return ResponseEntity.ok("Hello from \"mq-publish\" module!");
     }
 
