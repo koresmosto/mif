@@ -100,6 +100,13 @@
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>4.3.9.RELEASE</spring.version>
         <pmd.version>6.23.0</pmd.version>
+        <checkerframework.version>3.3.0</checkerframework.version>
+
+        <!-- These properties will be set by the Maven Dependency plugin -->
+        <!--suppress UnresolvedMavenProperty -->
+        <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
+        <!--suppress UnresolvedMavenProperty -->
+        <errorProneJavac>${com.google.errorprone:javac:jar}</errorProneJavac>
 
         <!--  -->
         <!--suppress UnresolvedMavenProperty -->
@@ -181,6 +188,42 @@
             <artifactId>spotbugs-annotations</artifactId>
             <version>4.0.2</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- Annotations from the Checker Framework: nullness, interning, locking, ... -->
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>jdk8</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>framework-test</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>javacutil</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>dataflow</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>javac</artifactId>
+            <version>9+181-r4173-1</version>
         </dependency>
     </dependencies>
 
@@ -550,10 +593,18 @@
                     <source>${java.version}</source>
                     <release>${java.version}</release>
                     <compilerArgs>
+                        <arg>-Xmaxerrs</arg>
+                        <arg>10000</arg>
+                        <arg>-Xmaxwarns</arg>
+                        <arg>10000</arg>
                         <arg>-Xlint:all,-processing</arg>
+                        <arg>-J- -add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+                        <arg>-Awarns</arg>
+                        <arg>-AsuppressWarnings=uninitialized</arg>
                     </compilerArgs>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
+                    <verbose>false</verbose>
                     <failOnWarning>${failOnWarningByCompiler}</failOnWarning>
                     <annotationProcessorPaths>
                         <path>
@@ -561,7 +612,29 @@
                             <groupId>org.projectlombok</groupId>
                             <version>${lombok.version}</version>
                         </path>
+                        <path>
+                            <groupId>org.checkerframework</groupId>
+                            <artifactId>checker</artifactId>
+                            <version>${checkerframework.version}</version>
+                        </path>
                     </annotationProcessorPaths>
+                    <annotationProcessors>
+                        <annotationProcessor>
+                            lombok.launch.AnnotationProcessorHider$AnnotationProcessor
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.nullness.NullnessChecker
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.interning.InterningChecker
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.fenum.FenumChecker
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.formatter.FormatterChecker
+                        </annotationProcessor>
+                    </annotationProcessors>
                 </configuration>
                 <executions>
                     <execution>

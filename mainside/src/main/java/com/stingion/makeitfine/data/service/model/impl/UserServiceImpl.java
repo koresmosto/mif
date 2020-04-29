@@ -11,6 +11,7 @@ import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.service.model.UserService;
 import com.stingion.makeitfine.data.service.util.ServiceHelper;
 import java.util.Optional;
+import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,14 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 
     @Transactional
     @Override
+    @Nullable
     public User findBySSO(String ssoId) {
         return ServiceHelper.findEntityByItsAttribute(entityManager, "ssoId", ssoId, User.class);
     }
 
     @Transactional
     @Override
+    @Nullable
     public User findByEmail(String email) {
         return ServiceHelper.findEntityByItsAttribute(entityManager, "email", email, User.class);
     }

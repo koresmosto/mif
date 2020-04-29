@@ -91,16 +91,14 @@ public class OtherServicesController {
         return getResponseEntity(introServiceBaseUrl, "info/details/author");
     }
 
-    @NotNull
-    private ResponseEntity<String> getResponseEntity(String serviceBaseUrl, String path) {
+    private @NotNull ResponseEntity<String> getResponseEntity(String serviceBaseUrl, String path) {
         String url = UriComponentsBuilder.fromHttpUrl(serviceBaseUrl)
                 .path(path)
                 .toUriString();
         return ResponseEntity.ok(getResponseBodyOrEmpty(url));
     }
 
-    @NotNull
-    private String getResponseBodyOrEmpty(String url) {
+    private @NotNull String getResponseBodyOrEmpty(String url) {
         return Optional.ofNullable(restTemplate.getForEntity(url, String.class).getBody()).orElse(StringUtils.EMPTY);
     }
 }

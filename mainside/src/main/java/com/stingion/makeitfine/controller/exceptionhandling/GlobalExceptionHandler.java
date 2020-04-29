@@ -8,7 +8,9 @@
 package com.stingion.makeitfine.controller.exceptionhandling;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,8 +22,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {Error.class, Exception.class, RuntimeException.class})
     @SuppressWarnings("checkstyle:missingjavadocmethod")
-    public ModelAndView handleIOException(HttpServletRequest request, Exception e) {
-        log.error(e.getMessage(), e);
+    public ModelAndView handleIOException(HttpServletRequest request, @NotNull Exception e) {
+        log.error(Objects.toString(e.getMessage(), ""), e);
 
         ModelAndView mav = new ModelAndView("error/generic_error");
         mav.addObject("datetime", new Date());

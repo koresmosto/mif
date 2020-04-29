@@ -11,6 +11,7 @@ import com.stingion.makeitfine.data.model.UserProfile;
 import com.stingion.makeitfine.data.model.utils.UserProfileType;
 import com.stingion.makeitfine.data.service.model.UserProfileService;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -26,13 +27,13 @@ public class UserProfileServiceImpl extends EntityServiceImpl<UserProfile>
     private EntityManager entityManager;
 
     @Override
-    public UserProfile findByUserProfileType(UserProfileType profileType) {
+    public Optional<UserProfile> findByUserProfileType(UserProfileType profileType) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<UserProfile> criteria = builder.createQuery(UserProfile.class);
         Root<UserProfile> userProfileRoot = criteria.from(UserProfile.class);
         criteria.select(userProfileRoot);
         criteria.where(builder.equal(userProfileRoot.get("type"), profileType.getUserProfileType()));
         List<UserProfile> userProfiles = entityManager.createQuery(criteria).getResultList();
-        return userProfiles.isEmpty() ? null : userProfiles.get(0);
+        return Optional.ofNullable(!userProfiles.isEmpty() ? userProfiles.get(0) : null);
     }
 }

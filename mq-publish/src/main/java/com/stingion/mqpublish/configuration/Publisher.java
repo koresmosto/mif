@@ -8,6 +8,7 @@
 package com.stingion.mqpublish.configuration;
 
 import com.stingion.util.mq.Message;
+import javax.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -28,6 +29,7 @@ public class Publisher {
 
     @Lookup
     @Qualifier("time")
+    @Nullable
     public String time() {
         return null;
     }

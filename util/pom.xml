@@ -102,7 +102,7 @@
                         <Xmaxwarns>10000</Xmaxwarns>
                     </compilerArguments>
                     <showWarnings>true</showWarnings>
-                    <verbose>true</verbose>
+                    <!-- <verbose>true</verbose>-->
                     <failOnWarning>true</failOnWarning>
                     <annotationProcessorPaths>
                         <path>

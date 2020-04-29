@@ -9,6 +9,7 @@ package com.stingion.makeitfine.data.service.model.it;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.util.Objects;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.constraints.NotNull;
@@ -40,7 +41,7 @@ public class EntityHelper<T> {
                     getEntityById((Integer) entity.getClass().getMethod("getId", (Class<T>[]) null).invoke(entity));
             return entity.toString().equals(dbEntity != null ? dbEntity.toString() : StringUtils.EMPTY);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            log.debug(e.getMessage(), e);
+            log.debug(Objects.toString(e.getMessage(), ""), e);
             return false;
         }
     }

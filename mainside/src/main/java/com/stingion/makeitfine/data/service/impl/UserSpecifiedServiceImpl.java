@@ -45,7 +45,7 @@ public class UserSpecifiedServiceImpl implements UserSpecifiedService {
         return filteredUsers(user -> user.getState() == userState);
     }
 
-    private List<User> filteredUsers(Predicate<? super User> userFilter) {
+    private List<User> filteredUsers(Predicate<User> userFilter) {
         return userService.findAll().stream().filter(userFilter).collect(Collectors.toList());
     }
 }

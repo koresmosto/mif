@@ -7,6 +7,7 @@
 
 package com.stingion.makeitfine.data.model.payment;
 
+import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -56,7 +57,7 @@ public class Payment {
 
     @Override
     @SuppressWarnings("CPD-START")
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) {
             return true;
         }

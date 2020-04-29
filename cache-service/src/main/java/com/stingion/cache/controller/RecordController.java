@@ -13,6 +13,7 @@ import com.stingion.util.mq.Message;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import javax.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +49,7 @@ public class RecordController {
 
     @Cacheable(value = "records", key = "#recordId")
     @RequestMapping(value = "/get/{recordId}", method = RequestMethod.GET)
+    @Nullable
     public Record getRecord(@PathVariable String recordId) {
         log.info("Getting record with ID {}.", recordId);
         return recordRepository.findById(Long.valueOf(recordId)).orElse(null);

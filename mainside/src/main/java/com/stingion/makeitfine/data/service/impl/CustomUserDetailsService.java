@@ -50,7 +50,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getSsoId(),
                 user.getPassword(),
-                user.getState().equals(State.ACTIVE),
+                user.getState() == State.ACTIVE,
                 true,
                 true,
                 true,

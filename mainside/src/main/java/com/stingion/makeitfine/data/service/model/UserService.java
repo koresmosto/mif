@@ -8,11 +8,14 @@
 package com.stingion.makeitfine.data.service.model;
 
 import com.stingion.makeitfine.data.model.user.User;
+import javax.annotation.Nullable;
 
 public interface UserService extends EntityService<User> {
 
+    @Nullable
     User findBySSO(String ssoId);
 
+    @Nullable
     User findByEmail(String sso);
 
     /**

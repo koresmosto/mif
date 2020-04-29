@@ -8,6 +8,7 @@
 package com.stingion.makeitfine.data.model.utils;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Convert;
 
@@ -29,7 +30,7 @@ public class AttrConverter {
             return Arrays.stream(State.values())
                     .filter(s -> s.getState().equalsIgnoreCase(dbData))
                     .findAny()
-                    .orElse(null);
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Not found attribute: %s", dbData)));
         }
     }
 }

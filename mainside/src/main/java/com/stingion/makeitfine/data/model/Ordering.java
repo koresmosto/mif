@@ -8,6 +8,7 @@
 package com.stingion.makeitfine.data.model;
 
 import com.stingion.makeitfine.data.model.utils.OrderingStatus;
+import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -67,7 +68,7 @@ public class Ordering {
 
     @Override
     @SuppressWarnings("CPD-START")
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) {
             return true;
         }

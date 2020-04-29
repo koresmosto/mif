@@ -22,7 +22,8 @@ public final class ServiceHelper {
     }
 
     /**
-     * Get single entity by any of its attribute.
+     * Get single entity by any of its attribute. <br/>
+     * If any of the arguments is {@code null}, then method {@code return null;}
      *
      * @param entityManager provided jpa entity manager
      * @param attr          entity attribute
@@ -32,8 +33,11 @@ public final class ServiceHelper {
      * @return single value or null
      */
     @Nullable
-    public static <T> T findEntityByItsAttribute(EntityManager entityManager, String attr, String attrValue,
-            Class<T> entityClass) {
+    public static <T> T findEntityByItsAttribute(@Nullable EntityManager entityManager, @Nullable String attr,
+            @Nullable String attrValue, @Nullable Class<T> entityClass) {
+        if (entityManager == null || attr == null || attrValue == null || entityClass == null) {
+            return null;
+        }
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(entityClass);
         Root<T> r = cq.from(entityClass);
