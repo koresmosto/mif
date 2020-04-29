@@ -549,6 +549,7 @@
                     <compilerVersion>${java.version}</compilerVersion>
                     <target>${java.version}</target>
                     <source>${java.version}</source>
+                    <release>${java.version}</release>
                     <compilerArgs>
                         <arg>-Xlint:all,-processing</arg>
                     </compilerArgs>
