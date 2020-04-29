@@ -19,6 +19,14 @@
         <encoding>UTF-8</encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- These properties will be set by the Maven Dependency plugin -->
+        <!--suppress UnresolvedMavenProperty -->
+        <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
+        <!--suppress UnresolvedMavenProperty -->
+        <errorProneJavac>${com.google.errorprone:javac:jar}</errorProneJavac>
+
+        <checkerframework.version>3.3.0</checkerframework.version>
     </properties>
 
     <dependencies>
@@ -26,11 +34,53 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-checkstyle-plugin</artifactId>
             <version>3.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+        </dependency>
+        <!-- Annotations from the Checker Framework: nullness, interning, locking, ... -->
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>jdk8</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>framework-test</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>javacutil</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>dataflow</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>javac</artifactId>
+            <version>9+181-r4173-1</version>
         </dependency>
     </dependencies>
 
@@ -39,9 +89,62 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
+                    <!--                    <fork>true</fork>-->
+                    <!-- If using JDK 8, add source and target. -->
+                    <source>11</source>
+                    <target>11</target>
+                    <!-- If using JDK 11, remove source and target and uncomment "release" below. -->
                     <release>11</release>
+                    <compilerArguments>
+                        <Xmaxerrs>10000</Xmaxerrs>
+                        <Xmaxwarns>10000</Xmaxwarns>
+                    </compilerArguments>
+                    <showWarnings>true</showWarnings>
+                    <verbose>true</verbose>
+                    <failOnWarning>true</failOnWarning>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.10</version>
+                        </path>
+                        <path>
+                            <groupId>org.checkerframework</groupId>
+                            <artifactId>checker</artifactId>
+                            <version>3.3.0</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <annotationProcessors>
+                        <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
+                        <!-- Add all the checkers you want to enable here -->
+                        <annotationProcessor>
+                            org.checkerframework.checker.nullness.NullnessChecker
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.interning.InterningChecker
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.fenum.FenumChecker
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            org.checkerframework.checker.formatter.FormatterChecker
+                        </annotationProcessor>
+                    </annotationProcessors>
+                    <compilerArgs>
+                        <!-- If using JDK 8, use only the two arguments immediately below. -->
+                        <!-- <arg>-J-Xbootclasspath/p:${errorProneJavac}</arg>-->
+                        <!-- <arg>-Xbootclasspath/p:${annotatedJdk}</arg>-->
+                        <!-- If using JDK 11, remove the two arguments above, remove the
+                             space in the one below, and uncomment it. -->
+                        <arg>-J- -add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+                        <!-- Optionally, -Awarns turns type-checking errors into warnings. -->
+                        <arg>-Awarns</arg>
+                        <arg>-Xlint:all,-processing</arg>
+                        <!-- suppress initialization -->
+                        <arg>-AsuppressWarnings=uninitialized</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>

@@ -95,11 +95,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Dependencies versions -->
         <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>4.3.9.RELEASE</spring.version>
-
-        <!-- Dependencies versions -->
         <pmd.version>6.23.0</pmd.version>
 
         <!--  -->
