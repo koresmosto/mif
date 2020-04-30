@@ -11,10 +11,10 @@ import java.io.Serializable;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import javax.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 @AllArgsConstructor
 @Data
@@ -48,16 +48,14 @@ public class Message implements Serializable {
         return DATE_TIME_FORMATTER.format(localDateTime);
     }
 
-    @Nullable
-    public Object someForCheckerFramework() {
+    public @Nullable Object someForCheckerFramework() {
         Object o = objPositiveOrNull();
         getMsg().equals(new Object()); // if msg not set it gives exception
         // return Optional.ofNullable(o).orElse(5).equals(new Object());
         return o;
     }
 
-    @Nullable
-    private Object objPositiveOrNull() {
+    private @Nullable Object objPositiveOrNull() {
         return new SecureRandom().nextInt() > 0 ? "positive" : null;
     }
 }

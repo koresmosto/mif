@@ -12,11 +12,11 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Objects;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 @Slf4j
 public class EntityHelper<T> {
@@ -35,7 +35,7 @@ public class EntityHelper<T> {
                 .intValue();
     }
 
-    public boolean isExist(@NotNull T entity) {
+    public boolean isExist(@NonNull T entity) {
         try {
             T dbEntity =
                     getEntityById((Integer) entity.getClass().getMethod("getId", (Class<T>[]) null).invoke(entity));

@@ -622,15 +622,6 @@
                         <annotationProcessor>
                             org.checkerframework.checker.nullness.NullnessChecker
                         </annotationProcessor>
-                        <annotationProcessor>
-                            org.checkerframework.checker.interning.InterningChecker
-                        </annotationProcessor>
-                        <annotationProcessor>
-                            org.checkerframework.checker.fenum.FenumChecker
-                        </annotationProcessor>
-                        <annotationProcessor>
-                            org.checkerframework.checker.formatter.FormatterChecker
-                        </annotationProcessor>
                     </annotationProcessors>
                 </configuration>
                 <executions>

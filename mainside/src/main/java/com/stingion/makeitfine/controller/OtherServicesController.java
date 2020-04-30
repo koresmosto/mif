@@ -8,10 +8,10 @@
 package com.stingion.makeitfine.controller;
 
 import java.util.Optional;
-import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -91,14 +91,14 @@ public class OtherServicesController {
         return getResponseEntity(introServiceBaseUrl, "info/details/author");
     }
 
-    private @NotNull ResponseEntity<String> getResponseEntity(String serviceBaseUrl, String path) {
+    private @NonNull ResponseEntity<String> getResponseEntity(String serviceBaseUrl, String path) {
         String url = UriComponentsBuilder.fromHttpUrl(serviceBaseUrl)
                 .path(path)
                 .toUriString();
         return ResponseEntity.ok(getResponseBodyOrEmpty(url));
     }
 
-    private @NotNull String getResponseBodyOrEmpty(String url) {
+    private @NonNull String getResponseBodyOrEmpty(String url) {
         return Optional.ofNullable(restTemplate.getForEntity(url, String.class).getBody()).orElse(StringUtils.EMPTY);
     }
 }

@@ -9,11 +9,11 @@ package com.stingion.makeitfine.data.service.util;
 
 import java.util.List;
 import java.util.Locale;
-import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ServiceHelper {
 
@@ -32,8 +32,7 @@ public final class ServiceHelper {
      * @param <T>           any model class.
      * @return single value or null
      */
-    @Nullable
-    public static <T> T findEntityByItsAttribute(@Nullable EntityManager entityManager, @Nullable String attr,
+    public static @Nullable <T> T findEntityByItsAttribute(@Nullable EntityManager entityManager, @Nullable String attr,
             @Nullable String attrValue, @Nullable Class<T> entityClass) {
         if (entityManager == null || attr == null || attrValue == null || entityClass == null) {
             return null;

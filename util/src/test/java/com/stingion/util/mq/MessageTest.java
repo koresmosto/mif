@@ -11,11 +11,11 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.security.SecureRandom;
 import java.util.Optional;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
 
 @Getter(onMethod_ = {@Nullable})
@@ -36,7 +36,7 @@ public class MessageTest {
         assertNotEquals(new Object().toString(), someForCheckerframework().toString());
     }
 
-    @Nonnull //by default all method return is nonnull (so Nunnull annotation is just mark)
+    @NonNull //by default all method return is nonnull (so Nunnull annotation is just mark)
     public Object someForCheckerframework() {
         k.toCharArray();
         Optional.ofNullable(getK()).orElse("").toLowerCase();

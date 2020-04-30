@@ -119,15 +119,15 @@
                         <annotationProcessor>
                             org.checkerframework.checker.nullness.NullnessChecker
                         </annotationProcessor>
-                        <annotationProcessor>
-                            org.checkerframework.checker.interning.InterningChecker
-                        </annotationProcessor>
-                        <annotationProcessor>
-                            org.checkerframework.checker.fenum.FenumChecker
-                        </annotationProcessor>
-                        <annotationProcessor>
-                            org.checkerframework.checker.formatter.FormatterChecker
-                        </annotationProcessor>
+                        <!--                        <annotationProcessor>-->
+                        <!--                            org.checkerframework.checker.interning.InterningChecker-->
+                        <!--                        </annotationProcessor>-->
+                        <!--                        <annotationProcessor>-->
+                        <!--                            org.checkerframework.checker.fenum.FenumChecker-->
+                        <!--                        </annotationProcessor>-->
+                        <!--                        <annotationProcessor>-->
+                        <!--                            org.checkerframework.checker.formatter.FormatterChecker-->
+                        <!--                        </annotationProcessor>-->
                     </annotationProcessors>
                     <compilerArgs>
                         <!-- If using JDK 8, use only the two arguments immediately below. -->
