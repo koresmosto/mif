@@ -22,6 +22,7 @@ public class UserServiceIT extends EntityServiceITAncestor<User> {
     @Autowired
     private UserService userService;
 
+    @SuppressWarnings("argument.type.incompatible")
     @Test
     public void findBySSO() {
         User userExcepted = userService.findById(5);
@@ -29,6 +30,7 @@ public class UserServiceIT extends EntityServiceITAncestor<User> {
         assertEquals(userExcepted, userService.findBySSO("KENNY"));
     }
 
+    @SuppressWarnings("argument.type.incompatible")
     @Test
     public void findByEmail() {
         User userExcepted = userService.findById(3);

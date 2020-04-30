@@ -192,11 +192,6 @@
         <!-- Annotations from the Checker Framework: nullness, interning, locking, ... -->
         <dependency>
             <groupId>org.checkerframework</groupId>
-            <artifactId>checker-qual</artifactId>
-            <version>${checkerframework.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.checkerframework</groupId>
             <artifactId>jdk8</artifactId>
             <version>${checkerframework.version}</version>
         </dependency>
@@ -204,16 +199,12 @@
             <groupId>org.checkerframework</groupId>
             <artifactId>framework-test</artifactId>
             <version>${checkerframework.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>javacutil</artifactId>
-            <version>${checkerframework.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>dataflow</artifactId>
-            <version>${checkerframework.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.checkerframework</groupId>
+                    <artifactId>javacutil</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.checkerframework</groupId>
@@ -245,6 +236,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.1.1</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
