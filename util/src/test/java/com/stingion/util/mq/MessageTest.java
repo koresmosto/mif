@@ -19,7 +19,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
 
 @Getter(onMethod_ = {@Nullable})
-@Setter(onMethod_ = {@Nullable})
+@Setter(onParam_ = {@Nullable})
 @ToString
 public class MessageTest {
 
@@ -36,16 +36,15 @@ public class MessageTest {
         assertNotEquals(new Object().toString(), someForCheckerframework().toString());
     }
 
-    @NonNull //by default all method return is nonnull (so Nunnull annotation is just mark)
-    public Object someForCheckerframework() {
+    //by default all method return is nonnull (so Nunnull annotation is just mark)
+    public @NonNull Object someForCheckerframework() {
         k.toCharArray();
         Optional.ofNullable(getK()).orElse("").toLowerCase();
         setK(objForCheckerframework() == null ? "no" : "yes");
         return Optional.ofNullable(getI()).orElse(125);
     }
 
-    @Nullable
-    private Object objForCheckerframework() {
+    private @Nullable Object objForCheckerframework() {
         return new SecureRandom().nextInt() < 0 ? null : 61;
     }
 }
