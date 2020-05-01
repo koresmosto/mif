@@ -28,3 +28,7 @@ wiki/
 
 #PMD analyze cache
 pmd/pmd.cache
+
+# sprcific local maven configs
+.mvn/
+.mvn_ignore/

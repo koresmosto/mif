@@ -585,6 +585,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
+                    <!-- <fork>true</fork> &lt;!&ndash; todo: could be off if .mvn present&ndash;&gt;-->
                     <compilerVersion>${java.version}</compilerVersion>
                     <target>${java.version}</target>
                     <source>${java.version}</source>
