@@ -22,7 +22,7 @@
 
         <!-- These properties will be set by the Maven Dependency plugin -->
         <!--suppress UnresolvedMavenProperty -->
-        <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
+        <!--<annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>-->
         <!--suppress UnresolvedMavenProperty -->
         <errorProneJavac>${com.google.errorprone:javac:jar}</errorProneJavac>
 
@@ -58,16 +58,21 @@
             <artifactId>jdk8</artifactId>
             <version>${checkerframework.version}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.checkerframework</groupId>-->
+<!--            <artifactId>framework-test</artifactId>-->
+<!--            <version>${checkerframework.version}</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.checkerframework</groupId>-->
+<!--                    <artifactId>javacutil</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.checkerframework</groupId>
-            <artifactId>framework-test</artifactId>
+            <artifactId>checker-qual</artifactId>
             <version>${checkerframework.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.checkerframework</groupId>
-                    <artifactId>javacutil</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.checkerframework</groupId>
@@ -114,25 +119,22 @@
                         </path>
                     </annotationProcessorPaths>
                     <annotationProcessors>
-                        <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
+                        <annotationProcessor>
+                            lombok.launch.AnnotationProcessorHider$AnnotationProcessor
+                        </annotationProcessor>
                         <!-- Add all the checkers you want to enable here -->
                         <annotationProcessor>
                             org.checkerframework.checker.nullness.NullnessChecker
                         </annotationProcessor>
-                        <!--                        <annotationProcessor>-->
-                        <!--                            org.checkerframework.checker.interning.InterningChecker-->
-                        <!--                        </annotationProcessor>-->
-                        <!--                        <annotationProcessor>-->
-                        <!--                            org.checkerframework.checker.fenum.FenumChecker-->
-                        <!--                        </annotationProcessor>-->
-                        <!--                        <annotationProcessor>-->
-                        <!--                            org.checkerframework.checker.formatter.FormatterChecker-->
-                        <!--                        </annotationProcessor>-->
+<!--                        <annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>-->
+<!--                        <annotationProcessor>org.checkerframework.checker.fenum.FenumChecker</annotationProcessor>-->
+<!--                        <annotationProcessor>org.checkerframework.checker.formatter.FormatterChecker</annotationProcessor>-->
+                        <annotationProcessor>org.checkerframework.checker.regex.RegexChecker</annotationProcessor>
                     </annotationProcessors>
                     <compilerArgs>
                         <!-- If using JDK 8, use only the two arguments immediately below. -->
-                        <!-- <arg>-J-Xbootclasspath/p:${errorProneJavac}</arg>-->
-                        <!-- <arg>-Xbootclasspath/p:${annotatedJdk}</arg>-->
+<!--                         <arg>-J-Xbootclasspath/p:${errorProneJavac}</arg>-->
+<!--                         <arg>-Xbootclasspath/p:${annotatedJdk}</arg>-->
                         <!-- If using JDK 11, remove the two arguments above, remove the
                              space in the one below, and uncomment it. -->
                         <arg>-J- -add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>

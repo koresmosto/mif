@@ -16,6 +16,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
+//import org.checkerframework.checker.regex.qual.Regex;
+import org.checkerframework.checker.regex.qual.Regex;
 import org.junit.Test;
 
 @Getter(onMethod_ = {@Nullable})
@@ -26,6 +28,10 @@ public class MessageTest {
     private Integer i;
 
     private String k = "For test success";
+    private Float f = 5.5f;
+
+    private static @Regex String regexp = "ab8abc...\\$1$1$+1+1+";
+    private static @Regex(1) String FIND_NUMBERS = "(\\d*)*1*1*";
 
     public void setI(Integer i) {
         this.i = i;
@@ -45,6 +51,16 @@ public class MessageTest {
     }
 
     private @Nullable Object objForCheckerframework() {
+        regexp = "ab[<][>]abc+ $1$1$|||/$^+1+1+";
+        //        "abc".matches(regexp);
+        System.out.println(regexp);
         return new SecureRandom().nextInt() < 0 ? null : 61;
+    }
+
+    //    private static @Regex(1) String findNumbers = "\\d*";
+
+    public static void main(String[] args) {
+        String message = "My phone number is +3911223344.";
+    //        message.matches(findNumbers);
     }
 }
