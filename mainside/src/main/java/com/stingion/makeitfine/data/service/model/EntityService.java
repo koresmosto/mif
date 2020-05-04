@@ -8,12 +8,15 @@
 package com.stingion.makeitfine.data.service.model;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public interface EntityService<T> {
 
     List<T> findAll();
 
-    T findById(Integer id);
+    @NonNull
+    T findById(Integer id) throws NoSuchElementException;
 
     T save(T entity);
 

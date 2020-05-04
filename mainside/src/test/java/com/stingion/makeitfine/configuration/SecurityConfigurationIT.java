@@ -16,9 +16,11 @@ import com.stingion.makeitfine.data.model.user.User;
 import com.stingion.makeitfine.data.model.utils.State;
 import com.stingion.makeitfine.testconfiguration.CommonUtil;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +31,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
+@Slf4j
 @SuppressWarnings("ConfigurationProperties")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles({"security_on_integration_test"})
@@ -103,9 +106,12 @@ class SecurityConfigurationIT {
     }
 
     @SafeVarargs
-    private <T> T getResponseBody(String relativePath, Class<T>... clasz) {
+    private <T> T getResponseBody(String relativePath, Class<T>... clasz) throws NoSuchElementException {
         @SuppressWarnings({"unchecked", "varargs"})
         Class<T>[] getRidOfWarningsClass = clasz;
-        return CommonUtil.getResponseBody(restTemplate, hostPort, relativePath, getRidOfWarningsClass);
+        return Optional.ofNullable(
+                CommonUtil.getResponseBody(restTemplate, hostPort, relativePath, getRidOfWarningsClass)
+        ).orElseThrow(() ->
+                new NoSuchElementException(String.format("hostPort: %s, relativePath: %s", hostPort, relativePath)));
     }
 }

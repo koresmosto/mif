@@ -37,8 +37,11 @@ public class EntityHelper<T> {
 
     public boolean isExist(@NonNull T entity) {
         try {
-            T dbEntity =
-                    getEntityById((Integer) entity.getClass().getMethod("getId", (Class<T>[]) null).invoke(entity));
+            Object getIdInvokeResult = entity.getClass().getMethod("getId", (Class<T>[]) null).invoke(entity);
+            if (getIdInvokeResult == null) {
+                return false;
+            }
+            T dbEntity = getEntityById((Integer) getIdInvokeResult);
             return entity.toString().equals(dbEntity != null ? dbEntity.toString() : StringUtils.EMPTY);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             log.debug(Objects.toString(e.getMessage(), ""), e);
@@ -61,7 +64,7 @@ public class EntityHelper<T> {
         if (entityClass == null) {
             ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
             // Can't avoid the expression without suppression in normal coding way
-            @SuppressWarnings("unchecked")
+            @SuppressWarnings({"unchecked", "dereference.of.nullable"})
             Class<T> actualTypeArgument = (Class<T>) parameterizedType.getActualTypeArguments()[0];
             this.entityClass = actualTypeArgument;
         }

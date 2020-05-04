@@ -51,6 +51,10 @@ public class Message implements Serializable {
 
     private @Regex(1) String msg;
 
+    public String getMsg() {
+        return msg;
+    }
+
     //    private @MonotonicNonNull Integer m;
 
     public Message(@NonNull @Regex(1) String msg) {

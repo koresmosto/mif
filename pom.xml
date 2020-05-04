@@ -104,7 +104,7 @@
 
         <!-- These properties will be set by the Maven Dependency plugin -->
         <!--suppress UnresolvedMavenProperty -->
-        <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
+        <!--        <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>-->
         <!--suppress UnresolvedMavenProperty -->
         <errorProneJavac>${com.google.errorprone:javac:jar}</errorProneJavac>
 
@@ -209,6 +209,11 @@
         <dependency>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker</artifactId>
+            <version>${checkerframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
             <version>${checkerframework.version}</version>
         </dependency>
         <dependency>

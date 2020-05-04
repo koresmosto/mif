@@ -9,12 +9,14 @@ package com.stingion.makeitfine.testconfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.stingion.makeitfine.data.service.model.EntityService;
 import com.stingion.makeitfine.data.service.model.it.EntityHelper;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -22,12 +24,16 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 public final class CommonUtil {
 
     public static void indexPageTest(TestRestTemplate restTemplate, String hostPort) {
-        String[] responseBody = new String[]{
+        @Nullable String[] responseBodies = new String[]{
                 getResponseBody(restTemplate, hostPort, "/index", String.class),
                 getResponseBody(restTemplate, hostPort, "/", String.class)
         };
 
-        for (String r : responseBody) {
+        for (String r : responseBodies) {
+            if (r == null) {
+                fail("response body is null");
+                continue;
+            }
             assertTrue(r.contains("English"));
             assertTrue(r.contains(" | "));
             assertTrue(r.contains("Русский"));
@@ -37,6 +43,7 @@ public final class CommonUtil {
     }
 
     @SafeVarargs
+    @Nullable
     public static <T> T getResponseBody(TestRestTemplate restTemplate, String hostPort, String relativePath,
             Class<T>... clasz) {
 

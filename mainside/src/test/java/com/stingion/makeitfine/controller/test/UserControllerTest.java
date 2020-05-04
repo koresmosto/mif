@@ -170,7 +170,7 @@ class UserControllerTest {
         return Stream.of(-717, -2, -1, 0)
                 .map(id -> DynamicTest.dynamicTest("Test negative scenario with no id = " + id, () -> {
                     Throwable ex = assertThrows(IllegalArgumentException.class, () -> userService.findById(id));
-                    assertTrue(ex.getMessage().equalsIgnoreCase("id should be positive"));
+                    assertTrue("id should be positive".equalsIgnoreCase(ex.getMessage()));
                 }));
     }
 

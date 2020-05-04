@@ -10,6 +10,8 @@ package com.stingion.makeitfine.data.service.model.impl;
 import com.stingion.makeitfine.data.repository.EntityRepository;
 import com.stingion.makeitfine.data.service.model.EntityService;
 import java.util.List;
+import java.util.NoSuchElementException;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +27,8 @@ public class EntityServiceImpl<T> implements EntityService<T> {
     }
 
     @Override
-    public T findById(Integer id) {
+    @NonNull
+    public T findById(Integer id) throws NoSuchElementException {
         return entityRepository.findById(id).get();
     }
 
