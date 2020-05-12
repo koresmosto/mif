@@ -95,6 +95,7 @@ public class OtherServicesController {
         String url = UriComponentsBuilder.fromHttpUrl(serviceBaseUrl)
                 .path(path)
                 .toUriString();
+        log.info("request to '{}'", url);
         return ResponseEntity.ok(getResponseBodyOrEmpty(url));
     }
 
