@@ -11,6 +11,7 @@ docker=false
 mongoMigration=false
 buildOnly=false
 runOnly=false
+skipCheckers=false
 
 PROJECT_PATH="`dirname \"$0\"`"/../..
 
@@ -18,6 +19,7 @@ DskipTests=""
 Pdebug=""
 docker_compose_file="${PROJECT_PATH}/docker-compose.yml"
 installOrVerify="verify"
+PskipCheckers=""
 
 for arg in "$@"
 do
@@ -31,6 +33,7 @@ do
             echo "  mm - mongodb migration scripts (parametrize only locally 'dev')"
             echo "  b  - build only"
             echo "  r  - run only"
+            echo "  sc - skip checkers (checkstyle, compiler, spotbugs, etc.)"
             exit
             ;;
       "s" | "skip" | "skipTests" | "skiptest" | "skipTest")
@@ -56,19 +59,24 @@ do
       "r" | "runOnly" | "run")
             runOnly=true
             ;;
+      "sc" | "skipCheckers")
+            PskipCheckers="-PskipCheckers"
+            skipCheckers=true
+            ;;
       *)
     esac
 done
 
 echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${debug} \
-| mongoMigration: ${mongoMigration} | runOnly: ${runOnly} | buildOnly: ${buildOnly}"
+| mongoMigration: ${mongoMigration} | runOnly: ${runOnly} | buildOnly: ${buildOnly} \
+| skipCheckers: ${skipCheckers}"
 
 if ${mongoMigration} && ! ${docker} ; then
   sh $(dirname "$0")/mongo_migrate.sh
 fi;
 
 if ! ${runOnly} ; then
-  mvn clean ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
+  mvn clean ${PskipCheckers} ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
 fi;
 #If maven commands failed exit the script
 if [[ "$?" -ne 0 ]] ; then

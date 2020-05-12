@@ -44,6 +44,8 @@
         <failOnWarningBySpotbugs>true</failOnWarningBySpotbugs>
         <failOnViolationByPMD>true</failOnViolationByPMD>
 
+        <skipCheckers>false</skipCheckers>
+
         <!-- todo: Info -->
         <!-- Default values; it's also taken by 'dev' profile; maven (settings.xml);  -->
         <!-- Set env. variable: dev_env=true (~/.bashrc) and config maven ~/.m2/settings.xml -->
@@ -262,13 +264,13 @@
 
     <profiles>
         <profile>
+            <id>debug</id>
             <activation>
                 <property>
                     <name>env.debug_env</name>
                     <value>true</value>
                 </property>
             </activation>
-            <id>debug</id>
             <properties>
                 <jvmargsMainside>
                     -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 -Dserver.port=8080
@@ -288,13 +290,13 @@
             </properties>
         </profile>
         <profile>
+            <id>docker</id>
             <activation>
                 <property>
                     <name>env.docker_env</name>
                     <value>true</value>
                 </property>
             </activation>
-            <id>docker</id>
             <properties>
                 <db.password>makeitfinepass</db.password>
                 <db.url>jdbc:mysql://${mysql_server_in_docker}/makeitfinemysqldocker</db.url>
@@ -306,6 +308,7 @@
             </properties>
         </profile>
         <profile>
+            <id>kuber</id>
             <activation>
                 <property>
                     <!-- todo: fix kuber and kuberSinglePod profile same prop: env.kuber_env -->
@@ -313,7 +316,6 @@
                     <value>true</value>
                 </property>
             </activation>
-            <id>kuber</id>
             <properties>
                 <db.password>makeitfinepass</db.password>
                 <db.url>jdbc:mysql://${mysql_server_in_kuber}/makeitfinemysqlkuber</db.url>
@@ -322,13 +324,13 @@
             </properties>
         </profile>
         <profile>
+            <id>kuberSinglePod</id>
             <activation>
                 <property>
                     <name>env.kuber_env</name>
                     <value>true</value>
                 </property>
             </activation>
-            <id>kuberSinglePod</id>
             <properties>
                 <db.password>makeitfinepass</db.password>
                 <db.url>jdbc:mysql://${mysql_server_in_kuber}/makeitfinemysqlkuber</db.url>
@@ -337,27 +339,45 @@
             </properties>
         </profile>
         <profile>
+            <id>Dev variables</id>
             <activation>
                 <property>
                     <name>env.dev_env</name>
                     <value>true</value>
                 </property>
             </activation>
-            <id>Dev variables</id>
             <properties>
             </properties>
         </profile>
         <profile>
+            <id>travis</id>
             <activation>
                 <property>
                     <name>env.travis</name>
                     <value>true</value>
                 </property>
             </activation>
-            <id>travis</id>
             <properties>
                 <!--suppress UnresolvedMavenProperty -->
                 <mvn.myMavenRepo.read.url>${env.myMavenRepo}</mvn.myMavenRepo.read.url>
+            </properties>
+        </profile>
+        <profile>
+            <id>skipCheckers</id>
+            <activation>
+                <property>
+                    <name>env.skipCheckers</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <failOnViolationByCheckstyle>false</failOnViolationByCheckstyle>
+                <failOnErrorByCheckstyle>false</failOnErrorByCheckstyle>
+                <failOnWarningByCompiler>false</failOnWarningByCompiler>
+                <failOnWarningBySpotbugs>false</failOnWarningBySpotbugs>
+                <failOnViolationByPMD>false</failOnViolationByPMD>
+
+                <skipCheckers>true</skipCheckers>
             </properties>
         </profile>
     </profiles>
@@ -434,6 +454,7 @@
                         </dependency>
                     </dependencies>
                     <configuration>
+                        <skip>${skipCheckers}</skip>
                         <!--
                        Enables analysis which takes more memory but finds more bugs.
                        If you run out of memory, changes the value of the effort element
@@ -476,6 +497,7 @@
                         </dependency>
                     </dependencies>
                     <configuration>
+                        <skip>${skipCheckers}</skip>
                         <sourceEncoding>utf-8</sourceEncoding>
                         <targetJdk>${java.version}</targetJdk>
 
@@ -553,6 +575,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
+                    <skip>${skipCheckers}</skip>
                     <configLocation>run/IDE/codestyle_checkers.xml</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <includes>**\/*.java</includes>
@@ -590,6 +613,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
+                    <skip>${skipCheckers}</skip>
                     <!-- <fork>true</fork> &lt;!&ndash; todo: could be off if .mvn present&ndash;&gt;-->
                     <compilerVersion>${java.version}</compilerVersion>
                     <target>${java.version}</target>
