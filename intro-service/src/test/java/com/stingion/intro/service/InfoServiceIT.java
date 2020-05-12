@@ -14,7 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.stingion.intro.domain.Info;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,7 +70,7 @@ class InfoServiceIT {
     public void findByNotExistingKey() {
         Throwable exception =
                 assertThrows(NoSuchElementException.class, () -> infoService.findByKey("key4"));
-        assertTrue(exception.getMessage().equalsIgnoreCase("No value present"));
+        assertTrue(getMessage(exception).equalsIgnoreCase("No value present"));
     }
 
     @Test
@@ -99,7 +101,7 @@ class InfoServiceIT {
     public void deleteByNotExistingKey() {
         Throwable exception = assertThrows(IllegalStateException.class, () ->
                 infoService.delete(new Info("any", "any")));
-        assertTrue(exception.getMessage().startsWith("Could not obtain identifier"));
+        assertTrue(getMessage(exception).startsWith("Could not obtain identifier"));
     }
 
     @Test
@@ -115,7 +117,7 @@ class InfoServiceIT {
     public void findByNotExistingId() {
         Throwable exception = assertThrows(NoSuchElementException.class, () ->
                 infoService.findById(UUID.randomUUID().toString() + "_unique"));
-        assertTrue(exception.getMessage().equalsIgnoreCase("No value present"));
+        assertTrue(getMessage(exception).equalsIgnoreCase("No value present"));
     }
 
     @Test
@@ -130,5 +132,9 @@ class InfoServiceIT {
         assertThat(infoService.findByKey("anyKey")).isEqualTo(savedInfo);
 
         assertThat(infoService.findAll().size()).isEqualTo(4);
+    }
+
+    private String getMessage(Throwable exception) {
+        return Optional.ofNullable(exception.getMessage()).orElse(StringUtils.EMPTY);
     }
 }

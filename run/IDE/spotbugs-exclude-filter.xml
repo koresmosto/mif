@@ -29,5 +29,14 @@
         </Or>
         <Bug pattern="RV_RETURN_VALUE_IGNORED"/>
     </Match>
+    <Match>
+        <Or>
+            <Class name="com.stingion.makeitfine.testconfiguration.ServiceTestConfiguration$EntityTestData"/>
+            <Class name="~com\.stingion\.makeitfine\.data\.model\.((user\.(User|Contact))|UserProfile|Item|CreditCard|Bank)"/>
+            <Class name="com.stingion.intro.domain.Info"/>
+            <Class name="com.stingion.cache.model.Record"/>
+        </Or>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
 
 </FindBugsFilter>

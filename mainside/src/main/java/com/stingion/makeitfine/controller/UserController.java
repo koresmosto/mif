@@ -13,14 +13,16 @@ import com.stingion.makeitfine.util.UserPasswordEncoder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.function.Function;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,12 +34,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Slf4j
 @RestController
 @RequestMapping("user")
 @Api(tags = {"UserController"})
 public class UserController {
-
-    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -64,14 +65,14 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         if (userService.findBySSO(user.getSsoId()) != null) {
-            LOG.debug("User with ssoID {} exists", user.getSsoId());
+            log.debug("User with ssoID {} exists", user.getSsoId());
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         Optional.ofNullable(passwordEncoder).ifPresent(encoder -> encoder.encodePassword(user));
 
         userService.save(user);
-        LOG.info("User created {}", user);
+        log.info("User created {}", user);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("createdUserId", String.valueOf(user.getId()));
@@ -81,32 +82,45 @@ public class UserController {
 
     @PutMapping(value = "{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
-        User currentUser = userService.findById(id);
-        if (currentUser == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Function<User, ResponseEntity<User>> func = u -> {
+            Optional.ofNullable(passwordEncoder).ifPresent(encoder -> encoder.encodePassword(user));
 
-        Optional.ofNullable(passwordEncoder).ifPresent(encoder -> encoder.encodePassword(user));
+            u.setSsoId(user.getSsoId());
+            u.setPassword(user.getPassword());
+            u.setEmail(user.getEmail());
+            u.setState(user.getState());
 
-        currentUser.setSsoId(user.getSsoId());
-        currentUser.setPassword(user.getPassword());
-        currentUser.setEmail(user.getEmail());
-        currentUser.setState(user.getState());
-
-        userService.update(currentUser);
-        LOG.info("Updating User {}", currentUser);
-        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+            userService.update(u);
+            log.info("Updating User {}", u);
+            return new ResponseEntity<>(u, HttpStatus.OK);
+        };
+        return findByIdBasedOperation(id, func);
     }
 
+    @SuppressWarnings("checkstyle:missingjavadocmethod")
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
-        User user = userService.findById((int) id);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<User> deleteUser(@PathVariable("id") int id) {
+        Function<User, ResponseEntity<User>> func = u -> {
+            log.info("Deleted User {}", u);
+            userService.delete(u);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        };
+        return findByIdBasedOperation(id, func);
+    }
 
-        userService.delete(user);
-        LOG.info("Deleted User {}", user);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    private ResponseEntity<User> findByIdBasedOperation(int id, Function<User, ResponseEntity<User>> func) {
+        try {
+            User user = userService.findById(id);
+            return func.apply(user);
+        } catch (NoSuchElementException ex) {
+            return notFoundResponseEntity(id);
+        }
+    }
+
+    private ResponseEntity<User> notFoundResponseEntity(@PathVariable("id") long id) {
+        log.debug("no element with id={}", id);
+        MultiValueMap<String, String> headers = new HttpHeaders();
+        headers.add("id", String.valueOf(id));
+        return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
     }
 }

@@ -7,6 +7,7 @@
 
 package com.stingion.makeitfine.data.model.payment;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -57,6 +58,7 @@ public class Payment {
 
     @Override
     @SuppressWarnings("CPD-START")
+    @SuppressFBWarnings("NP_METHOD_PARAMETER_TIGHTENS_ANNOTATION")
     public boolean equals(@Nullable Object o) {
         if (this == o) {
             return true;

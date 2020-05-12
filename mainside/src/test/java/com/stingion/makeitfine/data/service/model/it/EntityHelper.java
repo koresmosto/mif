@@ -7,7 +7,9 @@
 
 package com.stingion.makeitfine.data.service.model.it;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.Objects;
 import javax.persistence.EntityManager;
@@ -35,13 +37,15 @@ public class EntityHelper<T> {
                 .intValue();
     }
 
+    @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
     public boolean isExist(@NonNull T entity) {
         try {
-            Object getIdInvokeResult = entity.getClass().getMethod("getId", (Class<T>[]) null).invoke(entity);
-            if (getIdInvokeResult == null) {
+            Method getIdMethod = entity.getClass().getMethod("getId");
+            Object getIdIMethodInvokeResult = getIdMethod.invoke(entity);
+            if (getIdIMethodInvokeResult == null) {
                 return false;
             }
-            T dbEntity = getEntityById((Integer) getIdInvokeResult);
+            T dbEntity = getEntityById((Integer) getIdIMethodInvokeResult);
             return entity.toString().equals(dbEntity != null ? dbEntity.toString() : StringUtils.EMPTY);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             log.debug(Objects.toString(e.getMessage(), ""), e);
@@ -60,6 +64,7 @@ public class EntityHelper<T> {
         return dbEntity;
     }
 
+    @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
     protected Class<T> getEntityClass() {
         if (entityClass == null) {
             ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
