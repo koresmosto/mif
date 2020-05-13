@@ -18,7 +18,9 @@ Read `run/IDE/README.txt` and apply its recommendations to IDE
 
 <!-- TODO: should be written well (write wiki)-->
 Temp notes:
-Start mongodb locally: `sudo mongod --config /etc/mongodb.conf`
-When init project first with docker elastic:
-`sudo ./run/elastic/elastic.sh`
-            
+- Start mongodb locally: 
+`$> sudo mongod --config /etc/mongodb.conf`
+- When init project first with docker elastic:
+`$> sudo ./run/elastic/elastic.sh`
+- Generate site documentation for project:
+`$> mvn clean site --pl mainside,mq-publish,mq-consume,intro-service,cache-service && mvn clean site --pl util`
