@@ -11,7 +11,6 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 import com.stingion.makeitfine.testconfiguration.CommonUtil;
 import com.stingion.makeitfine.testconfiguration.IntegrationTest;
-import java.util.Optional;
 import javax.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +38,8 @@ abstract class ControllerITProvision {
     }
 
     protected String getResponseBody(String relativePath) {
-        return Optional.ofNullable(CommonUtil.getResponseBody(restTemplate, hostPort, relativePath, String.class))
-                .orElse(StringUtils.EMPTY);
+        String responseBody = CommonUtil.getResponseBody(restTemplate, hostPort, relativePath, String.class);
+        return responseBody != null ? responseBody : StringUtils.EMPTY;
     }
 
     protected String getHostPort() {

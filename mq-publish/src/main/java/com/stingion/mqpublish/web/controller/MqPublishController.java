@@ -41,7 +41,7 @@ public class MqPublishController {
     @GetMapping("/secretUrl")
     public String secretUrl(@RequestParam("msg") String msg,
             @RequestParam(value = "serialize", required = false) Boolean serialize) {
-        serialize = serialize != null ? serialize : true;
+        serialize = serialize == null || serialize;
         if (serialize) {
             publisher.produceMsg(new Message(msg));
         } else {

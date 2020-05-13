@@ -54,8 +54,7 @@ class UserInfoControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class)
-                .value(
-                        CoreMatchers.equalTo(usersAndItsRoles.stream().reduce((e1, e2) -> e1 + "" + e2).get()));
+                .value(CoreMatchers.equalTo(usersAndItsRoles.stream().reduce((e1, e2) -> e1 + "" + e2).orElseThrow()));
 
         verify(infoService, times(1)).usersAndItsRoles();
     }

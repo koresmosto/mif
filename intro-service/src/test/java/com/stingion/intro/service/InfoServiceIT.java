@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.stingion.intro.domain.Info;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -135,6 +134,7 @@ class InfoServiceIT {
     }
 
     private String getMessage(Throwable exception) {
-        return Optional.ofNullable(exception.getMessage()).orElse(StringUtils.EMPTY);
+        String message = exception.getMessage();
+        return message != null ? message : StringUtils.EMPTY;
     }
 }

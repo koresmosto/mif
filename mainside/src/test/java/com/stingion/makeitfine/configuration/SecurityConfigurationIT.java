@@ -109,9 +109,10 @@ class SecurityConfigurationIT {
     private <T> T getResponseBody(String relativePath, Class<T>... clasz) throws NoSuchElementException {
         @SuppressWarnings({"unchecked", "varargs"})
         Class<T>[] getRidOfWarningsClass = clasz;
-        return Optional.ofNullable(
-                CommonUtil.getResponseBody(restTemplate, hostPort, relativePath, getRidOfWarningsClass)
-        ).orElseThrow(() ->
-                new NoSuchElementException(String.format("hostPort: %s, relativePath: %s", hostPort, relativePath)));
+        T responseBody = CommonUtil.getResponseBody(restTemplate, hostPort, relativePath, getRidOfWarningsClass);
+        if (responseBody != null) {
+            return responseBody;
+        }
+        throw new NoSuchElementException(String.format("hostPort: %s, relativePath: %s", hostPort, relativePath));
     }
 }
