@@ -58,17 +58,6 @@
             <artifactId>jdk8</artifactId>
             <version>${checkerframework.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.checkerframework</groupId>-->
-<!--            <artifactId>framework-test</artifactId>-->
-<!--            <version>${checkerframework.version}</version>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.checkerframework</groupId>-->
-<!--                    <artifactId>javacutil</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
@@ -87,6 +76,21 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -126,15 +130,15 @@
                         <annotationProcessor>
                             org.checkerframework.checker.nullness.NullnessChecker
                         </annotationProcessor>
-<!--                        <annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>-->
-<!--                        <annotationProcessor>org.checkerframework.checker.fenum.FenumChecker</annotationProcessor>-->
-<!--                        <annotationProcessor>org.checkerframework.checker.formatter.FormatterChecker</annotationProcessor>-->
+                        <!--                        <annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>-->
+                        <!--                        <annotationProcessor>org.checkerframework.checker.fenum.FenumChecker</annotationProcessor>-->
+                        <!--                        <annotationProcessor>org.checkerframework.checker.formatter.FormatterChecker</annotationProcessor>-->
                         <annotationProcessor>org.checkerframework.checker.regex.RegexChecker</annotationProcessor>
                     </annotationProcessors>
                     <compilerArgs>
                         <!-- If using JDK 8, use only the two arguments immediately below. -->
-<!--                         <arg>-J-Xbootclasspath/p:${errorProneJavac}</arg>-->
-<!--                         <arg>-Xbootclasspath/p:${annotatedJdk}</arg>-->
+                        <!--                         <arg>-J-Xbootclasspath/p:${errorProneJavac}</arg>-->
+                        <!--                         <arg>-Xbootclasspath/p:${annotatedJdk}</arg>-->
                         <!-- If using JDK 11, remove the two arguments above, remove the
                              space in the one below, and uncomment it. -->
                         <arg>-J- -add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
@@ -145,7 +149,114 @@
                         <arg>-AsuppressWarnings=uninitialized</arg>
                     </compilerArgs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <!-- todo: compile source and test-source to analyze tests too (though of refactoring) -->
+                        <id>compile-test-on-pre-site</id>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>1.18.12.0</version>
+                <executions>
+                    <execution>
+                        <id>delombok</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                        <configuration>
+                            <addOutputDirectory>false</addOutputDirectory>
+                            <sourceDirectory>src/main/java</sourceDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-delombok</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>testDelombok</goal>
+                        </goals>
+                        <configuration>
+                            <addOutputDirectory>false</addOutputDirectory>
+                            <sourceDirectory>src/test/java</sourceDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin> <!-- Todo: think of not using, cause jxr plugin expose sources in Javadoc -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>javadoc</id>
+                        <configuration>
+                            <sourcepath>target/generated-sources/delombok</sourcepath>
+                        </configuration>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>test-javadoc</id>
+                        <configuration>
+                            <sourcepath>target/generated-test-sources/delombok</sourcepath>
+                        </configuration>
+                        <reports>
+                            <report>test-javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- todo: disable cause of exceptions while generation (think of include) -->
+                            <!--              <report>dependencies</report>-->
+                            <!--              <report>dependency-convergence</report>-->
+                            <!--              <report>dependency-info</report>-->
+                            <!--              <report>dependency-management</report>-->
+                            <report>ci-management</report>
+                            <report>issue-management</report>
+                            <report>index</report>
+                            <report>team</report>
+                            <report>mailing-lists</report>
+                            <report>ci-management</report>
+                            <report>issue-management</report>
+                            <report>licenses</report>
+                            <report>scm</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
