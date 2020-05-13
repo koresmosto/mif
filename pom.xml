@@ -185,12 +185,6 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs-annotations</artifactId>
-            <version>4.0.2</version>
-            <scope>provided</scope>
-        </dependency>
         <!-- Annotations from the Checker Framework: nullness, interning, locking, ... -->
         <dependency>
             <groupId>org.checkerframework</groupId>

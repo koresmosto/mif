@@ -22,7 +22,7 @@ public final class ServiceHelper {
     }
 
     /**
-     * Get single entity by any of its attribute. <br/>
+     * Get single entity by any of its attribute.
      * If any of the arguments is {@code null}, then method {@code return null;}
      *
      * @param entityManager provided jpa entity manager
