@@ -22,6 +22,7 @@ public abstract class EntityServiceImpl<T> implements EntityService<T> {
         return entityRepository.findAll();
     }
 
+    @SuppressWarnings("method.invocation.invalid")
     @Override
     public T findById(String id) {
         return entityRepository.findById(id).get();

@@ -25,6 +25,7 @@ public class AttrConverter {
             return attribute.getState();
         }
 
+        @SuppressWarnings("method.invocation.invalid")
         @Override
         public State convertToEntityAttribute(String dbData) {
             return Arrays.stream(State.values())

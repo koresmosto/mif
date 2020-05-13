@@ -7,7 +7,6 @@
 
 package com.stingion.makeitfine.controller;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -100,6 +99,10 @@ public class OtherServicesController {
     }
 
     private @NonNull String getResponseBodyOrEmpty(String url) {
-        return Optional.ofNullable(restTemplate.getForEntity(url, String.class).getBody()).orElse(StringUtils.EMPTY);
+        String body = restTemplate.getForEntity(url, String.class).getBody();
+        if (body != null) {
+            return body;
+        }
+        return StringUtils.EMPTY;
     }
 }

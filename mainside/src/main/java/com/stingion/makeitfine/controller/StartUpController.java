@@ -11,7 +11,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -43,8 +42,8 @@ public class StartUpController {
                     allowableValues = "author, purpose, stage")
                     String details) {
         log.info("Mainside microservice (cache-service module)");
-        var otherValue = "any value";
-        switch (Optional.ofNullable(details).orElse(otherValue).toLowerCase(Locale.getDefault())) {
+        var detailsForSwitch = details != null ? details : "any value";
+        switch (detailsForSwitch.toLowerCase(Locale.getDefault())) {
             case "author":
                 return AboutProjectInfo.Author.details() + " : " + Desc.Author.description();
             case "purpose":

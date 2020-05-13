@@ -26,6 +26,7 @@ public class EntityServiceImpl<T> implements EntityService<T> {
         return entityRepository.findAll();
     }
 
+    @SuppressWarnings("method.invocation.invalid")
     @Override
     @NonNull
     public T findById(Integer id) throws NoSuchElementException {

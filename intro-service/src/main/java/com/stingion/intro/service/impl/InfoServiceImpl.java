@@ -24,6 +24,7 @@ public class InfoServiceImpl extends EntityServiceImpl<Info> implements InfoServ
      * @param key key for search by
      * @return Info
      */
+    @SuppressWarnings("method.invocation.invalid")
     public Info findByKey(String key) {
         var info = new Info();
         info.setKey(key);

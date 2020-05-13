@@ -9,7 +9,6 @@ package com.stingion.mqpublish.web.controller;
 
 import com.stingion.mqpublish.configuration.Publisher;
 import com.stingion.util.mq.Message;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +41,7 @@ public class MqPublishController {
     @GetMapping("/secretUrl")
     public String secretUrl(@RequestParam("msg") String msg,
             @RequestParam(value = "serialize", required = false) Boolean serialize) {
-        serialize = Optional.ofNullable(serialize).orElse(true);
+        serialize = serialize != null ? serialize : true;
         if (serialize) {
             publisher.produceMsg(new Message(msg));
         } else {

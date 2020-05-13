@@ -7,7 +7,6 @@
 
 package com.stingion.makeitfine.configuration;
 
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -69,7 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private void configureIfSecurityIsON(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/login**", "/public/**", "/Access_Denied").permitAll();
         http.authorizeRequests()
-                .antMatchers(Optional.ofNullable(antPattern).orElse("/**"))
+                .antMatchers(antPattern != null ? antPattern : "/**")
                 .access("hasRole('ADMIN') or hasRole('USER')")
                 .and()
                 .httpBasic()

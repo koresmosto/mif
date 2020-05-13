@@ -17,9 +17,9 @@
     files="GlobalExceptionHandler.java" lines="23,25"/>
   <suppress checks="AbbreviationAsWordInName" files="UserService.java" lines="14"/>
 
-  <suppress checks="JavadocMethod" files="(StartUpController|LoginController)\.java" lines="33,37"/>
+  <suppress checks="JavadocMethod" files="(StartUpController|LoginController)\.java" lines="32,37"/>
   <suppress checks="JavadocMethod" files="UserController.java" lines="65,83"/>
-  <suppress checks="JavadocMethod" files="SecurityConfiguration.java" lines="43,51"/>
+  <suppress checks="JavadocMethod" files="SecurityConfiguration.java" lines="42,50"/>
   <suppress checks="JavadocMethod" files="SwaggerConfig.java" lines="25"/>
   <suppress checks="JavadocMethod" files="CustomUserDetailsService.java" lines="35"/>
   <suppress checks="InterfaceIsType" files="com/stingion/makeitfine/data/model/utils/ModelConstants.java" lines="10"/>
