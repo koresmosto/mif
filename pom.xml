@@ -186,38 +186,38 @@
             <optional>true</optional>
         </dependency>
         <!-- Annotations from the Checker Framework: nullness, interning, locking, ... -->
-<!--        <dependency>-->
-<!--            <groupId>org.checkerframework</groupId>-->
-<!--            <artifactId>jdk8</artifactId>-->
-<!--            <version>${checkerframework.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.checkerframework</groupId>-->
-<!--            <artifactId>framework-test</artifactId>-->
-<!--            <version>${checkerframework.version}</version>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.checkerframework</groupId>-->
-<!--                    <artifactId>javacutil</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.checkerframework</groupId>-->
-<!--            <artifactId>checker</artifactId>-->
-<!--            <version>${checkerframework.version}</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.checkerframework</groupId>-->
+        <!--            <artifactId>jdk8</artifactId>-->
+        <!--            <version>${checkerframework.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.checkerframework</groupId>-->
+        <!--            <artifactId>framework-test</artifactId>-->
+        <!--            <version>${checkerframework.version}</version>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>org.checkerframework</groupId>-->
+        <!--                    <artifactId>javacutil</artifactId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.checkerframework</groupId>-->
+        <!--            <artifactId>checker</artifactId>-->
+        <!--            <version>${checkerframework.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
             <version>${checkerframework.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.checkerframework/dataflow -->
-<!--        <dependency>-->
-<!--            <groupId>org.checkerframework</groupId>-->
-<!--            <artifactId>dataflow</artifactId>-->
-<!--            <version>${checkerframework.version}</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.checkerframework</groupId>-->
+        <!--            <artifactId>dataflow</artifactId>-->
+        <!--            <version>${checkerframework.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.google.errorprone</groupId>
             <artifactId>javac</artifactId>
@@ -584,6 +584,7 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>${dockerfile-maven-plugin.version}</version>
                 <configuration>
+                    <skip>${env.TRAVIS}</skip>
                     <repository>${docker.image.prefix}/${project.artifactId}</repository>
                 </configuration>
             </plugin>
