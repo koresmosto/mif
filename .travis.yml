@@ -6,8 +6,17 @@ before_install:
   - sudo apt-get install jq
   - wget https://github.com/codacy/codacy-coverage-reporter/releases/download/6.0.0/codacy-coverage-reporter-6.0.0-assembly.jar
 
+addons:
+  sonarcloud:
+    organization: makeitfine-org
+    token:
+      secure: yM3J3iG4NwPT4xY0xDtizxpQKpQ3jwjl7+mMOIGwBp8dLJMgiHUYjKDTcS7icayKdB/Lf/yysEdY7/MqHhGwFQZYniXpLStR9GkIlATWfCJpJ5XlwUr5MkJY7lT73fuqFpfcFk9ibOlkUZLxyIZdM2TrVa/5UcSC8AvyZ5sVOZp8EcPyojADLZrRh9z17YRWNdGbP5ALPSP2rLqurhkW5sLvj7OteGbp5dFPEQgCKKvbw7IAeQLRQTuRnDToiJs4GKvUQeb++dXFzw6U/aDzLrffrNMW7uQotwdptwkreIJuUKG+jyOzXym6mt6pBx8R9RayCD4QpLig0UpFvts+sNegyx/bBQcc0SrBuU69hwJIpJ05szUQDJya7uQcByTawcEYcXNHuXfEtnCVevrJ3kqd8N3cuAJWeNtxqq/CXhUJKgbXIEehwDFLd+OQS+tWNQyMNjy+bfg9FxQ3fActtGqUGi2NPPWFRyvPiVE8sLC4Af8CmumiYEdcQMX1dpo4bEw0ph3M9y7TclDn+BZ9B5QY3s6bf9/lqKyiunfJNCcmKZskCmzaZzDFN23bNv8GIeUlFd9SljLmlJaDkuyOjsAmFWJjwtbOp5SSBivZoW8e02hdeSP2XjrfcSXju052S4jECMGIfAhjdmP0B2SnliyoYiSTdkMi2H5+W8JLEnI=
+
 script:
-  mvn clean verify
+  #mvn clean verify
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean -DskipTests=true, -PskipCheckers org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=Makeitfine-org_mif
+
 
 cache:
   directories:
