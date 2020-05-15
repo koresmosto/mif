@@ -4,6 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>makeitfine</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <build>
     <pluginManagement>
       <plugins>
@@ -417,6 +418,4 @@
       <url>${mvn.myMavenRepo.read.url}</url>
     </repository>
   </repositories>
-
-  <version>1.0-SNAPSHOT</version>
 </project>
