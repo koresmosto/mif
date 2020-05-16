@@ -71,8 +71,24 @@ public class Message implements Serializable {
     public @NonNull String str;
 
     void realError(@MonotonicNonNull Object p) {
+        Optional.ofNullable(null).get();
+        Optional.ofNullable(null).get();
+        Optional.ofNullable(null).get();
+        Optional.ofNullable(null).get();
+        Optional.ofNullable(null).get();
+        Optional.ofNullable(null).get();
+        Optional.ofNullable(null).get();
+        Optional.ofNullable(null).get();
+        Optional.ofNullable(null).get();
         //:: error: (monotonic.type.incompatible)
         var x = p;
+        var x2 = p;
+        var x4 = p;
+        var x491 = p;
+        var xa11491 = p;
+        var x12491 = p;
+        var x121491 = p;
+        //var x5 = p;
         //:: error: (monotonic.type.incompatible)
         var x1 = new Random().nextBoolean() ? new Object() : null;
         @MonotonicNonNull Object k = x1;
