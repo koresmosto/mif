@@ -13,10 +13,11 @@
     <!--    <groupId>com.stingion</groupId>-->
     <groupId>com.github.makeitfine-org</groupId>
     <artifactId>util</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <modelVersion>4.0.0</modelVersion>
 
     <name>${project.groupId}:${project.artifactId}</name>
+    <description>util module of makeitfine project</description>
     <url>https://github.com/makeitfine-org/mif</url>
 
     <!-- License for the project, pick a License from opensource.org -->
@@ -171,7 +172,8 @@
                         <configuration>
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-<!--                            <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+                            <!-- todo: if `true` thant autorelease after deploy will be-->
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                 </plugins>

@@ -24,3 +24,9 @@ Temp notes:
 `$> sudo ./run/elastic/elastic.sh`
 - Generate site documentation for project:
 `$> mvn clean site --pl mainside,mq-publish,mq-consume,intro-service,cache-service && mvn clean site --pl util`
+
+Make release (based on util module):
+1) `$>m clean install source:jar javadoc:jar -Prelease`
+2) `$>gpg --verify target/*.pom.asc`
+3) `$>m deploy -Prelease`
+4) go to `https://oss.sonatype.org/#nexus-search;quick~makeitfine`
