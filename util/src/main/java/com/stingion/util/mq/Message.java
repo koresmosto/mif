@@ -39,8 +39,8 @@ public class Message implements Serializable {
 
     private static @NonNull Float f = 5.5f;
 
-    @Getter(onMethod_ = {@Nullable})
-    @Setter(onParam_ = {@Nullable})
+    @Getter//(onMethod_ = {@Nullable})
+    @Setter//(onParam_ = {@Nullable})
     private Integer oneOf;
 
     //    private static @Regex String findNumbers = "(\\d*)";
