@@ -245,11 +245,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jetbrains</groupId>
-                <artifactId>annotations</artifactId>
-                <version>15.0</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>Greenwich.SR3</version>
@@ -643,7 +638,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <skip>${skipCheckers}</skip>
                     <!-- <fork>true</fork> &lt;!&ndash; todo: could be off if .mvn present&ndash;&gt;-->
                     <compilerVersion>${java.version}</compilerVersion>
                     <target>${java.version}</target>
