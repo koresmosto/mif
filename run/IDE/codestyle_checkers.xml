@@ -416,7 +416,7 @@
         <module name="AvoidNestedBlocks"/>
         <module name="SuppressWarningsHolder"/>
         <module name="Regexp">
-            <message key="illegal.regexp" value="System.out|err.print(ln) not allowed"/>
+            <message key="illegal.regexp" value="System.out|err.print(ln|f) not allowed"/>
             <property name="format" value="(System[\s]*\.((out)|(err))[\s]*\.print((ln)|f)?[\s]*\()|printStackTrace"/>
             <property name="ignoreComments" value="true"/>
             <property name="illegalPattern" value="true"/>
