@@ -7,8 +7,7 @@
   -->
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://maven.apache.org/POM/4.0.0"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -104,9 +103,6 @@
         <pmd.version>6.23.0</pmd.version>
         <checkerframework.version>3.4.0</checkerframework.version>
 
-        <!-- These properties will be set by the Maven Dependency plugin -->
-        <!--suppress UnresolvedMavenProperty -->
-        <!--        <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>-->
         <!--suppress UnresolvedMavenProperty -->
         <errorProneJavac>${com.google.errorprone:javac:jar}</errorProneJavac>
 
@@ -190,39 +186,11 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- Annotations from the Checker Framework: nullness, interning, locking, ... -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.checkerframework</groupId>-->
-        <!--            <artifactId>jdk8</artifactId>-->
-        <!--            <version>${checkerframework.version}</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.checkerframework</groupId>-->
-        <!--            <artifactId>framework-test</artifactId>-->
-        <!--            <version>${checkerframework.version}</version>-->
-        <!--            <exclusions>-->
-        <!--                <exclusion>-->
-        <!--                    <groupId>org.checkerframework</groupId>-->
-        <!--                    <artifactId>javacutil</artifactId>-->
-        <!--                </exclusion>-->
-        <!--            </exclusions>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.checkerframework</groupId>-->
-        <!--            <artifactId>checker</artifactId>-->
-        <!--            <version>${checkerframework.version}</version>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
             <version>${checkerframework.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.checkerframework/dataflow -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.checkerframework</groupId>-->
-        <!--            <artifactId>dataflow</artifactId>-->
-        <!--            <version>${checkerframework.version}</version>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>com.google.errorprone</groupId>
             <artifactId>javac</artifactId>
