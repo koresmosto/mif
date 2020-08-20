@@ -9,6 +9,7 @@ skipTests=false
 debug=false
 docker=false
 mongoMigration=false
+mysqlMigration=false
 buildOnly=false
 runOnly=false
 skipCheckers=false
@@ -30,7 +31,8 @@ do
             echo "  s  - skipTests"
             echo "  d  - debug enable"
             echo "  do - docker enable"
-            echo "  mm - mongodb migration scripts (parametrize only locally 'dev')"
+            echo "  mm - mongodb migration scripts (parametrize only locally 'dev') && (run only migration and exit)"
+            echo "  ms - mysql migration (run only migration and exit)"
             echo "  b  - build only"
             echo "  r  - run only"
             echo "  sc - skip checkers (checkstyle, compiler, spotbugs, etc.)"
@@ -53,6 +55,10 @@ do
       "mm" | "mongoMigrate")
             mongoMigration=true
             ;;
+
+      "ms" | "mysqlMigrate" | msql)
+            mysqlMigration=true
+            ;;
       "b" | "buildOnly" | "build")
             buildOnly=true
             ;;
@@ -73,6 +79,12 @@ echo "Script running>> docker: ${docker} | skipTests: ${skipTests} | debug: ${de
 
 if ${mongoMigration} && ! ${docker} ; then
   sh $(dirname "$0")/mongo_migrate.sh
+  exit
+fi;
+
+if ${mysqlMigration} ; then
+  mvn clean compile -PskipCheckers flyway:migrate --pl mainside -f ${PROJECT_PATH}
+  exit
 fi;
 
 if ! ${runOnly} ; then
