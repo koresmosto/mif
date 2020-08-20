@@ -19,3 +19,4 @@ mq-consume:
 
 cache-service:
   base-url: http://cache-service:8084
+

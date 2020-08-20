@@ -31,6 +31,7 @@
   <suppress checks="HideUtilityClassConstructor" files="com/stingion/cache/CacheServiceApplication.java" lines="14"/>
   <suppress checks="HideUtilityClassConstructor" files="com/stingion/mqconsume/MqConsumeApplication.java" lines="13"/>
   <suppress checks="HideUtilityClassConstructor" files="com/stingion/mqpublish/MqPublishApplication.java" lines="13"/>
+  <suppress checks="HideUtilityClassConstructor" files="com/stingion/kafka/KafkaApplication.java" lines="13"/>
 
 
   <!-- intro module -->

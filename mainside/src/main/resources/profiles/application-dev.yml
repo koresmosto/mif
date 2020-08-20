@@ -19,3 +19,6 @@ mq-consume:
 
 cache-service:
   base-url: http://localhost:8084
+
+kafka:
+  base-url: http://localhost:8085

@@ -105,6 +105,7 @@ if ! ${buildOnly} ; then
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mq-publish &
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mq-consume &
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/cache-service &
+    mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/kafka &
     mvn spring-boot:run ${Pdebug} -f ${PROJECT_PATH}/mainside)
   fi;
 fi;

@@ -40,11 +40,15 @@ public class OtherServicesController {
     @Value("${cache-service.base-url:#{null}}")
     private String cacheServiceBaseUrl;
 
+    @Value("${kafka.base-url:#{null}}")
+    private String kafkaBaseUrl;
+
     /**
      * Get response from {@code intro-service} module.
      *
      * @return response
      */
+    @SuppressWarnings("CPD-START")
     @GetMapping(path = "intro/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> introMS() {
         return getResponseEntity(introServiceBaseUrl, "intro");
@@ -78,6 +82,17 @@ public class OtherServicesController {
     @GetMapping(path = "cache/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> cacheServiceMS() {
         return getResponseEntity(cacheServiceBaseUrl, "cache");
+    }
+
+    /**
+     * Get response from {@code kafka} module.
+     *
+     * @return response
+     */
+    @SuppressWarnings("CPD-END")
+    @GetMapping(path = "kafka/hello", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> kafkaMS() {
+        return getResponseEntity(kafkaBaseUrl, "kafka");
     }
 
     /**
