@@ -25,6 +25,10 @@ Temp notes:
 - Generate site documentation for project:
 `$> mvn clean site --pl mainside,mq-publish,mq-consume,intro-service,cache-service && mvn clean site --pl util`
 
+Mysql migration:
+1) go to mainside
+2) m clean compile flyway:clean  flyway:migrate --pl mainside
+
 Make release (based on util module):
 1) `$>m clean install source:jar javadoc:jar -Prelease`
 2) `$>gpg --verify target/*.pom.asc`
