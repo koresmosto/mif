@@ -6,8 +6,6 @@
 
 package com.stingion.kafka.service;
 
-import static com.stingion.kafka.Constants.TOPIC;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -20,8 +18,10 @@ public class Producer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
+    private final String topic;
+
     public void sendMessage(String message) {
         log.info(String.format("#### -> Producing message -> %s", message));
-        this.kafkaTemplate.send(TOPIC, message);
+        this.kafkaTemplate.send(topic, message);
     }
 }
