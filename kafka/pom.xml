@@ -18,6 +18,13 @@
     <artifactId>kafka</artifactId>
     <packaging>war</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -55,5 +62,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
