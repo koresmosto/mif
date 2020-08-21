@@ -6,12 +6,20 @@
 
 package com.stingion.kafka.service;
 
-//@Slf4j
-//@Service
+import static com.stingion.kafka.Constants.TOPIC;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+
+@Slf4j
+@Service
+@Profile("!test")
 public class Consumer {
 
-//    @KafkaListener(topics = TOPIC, groupId = "group_id")
-//    public void consume(String message) {
-//        log.info(String.format("#### -> Consumed message -> %s", message));
-//    }
+    @KafkaListener(topics = TOPIC, groupId = "group_id")
+    public void consume(String message) {
+        log.info(String.format("#### -> Consumed message -> %s", message));
+    }
 }

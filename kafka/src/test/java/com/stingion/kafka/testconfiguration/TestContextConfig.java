@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Primary;
 @TestConfiguration
 public class TestContextConfig {
 
-    @Bean
     @Primary
+    @Bean
     public String testTopic() {
         return TEST_TOPIC;
     }
