@@ -31,3 +31,8 @@ services:
     ports:
       - 5009:5009
     command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5009 -jar -Dspring.profiles.active=docker /app.war
+
+  kafka:
+    ports:
+      - 5010:5010
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5010 -jar -Dspring.profiles.active=docker /app.war

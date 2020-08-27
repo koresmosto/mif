@@ -10,13 +10,15 @@ import static com.stingion.kafka.Constants.GROUP_ID;
 import static com.stingion.kafka.Constants.TOPIC;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Slf4j
-@Service
 @Profile("!test")
+@DependsOn("topic1")
+@Service
 public class Consumer {
 
     @KafkaListener(topics = TOPIC, groupId = GROUP_ID)

@@ -126,6 +126,32 @@ services:
       REDIS_PASSWORD: ${redis_pass}
     command: /run.sh --maxmemory 256mb
 
+  zookeeper:
+    image: bitnami/zookeeper:3.6.1
+    container_name: mif_zookeeper
+    ports:
+      - 2281:2182
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka-broker:
+    image: bitnami/kafka:2.6.0
+    container_name: mif_kafka-broker
+    ports:
+      - 9192:9092
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+
+  kafka-tool:
+    image: obsidiandynamics/kafdrop:3.27.0
+    container_name: mif_kafka-tool
+    ports:
+      - 9000:9000
+    environment:
+      - KAFKA_BROKERCONNECT=kafka-broker:9092
+
   mainside:
     depends_on:
       - flyway
@@ -177,6 +203,19 @@ services:
     container_name: mif_cache-service
     ports:
       - 8089:8084
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
+
+  kafka:
+    depends_on:
+      - kafka-broker
+    image: koresmosto/kafka
+    container_name: mif_kafka
+    ports:
+      - 8090:8085
+      - 5010:5010
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5010 -jar -Dspring.profiles.active=docker /app.war
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"

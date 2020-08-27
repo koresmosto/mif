@@ -9,7 +9,7 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: http://localhost:9092
+    bootstrap-servers: @kafka.hostPort@
     consumer:
       bootstrap-servers: ${spring.kafka.bootstrap-servers}
       group-id: group_id
