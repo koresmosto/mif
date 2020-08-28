@@ -294,7 +294,7 @@
                 <mongodb.host>mongo</mongodb.host>
                 <rabbitmq.host>rabbitmq</rabbitmq.host>
                 <redis.host>redis</redis.host>
-                <kafka.hostPort>kafka-broker:9092</kafka.hostPort>
+                <kafka.hostPort>kafka-broker1:9092,kafka-broker2:9092,kafka-broker3:9092</kafka.hostPort>
             </properties>
         </profile>
         <profile>

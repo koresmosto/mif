@@ -26,6 +26,6 @@ public class ContextConfig {
     @Profile("!test")
     @Bean
     public NewTopic topic1() {
-        return new NewTopic(TOPIC, 1, (short) 1);
+        return new NewTopic(TOPIC, 2, (short) 2);
     }
 }

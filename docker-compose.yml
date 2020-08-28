@@ -21,7 +21,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ESV}
     container_name: mif_elasticsearch
     ports:
-      - "9200:9200"
+      - "10200:9200"
     environment:
       - "discovery.type=single-node"
     volumes:
@@ -134,9 +134,11 @@ services:
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
 
-  kafka-broker:
+  kafka-broker1:
+    depends_on:
+      - zookeeper
     image: bitnami/kafka:2.6.0
-    container_name: mif_kafka-broker
+    container_name: mif_kafka-broker1
     ports:
       - 9192:9092
     environment:
@@ -144,13 +146,41 @@ services:
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
 
+  kafka-broker2:
+    depends_on:
+      - zookeeper
+    image: bitnami/kafka:2.6.0
+    container_name: mif_kafka-broker2
+    ports:
+      - 9193:9092
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+
+  kafka-broker3:
+    depends_on:
+      - zookeeper
+    image: bitnami/kafka:2.6.0
+    container_name: mif_kafka-broker3
+    ports:
+      - 9194:9092
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+
   kafka-tool:
+    depends_on:
+      - kafka-broker1
+      - kafka-broker2
+      - kafka-broker3
     image: obsidiandynamics/kafdrop:3.27.0
     container_name: mif_kafka-tool
     ports:
       - 9000:9000
     environment:
-      - KAFKA_BROKERCONNECT=kafka-broker:9092
+      - KAFKA_BROKERCONNECT=kafka-broker1:9092,kafka-broker2:9092
 
   mainside:
     depends_on:
@@ -209,7 +239,9 @@ services:
 
   kafka:
     depends_on:
-      - kafka-broker
+      - kafka-broker1
+      - kafka-broker2
+      - kafka-broker3
     image: koresmosto/kafka
     container_name: mif_kafka
     ports:
