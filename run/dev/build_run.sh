@@ -88,7 +88,7 @@ if ${mysqlMigration} ; then
 fi;
 
 if ! ${runOnly} ; then
-  mvn clean ${PskipCheckers} ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH}
+  mvn clean ${PskipCheckers} ${installOrVerify} ${DskipTests} ${Pdocker} -f ${PROJECT_PATH} -T 1C
 fi;
 #If maven commands failed exit the script
 if [[ "$?" -ne 0 ]] ; then
