@@ -178,7 +178,7 @@ services:
     image: obsidiandynamics/kafdrop:3.27.0
     container_name: mif_kafka-tool
     ports:
-      - 9000:9000
+      - 9100:9000
     environment:
       - KAFKA_BROKERCONNECT=kafka-broker1:9092,kafka-broker2:9092
 
