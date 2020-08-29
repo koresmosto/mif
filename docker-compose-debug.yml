@@ -15,19 +15,24 @@ services:
   intro-service:
     ports:
       - 5006:5006
-    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -jar -Dspring.profiles.active=docker /app.war
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -jar -Dspring.profiles.active=docker /app.jar
 
   mq-publish:
     ports:
       - 5007:5007
-    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007 -jar -Dspring.profiles.active=docker /app.war
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007 -jar -Dspring.profiles.active=docker /app.jar
 
   mq-consume:
     ports:
       - 5008:5008
-    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008 -jar -Dspring.profiles.active=docker /app.war
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008 -jar -Dspring.profiles.active=docker /app.jar
 
   cache-service:
     ports:
       - 5009:5009
-    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5009 -jar -Dspring.profiles.active=docker /app.war
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5009 -jar -Dspring.profiles.active=docker /app.jar
+
+  kafka:
+    ports:
+      - 5010:5010
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5010 -jar -Dspring.profiles.active=docker /app.jar

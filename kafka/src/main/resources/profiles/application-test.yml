@@ -3,3 +3,7 @@
 #
 #  Copyright 2017-2020
 ###
+
+spring:
+  kafka:
+    bootstrap-servers: ${spring.embedded.kafka.brokers}

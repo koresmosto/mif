@@ -21,7 +21,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ESV}
     container_name: mif_elasticsearch
     ports:
-      - "9200:9200"
+      - "10200:9200"
     environment:
       - "discovery.type=single-node"
     volumes:
@@ -126,6 +126,62 @@ services:
       REDIS_PASSWORD: ${redis_pass}
     command: /run.sh --maxmemory 256mb
 
+  zookeeper:
+    image: bitnami/zookeeper:3.6.1
+    container_name: mif_zookeeper
+    ports:
+      - 2281:2182
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka-broker1:
+    depends_on:
+      - zookeeper
+    image: bitnami/kafka:2.6.0
+    container_name: mif_kafka-broker1
+    ports:
+      - 9192:9092
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+
+  kafka-broker2:
+    depends_on:
+      - zookeeper
+    image: bitnami/kafka:2.6.0
+    container_name: mif_kafka-broker2
+    ports:
+      - 9193:9092
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+
+  kafka-broker3:
+    depends_on:
+      - zookeeper
+    image: bitnami/kafka:2.6.0
+    container_name: mif_kafka-broker3
+    ports:
+      - 9194:9092
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+
+  kafka-tool:
+    depends_on:
+      - kafka-broker1
+      - kafka-broker2
+      - kafka-broker3
+    image: obsidiandynamics/kafdrop:3.27.0
+    container_name: mif_kafka-tool
+    ports:
+      - 9100:9000
+    environment:
+      - KAFKA_BROKERCONNECT=kafka-broker1:9092,kafka-broker2:9092
+
   mainside:
     depends_on:
       - flyway
@@ -177,6 +233,20 @@ services:
     container_name: mif_cache-service
     ports:
       - 8089:8084
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
+
+  kafka:
+    depends_on:
+      - kafka-broker1
+      - kafka-broker2
+      - kafka-broker3
+    image: koresmosto/kafka
+    container_name: mif_kafka
+    ports:
+      - 8090:8085
+      - 5010:5010
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"

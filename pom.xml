@@ -90,6 +90,10 @@
         <redis.port>6379</redis.port>
         <redis.password>redispass</redis.password>
 
+        <!-- Zookeeper & Kafka -->
+        <zookeeper.hostPort>http://localhost:2181</zookeeper.hostPort>
+        <kafka.hostPort>localhost:9093,localhost:9094,localhost:9095</kafka.hostPort>
+
         <docker.image.prefix>koresmosto</docker.image.prefix>
 
         <encoding>UTF-8</encoding>
@@ -290,6 +294,7 @@
                 <mongodb.host>mongo</mongodb.host>
                 <rabbitmq.host>rabbitmq</rabbitmq.host>
                 <redis.host>redis</redis.host>
+                <kafka.hostPort>kafka-broker1:9092,kafka-broker2:9092,kafka-broker3:9092</kafka.hostPort>
             </properties>
         </profile>
         <profile>

@@ -9,6 +9,6 @@ MAINTAINER Kores Mosto <koresmosto@gmail.com>
 
 VOLUME /tmp
 
-COPY target/mq-publish-1.0-SNAPSHOT.jar /app.jar
+COPY target/kafka-1.0-SNAPSHOT.jar /app.jar
 
 CMD ["java", "-jar", "-Dspring.profiles.active=docker", "/app.jar"]

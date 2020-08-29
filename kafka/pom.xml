@@ -16,7 +16,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kafka</artifactId>
-    <packaging>war</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -55,5 +66,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

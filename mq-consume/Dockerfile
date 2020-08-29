@@ -9,6 +9,6 @@ MAINTAINER Kores Mosto <koresmosto@gmail.com>
 
 VOLUME /tmp
 
-COPY target/mq-consume-1.0-SNAPSHOT.war /app.war
+COPY target/mq-consume-1.0-SNAPSHOT.jar /app.jar
 
-CMD ["java", "-jar", "-Dspring.profiles.active=docker", "/app.war"]
+CMD ["java", "-jar", "-Dspring.profiles.active=docker", "/app.jar"]
