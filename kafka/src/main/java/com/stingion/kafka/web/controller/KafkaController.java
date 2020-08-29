@@ -7,7 +7,8 @@
 
 package com.stingion.kafka.web.controller;
 
-import com.stingion.kafka.service.Producer;
+import com.stingion.kafka.event.HelloEvent;
+import com.stingion.kafka.service.producer.HelloEventProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class KafkaController {
 
-    private final Producer producer;
+    private final HelloEventProducer producer;
 
     @GetMapping
     public ResponseEntity<String> hello() {
@@ -34,11 +35,11 @@ public class KafkaController {
 
     @PostMapping(value = "/publish")
     public void sendMessageToKafkaTopicWithHeader(@RequestParam("message") String message) {
-        this.producer.sendMessage(message);
+        this.producer.sendMessage(new HelloEvent(message));
     }
 
     @PostMapping(value = "/body")
     public void sendMessageToKafkaTopicWithBody(@RequestBody String message) {
-        this.producer.sendMessage(message);
+        this.producer.sendMessage(new HelloEvent(message));
     }
 }

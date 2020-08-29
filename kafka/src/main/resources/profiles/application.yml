@@ -10,13 +10,9 @@ server:
 spring:
   kafka:
     bootstrap-servers: @kafka.hostPort@
-    consumer:
-      bootstrap-servers: ${spring.kafka.bootstrap-servers}
-      group-id: group_id
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      bootstrap-servers: ${spring.kafka.bootstrap-servers}
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    group-id: group_id
+    auto-offset-reset: earliest
+    topic:
+      hello: mif.event.hello
+      bye: mif.event.bye
+      message: mif.event.message

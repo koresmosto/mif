@@ -10,12 +10,16 @@ package com.stingion.util.mq;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 @NoArgsConstructor
 @Getter
+@EqualsAndHashCode
+@ToString
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 540827535458245848L;
@@ -24,20 +28,10 @@ public class Message implements Serializable {
 
     private String msg;
 
-    private LocalDateTime localDateTime;
+    private String localDateTime;
 
     public Message(@NonNull String msg) {
         this.msg = msg;
-        this.localDateTime = LocalDateTime.now();
-    }
-
-    /**
-     * Message fields with {@code yyyy/MM/dd HH:mm:ss.SSS} formatted localDateTime.
-     *
-     * @return toString
-     */
-    @Override
-    public String toString() {
-        return "Message{time = " + DATE_TIME_FORMATTER.format(localDateTime) + ", msg = " + msg + "}";
+        this.localDateTime = DATE_TIME_FORMATTER.format(LocalDateTime.now());
     }
 }

@@ -6,7 +6,6 @@
 
 package com.stingion.kafka.service;
 
-import static com.stingion.kafka.Constants.TEST_TOPIC;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.stingion.kafka.testconfiguration.TestContextConfig;
@@ -15,6 +14,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
@@ -36,29 +36,32 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@EmbeddedKafka(topics = TEST_TOPIC)
+@EmbeddedKafka(topics = {"${spring.kafka.topic.hello}", "${spring.kafka.topic.bye}", "${spring.kafka.topic.message}"})
 @Import(TestContextConfig.class)
-public abstract class KafkaTestInitializer {
+public abstract class KafkaProducerTestInitializer<P> {
 
-    @Autowired
-    protected String topic;
-
-    protected BlockingQueue<ConsumerRecord<String, String>> records;
+    protected BlockingQueue<ConsumerRecord<String, P>> records;
 
     @Autowired
     private EmbeddedKafkaBroker embeddedKafkaBroker;
 
-    private KafkaMessageListenerContainer<String, String> container;
+    private KafkaMessageListenerContainer<String, P> container;
 
     @Autowired
-    private ConsumerFactory<String, String> consumerFactory;
+    private ConsumerFactory<String, P> consumerFactory;
+
+    private String topic;
+
+    public KafkaProducerTestInitializer(String topicName) {
+        this.topic = topicName;
+    }
 
     @BeforeAll
     void setup() {
         ContainerProperties containerProperties = new ContainerProperties(topic);
         container = new KafkaMessageListenerContainer<>(consumerFactory, containerProperties);
         records = new LinkedBlockingQueue<>();
-        container.setupMessageListener((MessageListener<String, String>) records::add);
+        container.setupMessageListener((MessageListener<String, P>) records::add);
         container.start();
         ContainerTestUtils.waitForAssignment(container, embeddedKafkaBroker.getPartitionsPerTopic());
     }
@@ -69,8 +72,8 @@ public abstract class KafkaTestInitializer {
     }
 
     @SuppressWarnings("dereference.of.nullable")
-    protected void assertStringPolled(String message) throws InterruptedException {
-        ConsumerRecord<String, String> singleRecord = records.poll(100, TimeUnit.MILLISECONDS);
+    protected void assertStringPolled(@NonNull P message) throws InterruptedException {
+        ConsumerRecord<String, P> singleRecord = records.poll(100, TimeUnit.MILLISECONDS);
         assertThat(singleRecord).isNotNull();
         assertThat(singleRecord.key()).isNull();
         assertThat(singleRecord.value()).isEqualTo(message);

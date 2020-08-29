@@ -6,18 +6,10 @@
 
 package com.stingion.kafka.testconfiguration;
 
-import static com.stingion.kafka.Constants.TEST_TOPIC;
-
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.ImportResource;
 
 @TestConfiguration
+@ImportResource("classpath:test-spring-context.xml")
 public class TestContextConfig {
-
-    @Primary
-    @Bean
-    public String testTopic() {
-        return TEST_TOPIC;
-    }
 }

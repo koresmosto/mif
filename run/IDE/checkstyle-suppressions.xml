@@ -24,6 +24,8 @@
   <suppress checks="JavadocMethod" files="CustomUserDetailsService.java" lines="35"/>
   <suppress checks="InterfaceIsType" files="com/stingion/makeitfine/data/model/utils/ModelConstants.java" lines="10"/>
   <suppress checks="InterfaceIsType" files="com/stingion/makeitfine/testconfiguration/TestConstants.java" lines="12"/>
+  <suppress checks="MissingJavadocMethod"/>
+  <suppress checks="ClassTypeParameterName"/>
 
   <!-- Spring Boot starters -->
   <suppress checks="HideUtilityClassConstructor" files="com/stingion/makeitfine/ApplicationBoot.java" lines="13"/>

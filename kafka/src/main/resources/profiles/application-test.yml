@@ -7,3 +7,7 @@
 spring:
   kafka:
     bootstrap-servers: ${spring.embedded.kafka.brokers}
+    topic:
+      hello: test.mif.event.hello
+      bye: test.mif.event.bye
+      message: test.mif.event.message
