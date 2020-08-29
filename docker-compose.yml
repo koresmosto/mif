@@ -247,7 +247,6 @@ services:
     ports:
       - 8090:8085
       - 5010:5010
-    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5010 -jar -Dspring.profiles.active=docker /app.war
     labels:
       collect_logs_with_filebeat: "true"
       decode_log_event_to_json_object: "true"
