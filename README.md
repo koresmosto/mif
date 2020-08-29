@@ -24,6 +24,18 @@ Temp notes:
 `$> sudo ./run/elastic/elastic.sh`
 - Generate site documentation for project:
 `$> mvn clean site --pl mainside,mq-publish,mq-consume,intro-service,cache-service && mvn clean site --pl util`
+- Before start app locally run kafka 3 brokers:
+ https://www.bogotobogo.com/Hadoop/BigData_hadoop_Zookeeper_Kafka_single_node_Multiple_broker_cluster.php:
+ ```
+ each server_(x).properties should contains:)
+ broker.id=2
+ port=9094
+ log.dir=/tmp/kafka-logs-2
+ ```
+ 
+ - $> sudo /usr/local/kafka/bin/kafka-server-start.sh config/server_1.properties
+ - $> sudo /usr/local/kafka/bin/kafka-server-start.sh config/server_2.properties
+ - $> sudo /usr/local/kafka/bin/kafka-server-start.sh config/server_3.properties
 
 Mysql migration:
 1) go to mainside

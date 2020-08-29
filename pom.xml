@@ -92,7 +92,7 @@
 
         <!-- Zookeeper & Kafka -->
         <zookeeper.hostPort>http://localhost:2181</zookeeper.hostPort>
-        <kafka.hostPort>http://localhost:9092</kafka.hostPort>
+        <kafka.hostPort>localhost:9093,localhost:9094,localhost:9095</kafka.hostPort>
 
         <docker.image.prefix>koresmosto</docker.image.prefix>
 
