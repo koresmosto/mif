@@ -7,14 +7,17 @@
 
 package com.stingion.kafka.web.controller;
 
+import com.stingion.kafka.event.ByeEvent;
 import com.stingion.kafka.event.HelloEvent;
+import com.stingion.kafka.event.MessageEvent;
+import com.stingion.kafka.service.producer.ByeEventProducer;
 import com.stingion.kafka.service.producer.HelloEventProducer;
+import com.stingion.kafka.service.producer.MessageEventProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class KafkaController {
 
-    private final HelloEventProducer producer;
+    private final HelloEventProducer helloEventProducer;
+    private final ByeEventProducer byeEventProducer;
+    private final MessageEventProducer messageEventProducer;
 
     @GetMapping
     public ResponseEntity<String> hello() {
@@ -33,13 +38,18 @@ public class KafkaController {
         return ResponseEntity.ok("Hello from \"kafka\" module!");
     }
 
-    @PostMapping(value = "/publish")
-    public void sendMessageToKafkaTopicWithHeader(@RequestParam("message") String message) {
-        this.producer.sendMessage(new HelloEvent(message));
+    @PostMapping(value = "/publish", params = "hello")
+    public void sendHelloMessage(@RequestParam("hello") String helloMessage) {
+        helloEventProducer.sendMessage(new HelloEvent("hello >> " + helloMessage));
     }
 
-    @PostMapping(value = "/body")
-    public void sendMessageToKafkaTopicWithBody(@RequestBody String message) {
-        this.producer.sendMessage(new HelloEvent(message));
+    @PostMapping(value = "/publish", params = "bye")
+    public void sendByeMessage(@RequestParam("bye") String byeMessage) {
+        byeEventProducer.sendMessage(new ByeEvent("bye >> " + byeMessage));
+    }
+
+    @PostMapping(value = "/publish", params = "message")
+    public void sendMessage(@RequestParam("message") String message) {
+        messageEventProducer.sendMessage(new MessageEvent(message));
     }
 }

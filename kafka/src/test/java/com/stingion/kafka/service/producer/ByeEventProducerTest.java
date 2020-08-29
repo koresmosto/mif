@@ -4,26 +4,27 @@
  * Copyright 2017-2020
  */
 
-package com.stingion.kafka.service;
+package com.stingion.kafka.service.producer;
 
-import com.stingion.kafka.event.HelloEvent;
-import com.stingion.kafka.service.producer.Producer;
+import com.stingion.kafka.event.ByeEvent;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 
-public class HelloEventProducerTest extends KafkaProducerTestInitializer<HelloEvent> {
+@EmbeddedKafka(topics = "${spring.kafka.topic.bye}")
+public class ByeEventProducerTest extends KafkaProducerTestInitializer<ByeEvent> {
 
     @Autowired
-    private Producer<HelloEvent> producer;
+    private Producer<ByeEvent> producer;
 
-    public HelloEventProducerTest(@Value("${spring.kafka.topic.hello}") String topicName) {
+    public ByeEventProducerTest(@Value("${spring.kafka.topic.bye}") String topicName) {
         super(topicName);
     }
 
     @Test
     public void kafkaSetup_WithTopic_EnsureSendMessageIsReceived() throws InterruptedException {
-        HelloEvent message = new HelloEvent("Hi, there!");
+        ByeEvent message = new ByeEvent("Bye, here!");
         producer.sendMessage(message);
 
         assertStringPolled(message);

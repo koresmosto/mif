@@ -4,7 +4,7 @@
  * Copyright 2017-2020
  */
 
-package com.stingion.kafka.service;
+package com.stingion.kafka.service.producer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,7 +27,6 @@ import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 import org.springframework.kafka.listener.MessageListener;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
-import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.kafka.test.utils.ContainerTestUtils;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -36,7 +35,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@EmbeddedKafka(topics = {"${spring.kafka.topic.hello}", "${spring.kafka.topic.bye}", "${spring.kafka.topic.message}"})
 @Import(TestContextConfig.class)
 public abstract class KafkaProducerTestInitializer<P> {
 
