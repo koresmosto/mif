@@ -8,6 +8,8 @@
 package com.stingion.makeitfine.data.repository;
 
 import com.stingion.makeitfine.data.model.Item;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ItemRepository extends EntityRepository<Item> {
 }

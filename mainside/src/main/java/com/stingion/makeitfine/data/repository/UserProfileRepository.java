@@ -8,6 +8,8 @@
 package com.stingion.makeitfine.data.repository;
 
 import com.stingion.makeitfine.data.model.UserProfile;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserProfileRepository extends EntityRepository<UserProfile> {
 }

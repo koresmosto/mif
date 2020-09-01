@@ -38,5 +38,11 @@
         </Or>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
     </Match>
+    <Match>
+        <Or>
+            <Class name="~com\.stingion\.makeitfine\.data\.dto\.[\w]+DTO"/>
+        </Or>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
 
 </FindBugsFilter>
