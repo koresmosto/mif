@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.TopicPartition;
 
 @SuppressFBWarnings({"SIC_INNER_SHOULD_BE_STATIC_ANON", "UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS"})
 @Slf4j
@@ -39,9 +40,19 @@ public class MessageEventKafkaConfig extends EventKafkaConfig<MessageEvent> {
     public Object listener() {
         return new Object() {
 
-            @KafkaListener(topics = "${spring.kafka.topic.message}", groupId = "${spring.kafka.group-id}")
-            public void consume(MessageEvent message) {
-                log.info("Consumed message () -> {}", message);
+            @KafkaListener(id = "${spring.kafka.topic.message}-partition0", groupId = "experiment1",
+                    topicPartitions = {@TopicPartition(topic = "${spring.kafka.topic.message}", partitions = {"0"})}
+            )
+            public void consumePartition0(MessageEvent message) {
+                log.info("Consumed message (part 0): {}", message);
+            }
+
+            @KafkaListener(
+                    id = "${spring.kafka.topic.message}-partition1", groupId = "experiment1",
+                    topicPartitions = {@TopicPartition(topic = "${spring.kafka.topic.message}", partitions = {"1"})}
+            )
+            public void consumePartition1(MessageEvent message) {
+                log.info("Consumed message (part 1): {}", message);
             }
         };
     }

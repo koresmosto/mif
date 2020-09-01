@@ -52,4 +52,14 @@ public class KafkaController {
     public void sendMessage(@RequestParam("message") String message) {
         messageEventProducer.sendMessage(new MessageEvent(message));
     }
+
+    @PostMapping(value = "/publish0", params = "message")
+    public void sendMessagePartition0(@RequestParam("message") String message) {
+        messageEventProducer.sendMessagePartition0(new MessageEvent(message));
+    }
+
+    @PostMapping(value = "/publish1", params = "message")
+    public void sendMessagePartition1(@RequestParam("message") String message) {
+        messageEventProducer.sendMessagePartition1(new MessageEvent(message));
+    }
 }

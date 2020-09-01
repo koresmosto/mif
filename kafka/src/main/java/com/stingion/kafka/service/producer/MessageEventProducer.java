@@ -18,4 +18,14 @@ public class MessageEventProducer extends Producer<MessageEvent> {
     public MessageEventProducer(@Value("${spring.kafka.topic.message}") String topicName) {
         super(topicName);
     }
+
+    public void sendMessagePartition0(MessageEvent message) {
+        this.kafkaTemplate.send(topic, 0, "", message);
+        log.info(String.format("#### -> Producing message (part 0) -> %s", message));
+    }
+
+    public void sendMessagePartition1(MessageEvent message) {
+        this.kafkaTemplate.send(topic, 1, "", message);
+        log.info(String.format("#### -> Producing message (part 1) -> %s", message));
+    }
 }

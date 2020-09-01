@@ -13,10 +13,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 @Slf4j
 public abstract class Producer<Event> {
 
-    private String topic;
+    protected String topic;
 
     @Autowired
-    private KafkaTemplate<String, Event> kafkaTemplate;
+    protected KafkaTemplate<String, Event> kafkaTemplate;
 
     public Producer(String topicName) {
         this.topic = topicName;
