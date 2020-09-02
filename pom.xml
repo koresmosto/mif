@@ -60,6 +60,7 @@
         <jvmargsMqConsume></jvmargsMqConsume>
         <jvmargsCacheService></jvmargsCacheService>
         <jvmargsKafka></jvmargsKafka>
+        <jvmargsYaypay></jvmargsYaypay>
 
         <!-- MySQL DB -->
         <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
@@ -118,6 +119,7 @@
         <!-- sonar -->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>makeitfine-org</sonar.organization>
+        <!--suppress UnresolvedMavenProperty -->
         <sonar.login>${mvn.sonar.login}</sonar.login>
     </properties>
 
@@ -246,6 +248,7 @@
         <module>util</module>
         <module>cache-service</module>
         <module>kafka</module>
+<!--        <module>yaypay</module>-->
     </modules>
 
     <profiles>
@@ -276,6 +279,9 @@
                 <jvmargsKafka>
                     -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5010 -Dserver.port=8085
                 </jvmargsKafka>
+                <jvmargsYaypay>
+                    -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5011 -Dserver.port=8086
+                </jvmargsYaypay>
             </properties>
         </profile>
         <profile>
