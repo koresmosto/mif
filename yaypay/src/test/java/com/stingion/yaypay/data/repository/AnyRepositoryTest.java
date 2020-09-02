@@ -52,8 +52,12 @@ public class AnyRepositoryTest {
     }
 
     @Test
-    public void test() {
+    public void testRunning() {
         assertTrue(MY_SQL_CONTAINER.isRunning());
+    }
+
+    @Test
+    public void test() {
         assertEquals(2, jdbcTemplate.queryForList("show databases").size());
         assertThat(jdbcTemplate.queryForList("show tables")).isEqualTo(Collections.EMPTY_LIST);
     }
