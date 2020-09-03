@@ -45,7 +45,8 @@ public class AnyRepositoryTest {
                     "spring.datasource.url=" + MY_SQL_CONTAINER.getJdbcUrl(),
                     "spring.datasource.password=" + MY_SQL_CONTAINER.getPassword(),
                     "spring.datasource.username=" + MY_SQL_CONTAINER.getUsername(),
-                    "spring.datasource.driver-class-name=" + MY_SQL_CONTAINER.getDriverClassName()
+                    "spring.datasource.driver-class-name=" + MY_SQL_CONTAINER.getDriverClassName(),
+                    "spring.flyway.enabled=" + false
             );
             values.applyTo(configurableApplicationContext);
         }
