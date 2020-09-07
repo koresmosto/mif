@@ -18,9 +18,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BankRepository extends EntityRepository<Bank>, JpaSpecificationExecutor<Bank> {
 
-    @Query("   select new com.stingion.makeitfine.data.dto.EntityDTO(b.id, b.name)"
-            + "  from Bank b "
-            + "    where b.id in (:bankIds)"
-            + "  order by b.id")
+    @Query("    select new com.stingion.makeitfine.data.dto.EntityDTO(b.id, b.name)"
+            + " from Bank b "
+            + " where b.id in (:bankIds)"
+            + " order by b.id")
     List<EntityDTO> findBanks(@Param("bankIds") List<Integer> bankIds);
 }
