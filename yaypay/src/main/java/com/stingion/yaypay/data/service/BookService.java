@@ -9,15 +9,15 @@ package com.stingion.yaypay.data.service;
 import com.stingion.yaypay.data.model.Tables;
 import com.stingion.yaypay.data.model.tables.pojos.Book;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class BookService {
 
-    @Autowired
-    private DSLContext context;
+    private final DSLContext context;
 
     public List<Book> getBooks() {
         return context

@@ -44,5 +44,8 @@
         </Or>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
     </Match>
+    <Match>
+        <Class name="~com\.stingion\.yaypay\.data\.model\.[\w\.]+"/>
+    </Match>
 
 </FindBugsFilter>
