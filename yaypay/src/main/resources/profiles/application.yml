@@ -1,0 +1,21 @@
+###
+#  Created under not commercial project "Make it fine"
+#
+#  Copyright 2017-2020
+###
+
+spring:
+  #=============================
+  # Data Source Config
+  #=============================
+  datasource:
+    url: @mysql.url@
+    username: @mysql.user@
+    password: @mysql.password@
+    driver-class-name: @mysql.driver@
+  flyway:
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    locations: classpath:db/migration/main
+    enabled: false

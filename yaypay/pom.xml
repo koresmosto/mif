@@ -22,6 +22,12 @@
         <testcontainers.version>1.14.3</testcontainers.version>
         <junit5.version>5.4.2</junit5.version>
         <flyway-test-extensions>6.4.0</flyway-test-extensions>
+        <jooq.version>3.13.4</jooq.version>
+
+        <mysql.driver>com.mysql.cj.jdbc.Driver</mysql.driver>
+        <mysql.url>jdbc:mysql://localhost:3306/jooq_db?serverTimezone=UTC</mysql.url>
+        <mysql.user>jooq_user</mysql.user>
+        <mysql.password>jooq_pass</mysql.password>
     </properties>
 
     <dependencyManagement>
@@ -93,7 +99,10 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jooq</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -115,6 +124,51 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>${jooq.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-mysql</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <!--Insert your DB configuration-->
+                            <jdbc>
+                                <driver>${mysql.driver}</driver>
+                                <url>${mysql.url}</url>
+                                <user>${mysql.user}</user>
+                                <password>${mysql.password}</password>
+                            </jdbc>
+                            <generator>
+                                <database>
+                                    <name>org.jooq.meta.mysql.MySQLDatabase</name>
+                                    <includes>.*</includes>
+                                    <excludes></excludes>
+                                    <inputSchema>jooq_db</inputSchema>
+                                </database>
+                                <generate>
+                                    <pojos>true</pojos>
+                                    <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+                                    <javaTimeTypes>true</javaTimeTypes>
+                                    <fluentSetters>true</fluentSetters>
+                                </generate>
+                                <target>
+                                    <packageName>
+                                        com.stingion.yaypay.data.model
+                                    </packageName>
+                                    <directory>
+                                        target/generated-sources/jooq
+                                    </directory>
+                                </target>
+                            </generator>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
