@@ -6,23 +6,26 @@
 
 package com.stingion.yaypay.data.repository;
 
+import static org.springframework.test.context.TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS;
+
 import java.util.ArrayList;
 import org.assertj.core.api.Assertions;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.flywaydb.test.annotation.FlywayTest;
-import org.flywaydb.test.junit5.annotation.FlywayTestExtension;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 @ActiveProfiles("test")
 @SpringBootTest
-@FlywayTestExtension
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class})
+//@FlywayTestExtension
+@TestExecutionListeners(value = {DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class},
+        mergeMode = MERGE_WITH_DEFAULTS)
 @FlywayTest
 public class SampleTest {
 
@@ -30,9 +33,11 @@ public class SampleTest {
     private JdbcTemplate jdbcTemplate;
 
     @FlywayTest
+    @Sql("/db/migration/main/V1_0__Init_DB.sql")
     @Test
     public void testDefault() {
         Assertions.assertThat(2).isEqualTo(jdbcTemplate.queryForList("select * from USER_TEST").size());
+        Assertions.assertThat(3).isEqualTo(jdbcTemplate.queryForList("select * from USER").size());
     }
 
     @FlywayTest(invokeMigrateDB = false)

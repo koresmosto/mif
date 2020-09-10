@@ -20,6 +20,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -63,5 +65,15 @@ public class AnyRepositoryTest {
     public void test() {
         assertEquals(2, jdbcTemplate.queryForList("show databases").size());
         assertThat(jdbcTemplate.queryForList("show tables")).isEqualTo(Collections.EMPTY_LIST);
+    }
+
+    @Sql(value = "classpath:db/migration/main/V1_0__Init_DB.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:db/migration/after/V1_0__Drop_User_Table.sql",
+            executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+    @Test
+    public void testWithSqlAnnotation() {
+        assertEquals(3, jdbcTemplate.queryForList("select * from USER").size());
+        assertEquals(2, jdbcTemplate.queryForList("show databases").size());
+        assertThat(jdbcTemplate.queryForList("show tables").size()).isEqualTo(1);
     }
 }
