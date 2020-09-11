@@ -23,7 +23,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 @ActiveProfiles("test")
 @SpringBootTest
-//@FlywayTestExtension
 @TestExecutionListeners(value = {DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class},
         mergeMode = MERGE_WITH_DEFAULTS)
 @FlywayTest
@@ -33,10 +32,12 @@ public class SampleTest {
     private JdbcTemplate jdbcTemplate;
 
     @FlywayTest
-    @Sql("/db/migration/main/V1_0__Init_DB.sql")
+    @Sql({"/db/migration/main/V1_0__Init_DB.sql", "/db/migration/other/V1_0__Insert_to_user_test_table.sql"})
     @Test
     public void testDefault() {
-        Assertions.assertThat(2).isEqualTo(jdbcTemplate.queryForList("select * from USER_TEST").size());
+        Assertions.assertThat(3).isEqualTo(jdbcTemplate.queryForList("select * from USER_TEST").size());
+        Assertions.assertThat("Something else").isEqualTo(
+                jdbcTemplate.queryForObject("select name from USER_TEST where name='Something else'", String.class));
         Assertions.assertThat(3).isEqualTo(jdbcTemplate.queryForList("select * from USER").size());
     }
 

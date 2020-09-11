@@ -647,6 +647,7 @@
                             |.*ETest1|
                             |.*ce1Test1|
                             |.*EmailService1Impl|
+                            |org\.assertj\.core\.api.*|
                             |org\.junit\.jupiter\.*
                         </arg>
                     </compilerArgs>
