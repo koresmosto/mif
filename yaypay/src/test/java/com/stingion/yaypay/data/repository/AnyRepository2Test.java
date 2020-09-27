@@ -12,12 +12,31 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exasol.containers.ExasolContainer;
 import com.exasol.containers.ExasolContainerConstants;
+import com.stingion.yaypay.data.repository.AnyRepository2Test.TestConfig;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import java.util.Collections;
+import java.util.Properties;
+import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
+import org.jooq.conf.RenderNameStyle;
+import org.jooq.conf.Settings;
+import org.jooq.impl.DataSourceConnectionProvider;
+import org.jooq.impl.DefaultConfiguration;
+import org.jooq.impl.DefaultDSLContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -33,7 +52,82 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest
 @Testcontainers
 //@ContextConfiguration(initializers = AnyRepository2Test.Initializer.class)
+@Import(TestConfig.class)
 public class AnyRepository2Test {
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    private String aaa;
+
+    @TestConfiguration
+    public static class TestConfig {
+
+//        @Primary
+//        @DependsOn("dataSource")
+//        @Bean("mysqlDatasource")
+//        public DataSource mysqlDatasource(@Qualifier("dataSource") DataSource mysqlDatasource) {
+//            return mysqlDatasource;
+//        }
+
+//        @Autowired
+//        private ApplicationContext applicationContext;
+
+        @Bean
+        public String abc(){
+            return "abc";
+        }
+
+        @Bean("exasolDatasource")
+        public DataSource exasolDatasource() {
+            HikariConfig hikariConfig = new HikariConfig();
+            hikariConfig.setDriverClassName(EXASOL_CONTAINER.getDriverClassName());
+            hikariConfig.setJdbcUrl(EXASOL_CONTAINER.getJdbcUrl() + ";schema=EXASOL_YAYPAY_TEST");
+            hikariConfig.setUsername(EXASOL_CONTAINER.getUsername());
+            hikariConfig.setPassword(EXASOL_CONTAINER.getPassword());
+
+            hikariConfig.setMaximumPoolSize(100);
+            hikariConfig.setMinimumIdle(10);
+            hikariConfig.setIdleTimeout(30);
+            hikariConfig.setValidationTimeout(30000);
+            hikariConfig.setConnectionTestQuery("SELECT 1");
+
+            return new HikariDataSource(hikariConfig);
+        }
+
+//        @Bean(name="entityManagerFactory")
+//        public LocalSessionFactoryBean sessionFactory() {
+//            Properties properties = new Properties();
+//            properties.setProperty("hibernate.dialect", "com.exasol.dialect.ExasolDialect");
+//
+//            LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+//            sessionFactory.setHibernateProperties(properties);
+//            return sessionFactory;
+//        }
+
+        @Bean
+        public DataSourceConnectionProvider connectionProvider(@Qualifier("exasolDatasource") DataSource dataSource) {
+            return new DataSourceConnectionProvider(new TransactionAwareDataSourceProxy(dataSource));
+        }
+
+        @Bean
+        public DefaultConfiguration configuration(DataSourceConnectionProvider connectionProvider) {
+            Settings settings = new Settings();
+            settings.setRenderNameStyle(RenderNameStyle.AS_IS);
+
+            DefaultConfiguration jooqConfiguration = new DefaultConfiguration();
+            jooqConfiguration.set(connectionProvider);
+            jooqConfiguration.set(settings);
+
+            return jooqConfiguration;
+        }
+
+        @Bean
+        public DefaultDSLContext dsl(DefaultConfiguration configuration) {
+            return new DefaultDSLContext(configuration);
+        }
+    }
 
     @Container
     private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>()
@@ -46,7 +140,7 @@ public class AnyRepository2Test {
             (ExasolContainerConstants.EXASOL_DOCKER_IMAGE_REFERENCE)
             .withUsername("sys")
             .withPassword("exasol")
-            .withInitScript("exasol_init.sql")
+            .withInitScript("exasol_init_create_biz_IT.sql")
             .withLogConsumer(new Slf4jLogConsumer(log));
 
     @Autowired
@@ -67,6 +161,7 @@ public class AnyRepository2Test {
         assertTrue(EXASOL_CONTAINER.isRunning());
     }
 
+//    @Sql(value = "classpath:exasol_init_fill_biz_IT.sql", config = @SqlConfig(dataSource = "exasolDatasource"))
     @Test
     public void test() {
         assertEquals(2, jdbcTemplate.queryForList("show databases").size());
