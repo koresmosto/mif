@@ -1,0 +1,14 @@
+<!--
+  ~ Created under not commercial project "Make it fine"
+  ~
+  ~ Copyright 2017-2020
+  -->
+
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <!-- Define persistence unit -->
+    <persistence-unit name="other">
+        <description>This is a short text describing my persistence unit.</description>
+    </persistence-unit>
+</persistence>

@@ -42,6 +42,7 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.test.context.jdbc.SqlConfig;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
@@ -58,9 +59,6 @@ public class AnyRepository2Test {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Autowired
-    private String aaa;
-
     @TestConfiguration
     public static class TestConfig {
 
@@ -74,10 +72,25 @@ public class AnyRepository2Test {
 //        @Autowired
 //        private ApplicationContext applicationContext;
 
-        @Bean
-        public String abc(){
-            return "abc";
-        }
+//        @Primary
+////        @DependsOn("scopedTarget.dataSource")
+//        @Bean("mysqlDatasource")
+//        public DataSource mysqlDatasource() {
+////            return mysqlDatasource;
+//            HikariConfig hikariConfig = new HikariConfig();
+//            hikariConfig.setDriverClassName(MY_SQL_CONTAINER.getDriverClassName());
+//            hikariConfig.setJdbcUrl(MY_SQL_CONTAINER.getJdbcUrl());
+//            hikariConfig.setUsername(MY_SQL_CONTAINER.getUsername());
+//            hikariConfig.setPassword(MY_SQL_CONTAINER.getPassword());
+//
+//            hikariConfig.setMaximumPoolSize(100);
+//            hikariConfig.setMinimumIdle(10);
+//            hikariConfig.setIdleTimeout(30);
+//            hikariConfig.setValidationTimeout(30000);
+//            hikariConfig.setConnectionTestQuery("SELECT 1");
+//
+//            return new HikariDataSource(hikariConfig);
+//        }
 
         @Bean("exasolDatasource")
         public DataSource exasolDatasource() {
@@ -96,15 +109,15 @@ public class AnyRepository2Test {
             return new HikariDataSource(hikariConfig);
         }
 
-//        @Bean(name="entityManagerFactory")
-//        public LocalSessionFactoryBean sessionFactory() {
-//            Properties properties = new Properties();
-//            properties.setProperty("hibernate.dialect", "com.exasol.dialect.ExasolDialect");
-//
-//            LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//            sessionFactory.setHibernateProperties(properties);
-//            return sessionFactory;
-//        }
+        @Bean(name="entityManagerFactory")
+        public LocalSessionFactoryBean sessionFactory() {
+            Properties properties = new Properties();
+            properties.setProperty("hibernate.dialect", "com.stingion.yaypay.data.repository.ExasolDialect");
+
+            LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+            sessionFactory.setHibernateProperties(properties);
+            return sessionFactory;
+        }
 
         @Bean
         public DataSourceConnectionProvider connectionProvider(@Qualifier("exasolDatasource") DataSource dataSource) {
@@ -155,6 +168,8 @@ public class AnyRepository2Test {
         registry.add("spring.flyway.enabled", () -> false);
     }
 
+//    @Sql(value = "classpath:exasol_init_fill_biz_IT.sql", config = @SqlConfig(dataSource = "exasolDatasource"))
+//    @Sql(value = "classpath:exasol_init_fill_biz_IT.sql")
     @Test
     public void testRunning() {
         assertTrue(MY_SQL_CONTAINER.isRunning());
@@ -168,9 +183,11 @@ public class AnyRepository2Test {
         assertThat(jdbcTemplate.queryForList("show tables")).isEqualTo(Collections.EMPTY_LIST);
     }
 
-    @Sql(value = "classpath:db/migration/main/V1_0__Init_DB.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:db/migration/after/V1_0__Drop_User_Table.sql",
-            executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(value = "classpath:db/migration/main/V1_0__Init_DB.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD
+//            ,config = @SqlConfig(dataSource = "primary", transactionManager = "transactionManager")
+    )
+//    @Sql(value = "classpath:db/migration/after/V1_0__Drop_User_Table.sql",
+//            executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     @Test
     public void testWithSqlAnnotation() {
         assertEquals(3, jdbcTemplate.queryForList("select * from USER").size());
