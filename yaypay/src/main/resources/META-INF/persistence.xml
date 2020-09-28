@@ -11,4 +11,8 @@
     <persistence-unit name="other">
         <description>This is a short text describing my persistence unit.</description>
     </persistence-unit>
+
+    <persistence-unit name="otherExasol">
+        <description>This is a short text describing my persistence unit.</description>
+    </persistence-unit>
 </persistence>
