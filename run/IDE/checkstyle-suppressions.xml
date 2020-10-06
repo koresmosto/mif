@@ -38,6 +38,7 @@
     <suppress checks="HideUtilityClassConstructor" files="com/stingion/kafka/KafkaApplication.java" lines="13"/>
     <suppress checks="HideUtilityClassConstructor" files="com/stingion/yaypay/YaypayApplication.java" lines="13"/>
 
+    <suppress checks="[a-zA-Z0-9]*" files="com/stingion/yaypay/data/repository/ExasolDialect.java"/>
 
     <!-- intro module -->
 

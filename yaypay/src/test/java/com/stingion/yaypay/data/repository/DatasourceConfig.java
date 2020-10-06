@@ -13,6 +13,7 @@ package com.stingion.yaypay.data.repository;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,6 +27,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@SuppressWarnings({"all","CPD-START"})
+@SuppressFBWarnings({"NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"})
 @EnableTransactionManagement
 @TestConfiguration
 public class DatasourceConfig {
@@ -75,7 +78,8 @@ public class DatasourceConfig {
 
     @Primary
     @Bean("transactionManager")
-    public PlatformTransactionManager transactionManager(@Qualifier("mysqlEntityManagerFactory") EntityManagerFactory emf) {
+    public PlatformTransactionManager transactionManager(@Qualifier("mysqlEntityManagerFactory")
+            EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
     }
 

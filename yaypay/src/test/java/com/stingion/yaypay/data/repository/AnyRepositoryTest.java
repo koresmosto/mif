@@ -26,6 +26,7 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+@SuppressWarnings("CPD-START")
 @ActiveProfiles("test")
 @SpringBootTest
 @Testcontainers

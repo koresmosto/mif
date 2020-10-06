@@ -12,8 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exasol.containers.ExasolContainer;
 import com.exasol.containers.ExasolContainerConstants;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +32,7 @@ import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 @Slf4j
 @ActiveProfiles("test")
 @SpringBootTest
@@ -44,12 +47,12 @@ public class AnyRepository2Test {
             .withPassword("sa");
 
     @Container
-    private static ExasolContainer<? extends ExasolContainer<?>> EXASOL_CONTAINER = new ExasolContainer<>
-            (ExasolContainerConstants.EXASOL_DOCKER_IMAGE_REFERENCE)
-            .withUsername("sys")
-            .withPassword("exasol")
-            .withInitScript("exasol_init_create_biz_IT.sql")
-            .withLogConsumer(new Slf4jLogConsumer(log));
+    private static final ExasolContainer<? extends ExasolContainer<?>> EXASOL_CONTAINER =
+            new ExasolContainer<>(ExasolContainerConstants.EXASOL_DOCKER_IMAGE_REFERENCE)
+                    .withUsername("sys")
+                    .withPassword("exasol")
+                    //.withInitScript("exasol_init_create_biz_IT.sql")
+                    .withLogConsumer(new Slf4jLogConsumer(log));
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -75,17 +78,18 @@ public class AnyRepository2Test {
         assertTrue(EXASOL_CONTAINER.isRunning());
     }
 
-    @Sql(value = "classpath:exasol_init_fill_biz_IT.sql"
-            , config = @SqlConfig(dataSource = "exasolDatasource", transactionManager = "exasolTransactionManager")
+    @Sql(value = "classpath:exasol_init_fill_biz_IT.sql",
+            config = @SqlConfig(dataSource = "exasolDatasource", transactionManager = "exasolTransactionManager")
     )
+    @Disabled
     @Test
     public void test() {
         assertEquals(2, jdbcTemplate.queryForList("show databases").size());
         assertThat(jdbcTemplate.queryForList("show tables")).isEqualTo(Collections.EMPTY_LIST);
     }
 
-    @Sql(value = "classpath:db/migration/main/V1_0__Init_DB.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD
-            , config = @SqlConfig(dataSource = "mysqlDatasource", transactionManager = "transactionManager")
+    @Sql(value = "classpath:db/migration/main/V1_0__Init_DB.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD,
+            config = @SqlConfig(dataSource = "mysqlDatasource", transactionManager = "transactionManager")
     )
     @Sql(value = "classpath:db/migration/after/V1_0__Drop_User_Table.sql",
             executionPhase = ExecutionPhase.AFTER_TEST_METHOD)

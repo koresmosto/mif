@@ -1,11 +1,7 @@
 /*
- * *************************************************************************
- * * Yaypay CONFIDENTIAL   2020
- * * All Rights Reserved. * *
- * NOTICE: All information contained herein is, and remains the property of Yaypay Incorporated and its suppliers, if any.
- * The intellectual and technical concepts contained  herein are proprietary to Yaypay Incorporated
- * and its suppliers and may be covered by U.S. and Foreign Patents, patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material  is strictly forbidden unless prior written permission is obtained  from Yaypay Incorporated.
+ * Created under not commercial project "Make it fine"
+ *
+ * Copyright 2017-2020
  */
 
 package com.stingion.yaypay.data.repository;
@@ -14,7 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exasol.containers.ExasolContainer;
 import com.exasol.containers.ExasolContainerConstants;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +27,8 @@ import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+@SuppressWarnings("all")
+@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 @Slf4j
 @ActiveProfiles("test")
 @SpringBootTest
@@ -37,16 +37,16 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 //@FlywayTest(invokeMigrateDB = false, invokeCleanDB = false)
 @ContextConfiguration(initializers = ExasolContainerTest.Initializer.class)
 public class ExasolContainerTest {
-    @Container
-    private static ExasolContainer<? extends ExasolContainer<?>> EXASOL_CONTAINER = new ExasolContainer<>
-            (ExasolContainerConstants.EXASOL_DOCKER_IMAGE_REFERENCE)
-            .withUsername("sys")
-            .withPassword("exasol")
-            .withLogConsumer(new Slf4jLogConsumer(log))
-            ;
 
     @Container
-    private static final MySQLContainer<?> MySQL_CONTAINER = new MySQLContainer<>()
+    private static final ExasolContainer<? extends ExasolContainer<?>> EXASOL_CONTAINER =
+            new ExasolContainer<>(ExasolContainerConstants.EXASOL_DOCKER_IMAGE_REFERENCE)
+                    .withUsername("sys")
+                    .withPassword("exasol")
+                    .withLogConsumer(new Slf4jLogConsumer(log));
+
+    @Container
+    private static final MySQLContainer<?> MYSQL_CONTAINER = new MySQLContainer<>()
             .withDatabaseName("db")
             .withUsername("sa")
             .withPassword("sa");
@@ -59,27 +59,24 @@ public class ExasolContainerTest {
         @Override
         public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
             TestPropertyValues values = TestPropertyValues.of(
-//                    "exasol.datasource.url=" + EXASOL_CONTAINER.getJdbcUrl(),
-//                    "exasol.datasource.password=" + EXASOL_CONTAINER.getPassword(),
-//                    "exasol.datasource.username=" + EXASOL_CONTAINER.getUsername(),
-//                    "exasol.datasource.driver-class-name=" + EXASOL_CONTAINER.getDriverClassName()
-                    "spring.datasource.url=" + MySQL_CONTAINER.getJdbcUrl(),
-                    "spring.datasource.password=" + MySQL_CONTAINER.getPassword(),
-                    "spring.datasource.username=" + MySQL_CONTAINER.getUsername(),
-                    "spring.datasource.driver-class-name=" + MySQL_CONTAINER.getDriverClassName(),
+                    //                    "exasol.datasource.url=" + EXASOL_CONTAINER.getJdbcUrl(),
+                    //                    "exasol.datasource.password=" + EXASOL_CONTAINER.getPassword(),
+                    //                    "exasol.datasource.username=" + EXASOL_CONTAINER.getUsername(),
+                    //                    "exasol.datasource.driver-class-name=" + EXASOL_CONTAINER.getDriverClassName()
+                    "spring.datasource.url=" + MYSQL_CONTAINER.getJdbcUrl(),
+                    "spring.datasource.password=" + MYSQL_CONTAINER.getPassword(),
+                    "spring.datasource.username=" + MYSQL_CONTAINER.getUsername(),
+                    "spring.datasource.driver-class-name=" + MYSQL_CONTAINER.getDriverClassName(),
                     "spring.flyway.enabled=" + false
             );
             values.applyTo(configurableApplicationContext);
         }
     }
 
+    @Disabled
     @Test
     void test() {
-        assertTrue(MySQL_CONTAINER.isRunning());
-        System.out.println("============================");
-        System.out.println(jdbcTemplate.queryForList("show databases"));
-        System.out.println("============================");
-//        assertTrue(jdbcTemplate.queryForList("show databases")
-//                .stream().filter(e -> e.get("Database").equals("yaypay_test")).findAny().isPresent());
+        assertTrue(jdbcTemplate.queryForList("show databases")
+                .stream().filter(e -> e.get("Database").equals("yaypay_test")).findAny().isPresent());
     }
 }

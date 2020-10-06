@@ -44,5 +44,16 @@ public class BookServiceTest {
 
         Result<Record1<Object>> fetch = context.select((Field<Object>) field).from(DSL.table("book")).fetch();
         assertEquals(2, fetch.size());
+
+        //Working for mysql
+        //        Result<Record2<Object, Object>> fetchJoin = context.select(
+        //                DSL.field(DSL.name("book", "title")),
+        //                DSL.field(DSL.name("author", "name")))
+        //                .from(DSL.table("book"))
+        //                .innerJoin(DSL.table("author"))
+        //                .on(DSL.field(DSL.name("book", "id")).eq(DSL.field(DSL.name("author", "id"))))
+        //                .fetch();
+        //
+        //        assertEquals(2, fetchJoin.size());
     }
 }
